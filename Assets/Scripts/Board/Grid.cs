@@ -10,13 +10,15 @@ namespace Board
       private int maxY{get; set;}
   
       public GridElement[,] Elements;
+
+      //creation de la grille
       void Awake()
       {
           for (int i = 0; i < maxX ; i++)
           {
               for (int j = 0; j < maxY; j++)
               {
-                  Elements[i, j] = new(new (i,j), null);
+                  Elements[i, j] = new(new (i,j), null); //ligne buger ?
               }
           }
           
@@ -28,7 +30,7 @@ namespace Board
 
       public void Move(GridElement element, Coord targetCoord)
       {
-          //algo Movement
+          
       }
   }  
 }
