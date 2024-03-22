@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -13,58 +11,52 @@ public class Entity : MonoBehaviour
     public struct Stats
     {
         public int maxHP;
-        public int HP;
         public int maxAP;
+
+        public int HP;
         public int AP;
-        public int attackAttribute;
+
+        public int hpModifier;
+        public int attackModifier;
+        public int apModifier;
+        public int defenseModifier;
     }
 
-    public struct Ability
-    {
-        public bool isOffensive;
-        public int damage;
-        public int cost;
-        public int roundsBeforeReuse;
+    public Coord coord;
+    public Stats stats;
 
-        public void SpawnEnemy(GameObject enemyToSpawn)
-        {
+    public bool invincible = false;
 
-        }
-    }
-
-    Coord coord;
-    Stats stats;
-
-    [SerializeField] public int maxHP;
-    [SerializeField] public int maxAP;
-
-    List<Ability> abilities;
+    [Header("Health and Action points Settings")]
+    public int maxHP;
+    public int maxAP;
 
     private void Start()
     {
         //Setting max HP and AP for prefabs
         stats.maxHP = maxHP;
         stats.maxAP = maxAP;
-
-        //Initialize abilities for each prefab
-    }
-
-    public void CastAbility(Ability ability, Entity target)
-    {
-        stats.AP -= ability.cost;
-
-        if (ability.isOffensive)
-        {
-            target.TakeDamage(ability.damage + stats.attackAttribute);
-        }
-
-        //Delay with roundsBeforeReuse
     }
 
     public void TakeDamage(int damage)
     {
-        stats.HP -= damage;
-        IsDead();
+        if(invincible == false)
+        {
+            if(damage > stats.defenseModifier)
+            {
+                stats.HP -= damage - stats.defenseModifier;
+                IsDead();
+            }
+            else
+            {
+                // Do nothing / Show 0 damage
+            }
+        }
+        else
+        {
+            // Do nothing / Show 0 damage
+            invincible = false;
+        }
     }
 
     public bool IsDead()
@@ -75,15 +67,5 @@ public class Entity : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    public void AttackModifier(Stats stats, int amount)
-    {
-        stats.attackAttribute += amount;
-    }
-
-    public void APModifier(Stats stats, int amount)
-    {
-        stats.AP += amount;
     }
 }
