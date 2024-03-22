@@ -11,4 +11,9 @@ public class LevelActions : MonoBehaviour
             _UIGameObject.SetActive(true);
         }
     }
+
+    public void ReturnMenu()
+    {
+        ScenesManager.Instance.ReturnMenu();
+    }
 }
