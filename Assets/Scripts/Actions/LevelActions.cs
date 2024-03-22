@@ -10,10 +10,17 @@ public class LevelActions : MonoBehaviour
         {
             _UIGameObject.SetActive(true);
         }
+
+        AudioManager.Instance.StopMusic();
     }
 
     public void ReturnMenu()
     {
         ScenesManager.Instance.ReturnMenu();
+    }
+
+    public void ClickButtonSound()
+    {
+        AudioManager.Instance.PlaySFX("SFXTest");
     }
 }

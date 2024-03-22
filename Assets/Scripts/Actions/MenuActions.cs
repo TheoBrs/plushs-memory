@@ -11,20 +11,25 @@ public class MenuActions : MonoBehaviour
         {
             _mainActionsObject.SetActive(true);
         }
-        if(_optionActionsObject.activeSelf)
+        if (_optionActionsObject.activeSelf)
         {
             _optionActionsObject.SetActive(false);
         }
     }
 
-    public void TriggerSwap()
+    private void Start()
+    {
+        AudioManager.Instance.PlayMusic("MusicTest");
+    }
+
+    public void SwapPanel()
     {
         if (_mainActionsObject.activeSelf && !_optionActionsObject.activeSelf)
         {
             _mainActionsObject.SetActive(false);
             _optionActionsObject.SetActive(true);
         }
-        else if(!_mainActionsObject.activeSelf && _optionActionsObject.activeSelf)
+        else if (!_mainActionsObject.activeSelf && _optionActionsObject.activeSelf)
         {
             _mainActionsObject.SetActive(true);
             _optionActionsObject.SetActive(false);
@@ -33,5 +38,15 @@ public class MenuActions : MonoBehaviour
         {
             Debug.LogError("Actions Menu Error");
         }
+    }
+
+    public void ClickButtonSound()
+    {
+        AudioManager.Instance.PlaySFX("SFXTest");
+    }
+
+    public void ExitGame()
+    {
+        ScenesManager.Instance.ExitGame();
     }
 }
