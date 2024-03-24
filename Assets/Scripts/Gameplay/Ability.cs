@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Ability
 {
     public int damage = 0;

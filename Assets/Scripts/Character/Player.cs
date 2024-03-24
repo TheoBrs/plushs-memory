@@ -1,19 +1,18 @@
-
 public class Player : Entity
 {
-    Ability ability1;
-    Ability ability2;
     Ability fAbility1;
     Ability fAbility2;
     Ability fAbility3;
-    public int pattoBuff = 0;
+    private int pattoBuff = 0;
 
     public void Start()
     {
+        currentHP = maxHP.GetValue();
+        currentAP = maxAP.GetValue();
         AbilitiesInitialization();
     }
 
-    void AbilitiesInitialization()
+    protected override void AbilitiesInitialization()
     {
         ability1.damage = 2;
         ability1.cost = 1;
@@ -26,40 +25,39 @@ public class Player : Entity
         fAbility3.roundsBeforeReuse = 4;
     }
 
-    private void CastAbility1(Entity target)
+    protected override void CastAbility1(Entity target)
     {
-        stats.AP -= ability1.cost;
+        currentAP -= ability1.cost;
         if(pattoBuff > 0)
         {
-            target.TakeDamage((ability1.damage + stats.attackModifier)*2);
+            target.TakeDamage((ability1.damage + attack.GetValue()) *2);
             pattoBuff -= 1;
         }
         else
         {
-            target.TakeDamage(ability1.damage + stats.attackModifier);
+            target.TakeDamage(ability1.damage + attack.GetValue());
         }
     }
 
-    private void CastAbility2(Entity target)
+    protected override void CastAbility2(Entity target)
     {
-        stats.AP -= ability2.cost;
+        currentAP -= ability2.cost;
         if (pattoBuff > 0)
         {
-            target.TakeDamage((ability2.damage + stats.attackModifier)*2);
+            target.TakeDamage((ability2.damage + attack.GetValue()) *2);
             pattoBuff -= 1;
         }
         else
         {
-            target.TakeDamage(ability2.damage + stats.attackModifier);
+            target.TakeDamage(ability2.damage + attack.GetValue());
         }
     }
 
-    private void CastFriendAbility1()
+    protected void CastFriendAbility1()
     {
         if(fAbility1.roundsBeforeReuse == 0)
         {
-            stats.hpModifier += 3;
-            stats.HP += 8;
+            currentHP += 5;
             fAbility1.roundsBeforeReuse = 2;
         }
         else
@@ -69,11 +67,10 @@ public class Player : Entity
         }
     }
 
-    private void CastFriendAbility2()
+    protected void CastFriendAbility2()
     {
         if (fAbility2.roundsBeforeReuse == 0)
         {
-            stats.maxHP += 3;
             invincible = true;
             fAbility2.roundsBeforeReuse = 3;
         }
@@ -84,11 +81,10 @@ public class Player : Entity
         }
     }
 
-    private void CastFriendAbility3()
+    protected void CastFriendAbility3()
     {
         if (fAbility3.roundsBeforeReuse == 0)
         {
-            stats.attackModifier += 1;
             pattoBuff = 2;
             fAbility3.roundsBeforeReuse = 4;
         }
@@ -99,15 +95,8 @@ public class Player : Entity
         }
     }
 
-    public void BattleEnd()
+    public override void Death()
     {
-        stats.hpModifier = 0;
-        stats.attackModifier = 0;
-        stats.apModifier = 0;
-        stats.defenseModifier = 0;
-
-        stats.HP = stats.maxHP;
-        stats.AP = stats.maxAP;
+        // GameOver
     }
-
 }

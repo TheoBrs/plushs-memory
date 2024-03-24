@@ -1,56 +1,46 @@
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public abstract class Entity: MonoBehaviour
 {
-     public struct Coord
+    public struct Coord
     {
-        public float x;
-        public float y;
+        private float _x;
+        private float _y;
     };
 
-    public struct Stats
+    public Coord Coordinates { get; set; }
+
+    [Header("HP and AP settings")]
+    public Stat maxHP;
+    public Stat maxAP;
+    [HideInInspector] public Stat attack;
+    [HideInInspector] public Stat defense;
+
+    protected int currentHP;
+    protected int currentAP;
+
+    protected Ability ability1;
+    protected Ability ability2;
+
+    protected bool invincible = false;
+
+    protected abstract void AbilitiesInitialization();
+
+    protected virtual void CastAbility1(Entity target)
     {
-        public int maxHP;
-        public int maxAP;
-
-        public int HP;
-        public int AP;
-
-        public int hpModifier;
-        public int attackModifier;
-        public int apModifier;
-        public int defenseModifier;
+        currentAP -= ability1.cost;
+        target.TakeDamage(ability1.damage + attack.GetValue());
     }
-
-    public Coord coord;
-    public Stats stats;
-
-    public bool invincible = false;
-
-    [Header("Health and Action points Settings")]
-    public int maxHP;
-    public int maxAP;
-
-    private void Start()
-    {
-        //Setting max HP and AP for prefabs
-        stats.maxHP = maxHP;
-        stats.maxAP = maxAP;
-    }
+    protected abstract void CastAbility2(Entity target);
 
     public void TakeDamage(int damage)
     {
         if(invincible == false)
         {
-            if(damage > stats.defenseModifier)
-            {
-                stats.HP -= damage - stats.defenseModifier;
-                IsDead();
-            }
-            else
-            {
-                // Do nothing / Show 0 damage
-            }
+            damage -= damage - defense.GetValue();
+            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            currentHP -= damage;
+            IsDead();
         }
         else
         {
@@ -59,13 +49,24 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public bool IsDead()
+    private void IsDead()
     {
-        if (stats.HP <= 0)
+        if (currentHP <= 0)
         {
-            //Manage death in GameManager
-            return true;
+            Death();
         }
-        return false;
+    }
+
+    public abstract void Death();
+
+    public void BattleEnd()
+    {
+        maxHP.RemoveAllModifiers();
+        maxAP.RemoveAllModifiers();
+        attack.RemoveAllModifiers();
+        defense.RemoveAllModifiers();
+
+        currentHP = maxHP.GetValue();
+        currentAP = maxAP.GetValue();
     }
 }
