@@ -493,6 +493,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1462900071}
+        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 2077783039}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
         m_MethodName: ExitGame
@@ -634,6 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee1803f4cd7a1c4fa06bdaab420f9d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nbTrigger: 0
 --- !u!1 &677219173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1391,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2077783039}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: SwapPanel
+        m_MethodName: ClickButtonSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1390,7 +1403,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2077783039}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: ClickButtonSound
+        m_MethodName: SwapPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1707,7 +1720,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2077783039}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: SwapPanel
+        m_MethodName: ClickButtonSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1719,7 +1732,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2077783039}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: ClickButtonSound
+        m_MethodName: SwapPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1821,6 +1834,51 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 66e7039a7a4ed7545b25a80a9886c194, type: 3}
   musicSource: {fileID: 1512363378}
   sfxSource: {fileID: 932099924}
+--- !u!1 &1462900069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1462900070}
+  - component: {fileID: 1462900071}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1462900070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462900069}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462900071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462900069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 795e696775db4dd41972740b07a132fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fileName: data.json
 --- !u!1 &1512363376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,9 +2400,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188545846}
-        m_TargetAssemblyTypeName: LoadingBarAction, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 2077783039}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: ClickButtonSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2354,9 +2412,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2077783039}
-        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: ClickButtonSound
+      - m_Target: {fileID: 188545846}
+        m_TargetAssemblyTypeName: LoadingBarAction, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2620,6 +2678,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 572783991}
   - {fileID: 515089709}
+  - {fileID: 1462900070}
   - {fileID: 1408358188}
   - {fileID: 1090375234}
   - {fileID: 1764829439}
