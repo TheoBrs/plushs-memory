@@ -337,6 +337,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13,
         type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 5f453536998bad147809e79aea0e7a13, type: 3}
+    - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13,
+        type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 140ce6f2c66db334c9c0248943a9e476, type: 2}
@@ -464,6 +469,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b42041914383964aab9af9368704261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxX: 5
+  maxY: 5
+  gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77,
+    type: 3}
 --- !u!4 &1553353288 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6935989983429382650, guid: 56c9636f8a4c16440886209c0c37dca7,

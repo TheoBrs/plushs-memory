@@ -5,16 +5,15 @@ using UnityEngine;
 
 namespace Board
 {
-   public class GridElement : Object
-   {
-       public Coord Coord {get; set;}
-       [CanBeNull] public MonoBehaviour Component {get; set;}
+    public class GridElement
+    {
+        Coord coord;
+        GameObject gridElement;
        
-       public GridElement(Coord coord, MonoBehaviour component)
-       {
-           Coord = coord;
-           Component = component;
-       }
-   }
- 
+        public GridElement(Coord coordVar, GameObject gridElementVar)
+        {
+            coord = coordVar;
+            gridElement = gridElementVar;
+        }
+    }
 }
