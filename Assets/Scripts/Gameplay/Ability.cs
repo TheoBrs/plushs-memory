@@ -19,4 +19,6 @@ public class Ability
         get { return _roundsBeforeReuse; }
         set { _roundsBeforeReuse = value; }
     }
+
+    public Ability() {}
 }

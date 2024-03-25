@@ -9,13 +9,21 @@ public abstract class Entity: MonoBehaviour
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
 
+    public Coord _currentPos; // Public for Testing
+
     protected int _currentHP;
     protected int _currentAP;
-    public Coord _currentPos;
     protected Ability _ability1;
     protected Ability _ability2;
 
     protected bool _invincible = false;
+
+    GameObject _grid;
+
+    private void Awake()
+    {
+        _grid = GameObject.Find("WorldPlane");
+    }
 
     protected abstract void AbilitiesInitialization();
 
@@ -53,16 +61,20 @@ public abstract class Entity: MonoBehaviour
 
     public void Move(Coord to)
     {
-        _currentPos = to;
-        /*
-        if ((transform.position - newPosition).magnitude < 0.01f)
+        GridElement gridElement = _grid.GetComponent<Board.Grid>().elements[to.x, to.y];
+
+        Vector3 newPosition = gridElement.gridElement.transform.position;
+        
+        if ((transform.position - newPosition).magnitude < 0.02f)
+        {
             transform.position = newPosition;
+            _currentPos = gridElement.coord;
+        }
         else
         {
-            Vector3 directeur = (newPosition - transform.position).normalized * Time.deltaTime * movementSpeed;
-
+            Vector3 directeur = (newPosition - transform.position).normalized * Time.deltaTime * 10f;
             transform.position += directeur;
-        }*/
+        }
     }
 
     public abstract void Death();

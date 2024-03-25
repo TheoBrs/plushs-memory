@@ -4,8 +4,8 @@ namespace Board
 {
     public class GridElement
     {
-        Coord coord;
-        GameObject gridElement;
+        public Coord coord;
+        public GameObject gridElement;
        
         public GridElement(Coord coordVar, GameObject gridElementVar)
         {

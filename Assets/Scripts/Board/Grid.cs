@@ -19,8 +19,8 @@ namespace Board
             {
                 for (int x = 0; x < maxX; x++)
                 {
-                    GameObject newCell = Instantiate(gridPrefab, new Vector3(x, 0.01f, y), Quaternion.identity);
-                    Coord coords = new Coord(x, y);
+                    Coord coords = new Coord(x - maxX / 2, y - maxY / 2);
+                    GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.x, 0.01f, coords.y), Quaternion.identity);
                     GridElement gridElement = new GridElement(coords, newCell);
                     elements[x, y] = gridElement;
                 }

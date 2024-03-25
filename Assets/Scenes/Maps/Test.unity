@@ -371,6 +371,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 140ce6f2c66db334c9c0248943a9e476, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -394,7 +399,7 @@ GameObject:
   - component: {fileID: 1059036465}
   - component: {fileID: 1059036469}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: WorldPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
