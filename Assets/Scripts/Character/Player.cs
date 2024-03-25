@@ -1,4 +1,3 @@
-using Board;
 using UnityEngine;
 
 public class Player : Entity
@@ -28,7 +27,7 @@ public class Player : Entity
             Damage = 4,
             Cost = 2
         };
-        // why the "f" in front of ability ? Fake ?
+        
         _fAbility1 = new Ability
         {
             RoundsBeforeReuse = 2
@@ -116,6 +115,11 @@ public class Player : Entity
     }
 
     void Update()
+    {
+        TestMove();
+    }
+
+    void TestMove()
     {
         if (Input.GetKey(KeyCode.E))
         {

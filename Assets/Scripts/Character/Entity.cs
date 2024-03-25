@@ -1,4 +1,3 @@
-using Board;
 using UnityEngine;
 
 public abstract class Entity: MonoBehaviour
@@ -9,8 +8,7 @@ public abstract class Entity: MonoBehaviour
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
 
-    public Coord _currentPos; // Public for Testing
-
+    protected Coord _currentPos;
     protected int _currentHP;
     protected int _currentAP;
     protected Ability _ability1;
@@ -59,11 +57,11 @@ public abstract class Entity: MonoBehaviour
         }
     }
 
-    public void Move(Coord to)
+    public void Move(Coord coordTo)
     {
-        GridElement gridElement = _grid.GetComponent<Board.Grid>().elements[to.x, to.y];
+        GridElement gridElement = _grid.GetComponent<CombatGrid>().elements[coordTo.x, coordTo.y];
 
-        Vector3 newPosition = gridElement.gridElement.transform.position;
+        Vector3 newPosition = gridElement.gameObject.transform.position;
         
         if ((transform.position - newPosition).magnitude < 0.02f)
         {
