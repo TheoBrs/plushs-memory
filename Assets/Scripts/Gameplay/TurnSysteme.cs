@@ -34,13 +34,14 @@ using UnityEngine;
         Instantiate(Enemie);
 
         yield return new WaitForSeconds(2f);
-        current_state = EnumTurn.EnemieTurn;
+        current_state = EnumTurn.PlayerTurn;
         PlayerTurn();
     }
 
     private void PlayerTurn()
     {
         Debug.Log("TurnPlayer");
+        OnEndTurnButton();
     }
 
     public void EnemieTurn()
