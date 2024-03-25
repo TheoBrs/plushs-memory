@@ -1,8 +1,22 @@
 public class Ability
 {
+    private string _name;
+    private string _description;
+
     private int _damage = 0;
     private int _cost = 0;
     private int _roundsBeforeReuse = 0;
+
+    public string Name
+    {
+        get { return _name; }
+        set { _name = value; }
+    }
+    public string Description
+    {
+        get { return _description; }
+        set { _description = value; }
+    }
 
     public int Damage 
     {

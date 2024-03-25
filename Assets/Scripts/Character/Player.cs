@@ -5,11 +5,9 @@ public class Player : Entity
     private Ability _fAbility3;
     private int _pattoBuff = 0;
 
-    public void Start()
+    protected override void Start()
     {
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
-        AbilitiesInitialization();
+        base.Start();
     }
 
     protected override void AbilitiesInitialization()
