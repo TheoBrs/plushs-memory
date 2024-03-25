@@ -8,50 +8,49 @@ public abstract class Entity: MonoBehaviour
         private float _y;
     };
 
-    public Coord Coordinates { get; set; }
-
     [Header("HP and AP settings")]
-    public Stat maxHP;
-    public Stat maxAP;
-    [HideInInspector] public Stat attack;
-    [HideInInspector] public Stat defense;
+    public Stat MaxHP;
+    public Stat MaxAP;
+    [HideInInspector] public Stat Attack;
+    [HideInInspector] public Stat Defense;
 
-    protected int currentHP;
-    protected int currentAP;
+    protected int _currentHP;
+    protected int _currentAP;
 
-    protected Ability ability1;
-    protected Ability ability2;
+    protected Ability _ability1;
+    protected Ability _ability2;
 
-    protected bool invincible = false;
+    protected bool _invincible = false;
 
     protected abstract void AbilitiesInitialization();
 
     protected virtual void CastAbility1(Entity target)
     {
-        currentAP -= ability1.cost;
-        target.TakeDamage(ability1.damage + attack.GetValue());
+        _currentAP -= _ability1.Cost;
+        target.TakeDamage(_ability1.Damage + Attack.GetValue());
     }
     protected abstract void CastAbility2(Entity target);
 
     public void TakeDamage(int damage)
     {
-        if(invincible == false)
+        if(!_invincible)
         {
-            damage -= damage - defense.GetValue();
+            damage -= Defense.GetValue();
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
-            currentHP -= damage;
+            _currentHP -= damage;
+            _currentHP = Mathf.Clamp(_currentHP, 0, int.MaxValue);
             IsDead();
         }
         else
         {
             // Do nothing / Show 0 damage
-            invincible = false;
+            _invincible = false;
         }
     }
 
     private void IsDead()
     {
-        if (currentHP <= 0)
+        if (_currentHP <= 0)
         {
             Death();
         }
@@ -61,12 +60,12 @@ public abstract class Entity: MonoBehaviour
 
     public void BattleEnd()
     {
-        maxHP.RemoveAllModifiers();
-        maxAP.RemoveAllModifiers();
-        attack.RemoveAllModifiers();
-        defense.RemoveAllModifiers();
+        MaxHP.RemoveAllModifiers();
+        MaxAP.RemoveAllModifiers();
+        Attack.RemoveAllModifiers();
+        Defense.RemoveAllModifiers();
 
-        currentHP = maxHP.GetValue();
-        currentAP = maxAP.GetValue();
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
     }
 }

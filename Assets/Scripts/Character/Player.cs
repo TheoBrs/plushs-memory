@@ -1,64 +1,64 @@
 public class Player : Entity
 {
-    Ability fAbility1;
-    Ability fAbility2;
-    Ability fAbility3;
-    private int pattoBuff = 0;
+    private Ability _fAbility1;
+    private Ability _fAbility2;
+    private Ability _fAbility3;
+    private int _pattoBuff = 0;
 
     public void Start()
     {
-        currentHP = maxHP.GetValue();
-        currentAP = maxAP.GetValue();
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
         AbilitiesInitialization();
     }
 
     protected override void AbilitiesInitialization()
     {
-        ability1.damage = 2;
-        ability1.cost = 1;
+        _ability1.Damage = 2;
+        _ability1.Cost = 1;
 
-        ability2.damage = 4;
-        ability2.cost = 2;
+        _ability2.Damage = 4;
+        _ability2.Cost = 2;
 
-        fAbility1.roundsBeforeReuse = 2;
-        fAbility2.roundsBeforeReuse = 3;
-        fAbility3.roundsBeforeReuse = 4;
+        _fAbility1.RoundsBeforeReuse = 2;
+        _fAbility2.RoundsBeforeReuse = 3;
+        _fAbility3.RoundsBeforeReuse = 4;
     }
 
     protected override void CastAbility1(Entity target)
     {
-        currentAP -= ability1.cost;
-        if(pattoBuff > 0)
+        _currentAP -= _ability1.Cost;
+        if(_pattoBuff > 0)
         {
-            target.TakeDamage((ability1.damage + attack.GetValue()) *2);
-            pattoBuff -= 1;
+            target.TakeDamage((_ability1.Damage + Attack.GetValue()) *2);
+            _pattoBuff -= 1;
         }
         else
         {
-            target.TakeDamage(ability1.damage + attack.GetValue());
+            target.TakeDamage(_ability1.Damage + Attack.GetValue());
         }
     }
 
     protected override void CastAbility2(Entity target)
     {
-        currentAP -= ability2.cost;
-        if (pattoBuff > 0)
+        _currentAP -= _ability2.Cost;
+        if (_pattoBuff > 0)
         {
-            target.TakeDamage((ability2.damage + attack.GetValue()) *2);
-            pattoBuff -= 1;
+            target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
+            _pattoBuff -= 1;
         }
         else
         {
-            target.TakeDamage(ability2.damage + attack.GetValue());
+            target.TakeDamage(_ability2.Damage + Attack.GetValue());
         }
     }
 
     protected void CastFriendAbility1()
     {
-        if(fAbility1.roundsBeforeReuse == 0)
+        if(_fAbility1.RoundsBeforeReuse == 0)
         {
-            currentHP += 5;
-            fAbility1.roundsBeforeReuse = 2;
+            _currentHP += 5;
+            _fAbility1.RoundsBeforeReuse = 2;
         }
         else
         {
@@ -69,10 +69,10 @@ public class Player : Entity
 
     protected void CastFriendAbility2()
     {
-        if (fAbility2.roundsBeforeReuse == 0)
+        if (_fAbility2.RoundsBeforeReuse == 0)
         {
-            invincible = true;
-            fAbility2.roundsBeforeReuse = 3;
+            _invincible = true;
+            _fAbility2.RoundsBeforeReuse = 3;
         }
         else
         {
@@ -83,10 +83,10 @@ public class Player : Entity
 
     protected void CastFriendAbility3()
     {
-        if (fAbility3.roundsBeforeReuse == 0)
+        if (_fAbility3.RoundsBeforeReuse == 0)
         {
-            pattoBuff = 2;
-            fAbility3.roundsBeforeReuse = 4;
+            _pattoBuff = 2;
+            _fAbility3.RoundsBeforeReuse = 4;
         }
         else
         {

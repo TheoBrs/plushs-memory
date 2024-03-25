@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class FirstBoss : Enemy
 {
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject _enemyPrefab;
 
     void Start()
     {
-        currentHP = maxHP.GetValue();
-        currentAP = maxAP.GetValue();
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
 
         AbilitiesInitialization();
     }
 
     protected override void AbilitiesInitialization()
     {
-        ability1.damage = 2;
-        ability1.cost = 2;
-        ability2.cost = 3;
+        _ability1.Damage = 2;
+        _ability1.Cost = 2;
+        _ability2.Cost = 3;
     }
 
     protected override void CastAbility1(Entity target)

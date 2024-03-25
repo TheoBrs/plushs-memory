@@ -2,18 +2,18 @@ public class SecretBoss : Enemy
 {
     void Start()
     {
-        currentHP = maxHP.GetValue();
-        currentAP = maxAP.GetValue();
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
 
         AbilitiesInitialization();
     }
 
     protected override void AbilitiesInitialization()
     {
-        ability1.damage = 3;
-        ability1.cost = 2;
-        ability2.damage = 1;
-        ability2.cost = 4;
+        _ability1.Damage = 3;
+        _ability1.Cost = 2;
+        _ability2.Damage = 1;
+        _ability2.Cost = 4;
     }
 
     protected override void CastAbility1(Entity target)
@@ -22,9 +22,9 @@ public class SecretBoss : Enemy
     }
     protected override void CastAbility2(Entity target)
     {
-        currentAP -= ability2.cost;
-        target.TakeDamage(ability2.damage + attack.GetValue());
-        target.maxAP.AddModifier(-1);
-        target.attack.AddModifier(-1);
+        _currentAP -= _ability2.Cost;
+        target.TakeDamage(_ability2.Damage + Attack.GetValue());
+        target.MaxAP.AddModifier(-1);
+        target.Attack.AddModifier(-1);
     }
 }

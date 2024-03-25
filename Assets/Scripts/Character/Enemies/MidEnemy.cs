@@ -2,18 +2,18 @@ public class MidEnemy : Enemy
 {
     void Start()
     {
-        currentHP = maxHP.GetValue();
-        currentAP = maxAP.GetValue();
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
 
         AbilitiesInitialization();
     }
 
     protected override void AbilitiesInitialization()
     {
-        ability1.damage = 2;
-        ability1.cost = 1;
-        ability2.cost = 3;
-        ability2.roundsBeforeReuse = 2;
+        _ability1.Damage = 2;
+        _ability1.Cost = 1;
+        _ability2.Cost = 3;
+        _ability2.RoundsBeforeReuse = 2;
     }
 
     protected override void CastAbility1(Entity target)
@@ -22,11 +22,11 @@ public class MidEnemy : Enemy
     }
     protected override void CastAbility2(Entity target)
     {
-        currentAP -= ability2.cost;
-        if (ability2.roundsBeforeReuse == 0)
+        _currentAP -= _ability2.Cost;
+        if (_ability2.RoundsBeforeReuse == 0)
         {
-            target.maxAP.AddModifier(-1);
-            ability2.roundsBeforeReuse = 2;
+            target.MaxAP.AddModifier(-1);
+            _ability2.RoundsBeforeReuse = 2;
         }
         else
         {
