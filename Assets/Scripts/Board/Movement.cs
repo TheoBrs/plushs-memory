@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -18,17 +14,16 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveTo();
+        MoveTo();
     }
 
-    public void moveTo()
+    public void MoveTo()
     {
-        
         if ((transform.position - newPosition).magnitude < 0.01f)
             transform.position = newPosition;
         else
         {
-            Vector3 directeur = (newPosition - transform.position).normalized * Time.deltaTime * movementSpeed;
+            Vector3 directeur = movementSpeed * Time.deltaTime * (newPosition - transform.position).normalized;
 
             transform.position += directeur;
         }

@@ -1,13 +1,8 @@
+using Board;
 using UnityEngine;
 
 public abstract class Entity: MonoBehaviour
 {
-    public struct Coord
-    {
-        private float _x;
-        private float _y;
-    };
-
     [Header("HP and AP settings")]
     public Stat MaxHP;
     public Stat MaxAP;
@@ -16,7 +11,7 @@ public abstract class Entity: MonoBehaviour
 
     protected int _currentHP;
     protected int _currentAP;
-
+    public Coord _currentPos;
     protected Ability _ability1;
     protected Ability _ability2;
 
@@ -54,6 +49,20 @@ public abstract class Entity: MonoBehaviour
         {
             Death();
         }
+    }
+
+    public void Move(Coord to)
+    {
+        _currentPos = to;
+        /*
+        if ((transform.position - newPosition).magnitude < 0.01f)
+            transform.position = newPosition;
+        else
+        {
+            Vector3 directeur = (newPosition - transform.position).normalized * Time.deltaTime * movementSpeed;
+
+            transform.position += directeur;
+        }*/
     }
 
     public abstract void Death();
