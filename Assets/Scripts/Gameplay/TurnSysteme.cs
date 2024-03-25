@@ -43,11 +43,39 @@ using UnityEngine;
         Debug.Log("TurnPlayer");
     }
 
+    public void EnemieTurn()
+    {
+        Debug.Log("TurnEnemey");
+        current_state = EnumTurn.PlayerTurn;
+/*      if( nbEnemie <=0 && Player.health > 0 )
+        {
+            current_state = EnumTurn.Win
+        }
+
+        else if( Player.health <= 0)
+        {
+            current_state = EnumTurn.lose;
+        }*/
+    }
+
+
     public void OnEndTurnButton()
     {
         if (current_state!= EnumTurn.PlayerTurn)
         {
             return;
+        }
+/*      if( nbEnemie <=0 && Player.health > 0 )
+        {
+            current_state = EnumTurn.Win
+        }
+        else if( Player.health <= 0)
+        {
+            current_state = EnumTurn.lose;
+        }*/
+        else
+        {
+            current_state = EnumTurn.EnemieTurn;
         }
     }
 }
