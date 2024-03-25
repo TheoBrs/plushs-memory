@@ -13,14 +13,13 @@ public abstract class Entity: MonoBehaviour
     protected int _currentAP;
     protected Ability _ability1;
     protected Ability _ability2;
-
     protected bool _invincible = false;
 
     GameObject _grid;
 
     private void Awake()
     {
-        _grid = GameObject.Find("WorldPlane");
+        _grid = GameObject.FindWithTag("CombatGrid");
     }
 
     protected abstract void AbilitiesInitialization();
@@ -59,14 +58,14 @@ public abstract class Entity: MonoBehaviour
 
     public void Move(Coord coordTo)
     {
-        GridElement gridElement = _grid.GetComponent<CombatGrid>().elements[coordTo.x, coordTo.y];
+        GridElement gridElement = _grid.GetComponent<CombatGrid>().GetGridElement(coordTo.x, coordTo.y);
 
-        Vector3 newPosition = gridElement.gameObject.transform.position;
+        Vector3 newPosition = gridElement.GetGameObjectPosition();
         
         if ((transform.position - newPosition).magnitude < 0.02f)
         {
             transform.position = newPosition;
-            _currentPos = gridElement.coord;
+            _currentPos = gridElement.GetCoord();
         }
         else
         {

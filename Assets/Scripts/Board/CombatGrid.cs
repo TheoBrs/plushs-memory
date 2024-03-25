@@ -5,8 +5,8 @@ public class CombatGrid : MonoBehaviour
     public int maxX;
     public int maxY;
 
-    public GridElement[,] elements;
-    public GameObject gridPrefab;
+    GridElement[,] elements;
+    [SerializeField] GameObject gridPrefab;
 
     //creation de la grille de Combat
     void Awake()
@@ -23,6 +23,11 @@ public class CombatGrid : MonoBehaviour
                 elements[x, y] = gridElement;
             }
         }
+    }
+
+    public GridElement GetGridElement(int x, int y)
+    { 
+        return elements[x, y];
     }
 }
 

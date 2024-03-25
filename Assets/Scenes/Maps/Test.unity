@@ -399,8 +399,8 @@ GameObject:
   - component: {fileID: 1059036465}
   - component: {fileID: 1059036469}
   m_Layer: 0
-  m_Name: WorldPlane
-  m_TagString: Untagged
+  m_Name: CombatGrid
+  m_TagString: CombatGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

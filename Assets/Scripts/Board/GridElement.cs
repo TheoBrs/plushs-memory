@@ -2,12 +2,22 @@ using UnityEngine;
 
 public class GridElement
 {
-    public Coord coord;
-    public GameObject gameObject;
+    Coord coord;
+    GameObject gameObject;
        
     public GridElement(Coord coordVar, GameObject gameObjectVar)
     {
         coord = coordVar;
         gameObject = gameObjectVar;
+    }
+
+    public Coord GetCoord()
+    {
+        return coord;
+    }
+
+    public Vector3 GetGameObjectPosition() 
+    {
+        return gameObject.transform.position;
     }
 }
