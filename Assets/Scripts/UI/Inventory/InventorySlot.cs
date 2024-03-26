@@ -20,4 +20,17 @@ public class InventorySlot : MonoBehaviour
         icon.sprite = null;
         icon.enabled = false;
     }
+
+    public void OnRemoveItem()
+    {
+        Inventory.Instance.Remove(item);
+    }
+
+    public void UseItem()
+    {
+        if(item != null)
+        {
+            item.Use();
+        }
+    }
 }
