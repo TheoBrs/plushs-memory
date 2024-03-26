@@ -101,7 +101,7 @@ using UnityEngine.Events;
         {
             return;
         }
-/*      if( nbEnemie <=0 && Player.health > 0 )
+        /*if( nbEnemie <=0 && Player.health > 0 )
         {
             current_state = EnumTurn.Win
         }
