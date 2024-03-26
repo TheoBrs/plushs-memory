@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
 
+using UnityEngine;
+using UnityEngine.Events;
 
  public enum EnumTurn 
 {
-    init,
-    PlayerTurn,
-    EnemieTurn,
-    Win,
-    lose
+    INIT,
+    PLAYERTURN,
+    ENEMIETURN,
+    WIN,
+    LOSE
 }
 
  public class TurnSysteme : MonoBehaviour
@@ -18,24 +16,25 @@ using UnityEngine;
     public GameObject Player;
     public GameObject Enemie;
 
+    public UnityEvent EndTurn;  
 
-
-    public EnumTurn current_state;
+    public EnumTurn current_state = EnumTurn.INIT;
     // Start is called before the first frame update
     void Start()
     {
-         current_state = EnumTurn.init;
-         SetUpBattel();
+         SetUpBattle();
     }
 
-    IEnumerator SetUpBattel()
+    void Update()
+    {
+        StateSwitch();
+    }
+
+    private void SetUpBattle()
     {
         Instantiate(Player);
-        Instantiate(Enemie);
-
-        yield return new WaitForSeconds(2f);
-        current_state = EnumTurn.PlayerTurn;
-        PlayerTurn();
+        //Instantiate(Enemie); replace by liste
+        current_state = EnumTurn.PLAYERTURN;
     }
 
     private void PlayerTurn()
@@ -47,7 +46,6 @@ using UnityEngine;
     public void EnemieTurn()
     {
         Debug.Log("TurnEnemey");
-        current_state = EnumTurn.PlayerTurn;
 /*      if( nbEnemie <=0 && Player.health > 0 )
         {
             current_state = EnumTurn.Win
@@ -57,12 +55,49 @@ using UnityEngine;
         {
             current_state = EnumTurn.lose;
         }*/
+        current_state = EnumTurn.PLAYERTURN;
+    }
+
+    private void StateSwitch()
+    {
+        
+        switch(current_state)
+        {
+            case EnumTurn.PLAYERTURN:
+            PlayerTurn();
+            break;
+
+            case EnumTurn.ENEMIETURN:
+            EnemieTurn();
+            break;
+
+            case EnumTurn.WIN:
+            Win();
+            break;
+            
+            case EnumTurn.LOSE:
+            Lose();
+            break;
+
+            default:
+            break;
+        }
     }
 
 
+    private void Win()
+    {
+        Debug.Log("Win");
+    }
+
+    private void Lose()
+    {
+        Debug.Log("lose");
+    }
+
     public void OnEndTurnButton()
     {
-        if (current_state!= EnumTurn.PlayerTurn)
+        if (current_state!= EnumTurn.PLAYERTURN)
         {
             return;
         }
@@ -76,7 +111,7 @@ using UnityEngine;
         }*/
         else
         {
-            current_state = EnumTurn.EnemieTurn;
+            current_state = EnumTurn.ENEMIETURN;
         }
     }
 }
