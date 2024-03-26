@@ -1,25 +1,24 @@
-
 using UnityEngine;
 using UnityEngine.Events;
 
- public enum EnumTurn 
+ public class TurnSystem : MonoBehaviour
 {
-    INIT,
-    PLAYERTURN,
-    ENEMIETURN,
-    WIN,
-    LOSE
-}
+    public enum FightPhase 
+    {
+        INIT,
+        PLAYERTURN,
+        ENEMIETURN,
+        WIN,
+        LOSE
+    }
 
- public class TurnSysteme : MonoBehaviour
-{
-    public GameObject Player;
-    public GameObject Enemie;
+    private GameObject Player;
+    private GameObject Enemie;
 
-    public UnityEvent EndTurn;  
+    private UnityEvent EndTurn;  
 
-    public EnumTurn current_state = EnumTurn.INIT;
-    // Start is called before the first frame update
+    public FightPhase CurentState = FightPhase.INIT;
+   
     void Start()
     {
          SetUpBattle();
@@ -33,8 +32,8 @@ using UnityEngine.Events;
     private void SetUpBattle()
     {
         Instantiate(Player);
-        //Instantiate(Enemie); replace by liste
-        current_state = EnumTurn.PLAYERTURN;
+        Instantiate(Enemie); //replace by liste
+        CurentState = FightPhase.PLAYERTURN;
     }
 
     private void PlayerTurn()
@@ -55,27 +54,27 @@ using UnityEngine.Events;
         {
             current_state = EnumTurn.lose;
         }*/
-        current_state = EnumTurn.PLAYERTURN;
+        CurentState = FightPhase.PLAYERTURN;
     }
 
     private void StateSwitch()
     {
         
-        switch(current_state)
+        switch(CurentState)
         {
-            case EnumTurn.PLAYERTURN:
+            case FightPhase.PLAYERTURN:
             PlayerTurn();
             break;
 
-            case EnumTurn.ENEMIETURN:
+            case FightPhase.ENEMIETURN:
             EnemieTurn();
             break;
 
-            case EnumTurn.WIN:
+            case FightPhase.WIN:
             Win();
             break;
             
-            case EnumTurn.LOSE:
+            case FightPhase.LOSE:
             Lose();
             break;
 
@@ -97,7 +96,7 @@ using UnityEngine.Events;
 
     public void OnEndTurnButton()
     {
-        if (current_state!= EnumTurn.PLAYERTURN)
+        if (CurentState!= FightPhase.PLAYERTURN)
         {
             return;
         }
@@ -111,7 +110,7 @@ using UnityEngine.Events;
         }*/
         else
         {
-            current_state = EnumTurn.ENEMIETURN;
+            CurentState = FightPhase.ENEMIETURN;
         }
     }
 }
