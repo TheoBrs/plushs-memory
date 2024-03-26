@@ -144,7 +144,7 @@ public class Player : Entity
                             int index = 0;
                             foreach (var gridElement in elements)
                             {
-                                Cell newCell = new Cell { coord = gridElement.GetCoord() };
+                                Cell newCell = new Cell { coord = gridElement.GetCoord(), walkable = gridElement.getWalkable() };
                                 map[index] = newCell;
                                 index++;
 

@@ -24,7 +24,13 @@ public class CombatGrid : MonoBehaviour
             {
                 Coord coords = new Coord(x - (maxX / 2), y - (maxY / 2));
                 GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.x, 0.01f, coords.y), Quaternion.identity);
-                GridElement gridElement = new GridElement(coords, newCell);
+                bool walkable = true;
+
+                // This is to force the cell to have an "obstacle"
+                if (x == 1 && y == 1)
+                    walkable = false;
+
+                GridElement gridElement = new GridElement(coords, newCell, walkable);
                 elements[x, y] = gridElement;
             }
         }

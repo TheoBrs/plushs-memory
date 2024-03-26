@@ -10,6 +10,7 @@ public class Cell
     public float H;
     public float F;
     public Cell parent;
+    public bool walkable;
 }
 
 public class AStar
@@ -25,13 +26,13 @@ public class AStar
 
         foreach (Cell cell in map)
         {
-            if (cell.coord.x == x && cell.coord.y == y - 1)
+            if (cell.coord.x == x && cell.coord.y == y - 1 && cell.walkable)
                 proposedLocations.Add(cell);
-            if (cell.coord.x == x && cell.coord.y == y + 1)
+            if (cell.coord.x == x && cell.coord.y == y + 1 && cell.walkable)
                 proposedLocations.Add(cell);
-            if (cell.coord.x == x - 1 && cell.coord.y == y)
+            if (cell.coord.x == x - 1 && cell.coord.y == y && cell.walkable)
                 proposedLocations.Add(cell);
-            if (cell.coord.x == x + 1 && cell.coord.y == y)
+            if (cell.coord.x == x + 1 && cell.coord.y == y && cell.walkable)
                 proposedLocations.Add(cell);
         }
 
