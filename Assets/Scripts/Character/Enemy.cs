@@ -45,7 +45,7 @@ public abstract class Enemy : Entity
                 break;
             case State.EndTurn:
 
-                // Send message to GameManager to tell turn is done
+                // Send message to TurnSystem to tell turn is done
 
                 ChangeState(State.WaitForTurn);
                 break;
@@ -54,7 +54,9 @@ public abstract class Enemy : Entity
 
     private void Movement()
     {
-        // Calculate nearest path to player with _currentAP (1 AP = 1 case)
+        // Check if the player is reachable
+
+        // If not: nalculate nearest path to player with _currentAP (1 AP = 1 case)
 
         int numberOfCase = 0;
 
@@ -62,7 +64,7 @@ public abstract class Enemy : Entity
 
         // Move to the position
 
-        // Verify he arrived at the position
+        // Verify he arrived at the position / Wait till animation is done
     }
 
     private void Attacking()
@@ -81,7 +83,7 @@ public abstract class Enemy : Entity
                 CastAbility1(_playerReference);
             }
 
-            // Verify Attack is done
+            // Verify Attack is done / Wait till animation is done
 
         }
     }
@@ -93,6 +95,6 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
-        // Enemy Death / Check if player wins in GameManager
+        // Enemy Death / Inform GameManager
     }
 }
