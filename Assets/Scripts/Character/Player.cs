@@ -161,15 +161,37 @@ public class Player : Entity
                                 gridElement.SetGameObjectMaterial(grid.GetGridMat());
                             }
                             path = AStar.FindPath(currentCell, selectedGridCell.GetCoord(), map);
+
+                            int steps = 0;
                             foreach (var cell in path)
                             {
                                 foreach (var gridElement in elements)
                                 {
                                     if (gridElement.GetCoord().Equals(cell.coord))
-                                        gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
+                                    {
+                                        // This is assuming that the current AP doesn't change while selecting a movement
+                                        if (steps <= _currentAP)
+                                        {
+                                            gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
+                                        }
+                                        else
+                                        {
+                                            gridElement.SetGameObjectMaterial(grid.GetRedPathGridMat());
+                                        }
+                                        steps++;
+                                    }
                                 }
                             }
-                            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                            if (steps <= _currentAP + 1)
+                            {
+                                selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                            }
+                            else
+                            {
+                                selectedGridCell.SetGameObjectMaterial(grid.GetRedPathGridMat());
+                                // can add more stuff that prevent to move
+                                path.Clear();
+                            }
                         }
                     }
                 }

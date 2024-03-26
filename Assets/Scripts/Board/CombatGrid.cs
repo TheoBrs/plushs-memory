@@ -8,6 +8,7 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] Material gridMat;
     [SerializeField] Material selectedGridMat;
     [SerializeField] Material pathGridMat;
+    [SerializeField] Material redPathGridMat;
 
     GridElement[,] elements;
     [SerializeField] GameObject gridPrefab;
@@ -52,6 +53,11 @@ public class CombatGrid : MonoBehaviour
     public Material GetPathGridMat()
     {
         return pathGridMat;
+    }
+
+    public Material GetRedPathGridMat() 
+    {
+        return redPathGridMat;
     }
 }
 
