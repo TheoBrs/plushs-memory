@@ -20,4 +20,9 @@ public class GridElement
     {
         return gameObject.transform.position;
     }
+
+    public void SetGameObjectMaterial(Material material)
+    {
+        gameObject.GetComponent<MeshRenderer>().material = material;
+    }
 }

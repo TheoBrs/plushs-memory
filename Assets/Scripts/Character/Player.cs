@@ -1,3 +1,4 @@
+using System.Drawing;
 using UnityEngine;
 
 public class Player : Entity
@@ -7,8 +8,22 @@ public class Player : Entity
     private Ability _fAbility3;
     private int _pattoBuff = 0;
 
+    public int gridWidth;
+    public int gridHeight;
+    private Material gridMat;
+    private Material selectedGridMat;
+
+    private GameObject player;
+    private GridElement selectedGridCell;
+    private Vector3 position;
+    private float width;
+    private float height;
+
     public void Start()
     {
+        width = Screen.width / 2.0f;
+        height = Screen.height / 2.0f;
+
         _currentHP = GetMaxHP().GetValue();
         _currentAP = GetMaxAP().GetValue();
         AbilitiesInitialization();
@@ -116,15 +131,45 @@ public class Player : Entity
 
     void Update()
     {
-        TestMove();
-    }
-
-    void TestMove()
-    {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.touchCount == 1)
         {
-            Coord coord = new Coord(2, 3);
-            Move(coord);
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                RaycastHit hit;
+
+                //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        GameObject touchedObject = hit.transform.gameObject;
+                        if (touchedObject.transform.name == "GridCell(Clone)")
+                        {
+                            if (selectedGridCell != null)
+                                selectedGridCell.SetGameObjectMaterial(gridMat);
+
+                            //touchedObject.transform.p SetGameObjectMaterial(selectedGridMat);
+                            //selectedGridCell = touchedObject;
+                            Move(selectedGridCell.GetCoord());
+                        }
+                    }
+                }
+            }
+        }
+        if (Input.touchCount == 2)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                Vector3 touchPosition = (Input.GetTouch(0).position + Input.GetTouch(1).position) / 2;
+
+                Vector3 newCamPos = new Vector3(-touchPosition.x, -touchPosition.y, -10);
+                newCamPos.x = (newCamPos.x + width) / width;
+                newCamPos.y = (newCamPos.y + height) / height;
+                Camera.main.transform.localPosition = newCamPos;
+            }
         }
     }
 
