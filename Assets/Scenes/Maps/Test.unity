@@ -506,6 +506,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxX: 5
   maxY: 5
+  gridMat: {fileID: 2100000, guid: d9ebc76ec51d7a649acfb42668bd54db, type: 2}
+  selectedGridMat: {fileID: 2100000, guid: 1343a48b000c41e43b13c92e2eb5833d, type: 2}
   gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77,
     type: 3}
 --- !u!4 &1553353288 stripped

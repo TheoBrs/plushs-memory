@@ -8,11 +8,6 @@ public class Player : Entity
     Ability _fAbility3;
     int _pattoBuff = 0;
 
-    public int gridWidth;
-    public int gridHeight;
-    Material gridMat;
-    Material selectedGridMat;
-
     GameObject player;
     GridElement selectedGridCell;
     Vector3 position;
@@ -23,6 +18,7 @@ public class Player : Entity
 
     public void Start()
     {
+        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
 
@@ -136,21 +132,20 @@ public class Player : Entity
                         if (touchedObject.transform.name == "GridCell(Clone)")
                         {
                             if (selectedGridCell != null)
-                                selectedGridCell.SetGameObjectMaterial(gridMat);
+                                selectedGridCell.SetGameObjectMaterial(grid.GetGridMat());
 
-                            GridElement[,] elements = grid.GetComponent<CombatGrid>().GetGridElements();
+                            GridElement[,] elements = grid.GetGridElements();
 
                             foreach (var gridElement in elements)
                             {
                                 if(touchedObject == gridElement.GetGameObject())
                                 {
-                                    Debug.Log("Equals");
+                                    gridElement.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                                    selectedGridCell = gridElement;
+                                    Move(selectedGridCell.GetCoord());
+                                    break;
                                 }
                             }
-
-                            //touchedObject.transform.p SetGameObjectMaterial(selectedGridMat);
-                            //selectedGridCell = touchedObject;
-                            Move(selectedGridCell.GetCoord());
                         }
                     }
                 }

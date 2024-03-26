@@ -5,6 +5,9 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] int maxX;
     [SerializeField] int maxY;
 
+    [SerializeField] Material gridMat;
+    [SerializeField] Material selectedGridMat;
+
     GridElement[,] elements;
     [SerializeField] GameObject gridPrefab;
 
@@ -27,12 +30,22 @@ public class CombatGrid : MonoBehaviour
 
     public GridElement GetGridElement(int x, int y)
     { 
-        return elements[x, y];
+        return elements[x + (maxX / 2), y + (maxY / 2)];
     }
 
     public GridElement[,] GetGridElements()
     {
         return elements;
+    }
+
+    public Material GetGridMat()
+    {
+        return gridMat;
+    }
+
+    public Material GetSelectedGridMat()
+    {
+        return selectedGridMat;
     }
 }
 

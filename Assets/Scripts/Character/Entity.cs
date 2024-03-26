@@ -15,11 +15,11 @@ public abstract class Entity: MonoBehaviour
     protected Ability _ability2;
     protected bool _invincible = false;
 
-    GameObject _grid;
+    CombatGrid _grid;
 
     private void Awake()
     {
-        _grid = GameObject.FindWithTag("CombatGrid");
+        _grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
     }
 
     protected abstract void AbilitiesInitialization();
@@ -58,7 +58,7 @@ public abstract class Entity: MonoBehaviour
 
     public void Move(Coord coordTo)
     {
-        GridElement gridElement = _grid.GetComponent<CombatGrid>().GetGridElement(coordTo.x, coordTo.y);
+        GridElement gridElement = _grid.GetGridElement(coordTo.x, coordTo.y);
 
         Vector3 newPosition = gridElement.GetGameObjectPosition();
         
@@ -69,7 +69,7 @@ public abstract class Entity: MonoBehaviour
         }
         else
         {
-            Vector3 directeur = (newPosition - transform.position).normalized * Time.deltaTime * 10f;
+            Vector3 directeur = 10f * Time.deltaTime * (newPosition - transform.position).normalized;
             transform.position += directeur;
         }
     }
