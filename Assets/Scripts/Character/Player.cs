@@ -18,6 +18,7 @@ public class Player : Entity
     CombatGrid grid;
     GridElement[,] elements;
     Cell[] map;
+    List<Cell> path;
 
     public void Start()
     {
@@ -153,6 +154,22 @@ public class Player : Entity
                                     selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
                                 }
                             }
+
+
+                            foreach (var gridElement in elements)
+                            {
+                                gridElement.SetGameObjectMaterial(grid.GetGridMat());
+                            }
+                            path = AStar.FindPath(currentCell, selectedGridCell.GetCoord(), map);
+                            foreach (var cell in path)
+                            {
+                                foreach (var gridElement in elements)
+                                {
+                                    if (gridElement.GetCoord().Equals(cell.coord))
+                                        gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
+                                }
+                            }
+                            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
                         }
                     }
                 }
@@ -174,22 +191,16 @@ public class Player : Entity
 
     public void Move()
     {
+        if (path == null || path.Count == 0)
+            return;
+
         foreach (var gridElement in elements)
         {
             gridElement.SetGameObjectMaterial(grid.GetGridMat());
         }
-        List<Cell> path = AStar.FindPath(currentCell, selectedGridCell.GetCoord(), map);
-        foreach (var cell in path)
-        {
-            foreach (var gridElement in elements)
-            {
-                if (gridElement.GetCoord().Equals(cell.coord))
-                    gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
-            }
-        }
-        selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
         Move(selectedGridCell.GetCoord(), true);
         currentCell = selectedGridCell.GetCoord();
+        path.Clear();
     }
     public override void Death()
     {
