@@ -17,7 +17,8 @@ public class Player : Entity
     float height;
     CombatGrid grid;
     GridElement[,] elements;
-    
+    Cell[] map;
+
     public void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
@@ -137,8 +138,8 @@ public class Player : Entity
                             if (selectedGridCell != null)
                                 selectedGridCell.SetGameObjectMaterial(grid.GetGridMat());
 
-                            GridElement[,] elements = grid.GetGridElements();
-                            Cell[] map = new Cell[elements.Length];
+                            elements = grid.GetGridElements();
+                            map = new Cell[elements.Length];
                             int index = 0;
                             foreach (var gridElement in elements)
                             {
@@ -149,26 +150,9 @@ public class Player : Entity
                                 if (touchedObject == gridElement.GetGameObject())
                                 {
                                     selectedGridCell = gridElement;
-                                    Move(selectedGridCell.GetCoord(), true);
+                                    selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
                                 }
                             }
-
-                            foreach (var gridElement in elements)
-                            {
-                                gridElement.SetGameObjectMaterial(grid.GetGridMat());
-                            }
-                            List<Cell> path = AStar.FindPath(currentCell, selectedGridCell.GetCoord(), map);
-                            foreach (var cell in path)
-                            {
-                                foreach (var gridElement in elements)
-                                {
-                                    if (gridElement.GetCoord().Equals(cell.coord))
-                                        gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
-                                }
-                            }
-                            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
-                            Move(selectedGridCell.GetCoord(), true);
-                            currentCell = selectedGridCell.GetCoord();
                         }
                     }
                 }
@@ -188,6 +172,25 @@ public class Player : Entity
         }
     }
 
+    public void Move()
+    {
+        foreach (var gridElement in elements)
+        {
+            gridElement.SetGameObjectMaterial(grid.GetGridMat());
+        }
+        List<Cell> path = AStar.FindPath(currentCell, selectedGridCell.GetCoord(), map);
+        foreach (var cell in path)
+        {
+            foreach (var gridElement in elements)
+            {
+                if (gridElement.GetCoord().Equals(cell.coord))
+                    gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
+            }
+        }
+        selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+        Move(selectedGridCell.GetCoord(), true);
+        currentCell = selectedGridCell.GetCoord();
+    }
     public override void Death()
     {
         // GameOver
