@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CombatGrid : MonoBehaviour
 {
-    public int maxX;
-    public int maxY;
+    [SerializeField] int maxX;
+    [SerializeField] int maxY;
 
     GridElement[,] elements;
     [SerializeField] GameObject gridPrefab;

@@ -2,9 +2,8 @@ public class SecretBoss : Enemy
 {
     void Start()
     {
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
-
+        _currentHP = GetMaxHP().GetValue();
+        _currentAP = GetMaxAP().GetValue();
         AbilitiesInitialization();
     }
 
@@ -24,7 +23,7 @@ public class SecretBoss : Enemy
     {
         _currentAP -= _ability2.Cost;
         target.TakeDamage(_ability2.Damage + Attack.GetValue());
-        target.MaxAP.AddModifier(-1);
+        target.GetMaxAP().AddModifier(-1);
         target.Attack.AddModifier(-1);
     }
 }

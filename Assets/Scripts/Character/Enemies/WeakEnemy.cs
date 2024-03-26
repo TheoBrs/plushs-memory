@@ -2,9 +2,8 @@ public class WeakEnemy : Enemy
 {
     void Start()
     {
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
-
+        _currentHP = GetMaxHP().GetValue();
+        _currentAP = GetMaxAP().GetValue();
         AbilitiesInitialization();
     }
 
