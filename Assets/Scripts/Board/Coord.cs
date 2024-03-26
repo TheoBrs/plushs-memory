@@ -20,4 +20,14 @@ public struct Coord
     {
         return new Coord((int)vector3.x, (int)vector3.y);
     }
+
+    public bool Equals(Coord other)
+    {
+        return other.x == x && other.y == y;
+    }
+    
+    public override string ToString()
+    {
+        return "x:" + x + " y:" + y;
+    }
 }

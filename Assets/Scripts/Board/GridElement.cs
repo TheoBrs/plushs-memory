@@ -4,11 +4,13 @@ public class GridElement
 {
     Coord coord;
     GameObject gameObject;
+    bool walkable;
        
-    public GridElement(Coord coordVar, GameObject gameObjectVar)
+    public GridElement(Coord coordVar, GameObject gameObjectVar, bool walkableVar = true)
     {
         coord = coordVar;
         gameObject = gameObjectVar;
+        walkable = walkableVar;
     }
 
     public Coord GetCoord()
@@ -29,5 +31,10 @@ public class GridElement
     public void SetGameObjectMaterial(Material material)
     {
         gameObject.GetComponent<MeshRenderer>().material = material;
+    }
+
+    public bool getWalkable()
+    {
+        return walkable;
     }
 }

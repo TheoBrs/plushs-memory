@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 
@@ -9,16 +10,18 @@ public class Player : Entity
     int _pattoBuff = 0;
 
     GameObject player;
+    Coord currentCell;
     GridElement selectedGridCell;
     Vector3 position;
     float width;
     float height;
     CombatGrid grid;
     GridElement[,] elements;
-
+    
     public void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+        currentCell = new Coord(0, 0);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
 
@@ -135,17 +138,37 @@ public class Player : Entity
                                 selectedGridCell.SetGameObjectMaterial(grid.GetGridMat());
 
                             GridElement[,] elements = grid.GetGridElements();
+                            Cell[] map = new Cell[elements.Length];
+                            int index = 0;
+                            foreach (var gridElement in elements)
+                            {
+                                Cell newCell = new Cell { coord = gridElement.GetCoord() };
+                                map[index] = newCell;
+                                index++;
+
+                                if (touchedObject == gridElement.GetGameObject())
+                                {
+                                    selectedGridCell = gridElement;
+                                    Move(selectedGridCell.GetCoord(), true);
+                                }
+                            }
 
                             foreach (var gridElement in elements)
                             {
-                                if(touchedObject == gridElement.GetGameObject())
+                                gridElement.SetGameObjectMaterial(grid.GetGridMat());
+                            }
+                            List<Cell> path = AStar.FindPath(currentCell, selectedGridCell.GetCoord(), map);
+                            foreach (var cell in path)
+                            {
+                                foreach (var gridElement in elements)
                                 {
-                                    gridElement.SetGameObjectMaterial(grid.GetSelectedGridMat());
-                                    selectedGridCell = gridElement;
-                                    Move(selectedGridCell.GetCoord());
-                                    break;
+                                    if (gridElement.GetCoord().Equals(cell.coord))
+                                        gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
                                 }
                             }
+                            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                            Move(selectedGridCell.GetCoord(), true);
+                            currentCell = selectedGridCell.GetCoord();
                         }
                     }
                 }

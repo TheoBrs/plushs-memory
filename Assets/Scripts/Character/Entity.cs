@@ -56,13 +56,13 @@ public abstract class Entity: MonoBehaviour
         }
     }
 
-    public void Move(Coord coordTo)
+    public void Move(Coord coordTo, bool instant)
     {
         GridElement gridElement = _grid.GetGridElement(coordTo.x, coordTo.y);
 
         Vector3 newPosition = gridElement.GetGameObjectPosition();
         
-        if ((transform.position - newPosition).magnitude < 0.02f)
+        if ((transform.position - newPosition).magnitude < 0.02f || instant)
         {
             transform.position = newPosition;
             _currentPos = gridElement.GetCoord();
