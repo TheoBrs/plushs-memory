@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
- public class TurnSystem : MonoBehaviour
+public class TurnSystem : MonoBehaviour
 {
     public enum FightPhase
     {
@@ -21,11 +22,13 @@ using UnityEngine.Events;
     void Start()
     {
          SetUpBattle();
+        GameObject.Find("Button").GetComponent<Button>().onClick.AddListener(OnEndTurnButton);
     }
 
     void Update()
     {
         StateSwitch();
+
     }
 
     private void SetUpBattle()
