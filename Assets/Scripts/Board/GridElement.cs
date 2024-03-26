@@ -16,9 +16,14 @@ public class GridElement
         return coord;
     }
 
-    public Vector3 GetGameObjectPosition() 
+    public Vector3 GetGameObjectPosition()
     {
         return gameObject.transform.position;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
     }
 
     public void SetGameObjectMaterial(Material material)

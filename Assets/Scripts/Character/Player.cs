@@ -3,60 +3,47 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    private Ability _fAbility1;
-    private Ability _fAbility2;
-    private Ability _fAbility3;
-    private int _pattoBuff = 0;
+    Ability _fAbility1;
+    Ability _fAbility2;
+    Ability _fAbility3;
+    int _pattoBuff = 0;
 
     public int gridWidth;
     public int gridHeight;
-    private Material gridMat;
-    private Material selectedGridMat;
+    Material gridMat;
+    Material selectedGridMat;
 
-    private GameObject player;
-    private GridElement selectedGridCell;
-    private Vector3 position;
-    private float width;
-    private float height;
+    GameObject player;
+    GridElement selectedGridCell;
+    Vector3 position;
+    float width;
+    float height;
+    CombatGrid grid;
+    GridElement[,] elements;
 
     public void Start()
     {
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
 
-        _currentHP = GetMaxHP().GetValue();
-        _currentAP = GetMaxAP().GetValue();
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
         AbilitiesInitialization();
     }
 
     protected override void AbilitiesInitialization()
     {
-        _ability1 = new Ability
-        {
-            Damage = 2,
-            Cost = 1
-        };
+        /* Not instanciated
+        _ability1.Damage = 2;
+        _ability1.Cost = 1;
 
-        _ability2 = new Ability
-        {
-            Damage = 4,
-            Cost = 2
-        };
-        
-        _fAbility1 = new Ability
-        {
-            RoundsBeforeReuse = 2
-        };
+        _ability2.Damage = 4;
+        _ability2.Cost = 2;
 
-        _fAbility2 = new Ability
-        {
-            RoundsBeforeReuse = 3
-        };
-
-        _fAbility3 = new Ability
-        {
-            RoundsBeforeReuse = 4
-        };
+        _fAbility1.RoundsBeforeReuse = 2;
+        _fAbility2.RoundsBeforeReuse = 3;
+        _fAbility3.RoundsBeforeReuse = 4;
+        */
     }
 
     protected override void CastAbility1(Entity target)
@@ -150,6 +137,16 @@ public class Player : Entity
                         {
                             if (selectedGridCell != null)
                                 selectedGridCell.SetGameObjectMaterial(gridMat);
+
+                            GridElement[,] elements = grid.GetComponent<CombatGrid>().GetGridElements();
+
+                            foreach (var gridElement in elements)
+                            {
+                                if(touchedObject == gridElement.GetGameObject())
+                                {
+                                    Debug.Log("Equals");
+                                }
+                            }
 
                             //touchedObject.transform.p SetGameObjectMaterial(selectedGridMat);
                             //selectedGridCell = touchedObject;

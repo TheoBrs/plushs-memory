@@ -3,8 +3,8 @@ using UnityEngine;
 public abstract class Entity: MonoBehaviour
 {
     [Header("HP and AP settings")]
-    [SerializeField] Stat MaxHP;
-    [SerializeField] Stat MaxAP;
+    public Stat MaxHP;
+    public Stat MaxAP;
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
 
@@ -85,15 +85,5 @@ public abstract class Entity: MonoBehaviour
 
         _currentHP = MaxHP.GetValue();
         _currentAP = MaxAP.GetValue();
-    }
-
-    public Stat GetMaxHP()
-    {
-        return MaxHP;
-    }
-
-    public Stat GetMaxAP()
-    {
-        return MaxAP;
     }
 }

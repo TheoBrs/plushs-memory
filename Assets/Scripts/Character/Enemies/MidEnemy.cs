@@ -2,8 +2,8 @@ public class MidEnemy : Enemy
 {
     void Start()
     {
-        _currentHP = GetMaxHP().GetValue();
-        _currentAP = GetMaxAP().GetValue();
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
         AbilitiesInitialization();
     }
 
@@ -24,7 +24,7 @@ public class MidEnemy : Enemy
         _currentAP -= _ability2.Cost;
         if (_ability2.RoundsBeforeReuse == 0)
         {
-            target.GetMaxAP().AddModifier(-1);
+            target.MaxAP.AddModifier(-1);
             _ability2.RoundsBeforeReuse = 2;
         }
         else

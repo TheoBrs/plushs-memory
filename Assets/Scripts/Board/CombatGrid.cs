@@ -29,5 +29,10 @@ public class CombatGrid : MonoBehaviour
     { 
         return elements[x, y];
     }
+
+    public GridElement[,] GetGridElements()
+    {
+        return elements;
+    }
 }
 

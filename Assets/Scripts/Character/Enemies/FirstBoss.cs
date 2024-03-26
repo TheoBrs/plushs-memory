@@ -6,8 +6,8 @@ public class FirstBoss : Enemy
 
     void Start()
     {
-        _currentHP = GetMaxHP().GetValue();
-        _currentAP = GetMaxAP().GetValue();
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
         AbilitiesInitialization();
     }
 
