@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
  public class TurnSystem : MonoBehaviour
 {
-    public enum FightPhase 
+    public enum FightPhase
     {
         INIT,
         PLAYERTURN,
@@ -15,8 +15,7 @@ using UnityEngine.Events;
     private GameObject Player;
     private GameObject Enemie;
 
-    private UnityEvent EndTurn;  
-
+    private UnityEvent EndTurn;
     public FightPhase CurentState = FightPhase.INIT;
    
     void Start()
@@ -31,15 +30,14 @@ using UnityEngine.Events;
 
     private void SetUpBattle()
     {
-        Instantiate(Player);
-        Instantiate(Enemie); //replace by liste
+        //Instantiate(Player);
+       // Instantiate(Enemie); //replace by liste
         CurentState = FightPhase.PLAYERTURN;
     }
 
     private void PlayerTurn()
     {
         Debug.Log("TurnPlayer");
-        OnEndTurnButton();
     }
 
     public void EnemieTurn()
@@ -79,6 +77,7 @@ using UnityEngine.Events;
             break;
 
             default:
+            CurentState = FightPhase.INIT;
             break;
         }
     }
@@ -94,8 +93,14 @@ using UnityEngine.Events;
         Debug.Log("lose");
     }
 
+
+    public void test(){
+        Debug.Log("aaaaaaaaaaaqaaaaa");
+    }
+
     public void OnEndTurnButton()
     {
+        Debug.Log("App");
         if (CurentState!= FightPhase.PLAYERTURN)
         {
             return;
