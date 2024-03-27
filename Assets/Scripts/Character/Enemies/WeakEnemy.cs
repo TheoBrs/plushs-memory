@@ -2,9 +2,6 @@ public class WeakEnemy : Enemy
 {
     protected override void Start()
     {
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
-        AbilitiesInitialization();
         base.Start();
     }
 
