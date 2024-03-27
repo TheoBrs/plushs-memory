@@ -144,8 +144,7 @@ public class Player : Entity
                             int index = 0;
                             foreach (var gridElement in elements)
                             {
-                                Cell newCell = new Cell(gridElement.GetCoord());
-                                newCell.SetWalkable(gridElement.getWalkable());
+                                Cell newCell = new Cell { Coord = gridElement.GetCoord(), Walkable = gridElement.getWalkable() };
                                 map[index] = newCell;
                                 index++;
 
@@ -183,7 +182,7 @@ public class Player : Entity
                             {
                                 foreach (var gridElement in elements)
                                 {
-                                    if (gridElement.GetCoord().Equals(cell.GetCoord()))
+                                    if (gridElement.GetCoord().Equals(cell.Coord))
                                     {
                                         // This is assuming that the current AP doesn't change while selecting a movement
                                         if (steps <= _currentAP)
@@ -227,7 +226,7 @@ public class Player : Entity
         }
     }
 
-    public void Move()
+    void Move()
     {
         if (path == null || path.Count == 0)
             return;

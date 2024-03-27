@@ -47,34 +47,16 @@ public class CombatGrid : MonoBehaviour
         return elements[x + (maxX / 2), y + (maxY / 2)];
     }
 
-    public GridElement[,] GetGridElements()
-    {
-        return elements;
-    }
+    public GridElement[,] GetGridElements() => elements;
 
-    public Material GetDefaultGridMat()
-    {
-        return defaultGridMat;
-    }
+    public Material GetDefaultGridMat() => defaultGridMat;
 
-    public Material GetNotWalkableGridMat()
-    {
-        return notWalkableGridMat;
-    }
+    public Material GetNotWalkableGridMat() => notWalkableGridMat;
 
-    public Material GetSelectedGridMat()
-    {
-        return selectedGridMat;
-    }
+    public Material GetSelectedGridMat() => selectedGridMat;
 
-    public Material GetPathGridMat()
-    {
-        return pathGridMat;
-    }
+    public Material GetPathGridMat() => pathGridMat;
 
-    public Material GetRedPathGridMat() 
-    {
-        return redPathGridMat;
-    }
+    public Material GetRedPathGridMat() => redPathGridMat;
 }
 

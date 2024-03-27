@@ -30,7 +30,7 @@ public struct Coord
     {
         return "x:" + x + " y:" + y;
     }
-    public int GetX() { return x; }
-    public int GetY() { return y; }
+    public int GetX() => x;
+    public int GetY() => y;
 
 }

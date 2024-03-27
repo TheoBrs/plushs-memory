@@ -13,28 +13,16 @@ public class GridElement
         walkable = walkableVar;
     }
 
-    public Coord GetCoord()
-    {
-        return coord;
-    }
+    public Coord GetCoord() => coord;
 
-    public Vector3 GetGameObjectPosition()
-    {
-        return gameObject.transform.position;
-    }
+    public Vector3 GetGameObjectPosition() => gameObject.transform.position;
 
-    public GameObject GetGameObject()
-    {
-        return gameObject;
-    }
+    public GameObject GetGameObject() => gameObject;
+
+    public bool getWalkable() => walkable;
 
     public void SetGameObjectMaterial(Material material)
     {
         gameObject.GetComponent<MeshRenderer>().material = material;
-    }
-
-    public bool getWalkable()
-    {
-        return walkable;
     }
 }
