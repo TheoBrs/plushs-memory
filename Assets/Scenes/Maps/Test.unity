@@ -541,7 +541,7 @@ MonoBehaviour:
   gridMat: {fileID: 2100000, guid: d9ebc76ec51d7a649acfb42668bd54db, type: 2}
   selectedGridMat: {fileID: 2100000, guid: 1343a48b000c41e43b13c92e2eb5833d, type: 2}
   pathGridMat: {fileID: 2100000, guid: 73c9bf0361083334d87b5482edd9cffd, type: 2}
-  redPathGridMat: {fileID: 0}
+  redPathGridMat: {fileID: 2100000, guid: 4f7e1e6f05242794c836f323a81485a3, type: 2}
   gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77,
     type: 3}
 --- !u!1 &1061407116
