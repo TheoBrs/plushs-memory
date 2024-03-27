@@ -14,6 +14,7 @@ public class CombatGrid : MonoBehaviour
 
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
+    [SerializeField] GameObject enemyPrefab;
 
     //creation de la grille de Combat
     void Awake()
@@ -38,8 +39,13 @@ public class CombatGrid : MonoBehaviour
 
                 // This is to force the cell to have an "enemy"
                 if (x == 1 + (maxX / 2) && y == 1 + (maxY / 2))
-                {
+                {                    
+                    GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(1, 0.01f, 1), Quaternion.identity);
+                    WeakEnemy.AddComponent<WeakEnemy>();
+                    WeakEnemy.GetComponent<WeakEnemy>().name = "Amongus";
+
                     gridElement.HasEnemy = true;
+                    gridElement.Entity = WeakEnemy.GetComponent<WeakEnemy>();
                     gridElement.SetGameObjectMaterial(enemyGridMat);
                 }
 

@@ -20,6 +20,7 @@ public class Player : Entity
     CombatGrid grid;
     Cell[,] elements;
     List<Cell> path;
+    Entity entity;
 
     protected override void Start()
     {
@@ -194,18 +195,20 @@ public class Player : Entity
                             }
                             path = AStar.FindPath(currentPos, selectedGridCell.Coord, elements);
 
+                            if (selectedGridCell.HasEnemy)
+                            {
+                                // path[path.Count - 1].Entity Contain the cell with the enemy
+                                entity = path[path.Count - 1].Entity;
+                                selectedGridCell = path[path.Count - 2];
+                                path.RemoveAt(path.Count - 1);
+                            }
+                            else
+                                entity = null;
+
                             if (selectedGridCell.HasEnemy && path.Count == 2)
                             {
                                 path.Clear();
                                 return;
-                            }
-
-                            if (selectedGridCell.HasEnemy)
-                            {
-                                // path[path.Count - 1] Contain the cell with the enemy
-                                // path[path.Count - 1].Entity.TakeDamage(3);
-                                selectedGridCell = path[path.Count - 2];
-                                path.RemoveAt(path.Count - 1);
                             }
 
                             int steps = 0;
@@ -273,39 +276,14 @@ public class Player : Entity
 
     public Entity GetEnemy()
     {
-        if (Input.touchCount == 1)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Ended)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit hit;
+        return entity;
+    }
 
-                //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider != null)
-                    {
-                        GameObject touchedObject = hit.transform.gameObject;
-                        if (touchedObject.transform.name == "GridCell(Clone)")
-                        {
-                            elements = grid.GetGridElements();
-                            foreach (var gridElement in elements)
-                            {
-                                if (touchedObject == gridElement.GameObject)
-                                {
-                                    Cell cell = elements[gridElement.Coord.X + grid.GetMaxX() / 2, gridElement.Coord.Y + grid.GetMaxY() / 2];
-                                    if (cell.Entity != null)
-                                        return cell.Entity;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
+    public void GetEnemyStr()
+    {
+        Entity entity = GetEnemy();
+        if(entity  != null)
+            Debug.Log(entity.name);
     }
     public override void Death()
     {
