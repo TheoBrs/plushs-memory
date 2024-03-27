@@ -36,7 +36,7 @@ public class TurnSystem : MonoBehaviour
     {
         Debug.Log("TurnPlayer");
     }
-
+ 
     public void EnemyTurn()
     {
         Debug.Log("TurnEnemey");
