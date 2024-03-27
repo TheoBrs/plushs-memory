@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "790753247339",
+    "firebase_url": "https://plushs-memory-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "plushs-memory",
+    "storage_bucket": "plushs-memory.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790753247339:android:32ad3ebe43b1f73f28312e",
+        "android_client_info": {
+          "package_name": "com.shiftedarts.plushsmemory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpiJ_XDT-i-ZzKV7UPF7ixElQ9jsK3prw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
