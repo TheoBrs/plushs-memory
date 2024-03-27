@@ -10,10 +10,11 @@ public class Player : Entity
     Ability _fAbility3;
     int _pattoBuff = 0;
 
+    [SerializeField] int posX;
+    [SerializeField] int posY;
+    Coord currentPos;
     GameObject player;
-    Coord currentCell;
     Cell selectedGridCell;
-    Vector3 position;
     float width;
     float height;
     CombatGrid grid;
@@ -23,7 +24,8 @@ public class Player : Entity
     protected override void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
-        currentCell = new Coord(0, 0);
+        currentPos = new Coord(posX, posY);
+        transform.position = new Vector3(posX, 0.01f, posY);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
 
@@ -177,6 +179,7 @@ public class Player : Entity
 
                                     selectedGridCell = gridElement;
                                     selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                                    break;
                                 }
                             }
 
@@ -189,7 +192,13 @@ public class Player : Entity
                                 else
                                     gridElement.SetGameObjectMaterial(grid.GetDefaultGridMat());
                             }
-                            path = AStar.FindPath(currentCell, selectedGridCell.Coord, elements);
+                            path = AStar.FindPath(currentPos, selectedGridCell.Coord, elements);
+
+                            if (selectedGridCell.HasEnemy && path.Count == 2)
+                            {
+                                path.Clear();
+                                return;
+                            }
 
                             if (selectedGridCell.HasEnemy)
                             {
@@ -243,7 +252,7 @@ public class Player : Entity
         }
     }
 
-    void Move()
+    public void Move()
     {
         if (path == null || path.Count == 0)
             return;
@@ -252,12 +261,51 @@ public class Player : Entity
         {
             if (gridElement.IsObstacle)
                 gridElement.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
+            else if (gridElement.HasEnemy)
+                gridElement.SetGameObjectMaterial(grid.GetEnemyGridMat());
             else
                 gridElement.SetGameObjectMaterial(grid.GetDefaultGridMat());
         }
         Move(selectedGridCell.Coord, true);
-        currentCell = selectedGridCell.Coord;
+        currentPos = selectedGridCell.Coord;
         path.Clear();
+    }
+
+    public Entity GetEnemy()
+    {
+        if (Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                RaycastHit hit;
+
+                //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        GameObject touchedObject = hit.transform.gameObject;
+                        if (touchedObject.transform.name == "GridCell(Clone)")
+                        {
+                            elements = grid.GetGridElements();
+                            foreach (var gridElement in elements)
+                            {
+                                if (touchedObject == gridElement.GameObject)
+                                {
+                                    Cell cell = elements[gridElement.Coord.X + grid.GetMaxX() / 2, gridElement.Coord.Y + grid.GetMaxY() / 2];
+                                    if (cell.Entity != null)
+                                        return cell.Entity;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
     public override void Death()
     {
