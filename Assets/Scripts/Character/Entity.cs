@@ -22,6 +22,14 @@ public abstract class Entity: MonoBehaviour
         _grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
     }
 
+    protected virtual void Start()
+    {
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
+
+        AbilitiesInitialization();
+    }
+
     protected abstract void AbilitiesInitialization();
 
     protected virtual void CastAbility1(Entity target)

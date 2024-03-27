@@ -20,7 +20,7 @@ public class Player : Entity
     Cell[] map;
     List<Cell> path;
 
-    public void Start()
+    protected override void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         currentCell = new Coord(0, 0);
@@ -30,6 +30,7 @@ public class Player : Entity
         _currentHP = MaxHP.GetValue();
         _currentAP = MaxAP.GetValue();
         AbilitiesInitialization();
+        base.Start();
     }
 
     protected override void AbilitiesInitialization()
