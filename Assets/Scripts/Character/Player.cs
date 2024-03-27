@@ -137,19 +137,29 @@ public class Player : Entity
                         if (touchedObject.transform.name == "GridCell(Clone)")
                         {
                             if (selectedGridCell != null)
-                                selectedGridCell.SetGameObjectMaterial(grid.GetGridMat());
+                                selectedGridCell.SetGameObjectMaterial(grid.GetDefaultGridMat());
 
                             elements = grid.GetGridElements();
                             map = new Cell[elements.Length];
                             int index = 0;
                             foreach (var gridElement in elements)
                             {
-                                Cell newCell = new Cell { coord = gridElement.GetCoord(), walkable = gridElement.getWalkable() };
+                                Cell newCell = new Cell(gridElement.GetCoord());
+                                newCell.SetWalkable(gridElement.getWalkable());
                                 map[index] = newCell;
                                 index++;
 
                                 if (touchedObject == gridElement.GetGameObject())
                                 {
+                                    if (!gridElement.getWalkable())
+                                    {
+                                        foreach (var tempcell in elements)
+                                        {
+                                            tempcell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                                        }
+                                        return;
+                                    }
+
                                     selectedGridCell = gridElement;
                                     selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
                                 }
@@ -158,7 +168,10 @@ public class Player : Entity
 
                             foreach (var gridElement in elements)
                             {
-                                gridElement.SetGameObjectMaterial(grid.GetGridMat());
+                                if (gridElement.getWalkable())
+                                    gridElement.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                                else
+                                    gridElement.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
                             }
                             path = AStar.FindPath(currentCell, selectedGridCell.GetCoord(), map);
 
@@ -167,7 +180,7 @@ public class Player : Entity
                             {
                                 foreach (var gridElement in elements)
                                 {
-                                    if (gridElement.GetCoord().Equals(cell.coord))
+                                    if (gridElement.GetCoord().Equals(cell.GetCoord()))
                                     {
                                         // This is assuming that the current AP doesn't change while selecting a movement
                                         if (steps <= _currentAP)
@@ -218,7 +231,10 @@ public class Player : Entity
 
         foreach (var gridElement in elements)
         {
-            gridElement.SetGameObjectMaterial(grid.GetGridMat());
+            if (gridElement.getWalkable())
+                gridElement.SetGameObjectMaterial(grid.GetDefaultGridMat());
+            else
+                gridElement.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
         }
         Move(selectedGridCell.GetCoord(), true);
         currentCell = selectedGridCell.GetCoord();

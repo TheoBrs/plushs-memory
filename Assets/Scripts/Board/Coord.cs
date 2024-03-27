@@ -2,8 +2,8 @@ using UnityEngine;
 
 public struct Coord
 {
-    public readonly int x;
-    public readonly int y;
+    readonly int x;
+    readonly int y;
        
     public Coord(int x, int y)
     {
@@ -30,4 +30,7 @@ public struct Coord
     {
         return "x:" + x + " y:" + y;
     }
+    public int GetX() { return x; }
+    public int GetY() { return y; }
+
 }

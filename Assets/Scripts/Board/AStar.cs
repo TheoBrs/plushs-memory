@@ -5,19 +5,37 @@ using UnityEngine;
 
 public class Cell
 {
-    public Coord coord;
-    public float G;
-    public float H;
-    public float F;
-    public Cell parent;
-    public bool walkable;
+    Coord coord;
+    float G;
+    float H;
+    float F;
+    Cell parent;
+    bool walkable;
+
+    public Coord GetCoord() { return coord; }
+    public void SetCoord(Coord coord) { this.coord = coord; }
+    public float GetG() { return G; }
+    public void SetG(float g) { G = g; }
+    public float GetH() { return H; }
+    public void SetH(float h) { H = h; }
+    public float GetF() { return F; }
+    public void SetF(float f) { F = f; }
+    public Cell GetParent() { return parent; }
+    public void SetParent(Cell parent) { this.parent = parent; }
+    public bool GetWalkable() { return walkable; }
+    public void SetWalkable(bool walkable) { this.walkable = walkable; }
+
+    public Cell(Coord coord)
+    {
+        this.coord = coord;
+    }
 }
 
 public class AStar
 {
     static float ComputeHScore(Coord start, Coord dest)
     {
-        return Mathf.Abs(start.x - dest.x) + Mathf.Abs(start.y - dest.y);
+        return Mathf.Abs(start.GetX() - dest.GetX()) + Mathf.Abs(start.GetY() - dest.GetY());
     }
 
     static List<Cell> GetWalkableAdjacentSquares(int x, int y, Cell[] map)
@@ -26,13 +44,13 @@ public class AStar
 
         foreach (Cell cell in map)
         {
-            if (cell.coord.x == x && cell.coord.y == y - 1 && cell.walkable)
+            if (cell.GetCoord().GetX() == x && cell.GetCoord().GetY() == y - 1 && cell.GetWalkable())
                 proposedLocations.Add(cell);
-            if (cell.coord.x == x && cell.coord.y == y + 1 && cell.walkable)
+            if (cell.GetCoord().GetX() == x && cell.GetCoord().GetY() == y + 1 && cell.GetWalkable())
                 proposedLocations.Add(cell);
-            if (cell.coord.x == x - 1 && cell.coord.y == y && cell.walkable)
+            if (cell.GetCoord().GetX() == x - 1 && cell.GetCoord().GetY() == y && cell.GetWalkable())
                 proposedLocations.Add(cell);
-            if (cell.coord.x == x + 1 && cell.coord.y == y && cell.walkable)
+            if (cell.GetCoord().GetX() == x + 1 && cell.GetCoord().GetY() == y && cell.GetWalkable())
                 proposedLocations.Add(cell);
         }
 
@@ -43,8 +61,8 @@ public class AStar
     public static List<Cell> FindPath(Coord startCoord, Coord destCoord, Cell[] map)
     {   
         Cell current = null;
-        var start = new Cell { coord = startCoord };
-        var target = new Cell { coord = destCoord };
+        var start = new Cell(startCoord);
+        var target = new Cell(destCoord);
         var openList = new List<Cell>();
         var closedList = new List<Cell>();
         int g = 0;
@@ -55,8 +73,8 @@ public class AStar
         while (openList.Count > 0)
         {
             // get the square with the lowest F score
-            var lowest = openList.Min(l => l.F);
-            current = openList.First(l => l.F == lowest);
+            var lowest = openList.Min(l => l.GetF());
+            current = openList.First(l => l.GetF() == lowest);
 
             // add the current square to the closed list
             closedList.Add(current);
@@ -65,28 +83,28 @@ public class AStar
             openList.Remove(current);
 
             // if we added the destination to the closed list, we've found a path
-            if (closedList.FirstOrDefault(l => l.coord.x == target.coord.x && l.coord.y == target.coord.y) != null)
+            if (closedList.FirstOrDefault(l => l.GetCoord().GetX() == target.GetCoord().GetX() && l.GetCoord().GetY() == target.GetCoord().GetY()) != null)
                 break;
 
-            var adjacentSquares = GetWalkableAdjacentSquares(current.coord.x, current.coord.y, map);
+            var adjacentSquares = GetWalkableAdjacentSquares(current.GetCoord().GetX(), current.GetCoord().GetY(), map);
             g++;
 
             foreach (var adjacentSquare in adjacentSquares)
             {
                 // if this adjacent square is already in the closed list, ignore it
-                if (closedList.FirstOrDefault(l => l.coord.x == adjacentSquare.coord.x
-                        && l.coord.y == adjacentSquare.coord.y) != null)
+                if (closedList.FirstOrDefault(l => l.GetCoord().GetX() == adjacentSquare.GetCoord().GetX()
+                        && l.GetCoord().GetY() == adjacentSquare.GetCoord().GetY()) != null)
                     continue;
 
                 // if it's not in the open list...
-                if (openList.FirstOrDefault(l => l.coord.x == adjacentSquare.coord.x
-                        && l.coord.y == adjacentSquare.coord.y) == null)
+                if (openList.FirstOrDefault(l => l.GetCoord().GetX() == adjacentSquare.GetCoord().GetX()
+                        && l.GetCoord().GetY() == adjacentSquare.GetCoord().GetY()) == null)
                 {
                     // compute its score, set the parent
-                    adjacentSquare.G = g;
-                    adjacentSquare.H = ComputeHScore(adjacentSquare.coord, target.coord);
-                    adjacentSquare.F = adjacentSquare.G + adjacentSquare.H;
-                    adjacentSquare.parent = current;
+                    adjacentSquare.SetG(g);
+                    adjacentSquare.SetH(ComputeHScore(adjacentSquare.GetCoord(), target.GetCoord()));
+                    adjacentSquare.SetF(adjacentSquare.GetG() + adjacentSquare.GetH());
+                    adjacentSquare.SetParent(current);
 
                     // and add it to the open list
                     openList.Insert(0, adjacentSquare);
@@ -95,16 +113,27 @@ public class AStar
                 {
                     // test if using the current G score makes the adjacent square's F score
                     // lower, if yes update the parent because it means it's a better path
-                    if (g + adjacentSquare.H < adjacentSquare.F)
+                    if (g + adjacentSquare.GetH() < adjacentSquare.GetF())
                     {
-                        adjacentSquare.G = g;
-                        adjacentSquare.F = adjacentSquare.G + adjacentSquare.H;
-                        adjacentSquare.parent = current;
+
+                        adjacentSquare.SetG(g);
+                        adjacentSquare.SetF(adjacentSquare.GetG() + adjacentSquare.GetH());
+                        adjacentSquare.SetParent(current);
                     }
                 }
             }
         }
 
+        Cell tempCell = closedList.Last();
+        closedList.Clear();
+        closedList.Insert(0, tempCell);
+        Debug.Log(tempCell.GetCoord().ToString());
+        while (tempCell != start)
+        {
+            tempCell = tempCell.GetParent();
+            closedList.Insert(0, tempCell);
+            Debug.Log(tempCell.GetCoord().ToString());
+        }
         return closedList;
     }
 }

@@ -5,7 +5,8 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] int maxX;
     [SerializeField] int maxY;
 
-    [SerializeField] Material gridMat;
+    [SerializeField] Material defaultGridMat;
+    [SerializeField] Material notWalkableGridMat;
     [SerializeField] Material selectedGridMat;
     [SerializeField] Material pathGridMat;
     [SerializeField] Material redPathGridMat;
@@ -23,7 +24,7 @@ public class CombatGrid : MonoBehaviour
             for (int x = 0; x < maxX; x++)
             {
                 Coord coords = new Coord(x - (maxX / 2), y - (maxY / 2));
-                GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.x, 0.01f, coords.y), Quaternion.identity);
+                GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.GetX(), 0.01f, coords.GetY()), Quaternion.identity);
                 bool walkable = true;
 
                 // This is to force the cell to have an "obstacle"
@@ -31,6 +32,11 @@ public class CombatGrid : MonoBehaviour
                     walkable = false;
 
                 GridElement gridElement = new GridElement(coords, newCell, walkable);
+
+                // This is to force the cell to have an "obstacle"
+                if (x == 1 && y == 1)
+                    gridElement.SetGameObjectMaterial(notWalkableGridMat);
+
                 elements[x, y] = gridElement;
             }
         }
@@ -46,9 +52,14 @@ public class CombatGrid : MonoBehaviour
         return elements;
     }
 
-    public Material GetGridMat()
+    public Material GetDefaultGridMat()
     {
-        return gridMat;
+        return defaultGridMat;
+    }
+
+    public Material GetNotWalkableGridMat()
+    {
+        return notWalkableGridMat;
     }
 
     public Material GetSelectedGridMat()

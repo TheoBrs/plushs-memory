@@ -58,7 +58,7 @@ public abstract class Entity: MonoBehaviour
 
     public void Move(Coord coordTo, bool instant)
     {
-        GridElement gridElement = _grid.GetGridElement(coordTo.x, coordTo.y);
+        GridElement gridElement = _grid.GetGridElement(coordTo.GetX(), coordTo.GetY());
 
         Vector3 newPosition = gridElement.GetGameObjectPosition();
         
