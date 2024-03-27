@@ -524,6 +524,7 @@ MonoBehaviour:
   maxY: 5
   defaultGridMat: {fileID: 2100000, guid: d9ebc76ec51d7a649acfb42668bd54db, type: 2}
   notWalkableGridMat: {fileID: 2100000, guid: e022a9af814716c4e83876b977e36b99, type: 2}
+  enemyGridMat: {fileID: 2100000, guid: 2405ca9af870e4c44943bcfcb578b68c, type: 2}
   selectedGridMat: {fileID: 2100000, guid: 1343a48b000c41e43b13c92e2eb5833d, type: 2}
   pathGridMat: {fileID: 2100000, guid: 73c9bf0361083334d87b5482edd9cffd, type: 2}
   redPathGridMat: {fileID: 2100000, guid: 4f7e1e6f05242794c836f323a81485a3, type: 2}
