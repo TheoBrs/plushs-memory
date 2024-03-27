@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -274,8 +274,7 @@ MonoBehaviour:
   m_SoftShadowQuality: 0
 --- !u!1 &523968949 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5f453536998bad147809e79aea0e7a13,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5f453536998bad147809e79aea0e7a13, type: 3}
   m_PrefabInstance: {fileID: 1005674723}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &523968952
@@ -382,18 +381,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bot
       objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13,
-        type: 3}
+    - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13, type: 3}
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: 5f453536998bad147809e79aea0e7a13, type: 3}
-    - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13,
-        type: 3}
+    - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 140ce6f2c66db334c9c0248943a9e476, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13,
-        type: 3}
+    - target: {fileID: 5866666021909216657, guid: 5f453536998bad147809e79aea0e7a13, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -401,8 +397,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5f453536998bad147809e79aea0e7a13,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5f453536998bad147809e79aea0e7a13, type: 3}
       insertIndex: -1
       addedObject: {fileID: 523968952}
   m_SourcePrefab: {fileID: 100100000, guid: 5f453536998bad147809e79aea0e7a13, type: 3}
@@ -532,8 +527,7 @@ MonoBehaviour:
   selectedGridMat: {fileID: 2100000, guid: 1343a48b000c41e43b13c92e2eb5833d, type: 2}
   pathGridMat: {fileID: 2100000, guid: 73c9bf0361083334d87b5482edd9cffd, type: 2}
   redPathGridMat: {fileID: 2100000, guid: 4f7e1e6f05242794c836f323a81485a3, type: 2}
-  gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77,
-    type: 3}
+  gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77, type: 3}
 --- !u!1 &1061407116
 GameObject:
   m_ObjectHideFlags: 0

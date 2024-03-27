@@ -66,14 +66,14 @@ public abstract class Entity: MonoBehaviour
 
     public void Move(Coord coordTo, bool instant)
     {
-        GridElement gridElement = _grid.GetGridElement(coordTo.GetX(), coordTo.GetY());
+        Cell gridElement = _grid.GetGridElement(coordTo.X, coordTo.Y);
 
-        Vector3 newPosition = gridElement.GetGameObjectPosition();
+        Vector3 newPosition = gridElement.GameObject.transform.position;
         
         if ((transform.position - newPosition).magnitude < 0.02f || instant)
         {
             transform.position = newPosition;
-            _currentPos = gridElement.GetCoord();
+            _currentPos = gridElement.Coord;
         }
         else
         {
