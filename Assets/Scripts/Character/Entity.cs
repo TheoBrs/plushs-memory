@@ -24,12 +24,12 @@ public abstract class Entity: MonoBehaviour
 
     protected abstract void AbilitiesInitialization();
 
-    protected virtual void CastAbility1(Entity target)
+    public virtual void CastAbility1(Entity target)
     {
         _currentAP -= _ability1.Cost;
         target.TakeDamage(_ability1.Damage + Attack.GetValue());
     }
-    protected abstract void CastAbility2(Entity target);
+    public abstract void CastAbility2(Entity target);
 
     public void TakeDamage(int damage)
     {

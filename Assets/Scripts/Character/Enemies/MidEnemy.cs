@@ -16,11 +16,11 @@ public class MidEnemy : Enemy
         _ability2.RoundsBeforeReuse = 2;
     }
 
-    protected override void CastAbility1(Entity target)
+    public override void CastAbility1(Entity target)
     {
         base.CastAbility1(target);
     }
-    protected override void CastAbility2(Entity target)
+    public override void CastAbility2(Entity target)
     {
         _currentAP -= _ability2.Cost;
         if (_ability2.RoundsBeforeReuse == 0)

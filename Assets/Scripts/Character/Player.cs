@@ -25,7 +25,7 @@ public class Player : Entity
         _fAbility3.RoundsBeforeReuse = 4;
     }
 
-    protected override void CastAbility1(Entity target)
+    public override void CastAbility1(Entity target) //corps à corps
     {
         _currentAP -= _ability1.Cost;
         if(_pattoBuff > 0)
@@ -39,7 +39,7 @@ public class Player : Entity
         }
     }
 
-    protected override void CastAbility2(Entity target)
+    public override void CastAbility2(Entity target)
     {
         _currentAP -= _ability2.Cost;
         if (_pattoBuff > 0)
@@ -53,7 +53,7 @@ public class Player : Entity
         }
     }
 
-    protected void CastFriendAbility1()
+    public void CastFriendAbility1()
     {
         if(_fAbility1.RoundsBeforeReuse == 0)
         {
@@ -67,7 +67,7 @@ public class Player : Entity
         }
     }
 
-    protected void CastFriendAbility2()
+    public void CastFriendAbility2()
     {
         if (_fAbility2.RoundsBeforeReuse == 0)
         {
@@ -81,7 +81,7 @@ public class Player : Entity
         }
     }
 
-    protected void CastFriendAbility3()
+    public void CastFriendAbility3()
     {
         if (_fAbility3.RoundsBeforeReuse == 0)
         {

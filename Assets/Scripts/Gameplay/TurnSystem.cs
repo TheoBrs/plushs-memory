@@ -12,29 +12,23 @@ public class TurnSystem : MonoBehaviour
         WIN,
         LOSE
     }
+    private Player player;
 
-    private GameObject Player;
-    private GameObject Enemy;
-
-    private UnityEvent EndTurn;
     public FightPhase CurrentState = FightPhase.INIT;
-   
+
     void Start()
     {
-         SetUpBattle();
-        GameObject.Find("Button").GetComponent<Button>().onClick.AddListener(OnEndTurnButton);
+        SetUpBattle();
     }
 
     void Update()
     {
         StateSwitch();
-
     }
 
     private void SetUpBattle()
     {
-        //Instantiate(Player);
-       // Instantiate(Enemie); //replace by liste
+        // Instantiate(Enemie); //replace by liste
         CurrentState = FightPhase.PLAYERTURN;
     }
 
@@ -46,42 +40,42 @@ public class TurnSystem : MonoBehaviour
     public void EnemyTurn()
     {
         Debug.Log("TurnEnemey");
-/*      if( nbEnemie <=0 && Player.health > 0 )
-        {
-            current_state = EnumTurn.Win
-        }
+        /*      if( nbEnemie <=0 && Player.health > 0 )
+                {
+                    current_state = EnumTurn.Win
+                }
 
-        else if( Player.health <= 0)
-        {
-            current_state = EnumTurn.lose;
-        }*/
+                else if( Player.health <= 0)
+                {
+                    current_state = EnumTurn.lose;
+                }*/
         CurrentState = FightPhase.PLAYERTURN;
     }
 
     private void StateSwitch()
     {
-        
-        switch(CurrentState)
+
+        switch (CurrentState)
         {
             case FightPhase.PLAYERTURN:
-            PlayerTurn();
-            break;
+                PlayerTurn();
+                break;
 
             case FightPhase.ENEMYTURN:
-            EnemyTurn();
-            break;
+                EnemyTurn();
+                break;
 
             case FightPhase.WIN:
-            Win();
-            break;
-            
+                Win();
+                break;
+
             case FightPhase.LOSE:
-            Lose();
-            break;
+                Lose();
+                break;
 
             default:
-            CurrentState = FightPhase.INIT;
-            break;
+                CurrentState = FightPhase.INIT;
+                break;
         }
     }
 
@@ -98,7 +92,7 @@ public class TurnSystem : MonoBehaviour
 
     public void OnEndTurnButton()
     {
-        if (CurrentState!= FightPhase.PLAYERTURN)
+        if (CurrentState != FightPhase.PLAYERTURN)
         {
             return;
         }
@@ -115,4 +109,77 @@ public class TurnSystem : MonoBehaviour
             CurrentState = FightPhase.ENEMYTURN;
         }
     }
+
+#region Attaque
+
+    public void OnCACButton()
+    {
+        if (CurrentState != FightPhase.PLAYERTURN)
+        {
+            return;
+        }
+        else
+        {
+            //player.CastAbility1();
+            //detection porter
+            Debug.Log("CAC");
+        }
+    }
+
+        public void OnRangeButton()
+    {
+        if (CurrentState != FightPhase.PLAYERTURN)
+        {
+            return;
+        }
+        else
+        {
+            //player.CastAbility2();
+            //detection porter
+            Debug.Log("Range");
+        }
+    }
+
+        public void OnFriend1Button()
+    {
+        if (CurrentState != FightPhase.PLAYERTURN)
+        {
+            return;
+        }
+        else
+        {
+            player.CastFriendAbility1();
+            //detection porter
+            Debug.Log("Friend Ability 1");
+        }
+    }
+
+    public void OnFiend2Button()
+    {
+        if (CurrentState != FightPhase.PLAYERTURN)
+        {
+            return;
+        }
+        else
+        {
+            player.CastFriendAbility2();
+            //detection porter
+            Debug.Log("Friend Ability 2");
+        }
+    }
+
+        public void OnFiend3Button()
+    {
+        if (CurrentState != FightPhase.PLAYERTURN)
+        {
+            return;
+        }
+        else
+        {
+            player.CastFriendAbility3();
+            //detection porter
+            Debug.Log("Friend Ability 3");
+        }
+    }
+#endregion
 }
