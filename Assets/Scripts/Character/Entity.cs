@@ -2,26 +2,25 @@ using UnityEngine;
 
 public abstract class Entity: MonoBehaviour
 {
-    public struct Coord
-    {
-        private float _x;
-        private float _y;
-    };
-
     [Header("HP and AP settings")]
     public Stat MaxHP;
     public Stat MaxAP;
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
 
+    protected Coord _currentPos;
     protected int _currentHP;
     protected int _currentAP;
-
     protected Ability _ability1;
     protected Ability _ability2;
-
     protected bool _invincible = false;
 
+    CombatGrid _grid;
+
+    private void Awake()
+    {
+        _grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+    }
 
     protected virtual void Start()
     {
@@ -62,6 +61,24 @@ public abstract class Entity: MonoBehaviour
         if (_currentHP <= 0)
         {
             Death();
+        }
+    }
+
+    public void Move(Coord coordTo, bool instant)
+    {
+        GridElement gridElement = _grid.GetGridElement(coordTo.GetX(), coordTo.GetY());
+
+        Vector3 newPosition = gridElement.GetGameObjectPosition();
+        
+        if ((transform.position - newPosition).magnitude < 0.02f || instant)
+        {
+            transform.position = newPosition;
+            _currentPos = gridElement.GetCoord();
+        }
+        else
+        {
+            Vector3 directeur = 10f * Time.deltaTime * (newPosition - transform.position).normalized;
+            transform.position += directeur;
         }
     }
 
