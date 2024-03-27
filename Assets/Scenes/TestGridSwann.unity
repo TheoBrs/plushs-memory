@@ -292,11 +292,13 @@ MonoBehaviour:
   MaxHP:
     _baseValue: 0
   MaxAP:
-    _baseValue: 3
+    _baseValue: 5
   Attack:
     _baseValue: 0
   Defense:
     _baseValue: 0
+  posX: 0
+  posY: 0
 --- !u!1 &693028442
 GameObject:
   m_ObjectHideFlags: 0
