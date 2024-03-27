@@ -155,7 +155,10 @@ public class Player : Entity
                                     {
                                         foreach (var tempcell in elements)
                                         {
-                                            tempcell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                                            if (tempcell.getWalkable())
+                                                tempcell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                                            else
+                                                tempcell.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
                                         }
                                         return;
                                     }

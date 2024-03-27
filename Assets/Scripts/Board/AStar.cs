@@ -132,7 +132,6 @@ public class AStar
         {
             tempCell = tempCell.GetParent();
             closedList.Insert(0, tempCell);
-            Debug.Log(tempCell.GetCoord().ToString());
         }
         return closedList;
     }
