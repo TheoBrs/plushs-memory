@@ -127,7 +127,6 @@ public class AStar
         Cell tempCell = closedList.Last();
         closedList.Clear();
         closedList.Insert(0, tempCell);
-        Debug.Log(tempCell.GetCoord().ToString());
         while (tempCell != start)
         {
             tempCell = tempCell.GetParent();
