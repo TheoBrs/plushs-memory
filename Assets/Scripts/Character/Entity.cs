@@ -22,6 +22,15 @@ public abstract class Entity: MonoBehaviour
 
     protected bool _invincible = false;
 
+
+    protected virtual void Start()
+    {
+        _currentHP = MaxHP.GetValue();
+        _currentAP = MaxAP.GetValue();
+
+        AbilitiesInitialization();
+    }
+
     protected abstract void AbilitiesInitialization();
 
     protected virtual void CastAbility1(Entity target)
