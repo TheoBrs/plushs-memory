@@ -8,16 +8,16 @@ public class TurnSystem : MonoBehaviour
     {
         INIT,
         PLAYERTURN,
-        ENEMIETURN,
+        ENEMYTURN,
         WIN,
         LOSE
     }
 
     private GameObject Player;
-    private GameObject Enemie;
+    private GameObject Enemy;
 
     private UnityEvent EndTurn;
-    public FightPhase CurentState = FightPhase.INIT;
+    public FightPhase CurrentState = FightPhase.INIT;
    
     void Start()
     {
@@ -35,7 +35,7 @@ public class TurnSystem : MonoBehaviour
     {
         //Instantiate(Player);
        // Instantiate(Enemie); //replace by liste
-        CurentState = FightPhase.PLAYERTURN;
+        CurrentState = FightPhase.PLAYERTURN;
     }
 
     private void PlayerTurn()
@@ -43,7 +43,7 @@ public class TurnSystem : MonoBehaviour
         Debug.Log("TurnPlayer");
     }
 
-    public void EnemieTurn()
+    public void EnemyTurn()
     {
         Debug.Log("TurnEnemey");
 /*      if( nbEnemie <=0 && Player.health > 0 )
@@ -55,20 +55,20 @@ public class TurnSystem : MonoBehaviour
         {
             current_state = EnumTurn.lose;
         }*/
-        CurentState = FightPhase.PLAYERTURN;
+        CurrentState = FightPhase.PLAYERTURN;
     }
 
     private void StateSwitch()
     {
         
-        switch(CurentState)
+        switch(CurrentState)
         {
             case FightPhase.PLAYERTURN:
             PlayerTurn();
             break;
 
-            case FightPhase.ENEMIETURN:
-            EnemieTurn();
+            case FightPhase.ENEMYTURN:
+            EnemyTurn();
             break;
 
             case FightPhase.WIN:
@@ -80,7 +80,7 @@ public class TurnSystem : MonoBehaviour
             break;
 
             default:
-            CurentState = FightPhase.INIT;
+            CurrentState = FightPhase.INIT;
             break;
         }
     }
@@ -98,7 +98,7 @@ public class TurnSystem : MonoBehaviour
 
     public void OnEndTurnButton()
     {
-        if (CurentState!= FightPhase.PLAYERTURN)
+        if (CurrentState!= FightPhase.PLAYERTURN)
         {
             return;
         }
@@ -112,7 +112,7 @@ public class TurnSystem : MonoBehaviour
         }*/
         else
         {
-            CurentState = FightPhase.ENEMIETURN;
+            CurrentState = FightPhase.ENEMYTURN;
         }
     }
 }
