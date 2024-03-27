@@ -135,7 +135,6 @@ public class TurnSystem : MonoBehaviour
         else
         {
             //player.CastAbility2();
-            //detection porter
             Debug.Log("Range");
         }
     }
@@ -149,7 +148,6 @@ public class TurnSystem : MonoBehaviour
         else
         {
             player.CastFriendAbility1();
-            //detection porter
             Debug.Log("Friend Ability 1");
         }
     }
@@ -163,7 +161,6 @@ public class TurnSystem : MonoBehaviour
         else
         {
             player.CastFriendAbility2();
-            //detection porter
             Debug.Log("Friend Ability 2");
         }
     }
@@ -177,7 +174,6 @@ public class TurnSystem : MonoBehaviour
         else
         {
             player.CastFriendAbility3();
-            //detection porter
             Debug.Log("Friend Ability 3");
         }
     }
