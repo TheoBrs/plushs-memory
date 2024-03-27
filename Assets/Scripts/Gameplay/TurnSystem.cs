@@ -96,14 +96,8 @@ public class TurnSystem : MonoBehaviour
         Debug.Log("lose");
     }
 
-
-    public void test(){
-        Debug.Log("aaaaaaaaaaaqaaaaa");
-    }
-
     public void OnEndTurnButton()
     {
-        Debug.Log("App");
         if (CurentState!= FightPhase.PLAYERTURN)
         {
             return;
