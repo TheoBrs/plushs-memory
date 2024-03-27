@@ -1,19 +1,41 @@
+using System.Collections.Generic;
+using System.Drawing;
+using UnityEngine;
+
 public class Player : Entity
 {
-    private Ability _fAbility1;
-    private Ability _fAbility2;
-    private Ability _fAbility3;
-    private int _pattoBuff = 0;
+    Ability _fAbility1;
+    Ability _fAbility2;
+    Ability _fAbility3;
+    int _pattoBuff = 0;
 
-    public void Start()
+    GameObject player;
+    Coord currentCell;
+    GridElement selectedGridCell;
+    Vector3 position;
+    float width;
+    float height;
+    CombatGrid grid;
+    GridElement[,] elements;
+    Cell[] map;
+    List<Cell> path;
+
+    protected override void Start()
     {
+        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+        currentCell = new Coord(0, 0);
+        width = Screen.width / 2.0f;
+        height = Screen.height / 2.0f;
+
         _currentHP = MaxHP.GetValue();
         _currentAP = MaxAP.GetValue();
         AbilitiesInitialization();
+        base.Start();
     }
 
     protected override void AbilitiesInitialization()
     {
+        /* Not instanciated
         _ability1.Damage = 2;
         _ability1.Cost = 1;
 
@@ -23,6 +45,7 @@ public class Player : Entity
         _fAbility1.RoundsBeforeReuse = 2;
         _fAbility2.RoundsBeforeReuse = 3;
         _fAbility3.RoundsBeforeReuse = 4;
+        */
     }
 
     public override void CastAbility1(Entity target) //corps à corps
@@ -95,6 +118,131 @@ public class Player : Entity
         }
     }
 
+    void Update()
+    {
+        if (Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                RaycastHit hit;
+
+                //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        GameObject touchedObject = hit.transform.gameObject;
+                        if (touchedObject.transform.name == "GridCell(Clone)")
+                        {
+                            if (selectedGridCell != null)
+                                selectedGridCell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+
+                            elements = grid.GetGridElements();
+                            map = new Cell[elements.Length];
+                            int index = 0;
+                            foreach (var gridElement in elements)
+                            {
+                                Cell newCell = new Cell { Coord = gridElement.GetCoord(), Walkable = gridElement.getWalkable() };
+                                map[index] = newCell;
+                                index++;
+
+                                if (touchedObject == gridElement.GetGameObject())
+                                {
+                                    if (!gridElement.getWalkable())
+                                    {
+                                        foreach (var tempcell in elements)
+                                        {
+                                            if (tempcell.getWalkable())
+                                                tempcell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                                            else
+                                                tempcell.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
+                                        }
+                                        return;
+                                    }
+
+                                    selectedGridCell = gridElement;
+                                    selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                                }
+                            }
+
+
+                            foreach (var gridElement in elements)
+                            {
+                                if (gridElement.getWalkable())
+                                    gridElement.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                                else
+                                    gridElement.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
+                            }
+                            path = AStar.FindPath(currentCell, selectedGridCell.GetCoord(), map);
+
+                            int steps = 0;
+                            foreach (var cell in path)
+                            {
+                                foreach (var gridElement in elements)
+                                {
+                                    if (gridElement.GetCoord().Equals(cell.Coord))
+                                    {
+                                        // This is assuming that the current AP doesn't change while selecting a movement
+                                        if (steps <= _currentAP)
+                                        {
+                                            gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
+                                        }
+                                        else
+                                        {
+                                            gridElement.SetGameObjectMaterial(grid.GetRedPathGridMat());
+                                        }
+                                        steps++;
+                                    }
+                                }
+                            }
+                            if (steps <= _currentAP + 1)
+                            {
+                                selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                            }
+                            else
+                            {
+                                selectedGridCell.SetGameObjectMaterial(grid.GetRedPathGridMat());
+                                // can add more stuff that prevent to move
+                                path.Clear();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (Input.touchCount == 2)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                Vector3 touchPosition = (Input.GetTouch(0).position + Input.GetTouch(1).position) / 2;
+
+                Vector3 newCamPos = new Vector3(-touchPosition.x, -touchPosition.y, -10);
+                newCamPos.x = (newCamPos.x + width) / width;
+                newCamPos.y = (newCamPos.y + height) / height;
+                Camera.main.transform.localPosition = newCamPos;
+            }
+        }
+    }
+
+    void Move()
+    {
+        if (path == null || path.Count == 0)
+            return;
+
+        foreach (var gridElement in elements)
+        {
+            if (gridElement.getWalkable())
+                gridElement.SetGameObjectMaterial(grid.GetDefaultGridMat());
+            else
+                gridElement.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
+        }
+        Move(selectedGridCell.GetCoord(), true);
+        currentCell = selectedGridCell.GetCoord();
+        path.Clear();
+    }
     public override void Death()
     {
         // GameOver

@@ -1,11 +1,13 @@
 public class StrongEnemy : Enemy
 {
-    void Start()
+    protected override void Start()
     {
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
+        base.Start();
+    }
 
-        AbilitiesInitialization();
+    protected override void Update()
+    {
+        base.Update();
     }
 
     protected override void AbilitiesInitialization()
