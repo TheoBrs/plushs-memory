@@ -35,7 +35,12 @@ public class Player : Entity
 
     protected override void AbilitiesInitialization()
     {
-        /* Not instanciated
+        _ability1 = new Ability();
+        _ability2 = new Ability();
+        _fAbility1 = new Ability();
+        _fAbility2 = new Ability();
+        _fAbility3 = new Ability();
+
         _ability1.Damage = 2;
         _ability1.Cost = 1;
 
@@ -45,7 +50,6 @@ public class Player : Entity
         _fAbility1.RoundsBeforeReuse = 2;
         _fAbility2.RoundsBeforeReuse = 3;
         _fAbility3.RoundsBeforeReuse = 4;
-        */
     }
 
     protected override void CastAbility1(Entity target)
@@ -227,7 +231,7 @@ public class Player : Entity
         }
     }
 
-    void Move()
+    public void Move()
     {
         if (path == null || path.Count == 0)
             return;
