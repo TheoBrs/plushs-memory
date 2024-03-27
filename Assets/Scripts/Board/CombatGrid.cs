@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class CombatGrid : MonoBehaviour
@@ -5,12 +6,12 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] int maxX;
     [SerializeField] int maxY;
 
-    [SerializeField] Material defaultGridMat;
-    [SerializeField] Material notWalkableGridMat;
-    [SerializeField] Material enemyGridMat;
-    [SerializeField] Material selectedGridMat;
-    [SerializeField] Material pathGridMat;
-    [SerializeField] Material redPathGridMat;
+    Material defaultGridMat;
+    Material notWalkableGridMat;
+    Material enemyGridMat;
+    Material selectedGridMat;
+    Material pathGridMat;
+    Material redPathGridMat;
 
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
@@ -18,6 +19,13 @@ public class CombatGrid : MonoBehaviour
     //creation de la grille de Combat
     void Awake()
     {
+        defaultGridMat = Resources.Load<Material>("defaultGrid");
+        notWalkableGridMat = Resources.Load<Material>("notWalkableGrid");
+        enemyGridMat = Resources.Load<Material>("enemyGrid");
+        selectedGridMat = Resources.Load<Material>("selectedGrid");
+        pathGridMat = Resources.Load<Material>("pathGrid");
+        redPathGridMat = Resources.Load<Material>("redGrid");
+
         elements = new Cell[maxX, maxY];
 
         for (int y = 0; y < maxY ; y++)
