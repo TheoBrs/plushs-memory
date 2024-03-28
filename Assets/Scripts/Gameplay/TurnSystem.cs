@@ -6,6 +6,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class TurnSystem : MonoBehaviour
 {
+    [SerializeField] GameObject enemyPrefab;
     public enum FightPhase
     {
         INIT,
@@ -14,16 +15,16 @@ public class TurnSystem : MonoBehaviour
         WIN,
         LOSE
     }
-    public GameObject enemyPrefab;
+
     CombatGrid grid;
-    private Player player;
+    private Player _player;
 
     public FightPhase CurrentState = FightPhase.INIT;
 
     void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        _player = GameObject.FindWithTag("Player").GetComponent<Player>();
         SetUpBattle();
     }
 
@@ -127,22 +128,22 @@ public class TurnSystem : MonoBehaviour
     public void OnCACButton()
     {
 
-        Entity entity = player.GetEnemy();
+        Entity entity = _player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN || entity == null)
         {
             return;
         }
         else
         {
-            player.DebugEnemyStr();
-            player.CastAbility1(entity);
+            _player.DebugEnemyStr();
+            _player.CastAbility1(entity);
             //detection porter
         }
     }
 
         public void OnRangeButton()
     {
-        Entity entity = player.GetEnemy();
+        Entity entity = _player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN || entity == null)
         {
             Debug.Log("null");
@@ -150,8 +151,8 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
-            player.DebugEnemyStr();
-            player.CastAbility2(entity);
+            _player.DebugEnemyStr();
+            _player.CastAbility2(entity);
         }
     }
 
@@ -163,7 +164,7 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
-            player.CastFriendAbility1();
+            _player.CastFriendAbility1();
             Debug.Log("Friend Ability 1");
         }
     }
@@ -176,7 +177,7 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
-            player.CastFriendAbility2();
+            _player.CastFriendAbility2();
             Debug.Log("Friend Ability 2");
         }
     }
@@ -189,7 +190,7 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
-            player.CastFriendAbility3();
+            _player.CastFriendAbility3();
             Debug.Log("Friend Ability 3");
         }
     }
