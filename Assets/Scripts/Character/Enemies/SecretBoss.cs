@@ -18,11 +18,11 @@ public class SecretBoss : Enemy
         _ability2.Cost = 4;
     }
 
-    protected override void CastAbility1(Entity target)
+    public override void CastAbility1(Entity target)
     {
         base.CastAbility1(target);
     }
-    protected override void CastAbility2(Entity target)
+    public override void CastAbility2(Entity target)
     {
         _currentAP -= _ability2.Cost;
         target.TakeDamage(_ability2.Damage + Attack.GetValue());
