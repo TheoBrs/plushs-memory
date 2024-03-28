@@ -16,13 +16,13 @@ public class AStar
 
         foreach (Cell cell in map)
         {
-            if (cell.Coord.X == x && cell.Coord.Y == y - 1 && !cell.IsObstacle)
+            if (cell.Coord.X == x && cell.Coord.Y == y - 1 && !cell.HasObstacle)
                 proposedLocations.Add(cell);
-            if (cell.Coord.X == x && cell.Coord.Y == y + 1 && !cell.IsObstacle)
+            if (cell.Coord.X == x && cell.Coord.Y == y + 1 && !cell.HasObstacle)
                 proposedLocations.Add(cell);
-            if (cell.Coord.X == x - 1 && cell.Coord.Y == y && !cell.IsObstacle)
+            if (cell.Coord.X == x - 1 && cell.Coord.Y == y && !cell.HasObstacle)
                 proposedLocations.Add(cell);
-            if (cell.Coord.X == x + 1 && cell.Coord.Y == y && !cell.IsObstacle)
+            if (cell.Coord.X == x + 1 && cell.Coord.Y == y && !cell.HasObstacle)
                 proposedLocations.Add(cell);
         }
 

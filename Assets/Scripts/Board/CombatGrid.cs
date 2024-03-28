@@ -35,24 +35,32 @@ public class CombatGrid : MonoBehaviour
         }
     }
 
-    public void AddObstacle(Coord coord, GameObject obstacle)
+    public bool AddObstacle(Coord coord, GameObject obstacle)
     {
         int x = coord.X;
         int y = coord.Y;
 
-        elements[x, y].IsObstacle = true;
+        if (elements[x, y].HasEnemy)
+            return true;
+
+        elements[x, y].HasObstacle = true;
         elements[x, y].GameObject = obstacle;
         elements[x, y].SetGameObjectMaterial(notWalkableGridMat);
+        return false;
     }
 
-    public void AddEnemy(Coord coord, Entity entity)
+    public bool AddEnemy(Coord coord, Entity entity)
     {
         int x = coord.X;
         int y = coord.Y;
+
+        if (elements[x, y].HasObstacle)
+            return true;
 
         elements[x, y].HasEnemy = true;
         elements[x, y].Entity = entity;
         elements[x, y].SetGameObjectMaterial(enemyGridMat);
+        return false;
     }
 
     public Cell GetGridElement(int x, int y)

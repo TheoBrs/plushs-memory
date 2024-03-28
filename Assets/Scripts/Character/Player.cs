@@ -152,11 +152,11 @@ public class Player : Entity
                             {
                                 if (touchedObject == gridElement.GameObject)
                                 {
-                                    if (gridElement.IsObstacle)
+                                    if (gridElement.HasObstacle)
                                     {
                                         foreach (var tempcell in elements)
                                         {
-                                            if (tempcell.IsObstacle)
+                                            if (tempcell.HasObstacle)
                                                 tempcell.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
                                             else if (tempcell.HasEnemy)
                                                 tempcell.SetGameObjectMaterial(grid.GetEnemyGridMat());
@@ -173,7 +173,7 @@ public class Player : Entity
                                     {
                                         foreach (var tempcell in elements)
                                         {
-                                            if (tempcell.IsObstacle)
+                                            if (tempcell.HasObstacle)
                                                 tempcell.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
                                             else if (tempcell.HasEnemy)
                                                 tempcell.SetGameObjectMaterial(grid.GetEnemyGridMat());
@@ -190,7 +190,7 @@ public class Player : Entity
 
                             foreach (var gridElement in elements)
                             {
-                                if (gridElement.IsObstacle)
+                                if (gridElement.HasObstacle)
                                     gridElement.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
                                 else if (gridElement.HasEnemy)
                                     gridElement.SetGameObjectMaterial(grid.GetEnemyGridMat());
@@ -266,7 +266,7 @@ public class Player : Entity
 
         foreach (var gridElement in elements)
         {
-            if (gridElement.IsObstacle)
+            if (gridElement.HasObstacle)
                 gridElement.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
             else if (gridElement.HasEnemy)
                 gridElement.SetGameObjectMaterial(grid.GetEnemyGridMat());
