@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class TurnSystem : MonoBehaviour
     private Player _player;
 
     private Entity _entity;
-
     private List<Enemy> _enemies = new List<Enemy>();
+
+    [SerializeField] Text _playerCurrentHPText;
+    [SerializeField] Text _playerMaxHPText;
 
     public FightPhase CurrentState = FightPhase.INIT;
 
@@ -27,9 +30,9 @@ public class TurnSystem : MonoBehaviour
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         _player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        SetUpBattle();
         Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
         _enemies.AddRange(_enemiesArray);
-        SetUpBattle();
     }
 
     void Update()
@@ -41,11 +44,10 @@ public class TurnSystem : MonoBehaviour
     {
         int x = -1;
         int y = -1;
-        GameObject enemy = Instantiate(enemyPrefab, new Vector3(x, 0.01f, y), quaternion.identity);
-        enemy.AddComponent<Enemy>();
-        enemy.GetComponent<Enemy>().name = "Enemy";
+        GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(-1, 0.01f, -1), Quaternion.identity);
+        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
 
-        grid.AddEnemy(new Coord(x + grid.GetMaxX() / 2, y + grid.GetMaxY() / 2), enemy.GetComponent<Enemy>()); 
+        grid.AddEnemy(new Coord(x + grid.GetMaxX() / 2, y + grid.GetMaxY() / 2), WeakEnemy.GetComponent<Enemy>());
         CurrentState = FightPhase.PLAYERTURN;
     }
 
@@ -59,10 +61,7 @@ public class TurnSystem : MonoBehaviour
         for(int i = 0; i < _enemies.Count; i++)
         {
             _enemies[i]._itsTurn = true;
-
-            while (_enemies[i]._itsTurn)
-            {
-            }
+            UpdatePlayerHPText();
         }
         CurrentState = FightPhase.PLAYERTURN;
     }
@@ -73,6 +72,7 @@ public class TurnSystem : MonoBehaviour
         switch (CurrentState)
         {
             case FightPhase.PLAYERTURN:
+                UpdatePlayerHPText();
                 PlayerTurn();
                 break;
 
@@ -122,6 +122,12 @@ public class TurnSystem : MonoBehaviour
         {
             CurrentState = FightPhase.ENEMYTURN;
         }
+    }
+
+    public void UpdatePlayerHPText()
+    {
+        _playerCurrentHPText.text = _player.GetComponent<Entity>().CurrentHP.ToString();
+        _playerMaxHPText.text = _player.GetComponent<Entity>().MaxHP.GetValue().ToString();
     }
 
     #region Attaque

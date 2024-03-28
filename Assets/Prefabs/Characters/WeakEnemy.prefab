@@ -53,6 +53,7 @@ MonoBehaviour:
     _baseValue: 0
   Defense:
     _baseValue: 0
+  _itsTurn: 0
 --- !u!1 &8573402144669312805
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +66,6 @@ GameObject:
   - component: {fileID: 1399808899360930944}
   - component: {fileID: 2052636454560443660}
   - component: {fileID: 2087150211653145005}
-  - component: {fileID: 5880357667100070614}
   m_Layer: 0
   m_Name: WeakEnemy
   m_TagString: Enemy
@@ -161,23 +161,3 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5880357667100070614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8573402144669312805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed27f1ada1c715a4a8e83c25dcb559fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHP:
-    _baseValue: 5
-  MaxAP:
-    _baseValue: 4
-  Attack:
-    _baseValue: 0
-  Defense:
-    _baseValue: 0
