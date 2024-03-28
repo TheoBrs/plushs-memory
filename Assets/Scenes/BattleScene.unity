@@ -531,6 +531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2190361485494128904, guid: 373c4ef8a95a91641a23c6dcbb21546c, type: 3}
+  _playerCurrentHPText: {fileID: 647627856}
+  _playerMaxHPText: {fileID: 76662798}
   CurrentState: 0
 --- !u!4 &190264987
 Transform:
