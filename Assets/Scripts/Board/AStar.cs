@@ -30,11 +30,11 @@ public class AStar
         return proposedLocations;
 
     }
-    public static List<Cell> FindPath(Coord startCoord, Coord destCoord, Cell[,] map)
+    public static List<Cell> FindPath(Coord startCoord, Coord targetCoord, Cell[,] map, int maxX, int maxY)
     {   
         Cell current = null;
-        var start = new Cell { Coord = startCoord };
-        var target = new Cell { Coord = destCoord };
+        var start = map[startCoord.X + (maxX / 2), startCoord.Y + (maxY / 2)];
+        var target = map[targetCoord.X + (maxX / 2), targetCoord.Y + (maxY / 2)];
         var openList = new List<Cell>();
         var closedList = new List<Cell>();
         int g = 0;

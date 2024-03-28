@@ -29,13 +29,18 @@ public class CombatGrid : MonoBehaviour
                 GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.X, 0.01f, coords.Y), Quaternion.identity);
 
                 Cell gridElement = new Cell { Coord = coords, GameObject = newCell };
-
                 elements[x, y] = gridElement;
             }
         }
+
+        GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(-1, 0.01f, -1), Quaternion.identity);
+        WeakEnemy.AddComponent<WeakEnemy>();
+        WeakEnemy.GetComponent<WeakEnemy>().name = "Amongus";
+
+        AddEnemy(new Coord(1, 1), WeakEnemy.GetComponent<WeakEnemy>());
     }
 
-    public bool AddObstacle(Coord coord, GameObject obstacle)
+public bool AddObstacle(Coord coord, GameObject obstacle)
     {
         int x = coord.X;
         int y = coord.Y;
