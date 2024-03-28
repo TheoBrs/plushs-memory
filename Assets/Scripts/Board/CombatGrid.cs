@@ -30,13 +30,6 @@ public class CombatGrid : MonoBehaviour
 
                 Cell gridElement = new Cell { Coord = coords, GameObject = newCell };
 
-                // This is to force the cell to have an "obstacle"
-                if (x == -1 + (maxX / 2) && y == -1 + (maxY / 2))
-                {
-                    gridElement.IsObstacle = true;
-                    gridElement.SetGameObjectMaterial(notWalkableGridMat);
-                }
-
                 // This is to force the cell to have an "enemy"
                 if (x == 1 + (maxX / 2) && y == 1 + (maxY / 2))
                 {                    
@@ -52,6 +45,26 @@ public class CombatGrid : MonoBehaviour
                 elements[x, y] = gridElement;
             }
         }
+    }
+
+    public void AddObstacle(Coord coord, GameObject obstacle)
+    {
+        int x = coord.X;
+        int y = coord.Y;
+
+        elements[x, y].IsObstacle = true;
+        elements[x, y].GameObject = obstacle;
+        elements[x, y].SetGameObjectMaterial(notWalkableGridMat);
+    }
+
+    public void AddEnemy(Coord coord, Entity entity)
+    {
+        int x = coord.X;
+        int y = coord.Y;
+
+        elements[x, y].HasEnemy = true;
+        elements[x, y].Entity = entity;
+        elements[x, y].SetGameObjectMaterial(enemyGridMat);
     }
 
     public Cell GetGridElement(int x, int y)
