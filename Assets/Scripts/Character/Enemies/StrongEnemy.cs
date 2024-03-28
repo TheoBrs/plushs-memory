@@ -25,7 +25,7 @@ public class StrongEnemy : Enemy
     }
     public override void CastAbility2(Entity target)
     {
-        _currentAP -= _ability2.Cost;
+        CurrentAP -= _ability2.Cost;
         if (_ability2.RoundsBeforeReuse == 0)
         {
             target.TakeDamage(_ability2.Damage + Attack.GetValue());

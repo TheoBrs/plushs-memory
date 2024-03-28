@@ -12,7 +12,6 @@ public class Player : Entity
 
     [SerializeField] int posX;
     [SerializeField] int posY;
-    Coord currentPos;
     GameObject player;
     Cell selectedGridCell;
     float width;
@@ -24,16 +23,12 @@ public class Player : Entity
 
     protected override void Start()
     {
+        base.Start();
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
-        currentPos = new Coord(posX, posY);
+        CurrentPos = new Coord(posX, posY);
         transform.position = new Vector3(posX, 0.01f, posY);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
-
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
-        AbilitiesInitialization();
-        base.Start();
     }
 
     protected override void AbilitiesInitialization()
@@ -57,7 +52,7 @@ public class Player : Entity
 
     public override void CastAbility1(Entity target) //corps à corps
     {
-        _currentAP -= _ability1.Cost;
+        CurrentAP -= _ability1.Cost;
         if(_pattoBuff > 0)
         {
             target.TakeDamage((_ability1.Damage + Attack.GetValue()) *2);
@@ -74,7 +69,7 @@ public class Player : Entity
 
     public override void CastAbility2(Entity target)
     {
-        _currentAP -= _ability2.Cost;
+        CurrentAP -= _ability2.Cost;
         if (_pattoBuff > 0)
         {
             target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
@@ -90,7 +85,7 @@ public class Player : Entity
     {
         if(_fAbility1.RoundsBeforeReuse == 0)
         {
-            _currentHP += 5;
+            CurrentHP += 5;
             _fAbility1.RoundsBeforeReuse = 2;
         }
         else
@@ -183,7 +178,7 @@ public class Player : Entity
                         }
 
                         RefreshGridMat();
-                        path = AStar.FindPath(currentPos, selectedGridCell.Coord, elements, grid.GetMaxX(), grid.GetMaxY());
+                        path = AStar.FindPath(CurrentPos, selectedGridCell.Coord, elements, grid.GetMaxX(), grid.GetMaxY());
 
                         if (selectedGridCell.HasEnemy)
                         {
@@ -207,7 +202,7 @@ public class Player : Entity
                         {
                             Cell gridElement = elements[cell.Coord.X + grid.GetMaxX() / 2, cell.Coord.Y + grid.GetMaxY() / 2];
                             // This is assuming that the current AP doesn't change while selecting a movement
-                            if (steps <= _currentAP)
+                            if (steps <= CurrentAP)
                             {
                                 gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
                             }
@@ -217,7 +212,7 @@ public class Player : Entity
                             }
                             steps++;
                         }
-                        if (steps <= _currentAP + 1)
+                        if (steps <= CurrentAP + 1)
                         {
                             selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
                         }
@@ -265,7 +260,7 @@ public class Player : Entity
 
         RefreshGridMat();
         Move(selectedGridCell.Coord, true);
-        currentPos = selectedGridCell.Coord;
+        CurrentPos = selectedGridCell.Coord;
         path.Clear();
     }
 
