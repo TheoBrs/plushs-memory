@@ -24,16 +24,12 @@ public class Player : Entity
 
     protected override void Start()
     {
+        base.Start();
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         currentPos = new Coord(posX, posY);
         transform.position = new Vector3(posX, 0.01f, posY);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
-
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
-        AbilitiesInitialization();
-        base.Start();
     }
 
     protected override void AbilitiesInitialization()

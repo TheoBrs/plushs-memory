@@ -1,8 +1,6 @@
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -21,12 +19,16 @@ public class TurnSystem : MonoBehaviour
 
     private Entity _entity;
 
+    private List<Enemy> _enemies = new List<Enemy>();
+
     public FightPhase CurrentState = FightPhase.INIT;
 
     void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         _player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
+        _enemies.AddRange(_enemiesArray);
         SetUpBattle();
     }
 
@@ -41,7 +43,7 @@ public class TurnSystem : MonoBehaviour
         int y = -1;
         GameObject enemy = Instantiate(enemyPrefab, new Vector3(x, 0.01f, y), quaternion.identity);
         enemy.AddComponent<Enemy>();
-        enemy.GetComponent<Enemy>().name = "sus";
+        enemy.GetComponent<Enemy>().name = "Enemy";
 
         grid.AddEnemy(new Coord(x + grid.GetMaxX() / 2, y + grid.GetMaxY() / 2), enemy.GetComponent<Enemy>()); 
         CurrentState = FightPhase.PLAYERTURN;
@@ -54,16 +56,14 @@ public class TurnSystem : MonoBehaviour
  
     public void EnemyTurn()
     {
-        //Debug.Log("TurnEnemey");
-        /*      if( nbEnemie <=0 && Player.health > 0 )
-                {
-                    current_state = EnumTurn.Win
-                }
+        for(int i = 0; i < _enemies.Count; i++)
+        {
+            _enemies[i]._itsTurn = true;
 
-                else if( Player.health <= 0)
-                {
-                    current_state = EnumTurn.lose;
-                }*/
+            while (_enemies[i]._itsTurn)
+            {
+            }
+        }
         CurrentState = FightPhase.PLAYERTURN;
     }
 

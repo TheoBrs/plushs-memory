@@ -24,6 +24,9 @@ public abstract class Entity: MonoBehaviour
 
     protected virtual void Start()
     {
+        MaxHP = new Stat();
+        MaxAP = new Stat();
+
         _currentHP = MaxHP.GetValue();
         _currentAP = MaxAP.GetValue();
 

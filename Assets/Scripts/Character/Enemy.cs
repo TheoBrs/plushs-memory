@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public enum State
 {
@@ -11,7 +10,7 @@ public enum State
 public abstract class Enemy : Entity
 {
     private State _currentState;
-    private bool _itsTurn = false;
+    public bool _itsTurn = false;
 
     protected Entity _playerReference;
 
@@ -45,7 +44,7 @@ public abstract class Enemy : Entity
                 break;
             case State.EndTurn:
 
-                // Send message to TurnSystem to tell turn is done
+                _itsTurn = false;
 
                 ChangeState(State.WaitForTurn);
                 break;
