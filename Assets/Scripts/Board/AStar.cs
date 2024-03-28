@@ -16,14 +16,12 @@ public class AStar
 
         foreach (Cell cell in map)
         {
-            if (cell.Coord.X == x && cell.Coord.Y == y - 1 && !cell.HasObstacle && (!cell.HasEnemy || cell == target))
-                proposedLocations.Add(cell);
-            if (cell.Coord.X == x && cell.Coord.Y == y + 1 && !cell.HasObstacle && (!cell.HasEnemy || cell == target))
-                proposedLocations.Add(cell);
-            if (cell.Coord.X == x - 1 && cell.Coord.Y == y && !cell.HasObstacle && (!cell.HasEnemy || cell == target))
-                proposedLocations.Add(cell);
-            if (cell.Coord.X == x + 1 && cell.Coord.Y == y && !cell.HasObstacle && (!cell.HasEnemy || cell == target))
-                proposedLocations.Add(cell);
+            if ((!cell.HasObstacle && (!cell.HasEnemy || cell == target)) && (
+                (cell.Coord.X == x && cell.Coord.Y == y - 1) || 
+                (cell.Coord.X == x && cell.Coord.Y == y + 1) ||
+                (cell.Coord.X == x - 1 && cell.Coord.Y == y) ||
+                (cell.Coord.X == x + 1 && cell.Coord.Y == y) ))
+                    proposedLocations.Add(cell);
         }
 
         // if walkable remove from list
