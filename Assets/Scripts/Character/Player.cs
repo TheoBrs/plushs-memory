@@ -65,6 +65,9 @@ public class Player : Entity
         }
         else
         {
+            Debug.Log(_ability1.Damage);
+            Debug.Log(Attack.GetValue());
+
             target.TakeDamage(_ability1.Damage + Attack.GetValue());
         }
     }

@@ -51,7 +51,7 @@ public class TurnSystem : MonoBehaviour
  
     public void EnemyTurn()
     {
-        Debug.Log("TurnEnemey");
+        //Debug.Log("TurnEnemey");
         /*      if( nbEnemie <=0 && Player.health > 0 )
                 {
                     current_state = EnumTurn.Win
@@ -122,37 +122,36 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-#region Attaque
+  #region Attaque
 
     public void OnCACButton()
     {
 
         Entity entity = player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN)
+        if (CurrentState != FightPhase.PLAYERTURN || entity == null)
         {
             return;
         }
         else
         {
+            player.DebugEnemyStr();
             player.CastAbility1(entity);
             //detection porter
-            player.GetEnemyStr();
         }
     }
 
         public void OnRangeButton()
     {
         Entity entity = player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN)
+        if (CurrentState != FightPhase.PLAYERTURN || entity == null)
         {
+            Debug.Log("null");
             return;
         }
         else
         {
+            player.DebugEnemyStr();
             player.CastAbility2(entity);
-            //detection porter
-            player.GetEnemyStr();
-            Debug.Log("Range");
         }
     }
 
