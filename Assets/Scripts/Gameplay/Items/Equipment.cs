@@ -7,6 +7,7 @@ public class Equipment : Item
 
     public int armorModifier;
     public int damageModifier;
+    public int apModifier;
 
 }
 
