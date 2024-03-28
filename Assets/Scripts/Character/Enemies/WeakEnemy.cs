@@ -1,5 +1,6 @@
 public class WeakEnemy : Enemy
 {
+    public string Name { get; set; }
     protected override void Start()
     {
         base.Start();
@@ -12,10 +13,12 @@ public class WeakEnemy : Enemy
 
     protected override void AbilitiesInitialization()
     {
+        /*
         _ability1.Damage = 1;
         _ability1.Cost = 1;
         _ability2.Damage = 2;
         _ability2.Cost = 2;
+        */
     }
 
     protected override void CastAbility1(Entity target)
