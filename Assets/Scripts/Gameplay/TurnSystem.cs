@@ -18,6 +18,7 @@ public class TurnSystem : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         SetUpBattle();
     }
 
@@ -114,6 +115,8 @@ public class TurnSystem : MonoBehaviour
 
     public void OnCACButton()
     {
+
+        //Entity entity = player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN)
         {
             return;
