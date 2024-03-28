@@ -19,8 +19,6 @@ public class TurnSystem : MonoBehaviour
     CombatGrid grid;
     private Player _player;
 
-    private int Competense = 0;
-
     private Entity _entity;
 
     public FightPhase CurrentState = FightPhase.INIT;
@@ -131,8 +129,8 @@ public class TurnSystem : MonoBehaviour
     public void OnCACButton()
     {
 
-        Entity entity = _player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN || entity == null)
+        _entity = _player.GetEnemy();
+        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
         {
             return;
         }
@@ -146,8 +144,8 @@ public class TurnSystem : MonoBehaviour
 
         public void OnRangeButton()
         {
-        Entity entity = _player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN || entity == null)
+        _entity = _player.GetEnemy();
+        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
         {
             Debug.Log("no enemy select");
             return;
