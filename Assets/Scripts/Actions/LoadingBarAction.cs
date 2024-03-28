@@ -11,6 +11,7 @@ public class LoadingBarAction : MonoBehaviour
 
     [Header("Scenes To Load")]
     [SerializeField] private SceneField _dialogueScene;
+    [SerializeField] private SceneField _battleScene;
 
     private void Awake()
     {
@@ -22,6 +23,15 @@ public class LoadingBarAction : MonoBehaviour
         _loadingBarObject.SetActive(true);
 
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_dialogueScene));
+
+        StartCoroutine(ProgressBarLoading());
+    }
+
+    public void StartBattle()
+    {
+        _loadingBarObject.SetActive(true);
+
+        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_battleScene));
 
         StartCoroutine(ProgressBarLoading());
     }
