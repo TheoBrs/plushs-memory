@@ -19,6 +19,10 @@ public class TurnSystem : MonoBehaviour
     CombatGrid grid;
     private Player _player;
 
+    private int Competense = 0;
+
+    private Entity _entity;
+
     public FightPhase CurrentState = FightPhase.INIT;
 
     void Start()
@@ -92,7 +96,6 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-
     private void Win()
     {
         Debug.Log("Win");
@@ -123,7 +126,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-  #region Attaque
+    #region Attaque
 
     public void OnCACButton()
     {
@@ -136,23 +139,22 @@ public class TurnSystem : MonoBehaviour
         else
         {
             _player.DebugEnemyStr();
-            _player.CastAbility1(entity);
+            _player.CastAbility2(_entity);
             //detection porter
         }
     }
 
         public void OnRangeButton()
-    {
+        {
         Entity entity = _player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN || entity == null)
         {
-            Debug.Log("null");
+            Debug.Log("no enemy select");
             return;
         }
         else
         {
             _player.DebugEnemyStr();
-            _player.CastAbility2(entity);
         }
     }
 
