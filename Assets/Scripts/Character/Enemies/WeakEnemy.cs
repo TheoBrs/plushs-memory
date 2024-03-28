@@ -13,12 +13,10 @@ public class WeakEnemy : Enemy
 
     protected override void AbilitiesInitialization()
     {
-        /*
         _ability1.Damage = 1;
         _ability1.Cost = 1;
         _ability2.Damage = 2;
         _ability2.Cost = 2;
-        */
     }
 
     public override void CastAbility1(Entity target)
@@ -27,7 +25,7 @@ public class WeakEnemy : Enemy
     }
     public override void CastAbility2(Entity target)
     {
-        _currentAP -= _ability2.Cost;
+        CurrentAP -= _ability2.Cost;
         target.TakeDamage(_ability2.Damage + Attack.GetValue());
     }
 }
