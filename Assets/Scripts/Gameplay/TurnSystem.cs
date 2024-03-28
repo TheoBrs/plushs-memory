@@ -1,6 +1,8 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -12,12 +14,15 @@ public class TurnSystem : MonoBehaviour
         WIN,
         LOSE
     }
+    public GameObject enemyPrefab;
+    CombatGrid grid;
     private Player player;
 
     public FightPhase CurrentState = FightPhase.INIT;
 
     void Start()
     {
+        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         SetUpBattle();
     }
@@ -29,7 +34,13 @@ public class TurnSystem : MonoBehaviour
 
     private void SetUpBattle()
     {
-        // Instantiate(Enemie); //replace by liste
+        int x = -1;
+        int y = -1;
+        GameObject enemy = Instantiate(enemyPrefab, new Vector3(x, 0.01f, y), quaternion.identity);
+        enemy.AddComponent<Enemy>();
+        enemy.GetComponent<Enemy>().name = "sus";
+
+        grid.AddEnemy(new Coord(x + grid.GetMaxX() / 2, y + grid.GetMaxY() / 2), enemy.GetComponent<Enemy>()); 
         CurrentState = FightPhase.PLAYERTURN;
     }
 
@@ -116,28 +127,31 @@ public class TurnSystem : MonoBehaviour
     public void OnCACButton()
     {
 
-        //Entity entity = player.GetEnemy();
+        Entity entity = player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN)
         {
             return;
         }
         else
         {
-            //player.CastAbility1();
+            player.CastAbility1(entity);
             //detection porter
-            Debug.Log("CAC");
+            player.GetEnemyStr();
         }
     }
 
         public void OnRangeButton()
     {
+        Entity entity = player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN)
         {
             return;
         }
         else
         {
-            //player.CastAbility2();
+            player.CastAbility2(entity);
+            //detection porter
+            player.GetEnemyStr();
             Debug.Log("Range");
         }
     }
