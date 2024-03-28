@@ -10,20 +10,18 @@ public class AStar
         return Mathf.Abs(start.X - dest.X) + Mathf.Abs(start.Y - dest.Y);
     }
 
-    static List<Cell> GetWalkableAdjacentSquares(int x, int y, Cell[,] map)
+    static List<Cell> GetWalkableAdjacentSquares(int x, int y, Cell[,] map, Cell target)
     {
         List<Cell> proposedLocations = new List<Cell>();
 
         foreach (Cell cell in map)
         {
-            if (cell.Coord.X == x && cell.Coord.Y == y - 1 && !cell.HasObstacle)
-                proposedLocations.Add(cell);
-            if (cell.Coord.X == x && cell.Coord.Y == y + 1 && !cell.HasObstacle)
-                proposedLocations.Add(cell);
-            if (cell.Coord.X == x - 1 && cell.Coord.Y == y && !cell.HasObstacle)
-                proposedLocations.Add(cell);
-            if (cell.Coord.X == x + 1 && cell.Coord.Y == y && !cell.HasObstacle)
-                proposedLocations.Add(cell);
+            if ((!cell.HasObstacle && (!cell.HasEnemy || cell == target)) && (
+                (cell.Coord.X == x && cell.Coord.Y == y - 1) || 
+                (cell.Coord.X == x && cell.Coord.Y == y + 1) ||
+                (cell.Coord.X == x - 1 && cell.Coord.Y == y) ||
+                (cell.Coord.X == x + 1 && cell.Coord.Y == y) ))
+                    proposedLocations.Add(cell);
         }
 
         // if walkable remove from list
@@ -58,7 +56,7 @@ public class AStar
             if (closedList.FirstOrDefault(l => l.Coord.X == target.Coord.X && l.Coord.Y == target.Coord.Y) != null)
                 break;
 
-            var adjacentSquares = GetWalkableAdjacentSquares(current.Coord.X, current.Coord.Y, map);
+            var adjacentSquares = GetWalkableAdjacentSquares(current.Coord.X, current.Coord.Y, map, target);
             g++;
 
             foreach (var adjacentSquare in adjacentSquares)
