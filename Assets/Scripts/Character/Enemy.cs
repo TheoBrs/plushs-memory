@@ -38,9 +38,10 @@ public abstract class Enemy : Entity
                 break;
             case State.Movement:
 
-                Movement();
+                bool hasFinishedMoving = Movement();
 
-                ChangeState(State.Attacking);
+                if (hasFinishedMoving)
+                    ChangeState(State.Attacking);
                 break;
             case State.Attacking:
 
@@ -57,27 +58,36 @@ public abstract class Enemy : Entity
         }
     }
 
-    private void Movement()
+    private bool Movement()
     {
-        // Check if the player is reachable
-        Player _player = FindObjectOfType<Player>();
-        List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridElements(), grid.GetMaxX(), grid.GetMaxY());
-
-        _pathToPlayer.RemoveAt(_pathToPlayer.Count - 1);
-
-        if ( _pathToPlayer.Count > 1)
+        if (_isMoving)
         {
-            if(_pathToPlayer.Count - 1 > CurrentAP)
-            {
-                _pathToPlayer.RemoveRange(CurrentAP + 1, _pathToPlayer.Count - 1);
-            }
-
-            // Move to the position
-            CurrentAP -= _pathToPlayer.Count - 1;
-
-            Move(_pathToPlayer.Last().Coord, true);
+            _isMoving = !MoveOverTime();
         }
-        
+        else
+        {
+            // Check if the player is reachable
+            Player _player = FindObjectOfType<Player>();
+            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridElements(), grid.GetMaxX(), grid.GetMaxY());
+
+            _pathToPlayer.RemoveAt(_pathToPlayer.Count - 1);
+
+            if ( _pathToPlayer.Count > 1)
+            {
+                if(_pathToPlayer.Count - 1 > CurrentAP)
+                {
+                    _pathToPlayer.RemoveRange(CurrentAP + 1, _pathToPlayer.Count - CurrentAP - 1);
+                }
+
+                // Move to the position
+                CurrentAP -= _pathToPlayer.Count - 1;
+
+                Move(_pathToPlayer);
+                CurrentPos = _pathToPlayer.Last().Coord;
+            }
+        }
+        return !_isMoving;
+
         // Verify he arrived at the position / Wait till animation is done
     }
 

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using UnityEngine;
 
 public class Player : Entity
@@ -125,7 +123,12 @@ public class Player : Entity
 
     void Update()
     {
-        if (Input.touchCount == 1)
+
+        if (_isMoving)
+        {
+            MoveOverTime();
+        }
+        else if (Input.touchCount == 1)
         {
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Ended)
@@ -259,9 +262,8 @@ public class Player : Entity
             return;
 
         RefreshGridMat();
-        Move(selectedGridCell.Coord, true);
+        Move(path);
         CurrentPos = selectedGridCell.Coord;
-        path.Clear();
     }
 
     public Entity GetEnemy()

@@ -14,7 +14,6 @@ public class CombatGrid : MonoBehaviour
 
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
-    [SerializeField] GameObject enemyPrefab;
 
     //creation de la grille de Combat
     void Awake()
@@ -32,11 +31,9 @@ public class CombatGrid : MonoBehaviour
                 elements[x, y] = gridElement;
             }
         }
-
-
     }
 
-public bool AddObstacle(Coord coord, GameObject obstacle)
+    public bool AddObstacle(Coord coord, GameObject obstacle)
     {
         int x = coord.X;
         int y = coord.Y;

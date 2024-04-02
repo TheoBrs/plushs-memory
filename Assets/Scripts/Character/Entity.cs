@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Entity: MonoBehaviour
@@ -5,6 +7,7 @@ public abstract class Entity: MonoBehaviour
     [Header("HP and AP settings")]
     public Stat MaxHP;
     public Stat MaxAP;
+    public float speed;
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
 
@@ -14,6 +17,10 @@ public abstract class Entity: MonoBehaviour
     protected Ability _ability1;
     protected Ability _ability2;
     protected bool _invincible = false;
+
+
+    protected bool _isMoving = false;
+    protected List<Cell> _pathToTake;
 
     CombatGrid _grid;
 
@@ -67,22 +74,41 @@ public abstract class Entity: MonoBehaviour
         }
     }
 
-    public void Move(Coord coordTo, bool instant)
+    protected bool MoveOverTime()
     {
-        Cell gridElement = _grid.GetGridElement(coordTo.X, coordTo.Y);
+        if (_pathToTake.Count > 0)
+        {
+            Cell nextCell = _pathToTake.First();
 
-        Vector3 newPosition = gridElement.GameObject.transform.position;
-        
-        if ((transform.position - newPosition).magnitude < 0.02f || instant)
-        {
-            transform.position = newPosition;
-            CurrentPos = gridElement.Coord;
+            Vector3 newPosition = nextCell.GameObject.transform.position;
+
+            if ((transform.position - newPosition).magnitude < 0.02f)
+            {
+                _pathToTake.RemoveAt(0);
+                transform.position = newPosition;
+                CurrentPos = nextCell.Coord;
+                if (_pathToTake.Count == 0)
+                {
+                    _isMoving = false;
+                }
+            }
+            else
+            {
+                if (speed <= 0f)
+                    speed = 1f;
+
+                Vector3 directeur = speed * Time.deltaTime * (newPosition - transform.position).normalized;
+                transform.position += directeur;
+            }
+            return false;
         }
-        else
-        {
-            Vector3 directeur = 10f * Time.deltaTime * (newPosition - transform.position).normalized;
-            transform.position += directeur;
-        }
+        return true;
+    }
+
+    public void Move(List<Cell> pathToTake)
+    {
+        _pathToTake = pathToTake;
+        _isMoving = true;
     }
 
     public abstract void Death();
