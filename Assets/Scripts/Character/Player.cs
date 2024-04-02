@@ -12,6 +12,7 @@ public class Player : Entity
     [SerializeField] int posY;
     GameObject player;
     Cell selectedGridCell;
+    Cell selectedEnemyGridCell;
     float width;
     float height;
     CombatGrid grid;
@@ -153,7 +154,9 @@ public class Player : Entity
                     {
                         GameObject touchedObject = hitCell.transform.gameObject;
                         if (selectedGridCell != null)
-                            selectedGridCell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                            selectedGridCell.IsSelected = false;
+                        if (selectedEnemyGridCell != null)
+                            selectedEnemyGridCell.IsSelected = false;
 
                         elements = grid.GetGridCells();
                         foreach (var gridElement in elements)
@@ -168,13 +171,8 @@ public class Player : Entity
                                     return;
                                 }
 
-                                if (gridElement.HasEnemy)
-                                {
-                                    RefreshGridMat();
-                                }
-
                                 selectedGridCell = gridElement;
-                                selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                                selectedGridCell.IsSelected = true;
                                 break;
                             }
                         }
@@ -186,6 +184,7 @@ public class Player : Entity
                         {
                             // path[path.Count - 1].Entity Contain the cell with the enemy
                             entity = path[path.Count - 1].Entity;
+                            selectedEnemyGridCell = path[path.Count - 1];
                             selectedGridCell = path[path.Count - 2];
                             path.RemoveAt(path.Count - 1);
                         }
@@ -249,7 +248,10 @@ public class Player : Entity
             if (cell.HasObstacle)
                 cell.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
             else if (cell.HasEnemy)
-                cell.SetGameObjectMaterial(grid.GetEnemyGridMat());
+                if (cell.IsSelected)
+                    cell.SetGameObjectMaterial(grid.GetSelectedEnemyGridMat());
+                else
+                    cell.SetGameObjectMaterial(grid.GetEnemyGridMat());
             else
                 cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
         }

@@ -8,6 +8,7 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] Material defaultGridMat;
     [SerializeField] Material notWalkableGridMat;
     [SerializeField] Material enemyGridMat;
+    [SerializeField] Material selectedEnemyGridMat;
     [SerializeField] Material selectedGridMat;
     [SerializeField] Material pathGridMat;
     [SerializeField] Material redPathGridMat;
@@ -73,6 +74,8 @@ public class CombatGrid : MonoBehaviour
     public Material GetNotWalkableGridMat() => notWalkableGridMat;
 
     public Material GetEnemyGridMat() => enemyGridMat;
+
+    public Material GetSelectedEnemyGridMat() => selectedEnemyGridMat;
 
     public Material GetSelectedGridMat() => selectedGridMat;
 
