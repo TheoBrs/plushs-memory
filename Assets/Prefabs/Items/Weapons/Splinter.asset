@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Splinter
   m_EditorClassIdentifier: 
   name: Splinter
-  icon: {fileID: 0}
+  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   isDefaultItem: 0
   equipSlot: 0
   armorModifier: 0
   damageModifier: 0
+  apModifier: 0

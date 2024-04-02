@@ -3,22 +3,22 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    public Image icon;
-
+    public Image itemIcon;
+    // public Image slotIcon;   |   Indication visuelle pour savoir si l'objet est une armure ou une arme
     Item item;
 
     public void AddItem(Item newItem)
     { 
         item = newItem; 
-        icon.sprite = item.icon;
-        icon.enabled = true;
+        itemIcon.sprite = item.icon;
+        itemIcon.enabled = true;
     }
 
     public void ClearSlot()
     {
         item = null;
-        icon.sprite = null;
-        icon.enabled = false;
+        itemIcon.sprite = null;
+        itemIcon.enabled = false;
     }
 
     public void OnRemoveItem()
