@@ -12,7 +12,6 @@ public class Player : Entity
 
     [SerializeField] int posX;
     [SerializeField] int posY;
-    GameObject player;
     Cell selectedGridCell;
     float width;
     float height;
@@ -50,7 +49,7 @@ public class Player : Entity
         _fAbility3.RoundsBeforeReuse = 4;
     }
 
-    public override void CastAbility1(Entity target) //corps à corps
+    public override void CastAbility1(Entity target)
     {
         CurrentAP -= _ability1.Cost;
         if(_pattoBuff > 0)
@@ -277,6 +276,12 @@ public class Player : Entity
         else
             Debug.Log(entity.name);
     }
+
+    public void ResetAP()
+    {
+       CurrentAP = MaxAP.GetValue();
+    }
+
     public override void Death()
     {
         // GameOver

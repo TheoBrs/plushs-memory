@@ -54,6 +54,7 @@ MonoBehaviour:
   Defense:
     _baseValue: 0
   _itsTurn: 0
+  _name: Mite miteuse
 --- !u!1 &8573402144669312805
 GameObject:
   m_ObjectHideFlags: 0

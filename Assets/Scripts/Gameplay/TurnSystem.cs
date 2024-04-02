@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TurnSystem : MonoBehaviour
 {
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] List<GameObject> enemyPrefabs;
     public enum FightPhase
     {
         INIT,
@@ -44,8 +44,7 @@ public class TurnSystem : MonoBehaviour
     {
         int x = -1;
         int y = -1;
-        GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(-1, 0.01f, -1), Quaternion.identity);
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
+        GameObject WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(-1, 0.01f, -1), Quaternion.identity);
 
         grid.AddEnemy(new Coord(x + grid.GetMaxX() / 2, y + grid.GetMaxY() / 2), WeakEnemy.GetComponent<Enemy>());
         CurrentState = FightPhase.PLAYERTURN;
@@ -60,7 +59,7 @@ public class TurnSystem : MonoBehaviour
     {
         for(int i = 0; i < _enemies.Count; i++)
         {
-            _enemies[i]._itsTurn = true;
+            _enemies[i].ItsTurn = true;
             UpdatePlayerHPText();
         }
         CurrentState = FightPhase.PLAYERTURN;
@@ -68,7 +67,6 @@ public class TurnSystem : MonoBehaviour
 
     private void StateSwitch()
     {
-
         switch (CurrentState)
         {
             case FightPhase.PLAYERTURN:
@@ -78,6 +76,7 @@ public class TurnSystem : MonoBehaviour
 
             case FightPhase.ENEMYTURN:
                 EnemyTurn();
+                _player.ResetAP();
                 break;
 
             case FightPhase.WIN:
@@ -132,9 +131,24 @@ public class TurnSystem : MonoBehaviour
 
     #region Attaque
 
-    public void OnCACButton()
-    {
 
+    public void OnAbility1Button()
+    {
+        _entity = _player.GetEnemy();
+        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
+        {
+            Debug.Log("no enemy select");
+            return;
+        }
+        else
+        {
+            _player.DebugEnemyStr();
+            _player.CastAbility1(_entity);
+        }
+    }
+
+    public void OnAbility2Button()
+    {
         _entity = _player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
         {
@@ -148,21 +162,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-        public void OnRangeButton()
-        {
-        _entity = _player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
-        {
-            Debug.Log("no enemy select");
-            return;
-        }
-        else
-        {
-            _player.DebugEnemyStr();
-        }
-    }
-
-        public void OnFriend1Button()
+    public void OnFriend1Button()
     {
         if (CurrentState != FightPhase.PLAYERTURN)
         {
@@ -175,7 +175,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-    public void OnFiend2Button()
+    public void OnFriend2Button()
     {
         if (CurrentState != FightPhase.PLAYERTURN)
         {
@@ -188,7 +188,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-        public void OnFiend3Button()
+        public void OnFriend3Button()
     {
         if (CurrentState != FightPhase.PLAYERTURN)
         {
