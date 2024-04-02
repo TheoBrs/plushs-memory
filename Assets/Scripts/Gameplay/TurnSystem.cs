@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -23,6 +25,9 @@ public class TurnSystem : MonoBehaviour
 
     [SerializeField] Text _playerCurrentHPText;
     [SerializeField] Text _playerMaxHPText;
+
+    bool playerTurnInitalized = false;
+    bool enemyTurnInitalized = false;
 
     public FightPhase CurrentState = FightPhase.INIT;
 
@@ -46,6 +51,7 @@ public class TurnSystem : MonoBehaviour
         int y = -1;
         GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(-1, 0.01f, -1), Quaternion.identity);
         WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
+        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(-1, -1);
 
         grid.AddEnemy(new Coord(x + grid.GetMaxX() / 2, y + grid.GetMaxY() / 2), WeakEnemy.GetComponent<Enemy>());
         CurrentState = FightPhase.PLAYERTURN;
@@ -53,12 +59,25 @@ public class TurnSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
+        if (!playerTurnInitalized)
+        {
+            _player.CurrentAP = _player.MaxAP.GetValue();
+            playerTurnInitalized = true;
+            enemyTurnInitalized = false;
+        }
         //Debug.Log("TurnPlayer");
     }
  
     public void EnemyTurn()
     {
-        for(int i = 0; i < _enemies.Count; i++)
+
+        if (!enemyTurnInitalized)
+        {
+            playerTurnInitalized = false;
+            enemyTurnInitalized = true;
+        }
+
+        for (int i = 0; i < _enemies.Count; i++)
         {
             _enemies[i]._itsTurn = true;
             UpdatePlayerHPText();

@@ -61,12 +61,12 @@ public class CombatGrid : MonoBehaviour
         return false;
     }
 
-    public Cell GetGridElement(int x, int y)
+    public Cell GetGridCell(int x, int y)
     { 
         return elements[x + (maxX / 2), y + (maxY / 2)];
     }
 
-    public Cell[,] GetGridElements() => elements;
+    public Cell[,] GetGridCells() => elements;
 
     public Material GetDefaultGridMat() => defaultGridMat;
 

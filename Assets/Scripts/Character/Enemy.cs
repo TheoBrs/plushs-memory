@@ -68,7 +68,7 @@ public abstract class Enemy : Entity
         {
             // Check if the player is reachable
             Player _player = FindObjectOfType<Player>();
-            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridElements(), grid.GetMaxX(), grid.GetMaxY());
+            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridCells(), grid.GetMaxX(), grid.GetMaxY());
 
             _pathToPlayer.RemoveAt(_pathToPlayer.Count - 1);
 
@@ -83,7 +83,10 @@ public abstract class Enemy : Entity
                 CurrentAP -= _pathToPlayer.Count - 1;
 
                 Move(_pathToPlayer);
+                grid.GetGridCell(CurrentPos.X, CurrentPos.Y).HasEnemy = false;
                 CurrentPos = _pathToPlayer.Last().Coord;
+                grid.GetGridCell(CurrentPos.X, CurrentPos.Y).HasEnemy = true;
+                _player.RefreshGridMat();
             }
         }
         return !_isMoving;
@@ -97,7 +100,7 @@ public abstract class Enemy : Entity
         
         //// A MODIFIER EN CALCULANT LA DISTANCE DEPUIS LA CLASSE CELL
         Player _player = FindObjectOfType<Player>();
-        List<Cell> _pathToPlayer = AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridElements(), grid.GetMaxX(), grid.GetMaxY());
+        List<Cell> _pathToPlayer = AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridCells(), grid.GetMaxX(), grid.GetMaxY());
         if (_pathToPlayer.Count == 2)
         {
             if (CurrentAP > 0)

@@ -123,7 +123,6 @@ public class Player : Entity
 
     void Update()
     {
-
         if (_isMoving)
         {
             MoveOverTime();
@@ -156,7 +155,7 @@ public class Player : Entity
                         if (selectedGridCell != null)
                             selectedGridCell.SetGameObjectMaterial(grid.GetDefaultGridMat());
 
-                        elements = grid.GetGridElements();
+                        elements = grid.GetGridCells();
                         foreach (var gridElement in elements)
                         {
                             if (touchedObject == gridElement.GameObject)
@@ -260,6 +259,8 @@ public class Player : Entity
     {
         if (path == null || path.Count == 0)
             return;
+
+        CurrentAP -= path.Count - 1;
 
         RefreshGridMat();
         Move(path);
