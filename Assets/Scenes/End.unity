@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 360526249}
   - component: {fileID: 360526248}
   m_Layer: 5
-  m_Name: Retart Button
+  m_Name: Restart Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -652,7 +652,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1154329929}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: ClickButtonSound
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1029,7 +1029,7 @@ GameObject:
   - component: {fileID: 806389315}
   - component: {fileID: 806389314}
   m_Layer: 5
-  m_Name: Exit Button
+  m_Name: Main Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1099,21 +1099,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
-        m_MethodName: SaveGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1154329929}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: ExitGame
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2207,8 +2195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
-  Win: {fileID: 0}
-  Lose: {fileID: 0}
+  Win: {fileID: 1900088278}
+  Lose: {fileID: 203776791}
 --- !u!1 &2007675617
 GameObject:
   m_ObjectHideFlags: 0
