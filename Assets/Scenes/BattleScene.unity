@@ -906,7 +906,7 @@ GameObject:
   - component: {fileID: 945756955}
   - component: {fileID: 945756954}
   m_Layer: 5
-  m_Name: CaCButton
+  m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -929,7 +929,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1100, y: 0}
+  m_AnchoredPosition: {x: -1100, y: -400}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &945756954
@@ -1355,9 +1355,9 @@ RectTransform:
   m_Children:
   - {fileID: 2134828654}
   - {fileID: 158014484}
+  - {fileID: 1681848613}
   - {fileID: 945756953}
   - {fileID: 1104264582}
-  - {fileID: 1681848613}
   - {fileID: 2042675363}
   m_Father: {fileID: 1033375841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1478,7 +1478,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1100, y: -100}
+  m_AnchoredPosition: {x: -1100, y: -500}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1104264583
@@ -1593,7 +1593,7 @@ GameObject:
   - component: {fileID: 1681848615}
   - component: {fileID: 1681848614}
   m_Layer: 5
-  m_Name: Range
+  m_Name: Special
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1616,7 +1616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1100, y: 100}
+  m_AnchoredPosition: {x: -1100, y: -300}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1681848614

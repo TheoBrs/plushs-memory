@@ -165,8 +165,8 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-        public void OnRangeButton()
-        {
+    public void OnRangeButton()
+    {
         _entity = _player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
         {
@@ -179,7 +179,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-        public void OnFriend1Button()
+    public void OnFriend1Button()
     {
         if (CurrentState != FightPhase.PLAYERTURN)
         {
@@ -205,7 +205,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-        public void OnFiend3Button()
+    public void OnFiend3Button()
     {
         if (CurrentState != FightPhase.PLAYERTURN)
         {

@@ -81,10 +81,14 @@ public abstract class Enemy : Entity
                 // Move to the position
                 CurrentAP -= _pathToPlayer.Count - 1;
 
+                Coord nextPos = _pathToPlayer.Last().Coord;
+
                 Move(_pathToPlayer);
                 grid.GetGridCell(CurrentPos.X, CurrentPos.Y).HasEnemy = false;
-                CurrentPos = _pathToPlayer.Last().Coord;
-                grid.GetGridCell(CurrentPos.X, CurrentPos.Y).HasEnemy = true;
+                grid.GetGridCell(nextPos.X, nextPos.Y).HasEnemy = true;
+                grid.GetGridCell(nextPos.X, nextPos.Y).Entity = grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
+                grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
+                CurrentPos = nextPos;
                 _player.RefreshGridMat();
             }
         }
