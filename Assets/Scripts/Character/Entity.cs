@@ -82,7 +82,10 @@ public abstract class Entity: MonoBehaviour
 
             Vector3 newPosition = nextCell.GameObject.transform.position;
 
-            if ((transform.position - newPosition).magnitude < 0.02f)
+            // Increase value if model ossilate between two direction during movement
+            // If the speed is bigger so must be the constant
+            // This works for a speed of 2
+            if ((transform.position - newPosition).magnitude < 0.05f)
             {
                 _pathToTake.RemoveAt(0);
                 transform.position = newPosition;
@@ -97,8 +100,17 @@ public abstract class Entity: MonoBehaviour
                 if (speed <= 0f)
                     speed = 1f;
 
-                Vector3 directeur = speed * Time.deltaTime * (newPosition - transform.position).normalized;
-                transform.position += directeur;
+                Vector3 directeur = (newPosition - transform.position).normalized;
+                transform.position += speed * Time.deltaTime * directeur;
+                if (directeur.x == 1)
+                    transform.localRotation = Quaternion.Euler(0, 0, 0);
+                if (directeur.x == -1)
+                    transform.localRotation = Quaternion.Euler(0, 180, 0);
+                if (directeur.z == 1)
+                    transform.localRotation = Quaternion.Euler(0, -90, 0);
+                if (directeur.z == -1)
+                    transform.localRotation = Quaternion.Euler(0, 90, 0);
+                Debug.Log(directeur);
             }
             return false;
         }

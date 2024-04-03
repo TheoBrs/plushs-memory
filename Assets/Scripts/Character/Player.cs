@@ -28,6 +28,7 @@ public class Player : Entity
         transform.position = new Vector3(posX, 0.01f, posY);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
+        elements = grid.GetGridCells();
     }
 
     protected override void AbilitiesInitialization()
