@@ -8,13 +8,13 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] Material defaultGridMat;
     [SerializeField] Material notWalkableGridMat;
     [SerializeField] Material enemyGridMat;
+    [SerializeField] Material selectedEnemyGridMat;
     [SerializeField] Material selectedGridMat;
     [SerializeField] Material pathGridMat;
     [SerializeField] Material redPathGridMat;
 
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
-    [SerializeField] GameObject enemyPrefab;
 
     //creation de la grille de Combat
     void Awake()
@@ -32,11 +32,9 @@ public class CombatGrid : MonoBehaviour
                 elements[x, y] = gridElement;
             }
         }
-
-
     }
 
-public bool AddObstacle(Coord coord, GameObject obstacle)
+    public bool AddObstacle(Coord coord, GameObject obstacle)
     {
         int x = coord.X;
         int y = coord.Y;
@@ -64,18 +62,20 @@ public bool AddObstacle(Coord coord, GameObject obstacle)
         return false;
     }
 
-    public Cell GetGridElement(int x, int y)
+    public Cell GetGridCell(int x, int y)
     { 
         return elements[x + (maxX / 2), y + (maxY / 2)];
     }
 
-    public Cell[,] GetGridElements() => elements;
+    public Cell[,] GetGridCells() => elements;
 
     public Material GetDefaultGridMat() => defaultGridMat;
 
     public Material GetNotWalkableGridMat() => notWalkableGridMat;
 
     public Material GetEnemyGridMat() => enemyGridMat;
+
+    public Material GetSelectedEnemyGridMat() => selectedEnemyGridMat;
 
     public Material GetSelectedGridMat() => selectedGridMat;
 

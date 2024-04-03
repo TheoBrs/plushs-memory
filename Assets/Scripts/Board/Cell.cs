@@ -9,6 +9,7 @@ public class Cell
     public Cell Parent { get; set; }
     public bool HasObstacle { get; set; }
     public bool HasEnemy { get; set; }
+    public bool IsSelected { get; set; }
     public GameObject GameObject { get; set; }
     public Entity Entity { get; set; }
 
