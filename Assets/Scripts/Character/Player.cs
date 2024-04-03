@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using UnityEngine;
 
 public class Player : Entity
@@ -13,6 +11,7 @@ public class Player : Entity
     [SerializeField] int posX;
     [SerializeField] int posY;
     Cell selectedGridCell;
+    Cell selectedEnemyGridCell;
     float width;
     float height;
     CombatGrid grid;
@@ -143,7 +142,11 @@ public class Player : Entity
 
     void Update()
     {
-        if (Input.touchCount == 1)
+        if (_isMoving)
+        {
+            MoveOverTime();
+        }
+        else if (Input.touchCount == 1)
         {
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Ended)
@@ -169,9 +172,11 @@ public class Player : Entity
                     {
                         GameObject touchedObject = hitCell.transform.gameObject;
                         if (selectedGridCell != null)
-                            selectedGridCell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                            selectedGridCell.IsSelected = false;
+                        if (selectedEnemyGridCell != null)
+                            selectedEnemyGridCell.IsSelected = false;
 
-                        elements = grid.GetGridElements();
+                        elements = grid.GetGridCells();
                         foreach (var gridElement in elements)
                         {
                             if (touchedObject == gridElement.GameObject)
@@ -184,13 +189,8 @@ public class Player : Entity
                                     return;
                                 }
 
-                                if (gridElement.HasEnemy)
-                                {
-                                    RefreshGridMat();
-                                }
-
                                 selectedGridCell = gridElement;
-                                selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                                selectedGridCell.IsSelected = true;
                                 break;
                             }
                         }
@@ -202,6 +202,7 @@ public class Player : Entity
                         {
                             // path[path.Count - 1].Entity Contain the cell with the enemy
                             entity = path[path.Count - 1].Entity;
+                            selectedEnemyGridCell = path[path.Count - 1];
                             selectedGridCell = path[path.Count - 2];
                             path.RemoveAt(path.Count - 1);
                         }
@@ -265,7 +266,10 @@ public class Player : Entity
             if (cell.HasObstacle)
                 cell.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
             else if (cell.HasEnemy)
-                cell.SetGameObjectMaterial(grid.GetEnemyGridMat());
+                if (cell.IsSelected)
+                    cell.SetGameObjectMaterial(grid.GetSelectedEnemyGridMat());
+                else
+                    cell.SetGameObjectMaterial(grid.GetEnemyGridMat());
             else
                 cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
         }
@@ -276,10 +280,11 @@ public class Player : Entity
         if (path == null || path.Count == 0)
             return;
 
+        CurrentAP -= path.Count - 1;
+
         RefreshGridMat();
-        Move(selectedGridCell.Coord, true);
+        Move(path);
         CurrentPos = selectedGridCell.Coord;
-        path.Clear();
     }
 
     public Entity GetEnemy()
