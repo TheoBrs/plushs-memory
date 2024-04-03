@@ -27,8 +27,10 @@ public class Player : Entity
         transform.position = new Vector3(posX, 0.01f, posY);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
+        elements = grid.GetGridCells();
 
-        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        // Need Inventory Manager
+        // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
     void OnEquipmentChanged (Equipment newEquipment, Equipment oldEquipment)
@@ -299,11 +301,6 @@ public class Player : Entity
             Debug.Log("No Entity Selected");
         else
             Debug.Log(entity.name);
-    }
-
-    public void ResetAP()
-    {
-       CurrentAP = MaxAP.GetValue();
     }
 
     public override void Death()

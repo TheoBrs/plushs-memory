@@ -46,7 +46,7 @@ public class TurnSystem : MonoBehaviour
     {
         int x = -1;
         int y = -1;
-        GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(-1, 0.01f, -1), Quaternion.identity);
+        GameObject WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(-1, 0.01f, -1), Quaternion.identity);
         WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
         WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(-1, -1);
         WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
@@ -94,7 +94,6 @@ public class TurnSystem : MonoBehaviour
 
             case FightPhase.ENEMYTURN:
                 EnemyTurn();
-                _player.ResetAP();
                 break;
 
             case FightPhase.WIN:

@@ -17,7 +17,6 @@ public abstract class Entity: MonoBehaviour
     protected Ability _ability1;
     protected Ability _ability2;
     protected bool _invincible = false;
-    public bool ItsTurn = false;
 
 
     protected bool _isMoving = false;

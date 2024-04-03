@@ -13,6 +13,7 @@ public enum State
 public abstract class Enemy : Entity
 {
     private State _currentState;
+    public bool ItsTurn = false;
 
     CombatGrid grid;
     [SerializeField] public string _name = "Enemy";
