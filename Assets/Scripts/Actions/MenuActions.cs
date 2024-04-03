@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuActions : MonoBehaviour
 {
@@ -48,5 +49,14 @@ public class MenuActions : MonoBehaviour
     public void ExitGame()
     {
         ScenesManager.Instance.ExitGame();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene("BattleScene");
     }
 }
