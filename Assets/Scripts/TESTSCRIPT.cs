@@ -8,6 +8,6 @@ public class TESTSCRIPT : MonoBehaviour
 
     public void AddItem()
     {
-        Inventory.Instance.Add(_item);
+        InventoryManager.Instance.Add(_item);
     }
 }

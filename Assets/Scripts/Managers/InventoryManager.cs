@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
     #region Singleton
-    public static Inventory Instance;
+    public static InventoryManager Instance;
 
     private void Awake()
     {

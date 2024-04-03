@@ -28,6 +28,25 @@ public class Player : Entity
         transform.position = new Vector3(posX, 0.01f, posY);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
+
+        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+    }
+
+    void OnEquipmentChanged (Equipment newEquipment, Equipment oldEquipment)
+    {
+        if(newEquipment != null)
+        {
+            Defense.AddModifier(newEquipment.defenseModifier);
+            Attack.AddModifier(newEquipment.attackModifier);
+            MaxAP.AddModifier(newEquipment.apModifier);
+        }
+
+        if (oldEquipment != null)
+        {
+            Defense.RemoveModifier(oldEquipment.defenseModifier);
+            Attack.RemoveModifier(oldEquipment.attackModifier);
+            MaxAP.RemoveModifier(oldEquipment.apModifier);
+        }
     }
 
     protected override void AbilitiesInitialization()

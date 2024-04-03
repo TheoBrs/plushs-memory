@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
     public Image itemIcon;
-    // public Image slotIcon;   |   Indication visuelle pour savoir si l'objet est une armure ou une arme
     Item item;
 
     public void AddItem(Item newItem)
@@ -23,7 +22,7 @@ public class InventorySlot : MonoBehaviour
 
     public void OnRemoveItem()
     {
-        Inventory.Instance.Remove(item);
+        InventoryManager.Instance.Remove(item);
     }
 
     public void UseItem()
