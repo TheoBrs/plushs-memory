@@ -102,15 +102,14 @@ public abstract class Entity: MonoBehaviour
 
                 Vector3 directeur = (newPosition - transform.position).normalized;
                 transform.position += speed * Time.deltaTime * directeur;
-                if (directeur.x == 1)
+                if (directeur.x > 0)
                     transform.localRotation = Quaternion.Euler(0, 0, 0);
-                if (directeur.x == -1)
+                if (directeur.x < 0)
                     transform.localRotation = Quaternion.Euler(0, 180, 0);
-                if (directeur.z == 1)
+                if (directeur.z > 0)
                     transform.localRotation = Quaternion.Euler(0, -90, 0);
-                if (directeur.z == -1)
+                if (directeur.z < 0)
                     transform.localRotation = Quaternion.Euler(0, 90, 0);
-                Debug.Log(directeur);
             }
             return false;
         }
