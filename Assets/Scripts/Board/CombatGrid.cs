@@ -33,11 +33,7 @@ public class CombatGrid : MonoBehaviour
             }
         }
 
-        GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(-1, 0.01f, -1), Quaternion.identity);
-        WeakEnemy.AddComponent<WeakEnemy>();
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Amongus";
 
-        AddEnemy(new Coord(1, 1), WeakEnemy.GetComponent<WeakEnemy>());
     }
 
 public bool AddObstacle(Coord coord, GameObject obstacle)

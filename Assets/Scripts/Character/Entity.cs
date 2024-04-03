@@ -8,9 +8,9 @@ public abstract class Entity: MonoBehaviour
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
 
-    protected Coord _currentPos;
-    protected int _currentHP;
-    protected int _currentAP;
+    public Coord CurrentPos { get; set; }
+    public int CurrentHP { get; set; }
+    public int CurrentAP { get; set; }
     protected Ability _ability1;
     protected Ability _ability2;
     protected bool _invincible = false;
@@ -24,9 +24,11 @@ public abstract class Entity: MonoBehaviour
 
     protected virtual void Start()
     {
-        /*
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();*/
+        CurrentHP = MaxHP.GetValue();
+        CurrentAP = MaxAP.GetValue();
+
+        _ability1 = new Ability();
+        _ability2 = new Ability();
 
         AbilitiesInitialization();
     }
@@ -35,7 +37,7 @@ public abstract class Entity: MonoBehaviour
 
     public virtual void CastAbility1(Entity target)
     {
-        _currentAP -= _ability1.Cost;
+        CurrentAP -= _ability1.Cost;
         target.TakeDamage(_ability1.Damage + Attack.GetValue());
     }
     public abstract void CastAbility2(Entity target);
@@ -46,8 +48,8 @@ public abstract class Entity: MonoBehaviour
         {
             damage -= Defense.GetValue();
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
-            _currentHP -= damage;
-            _currentHP = Mathf.Clamp(_currentHP, 0, int.MaxValue);
+            CurrentHP -= damage;
+            CurrentHP = Mathf.Clamp(CurrentHP, 0, int.MaxValue);
             IsDead();
         }
         else
@@ -59,7 +61,7 @@ public abstract class Entity: MonoBehaviour
 
     private void IsDead()
     {
-        if (_currentHP <= 0)
+        if (CurrentHP <= 0)
         {
             Death();
         }
@@ -74,7 +76,7 @@ public abstract class Entity: MonoBehaviour
         if ((transform.position - newPosition).magnitude < 0.02f || instant)
         {
             transform.position = newPosition;
-            _currentPos = gridElement.Coord;
+            CurrentPos = gridElement.Coord;
         }
         else
         {
@@ -92,7 +94,7 @@ public abstract class Entity: MonoBehaviour
         Attack.RemoveAllModifiers();
         Defense.RemoveAllModifiers();
 
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
+        CurrentHP = MaxHP.GetValue();
+        CurrentAP = MaxAP.GetValue();
     }
 }
