@@ -3,9 +3,6 @@ public class GameData
 {
     // Define the data you want to save here
 
-    // public float SfxVolume { get; set; }
-    // public float MusicVolume { get; set; }
-
     public float MusicVolume;
     public float SfxVolume;
 
