@@ -60,10 +60,9 @@ public class Player : Entity
         }
         else
         {
-            Debug.Log(_ability1.Damage);
-            Debug.Log(Attack.GetValue());
-
+            Debug.Log(target.CurrentHP);
             target.TakeDamage(_ability1.Damage + Attack.GetValue());
+            Debug.Log(target.CurrentHP);
         }
     }
 
@@ -131,116 +130,130 @@ public class Player : Entity
         }
         else if (Input.touchCount == 1)
         {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Ended)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
-                RaycastHit hitCell = new RaycastHit();
-                //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
-
-                if (hits.Length > 0)
-                {
-
-                    foreach (var hit in hits)
-                    {
-                        // Need to use a different check
-                        if (hit.transform.CompareTag("GridCell"))
-                        {
-                            hitCell = hit;
-                            break;
-                        }
-                    }
-                    if (hitCell.collider != null)
-                    {
-                        GameObject touchedObject = hitCell.transform.gameObject;
-                        if (selectedGridCell != null)
-                            selectedGridCell.IsSelected = false;
-                        if (selectedEnemyGridCell != null)
-                            selectedEnemyGridCell.IsSelected = false;
-
-                        elements = grid.GetGridCells();
-                        foreach (var gridElement in elements)
-                        {
-                            if (touchedObject == gridElement.GameObject)
-                            {
-                                if (gridElement.HasObstacle)
-                                {
-                                    RefreshGridMat();
-                                    if (path != null)
-                                        path.Clear();
-                                    return;
-                                }
-
-                                selectedGridCell = gridElement;
-                                selectedGridCell.IsSelected = true;
-                                break;
-                            }
-                        }
-
-                        RefreshGridMat();
-                        path = AStar.FindPath(CurrentPos, selectedGridCell.Coord, elements, grid.GetMaxX(), grid.GetMaxY());
-
-                        if (selectedGridCell.HasEnemy)
-                        {
-                            // path[path.Count - 1].Entity Contain the cell with the enemy
-                            entity = path[path.Count - 1].Entity;
-                            selectedEnemyGridCell = path[path.Count - 1];
-                            selectedGridCell = path[path.Count - 2];
-                            path.RemoveAt(path.Count - 1);
-                        }
-                        else
-                            entity = null;
-
-                        if (path.Count <= 1)
-                        {
-                            selectedGridCell = path[0];
-                            path.Clear();
-                            return;
-                        }
-
-                        int steps = 0;
-                        foreach (var cell in path)
-                        {
-                            Cell gridElement = elements[cell.Coord.X + grid.GetMaxX() / 2, cell.Coord.Y + grid.GetMaxY() / 2];
-                            // This is assuming that the current AP doesn't change while selecting a movement
-                            if (steps <= CurrentAP)
-                            {
-                                gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
-                            }
-                            else
-                            {
-                                gridElement.SetGameObjectMaterial(grid.GetRedPathGridMat());
-                            }
-                            steps++;
-                        }
-                        if (steps <= CurrentAP + 1)
-                        {
-                            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
-                        }
-                        else
-                        {
-                            selectedGridCell.SetGameObjectMaterial(grid.GetRedPathGridMat());
-                            // can add more stuff that prevent to move
-                            path.Clear();
-                        }
-                    }
-                }
-            }
+            HandleOneTouch();
         }
         if (Input.touchCount == 2)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Moved)
-            {
-                Vector3 touchPosition = (Input.GetTouch(0).position + Input.GetTouch(1).position) / 2;
+            HandleTwoTouch();
+        }
+    }
+    void HandleOneTouch()
+    {
+        Touch touch = Input.GetTouch(0);
+        if (touch.phase == TouchPhase.Ended)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
+            RaycastHit hitCell = new RaycastHit();
+            //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
 
-                Vector3 newCamPos = new Vector3(-touchPosition.x, -touchPosition.y, -10);
-                newCamPos.x = (newCamPos.x + width) / width;
-                newCamPos.y = (newCamPos.y + height) / height;
-                Camera.main.transform.localPosition = newCamPos;
+            if (hits.Length > 0)
+            {
+
+                foreach (var hit in hits)
+                {
+                    // Need to use a different check
+                    if (hit.transform.CompareTag("GridCell"))
+                    {
+                        hitCell = hit;
+                        break;
+                    }
+                }
+                if (hitCell.collider == null)
+                    return;
+
+                GameObject touchedObject = hitCell.transform.gameObject;
+                if (selectedGridCell != null)
+                    selectedGridCell.IsSelected = false;
+                if (selectedEnemyGridCell != null)
+                    selectedEnemyGridCell.IsSelected = false;
+
+                elements = grid.GetGridCells();
+                foreach (var gridElement in elements)
+                {
+                    if (touchedObject == gridElement.GameObject)
+                    {
+                        if (gridElement.HasObstacle)
+                        {
+                            RefreshGridMat();
+                            path?.Clear();
+                            return;
+                        }
+
+                        selectedGridCell = gridElement;
+                        selectedGridCell.IsSelected = true;
+                        break;
+                    }
+                }
+
+                RefreshGridMat();
+                path = AStar.FindPath(CurrentPos, selectedGridCell.Coord, elements, grid.GetMaxX(), grid.GetMaxY());
+
+                if (selectedGridCell.HasEnemy)
+                {
+                    // path[path.Count - 1].Entity Contain the cell with the enemy
+                    entity = path[path.Count - 1].Entity;
+                    selectedEnemyGridCell = path[path.Count - 1];
+                    selectedGridCell = path[path.Count - 2];
+                    path.RemoveAt(path.Count - 1);
+                }
+                else
+                    entity = null;
+
+                if (path.Count <= 1)
+                {
+                    selectedGridCell = path[0];
+                    path.Clear();
+                    return;
+                }
+
+                DrawPath();
             }
         }
     }
+
+    void DrawPath()
+    {
+        int steps = 0;
+        foreach (var cell in path)
+        {
+            Cell gridElement = elements[cell.Coord.X + grid.GetMaxX() / 2, cell.Coord.Y + grid.GetMaxY() / 2];
+            // This is assuming that the current AP doesn't change while selecting a movement
+            if (steps <= CurrentAP)
+            {
+                gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
+            }
+            else
+            {
+                gridElement.SetGameObjectMaterial(grid.GetRedPathGridMat());
+            }
+            steps++;
+        }
+        if (steps <= CurrentAP + 1)
+        {
+            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+        }
+        else
+        {
+            selectedGridCell.SetGameObjectMaterial(grid.GetRedPathGridMat());
+            // can add more stuff that prevent to move
+            path.Clear();
+        }
+    }
+
+    void HandleTwoTouch()
+    {
+        if (Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+            Vector3 touchPosition = (Input.GetTouch(0).position + Input.GetTouch(1).position) / 2;
+
+            Vector3 newCamPos = new Vector3(-touchPosition.x, -touchPosition.y, -10);
+            newCamPos.x = (newCamPos.x + width) / width;
+            newCamPos.y = (newCamPos.y + height) / height;
+            Camera.main.transform.localPosition = newCamPos;
+        }
+    }
+
 
     public void RefreshGridMat()
     {

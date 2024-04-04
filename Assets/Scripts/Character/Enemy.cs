@@ -101,10 +101,8 @@ public abstract class Enemy : Entity
     {
         // Check if the player is reachable
         
-        //// A MODIFIER EN CALCULANT LA DISTANCE DEPUIS LA CLASSE CELL
         Player _player = FindObjectOfType<Player>();
-        List<Cell> _pathToPlayer = AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridCells(), grid.GetMaxX(), grid.GetMaxY());
-        if (_pathToPlayer.Count == 2)
+        if ((_player.transform.position - transform.position).magnitude == 1)
         {
             if (CurrentAP > 0)
             {

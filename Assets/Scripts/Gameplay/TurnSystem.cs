@@ -159,8 +159,7 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
-            _player.DebugEnemyStr();
-            _player.CastAbility2(_entity);
+            _player.CastAbility1(_entity);
             //detection porter
         }
     }
@@ -175,7 +174,7 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
-            _player.DebugEnemyStr();
+            _player.CastAbility2(_entity);
         }
     }
 

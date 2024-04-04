@@ -6,7 +6,7 @@ public class AStar
 {
     static float ComputeHScore(Coord start, Coord dest)
     {
-        return Mathf.Abs(start.X - dest.X) + Mathf.Abs(start.Y - dest.Y);
+        return Mathf.Pow(start.X - dest.X, 2) + Mathf.Pow(start.Y - dest.Y, 2);
     }
 
     static List<Cell> GetWalkableAdjacentSquares(int x, int y, Cell[,] map, Cell target)
@@ -34,7 +34,6 @@ public class AStar
         var target = map[targetCoord.X + (maxX / 2), targetCoord.Y + (maxY / 2)];
         var openList = new List<Cell>();
         var closedList = new List<Cell>();
-        int g = 0;
 
         // start by adding the original position to the open list
         openList.Add(start);
@@ -56,39 +55,33 @@ public class AStar
                 break;
 
             var adjacentSquares = GetWalkableAdjacentSquares(current.Coord.X, current.Coord.Y, map, target);
-            g++;
-
             foreach (var adjacentSquare in adjacentSquares)
             {
+                float tentative_g_score = adjacentSquare.G + current.G;
+                Cell temp = current;
+                while (temp != start)
+                {
+                    temp = temp.Parent;
+                    tentative_g_score += temp.G;
+                }
+
                 // if this adjacent square is already in the closed list, ignore it
                 if (closedList.FirstOrDefault(l => l.Coord.X == adjacentSquare.Coord.X
-                        && l.Coord.Y == adjacentSquare.Coord.Y) != null)
+                        && l.Coord.Y == adjacentSquare.Coord.Y) != null && tentative_g_score >= adjacentSquare.G)
                     continue;
 
                 // if it's not in the open list...
                 if (openList.FirstOrDefault(l => l.Coord.X == adjacentSquare.Coord.X
-                        && l.Coord.Y == adjacentSquare.Coord.Y) == null)
+                        && l.Coord.Y == adjacentSquare.Coord.Y) == null || tentative_g_score < adjacentSquare.G)
                 {
                     // compute its score, set the parent
-                    adjacentSquare.G  = g;
+                    adjacentSquare.G  = tentative_g_score;
                     adjacentSquare.H = ComputeHScore(adjacentSquare.Coord, target.Coord);
                     adjacentSquare.F = adjacentSquare.G + adjacentSquare.H;
                     adjacentSquare.Parent = current;
 
                     // and add it to the open list
                     openList.Insert(0, adjacentSquare);
-                }
-                else
-                {
-                    // test if using the current G score makes the adjacent square's F score
-                    // lower, if yes update the parent because it means it's a better path
-                    if (g + adjacentSquare.H < adjacentSquare.F)
-                    {
-
-                        adjacentSquare.G = g;
-                        adjacentSquare.F = adjacentSquare.G + adjacentSquare.H;
-                        adjacentSquare.Parent = current;
-                    }
                 }
             }
         }
