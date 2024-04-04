@@ -51,12 +51,4 @@ public class MenuActions : MonoBehaviour
         ScenesManager.Instance.ExitGame();
     }
 
-    public void MainMenu()
-    {
-        SceneManager.LoadScene("Menu");
-    }
-    public void Restart()
-    {
-        SceneManager.LoadScene("BattleScene");
-    }
 }
