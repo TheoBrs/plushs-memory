@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuActions : MonoBehaviour, IDataPersistence
 {
@@ -76,5 +77,14 @@ public class MenuActions : MonoBehaviour, IDataPersistence
     public void SFXVolume()
     {
         AudioManager.Instance.SFXVolume(_sfxSlider.value);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene("BattleScene");
     }
 }

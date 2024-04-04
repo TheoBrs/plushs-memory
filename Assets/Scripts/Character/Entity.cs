@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Entity: MonoBehaviour
@@ -5,15 +7,20 @@ public abstract class Entity: MonoBehaviour
     [Header("HP and AP settings")]
     public Stat MaxHP;
     public Stat MaxAP;
+    public float speed;
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
 
-    protected Coord _currentPos;
-    protected int _currentHP;
-    protected int _currentAP;
+    public Coord CurrentPos { get; set; }
+    public int CurrentHP { get; set; }
+    public int CurrentAP { get; set; }
     protected Ability _ability1;
     protected Ability _ability2;
     protected bool _invincible = false;
+
+
+    protected bool _isMoving = false;
+    protected List<Cell> _pathToTake;
 
     CombatGrid _grid;
 
@@ -24,20 +31,23 @@ public abstract class Entity: MonoBehaviour
 
     protected virtual void Start()
     {
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
+        CurrentHP = MaxHP.GetValue();
+        CurrentAP = MaxAP.GetValue();
+
+        _ability1 = new Ability();
+        _ability2 = new Ability();
 
         AbilitiesInitialization();
     }
 
     protected abstract void AbilitiesInitialization();
 
-    protected virtual void CastAbility1(Entity target)
+    public virtual void CastAbility1(Entity target)
     {
-        _currentAP -= _ability1.Cost;
+        CurrentAP -= _ability1.Cost;
         target.TakeDamage(_ability1.Damage + Attack.GetValue());
     }
-    protected abstract void CastAbility2(Entity target);
+    public abstract void CastAbility2(Entity target);
 
     public void TakeDamage(int damage)
     {
@@ -45,8 +55,8 @@ public abstract class Entity: MonoBehaviour
         {
             damage -= Defense.GetValue();
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
-            _currentHP -= damage;
-            _currentHP = Mathf.Clamp(_currentHP, 0, int.MaxValue);
+            CurrentHP -= damage;
+            CurrentHP = Mathf.Clamp(CurrentHP, 0, int.MaxValue);
             IsDead();
         }
         else
@@ -58,28 +68,58 @@ public abstract class Entity: MonoBehaviour
 
     private void IsDead()
     {
-        if (_currentHP <= 0)
+        if (CurrentHP <= 0)
         {
             Death();
         }
     }
 
-    public void Move(Coord coordTo, bool instant)
+    protected bool MoveOverTime()
     {
-        GridElement gridElement = _grid.GetGridElement(coordTo.GetX(), coordTo.GetY());
+        if (_pathToTake.Count > 0)
+        {
+            Cell nextCell = _pathToTake.First();
 
-        Vector3 newPosition = gridElement.GetGameObjectPosition();
-        
-        if ((transform.position - newPosition).magnitude < 0.02f || instant)
-        {
-            transform.position = newPosition;
-            _currentPos = gridElement.GetCoord();
+            Vector3 newPosition = nextCell.GameObject.transform.position;
+
+            // Increase value if model ossilate between two direction during movement
+            // If the speed is bigger so must be the constant
+            // This works for a speed of 2
+            if ((transform.position - newPosition).magnitude < 0.05f)
+            {
+                _pathToTake.RemoveAt(0);
+                transform.position = newPosition;
+                CurrentPos = nextCell.Coord;
+                if (_pathToTake.Count == 0)
+                {
+                    _isMoving = false;
+                }
+            }
+            else
+            {
+                if (speed <= 0f)
+                    speed = 1f;
+
+                Vector3 directeur = (newPosition - transform.position).normalized;
+                transform.position += speed * Time.deltaTime * directeur;
+                if (directeur.x > 0)
+                    transform.localRotation = Quaternion.Euler(0, 0, 0);
+                if (directeur.x < 0)
+                    transform.localRotation = Quaternion.Euler(0, 180, 0);
+                if (directeur.z > 0)
+                    transform.localRotation = Quaternion.Euler(0, -90, 0);
+                if (directeur.z < 0)
+                    transform.localRotation = Quaternion.Euler(0, 90, 0);
+            }
+            return false;
         }
-        else
-        {
-            Vector3 directeur = 10f * Time.deltaTime * (newPosition - transform.position).normalized;
-            transform.position += directeur;
-        }
+        return true;
+    }
+
+    public void Move(List<Cell> pathToTake)
+    {
+        _pathToTake = pathToTake;
+        _isMoving = true;
     }
 
     public abstract void Death();
@@ -91,7 +131,7 @@ public abstract class Entity: MonoBehaviour
         Attack.RemoveAllModifiers();
         Defense.RemoveAllModifiers();
 
-        _currentHP = MaxHP.GetValue();
-        _currentAP = MaxAP.GetValue();
+        CurrentHP = MaxHP.GetValue();
+        CurrentAP = MaxAP.GetValue();
     }
 }

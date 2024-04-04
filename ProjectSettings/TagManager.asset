@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - EndTurn
   - CombatGrid
+  - Enemy
+  - GridCell
   layers:
   - Default
   - TransparentFX

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum State
@@ -11,13 +13,14 @@ public enum State
 public abstract class Enemy : Entity
 {
     private State _currentState;
-    private bool _itsTurn = false;
+    public bool _itsTurn = false;
 
-    protected Entity _playerReference;
+    CombatGrid grid;
 
     protected override void Start()
     {
         base.Start();
+        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         _currentState = State.WaitForTurn;
     }
 
@@ -28,14 +31,16 @@ public abstract class Enemy : Entity
             case State.WaitForTurn:
                 if (_itsTurn)
                 {
+                    CurrentAP = MaxAP.GetValue();
                     ChangeState(State.Movement);
                 }
                 break;
             case State.Movement:
 
-                Movement();
+                bool hasFinishedMoving = Movement();
 
-                ChangeState(State.Attacking);
+                if (hasFinishedMoving)
+                    ChangeState(State.Attacking);
                 break;
             case State.Attacking:
 
@@ -45,24 +50,49 @@ public abstract class Enemy : Entity
                 break;
             case State.EndTurn:
 
-                // Send message to TurnSystem to tell turn is done
+                _itsTurn = false;
 
                 ChangeState(State.WaitForTurn);
                 break;
         }
     }
 
-    private void Movement()
+    private bool Movement()
     {
-        // Check if the player is reachable
+        if (_isMoving)
+        {
+            _isMoving = !MoveOverTime();
+        }
+        else
+        {
+            // Check if the player is reachable
+            Player _player = FindObjectOfType<Player>();
+            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridCells(), grid.GetMaxX(), grid.GetMaxY());
 
-        // If not: nalculate nearest path to player with _currentAP (1 AP = 1 case)
+            _pathToPlayer.RemoveAt(_pathToPlayer.Count - 1);
 
-        int numberOfCase = 0;
+            if ( _pathToPlayer.Count > 1)
+            {
+                if(_pathToPlayer.Count - 1 > CurrentAP)
+                {
+                    _pathToPlayer.RemoveRange(CurrentAP + 1, _pathToPlayer.Count - CurrentAP - 1);
+                }
 
-        _currentAP -= numberOfCase;
+                // Move to the position
+                CurrentAP -= _pathToPlayer.Count - 1;
 
-        // Move to the position
+                Coord nextPos = _pathToPlayer.Last().Coord;
+
+                Move(_pathToPlayer);
+                grid.GetGridCell(CurrentPos.X, CurrentPos.Y).HasEnemy = false;
+                grid.GetGridCell(nextPos.X, nextPos.Y).HasEnemy = true;
+                grid.GetGridCell(nextPos.X, nextPos.Y).Entity = grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
+                grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
+                CurrentPos = nextPos;
+                _player.RefreshGridMat();
+            }
+        }
+        return !_isMoving;
 
         // Verify he arrived at the position / Wait till animation is done
     }
@@ -70,22 +100,30 @@ public abstract class Enemy : Entity
     private void Attacking()
     {
         // Check if the player is reachable
-
-
-        if(_currentAP > 0)
+        
+        //// A MODIFIER EN CALCULANT LA DISTANCE DEPUIS LA CLASSE CELL
+        Player _player = FindObjectOfType<Player>();
+        List<Cell> _pathToPlayer = AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridCells(), grid.GetMaxX(), grid.GetMaxY());
+        if (_pathToPlayer.Count == 2)
         {
-            if(_currentAP >= _ability2.Cost)
+            if (CurrentAP > 0)
             {
-                CastAbility2(_playerReference);
-            }
-            else if (_currentAP >= _ability1.Cost)
-            {
-                CastAbility1(_playerReference);
-            }
+                if (CurrentAP >= _ability2.Cost)
+                {
+                    CastAbility2(_player);
+                }
+                else if (CurrentAP >= _ability1.Cost)
+                {
+                    CastAbility1(_player);
+                }
 
-            // Verify Attack is done / Wait till animation is done
+                // Verify Attack is done / Wait till animation is done
 
+            }
         }
+        //// A MODIFIER
+
+
     }
 
     void ChangeState(State newState)

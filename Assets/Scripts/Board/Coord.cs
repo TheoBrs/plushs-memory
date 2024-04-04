@@ -2,18 +2,18 @@ using UnityEngine;
 
 public struct Coord
 {
-    readonly int x;
-    readonly int y;
-       
+    readonly public int X { get; }
+    readonly public int Y { get; }
+
     public Coord(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        X = x;
+        Y = y;
     }
 
     static public Vector3 ToVector3(Coord coord)
     {
-        return new Vector3(coord.x, 0, coord.y);
+        return new Vector3(coord.X, 0, coord.Y);
     }
 
     static public Coord ToCoord(Vector3 vector3)
@@ -23,14 +23,12 @@ public struct Coord
 
     public bool Equals(Coord other)
     {
-        return other.x == x && other.y == y;
+        return other.X == X && other.Y == Y;
     }
     
     public override string ToString()
     {
-        return "x:" + x + " y:" + y;
+        return "x:" + X + " y:" + Y;
     }
-    public int GetX() => x;
-    public int GetY() => y;
 
 }
