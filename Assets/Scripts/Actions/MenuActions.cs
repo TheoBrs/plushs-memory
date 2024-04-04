@@ -78,13 +78,4 @@ public class MenuActions : MonoBehaviour, IDataPersistence
     {
         AudioManager.Instance.SFXVolume(_sfxSlider.value);
     }
-
-    public void MainMenu()
-    {
-        SceneManager.LoadScene("Menu");
-    }
-    public void Restart()
-    {
-        SceneManager.LoadScene("BattleScene");
-    }
 }
