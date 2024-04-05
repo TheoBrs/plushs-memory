@@ -187,7 +187,7 @@ public class Player : Entity
                 }
 
                 RefreshGridMat();
-                path = AStar.FindPath(CurrentPos, selectedGridCell.Coord, elements, grid.GetMaxX(), grid.GetMaxY());
+                path = AStar.FindPath(CurrentPos, selectedGridCell.Coord);
 
                 if (selectedGridCell.HasEnemy)
                 {

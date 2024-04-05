@@ -9,17 +9,21 @@ public class AStar
         return Mathf.Pow(start.X - dest.X, 2) + Mathf.Pow(start.Y - dest.Y, 2);
     }
 
-    static List<Cell> GetWalkableAdjacentSquares(int x, int y, Cell[,] map, Cell target)
+    static List<Cell> GetWalkableAdjacentSquares(int x, int y, Cell[,] map, Cell target, int maxX, int maxY)
     {
         List<Cell> proposedLocations = new List<Cell>();
-
-        foreach (Cell cell in map)
+        List<(int, int)> adjacentCoord = new List<(int, int)>
         {
-            if ((!cell.HasObstacle && (!cell.HasEnemy || cell == target)) && (
-                (cell.Coord.X == x && cell.Coord.Y == y - 1) || 
-                (cell.Coord.X == x && cell.Coord.Y == y + 1) ||
-                (cell.Coord.X == x - 1 && cell.Coord.Y == y) ||
-                (cell.Coord.X == x + 1 && cell.Coord.Y == y) ))
+            (-1, 0),
+            (+1, 0),
+            (0, -1),
+            (0, +1)
+        };
+
+        foreach (var coord in adjacentCoord)
+        {
+            Cell cell = map[Mathf.Clamp(x + coord.Item1 + maxX / 2, 0, maxX - 1), Mathf.Clamp(y + coord.Item2 + maxY / 2, 0, maxY - 1)];
+            if (!cell.HasObstacle && (!cell.HasEnemy || cell == target))
                     proposedLocations.Add(cell);
         }
 
@@ -27,8 +31,13 @@ public class AStar
         return proposedLocations;
 
     }
-    public static List<Cell> FindPath(Coord startCoord, Coord targetCoord, Cell[,] map, int maxX, int maxY)
+    public static List<Cell> FindPath(Coord startCoord, Coord targetCoord)
     {
+        CombatGrid grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+        Cell[,] map = grid.GetGridCells();
+        int maxX = grid.GetMaxX();
+        int maxY = grid.GetMaxY();
+
         Cell current = null;
         var start = map[startCoord.X + (maxX / 2), startCoord.Y + (maxY / 2)];
         var target = map[targetCoord.X + (maxX / 2), targetCoord.Y + (maxY / 2)];
@@ -54,7 +63,7 @@ public class AStar
             if (closedList.FirstOrDefault(l => l.Coord.X == target.Coord.X && l.Coord.Y == target.Coord.Y) != null)
                 break;
 
-            var adjacentSquares = GetWalkableAdjacentSquares(current.Coord.X, current.Coord.Y, map, target);
+            var adjacentSquares = GetWalkableAdjacentSquares(current.Coord.X, current.Coord.Y, map, target, maxX, maxY);
             foreach (var adjacentSquare in adjacentSquares)
             {
                 float tentative_g_score = adjacentSquare.G + current.G;
