@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MenuActions : MonoBehaviour
+public class MenuActions : MonoBehaviour, IDataPersistence
 {
+    [Header("UI Objects")]
     [SerializeField] private GameObject _mainActionsObject;
     [SerializeField] private GameObject _optionActionsObject;
+
+    [Header("Volume Sliders")]
+    [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _sfxSlider;
 
     private void Awake()
     {
@@ -16,6 +22,18 @@ public class MenuActions : MonoBehaviour
         {
             _optionActionsObject.SetActive(false);
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        _musicSlider.value = data.MusicVolume;
+        _sfxSlider.value = data.SfxVolume;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.MusicVolume = _musicSlider.value;
+        data.SfxVolume = _sfxSlider.value;
     }
 
     private void Start()
@@ -51,4 +69,13 @@ public class MenuActions : MonoBehaviour
         ScenesManager.Instance.ExitGame();
     }
 
+    public void MusicVolume()
+    {
+        AudioManager.Instance.MusicVolume(_musicSlider.value);
+    }
+
+    public void SFXVolume()
+    {
+        AudioManager.Instance.SFXVolume(_sfxSlider.value);
+    }
 }
