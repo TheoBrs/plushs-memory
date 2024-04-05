@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TurnSystem : MonoBehaviour
 {
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] List<GameObject> enemyPrefabs;
     public enum FightPhase
     {
         INIT,
@@ -46,7 +46,7 @@ public class TurnSystem : MonoBehaviour
     {
         int x = -1;
         int y = -1;
-        GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(-1, 0.01f, -1), Quaternion.identity);
+        GameObject WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(-1, 0.01f, -1), Quaternion.identity);
         WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
         WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
         WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
@@ -77,7 +77,7 @@ public class TurnSystem : MonoBehaviour
 
         for (int i = 0; i < _enemies.Count; i++)
         {
-            _enemies[i]._itsTurn = true;
+            _enemies[i].ItsTurn = true;
             UpdatePlayerHPText();
         }
         CurrentState = FightPhase.PLAYERTURN;
@@ -85,7 +85,6 @@ public class TurnSystem : MonoBehaviour
 
     private void StateSwitch()
     {
-
         switch (CurrentState)
         {
             case FightPhase.PLAYERTURN:
@@ -149,22 +148,8 @@ public class TurnSystem : MonoBehaviour
 
     #region Attaque
 
-    public void OnCACButton()
-    {
 
-        _entity = _player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
-        {
-            return;
-        }
-        else
-        {
-            _player.CastAbility1(_entity);
-            //detection porter
-        }
-    }
-
-    public void OnRangeButton()
+    public void OnAbility1Button()
     {
         _entity = _player.GetEnemy();
         if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
@@ -174,7 +159,22 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
+            _player.CastAbility1(_entity);
+            //detection porter
+        }
+    }
+
+    public void OnAbility2Button()
+    {
+        _entity = _player.GetEnemy();
+        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
+        {
+            return;
+        }
+        else
+        {
             _player.CastAbility2(_entity);
+            //detection porter
         }
     }
 
@@ -191,7 +191,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-    public void OnFiend2Button()
+    public void OnFriend2Button()
     {
         if (CurrentState != FightPhase.PLAYERTURN)
         {
@@ -204,7 +204,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-    public void OnFiend3Button()
+        public void OnFriend3Button()
     {
         if (CurrentState != FightPhase.PLAYERTURN)
         {

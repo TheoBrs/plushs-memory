@@ -4,13 +4,13 @@ public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
 
-    Inventory inventory;
+    InventoryManager inventory;
 
     InventorySlot[] slots;
 
     void Start()
     {
-        inventory = Inventory.Instance;
+        inventory = InventoryManager.Instance;
         inventory.onItemChangeCallback += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
