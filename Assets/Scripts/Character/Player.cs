@@ -10,7 +10,6 @@ public class Player : Entity
 
     [SerializeField] int posX;
     [SerializeField] int posY;
-    GameObject player;
     Cell selectedGridCell;
     Cell selectedEnemyGridCell;
     float width;
@@ -27,6 +26,26 @@ public class Player : Entity
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
         elements = grid.GetGridCells();
+
+        // !!!!!!!! Need Equipment Manager !!!!!!!!
+        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+    }
+
+    void OnEquipmentChanged (Equipment newEquipment, Equipment oldEquipment)
+    {
+        if(newEquipment != null)
+        {
+            Defense.AddModifier(newEquipment.defenseModifier);
+            Attack.AddModifier(newEquipment.attackModifier);
+            MaxAP.AddModifier(newEquipment.apModifier);
+        }
+
+        if (oldEquipment != null)
+        {
+            Defense.RemoveModifier(oldEquipment.defenseModifier);
+            Attack.RemoveModifier(oldEquipment.attackModifier);
+            MaxAP.RemoveModifier(oldEquipment.apModifier);
+        }
     }
 
     protected override void AbilitiesInitialization()
@@ -48,7 +67,7 @@ public class Player : Entity
         _fAbility3.RoundsBeforeReuse = 4;
     }
 
-    public override void CastAbility1(Entity target) //corps à corps
+    public override void CastAbility1(Entity target)
     {
         CurrentAP -= _ability1.Cost;
         if(_pattoBuff > 0)
@@ -284,6 +303,7 @@ public class Player : Entity
     {
         return entity;
     }
+    
     public override void Death()
     {
         // GameOver

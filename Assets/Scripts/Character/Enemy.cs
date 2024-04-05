@@ -13,7 +13,8 @@ public enum State
 public abstract class Enemy : Entity
 {
     private State _currentState;
-    public bool _itsTurn = false;
+    public bool ItsTurn = false;
+    [SerializeField] public string _name = "Enemy";
 
     protected override void Start()
     {
@@ -26,7 +27,7 @@ public abstract class Enemy : Entity
         switch (_currentState)
         {
             case State.WaitForTurn:
-                if (_itsTurn)
+                if (ItsTurn)
                 {
                     CurrentAP = MaxAP.GetValue();
                     ChangeState(State.Movement);
@@ -47,7 +48,7 @@ public abstract class Enemy : Entity
                 break;
             case State.EndTurn:
 
-                _itsTurn = false;
+                ItsTurn = false;
 
                 ChangeState(State.WaitForTurn);
                 break;
