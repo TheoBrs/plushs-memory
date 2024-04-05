@@ -28,7 +28,7 @@ public class AStar
 
     }
     public static List<Cell> FindPath(Coord startCoord, Coord targetCoord, Cell[,] map, int maxX, int maxY)
-    {   
+    {
         Cell current = null;
         var start = map[startCoord.X + (maxX / 2), startCoord.Y + (maxY / 2)];
         var target = map[targetCoord.X + (maxX / 2), targetCoord.Y + (maxY / 2)];
