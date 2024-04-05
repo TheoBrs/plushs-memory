@@ -29,8 +29,8 @@ public class Player : Entity
         height = Screen.height / 2.0f;
         elements = grid.GetGridCells();
 
-        // Need Inventory Manager
-        // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        // !!!!!!!! Need Equipment Manager !!!!!!!!
+        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
     void OnEquipmentChanged (Equipment newEquipment, Equipment oldEquipment)
