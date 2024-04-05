@@ -14,14 +14,11 @@ public abstract class Enemy : Entity
 {
     private State _currentState;
     public bool ItsTurn = false;
-
-    CombatGrid grid;
     [SerializeField] public string _name = "Enemy";
 
     protected override void Start()
     {
         base.Start();
-        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         _currentState = State.WaitForTurn;
     }
 
@@ -68,7 +65,7 @@ public abstract class Enemy : Entity
         {
             // Check if the player is reachable
             Player _player = FindObjectOfType<Player>();
-            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridCells(), grid.GetMaxX(), grid.GetMaxY());
+            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos);
 
             _pathToPlayer.RemoveAt(_pathToPlayer.Count - 1);
 
@@ -102,10 +99,8 @@ public abstract class Enemy : Entity
     {
         // Check if the player is reachable
         
-        //// A MODIFIER EN CALCULANT LA DISTANCE DEPUIS LA CLASSE CELL
         Player _player = FindObjectOfType<Player>();
-        List<Cell> _pathToPlayer = AStar.FindPath(CurrentPos, _player.CurrentPos, grid.GetGridCells(), grid.GetMaxX(), grid.GetMaxY());
-        if (_pathToPlayer.Count == 2)
+        if ((_player.transform.position - transform.position).magnitude == 1)
         {
             if (CurrentAP > 0)
             {
