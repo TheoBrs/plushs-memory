@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Needle and Thread
   m_EditorClassIdentifier: 
   name: Needle and Thread
-  icon: {fileID: 0}
+  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   isDefaultItem: 0
   equipSlot: 0
   armorModifier: 0
