@@ -48,10 +48,10 @@ public class TurnSystem : MonoBehaviour
         int y = -1;
         GameObject WeakEnemy = Instantiate(enemyPrefab, new Vector3(-1, 0.01f, -1), Quaternion.identity);
         WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
-        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(-1, -1);
+        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
         WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
 
-        grid.AddEnemy(new Coord(x + grid.GetMaxX() / 2, y + grid.GetMaxY() / 2), WeakEnemy.GetComponent<Enemy>());
+        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
         CurrentState = FightPhase.PLAYERTURN;
     }
 

@@ -285,15 +285,6 @@ public class Player : Entity
     {
         return entity;
     }
-
-    public void DebugEnemyStr()
-    {
-        Entity entity = GetEnemy();
-        if(entity  == null)
-            Debug.Log("No Entity Selected");
-        else
-            Debug.Log(entity.name);
-    }
     public override void Death()
     {
         // GameOver
