@@ -15,12 +15,9 @@ public abstract class Enemy : Entity
     private State _currentState;
     public bool _itsTurn = false;
 
-    CombatGrid grid;
-
     protected override void Start()
     {
         base.Start();
-        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         _currentState = State.WaitForTurn;
     }
 

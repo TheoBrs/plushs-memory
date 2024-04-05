@@ -15,7 +15,6 @@ public class Player : Entity
     Cell selectedEnemyGridCell;
     float width;
     float height;
-    CombatGrid grid;
     Cell[,] elements;
     List<Cell> path;
     Entity entity;
@@ -23,7 +22,6 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
-        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         CurrentPos = new Coord(posX, posY);
         transform.position = new Vector3(posX, 0.01f, posY);
         width = Screen.width / 2.0f;
@@ -132,7 +130,7 @@ public class Player : Entity
         {
             HandleOneTouch();
         }
-        if (Input.touchCount == 2)
+        else if (Input.touchCount == 2)
         {
             HandleTwoTouch();
         }
