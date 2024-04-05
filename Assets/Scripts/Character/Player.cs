@@ -143,13 +143,11 @@ public class Player : Entity
             Ray ray = Camera.main.ScreenPointToRay(touch.position);
             RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
             RaycastHit hitCell = new RaycastHit();
-            //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
 
             if (hits.Length > 0)
             {
                 foreach (var hit in hits)
                 {
-                    // Need to use a different check
                     if (hit.transform.CompareTag("GridCell"))
                     {
                         hitCell = hit;
