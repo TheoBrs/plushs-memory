@@ -147,7 +147,6 @@ public class Player : Entity
 
             if (hits.Length > 0)
             {
-
                 foreach (var hit in hits)
                 {
                     // Need to use a different check
