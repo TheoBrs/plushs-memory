@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 61570014f8e985e4f9f5802ad802c92b
+guid: 7fdc8368a7e27da48a924b6ea73465e9
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Inter
+  - Nunito
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
