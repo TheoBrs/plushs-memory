@@ -98,8 +98,19 @@ public abstract class Enemy : Entity
         Player _player = FindObjectOfType<Player>();
         if ((_player.transform.position - transform.position).magnitude == 1)
         {
+            Vector3 directeur = (_player.transform.position - transform.position);
+            if (directeur.x > 0)
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+            if (directeur.x < 0)
+                transform.localRotation = Quaternion.Euler(0, 180, 0);
+            if (directeur.z > 0)
+                transform.localRotation = Quaternion.Euler(0, -90, 0);
+            if (directeur.z < 0)
+                transform.localRotation = Quaternion.Euler(0, 90, 0);
+
             if (CurrentAP > 0)
             {
+
                 if (CurrentAP >= _ability2.Cost)
                 {
                     CastAbility2(_player);
@@ -113,9 +124,6 @@ public abstract class Enemy : Entity
 
             }
         }
-        //// A MODIFIER
-
-
     }
 
     void ChangeState(State newState)

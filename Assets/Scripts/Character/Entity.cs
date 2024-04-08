@@ -26,6 +26,7 @@ public abstract class Entity: MonoBehaviour
     protected virtual void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+
         CurrentHP = MaxHP.GetValue();
         CurrentAP = MaxAP.GetValue();
 

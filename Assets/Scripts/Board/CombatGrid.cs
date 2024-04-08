@@ -48,12 +48,12 @@ public class CombatGrid : MonoBehaviour
         return false;
     }
 
-    public bool AddEnemy(Coord coord, GameObject enemyPrefabs)
+    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation)
     {
         int x = Coord.ToUncenteredCoord(coord, maxX, maxY).X;
         int y = Coord.ToUncenteredCoord(coord, maxX, maxY).Y;
 
-        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X, 0.01f, coord.Y) + transform.position, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X, 0.01f, coord.Y) + transform.position, Quaternion.Euler(rotation));
         Entity enemyScript = enemy.GetComponent<Entity>();
         enemyScript.name = "Enemy";
         enemyScript.CurrentPos = coord;
