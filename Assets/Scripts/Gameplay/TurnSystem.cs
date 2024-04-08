@@ -44,45 +44,28 @@ public class TurnSystem : MonoBehaviour
 
     private void SetUpBattle()
     {
+        var maxX = grid.GetMaxX();
+        var maxY = grid.GetMaxY();
+
         int x = -1;
         int y = -2;
-        GameObject WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
-        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
-        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
-        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[0]);
 
         x = -1;
         y = -1;
-        WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
-        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
-        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
-        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[1]);
 
         x = -1;
         y = 0;
-        WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
-        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
-        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
-        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[2]);
 
         x = -1;
         y = 1;
-        WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
-        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
-        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
-        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[3]);
 
         x = -1;
         y = 2;
-        WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
-        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
-        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
-        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[4]);
 
         CurrentState = FightPhase.PLAYERTURN;
     }

@@ -46,6 +46,7 @@ public class AStar
         var target = map[targetCoord.X, targetCoord.Y];
         var openList = new List<Cell>();
         var closedList = new List<Cell>();
+        start.H = ComputeHScore(start.Coord, target.Coord);
 
         // start by adding the original position to the open list
         openList.Add(start);
@@ -111,12 +112,10 @@ public class AStar
         if (closest)
         {
             // Get closest cell to target in the whole path
-            closedList.Remove(start);
-            var lowest = closedList.Min(l => l.F);
-            var closestCell = closedList.First(l => l.F == lowest);
+            var lowest = closedList.Min(l => l.H);
+            var closestCell = closedList.First(l => l.H == lowest);
             var closestCellIndex = closedList.IndexOf(closestCell);
-            closedList.Insert(0, start);
-            return closedList.GetRange(0, closestCellIndex + 3);
+            return closedList.GetRange(0, closestCellIndex + 2);
         }
 
         var failureList = new List<Cell>{ start };

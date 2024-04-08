@@ -48,16 +48,22 @@ public class CombatGrid : MonoBehaviour
         return false;
     }
 
-    public bool AddEnemy(Coord coord, Entity entity)
+    public bool AddEnemy(Coord coord, GameObject enemyPrefabs)
     {
-        int x = coord.X;
-        int y = coord.Y;
+        int x = Coord.ToUncenteredCoord(coord, maxX, maxY).X;
+        int y = Coord.ToUncenteredCoord(coord, maxX, maxY).Y;
+
+        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X, 0.01f, coord.Y) + transform.position, Quaternion.identity);
+        Entity enemyScript = enemy.GetComponent<Entity>();
+        enemyScript.name = "Enemy";
+        enemyScript.CurrentPos = coord;
+        enemyScript.speed = 2;
 
         if (elements[x, y].HasObstacle)
             return true;
 
         elements[x, y].HasEnemy = true;
-        elements[x, y].Entity = entity;
+        elements[x, y].Entity = enemyScript;
         elements[x, y].SetGameObjectMaterial(enemyGridMat);
         return false;
     }
