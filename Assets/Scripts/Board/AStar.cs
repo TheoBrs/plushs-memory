@@ -89,12 +89,12 @@ public class AStar
 
                 // if this adjacent square is already in the closed list, ignore it
                 if (closedList.FirstOrDefault(l => l.Coord.X == adjacentSquare.Coord.X
-                        && l.Coord.Y == adjacentSquare.Coord.Y) != null && tentative_g_score >= adjacentSquare.G)
+                    && l.Coord.Y == adjacentSquare.Coord.Y) != null && tentative_g_score >= adjacentSquare.G)
                     continue;
 
                 // if it's not in the open list...
                 if (openList.FirstOrDefault(l => l.Coord.X == adjacentSquare.Coord.X
-                        && l.Coord.Y == adjacentSquare.Coord.Y) == null || tentative_g_score < adjacentSquare.G)
+                    && l.Coord.Y == adjacentSquare.Coord.Y) == null || tentative_g_score < adjacentSquare.G)
                 {
                     // compute its score, set the parent
                     adjacentSquare.G = tentative_g_score;
