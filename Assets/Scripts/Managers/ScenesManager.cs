@@ -19,12 +19,6 @@ public class ScenesManager : MonoBehaviour
         }
     }
 
-    public enum Scene
-    {
-        Menu,
-        Dialogue,
-    }
-
     [SerializeField] private SceneField _menuScene;
 
     private readonly List<AsyncOperation> _scenesToLoad = new();
