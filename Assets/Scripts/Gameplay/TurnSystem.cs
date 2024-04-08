@@ -25,7 +25,7 @@ public class TurnSystem : MonoBehaviour
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
-
+    int enemyIndex = 0;
     public FightPhase CurrentState = FightPhase.INIT;
 
     void Start()
@@ -45,13 +45,45 @@ public class TurnSystem : MonoBehaviour
     private void SetUpBattle()
     {
         int x = -1;
-        int y = -1;
-        GameObject WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(-1, 0.01f, -1), Quaternion.identity);
+        int y = -2;
+        GameObject WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
         WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
         WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
         WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
-
         grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+
+        x = -1;
+        y = -1;
+        WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
+        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
+        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
+        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
+        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+
+        x = -1;
+        y = 0;
+        WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
+        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
+        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
+        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
+        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+
+        x = -1;
+        y = 1;
+        WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
+        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
+        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
+        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
+        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+
+        x = -1;
+        y = 2;
+        WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(x, 0.01f, y), Quaternion.identity);
+        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
+        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
+        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
+        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+
         CurrentState = FightPhase.PLAYERTURN;
     }
 
@@ -68,19 +100,27 @@ public class TurnSystem : MonoBehaviour
  
     public void EnemyTurn()
     {
-
         if (!enemyTurnInitalized)
         {
+            // Stuff to do only once at the start of an entity
             playerTurnInitalized = false;
             enemyTurnInitalized = true;
+            enemyIndex = 0;
+            NextEnemyTurn();
+        }
+    }
+
+    public void NextEnemyTurn()
+    {
+        if (enemyIndex == _enemies.Count)
+        {
+            CurrentState = FightPhase.PLAYERTURN;
+            return;
         }
 
-        for (int i = 0; i < _enemies.Count; i++)
-        {
-            _enemies[i].ItsTurn = true;
-            UpdatePlayerHPText();
-        }
-        CurrentState = FightPhase.PLAYERTURN;
+        _enemies[enemyIndex].ItsTurn = true;
+        enemyIndex++;
+        UpdatePlayerHPText();
     }
 
     private void StateSwitch()

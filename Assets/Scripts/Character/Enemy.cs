@@ -34,22 +34,18 @@ public abstract class Enemy : Entity
                 }
                 break;
             case State.Movement:
-
                 bool hasFinishedMoving = Movement();
-
                 if (hasFinishedMoving)
                     ChangeState(State.Attacking);
                 break;
             case State.Attacking:
-
                 Attacking();
-
                 ChangeState(State.EndTurn);
                 break;
             case State.EndTurn:
-
                 ItsTurn = false;
-
+                TurnSystem turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
+                turnSystem.NextEnemyTurn();
                 ChangeState(State.WaitForTurn);
                 break;
         }

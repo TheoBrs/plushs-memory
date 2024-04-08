@@ -28,7 +28,7 @@ public class Player : Entity
         elements = grid.GetGridCells();
 
         // !!!!!!!! Need Equipment Manager !!!!!!!!
-        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
     void OnEquipmentChanged (Equipment newEquipment, Equipment oldEquipment)

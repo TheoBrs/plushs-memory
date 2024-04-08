@@ -8,6 +8,7 @@ TagManager:
   - CombatGrid
   - Enemy
   - GridCell
+  - TurnSystem
   layers:
   - Default
   - TransparentFX

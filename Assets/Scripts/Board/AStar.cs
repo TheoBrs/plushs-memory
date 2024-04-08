@@ -64,7 +64,17 @@ public class AStar
 
             // if we added the destination to the closed list, we've found a path
             if (closedList.FirstOrDefault(l => l.Coord.X == target.Coord.X && l.Coord.Y == target.Coord.Y) != null)
-                break;
+            {
+                Cell tempCell = closedList.Last();
+                closedList.Clear();
+                closedList.Insert(0, tempCell);
+                while (tempCell != start)
+                {
+                    tempCell = tempCell.Parent;
+                    closedList.Insert(0, tempCell);
+                }
+                return closedList;
+            }
 
             var adjacentSquares = GetWalkableAdjacentSquares(current.Coord.X, current.Coord.Y, map, target, maxX, maxY);
             foreach (var adjacentSquare in adjacentSquares)
@@ -98,14 +108,7 @@ public class AStar
             }
         }
 
-        Cell tempCell = closedList.Last();
-        closedList.Clear();
-        closedList.Insert(0, tempCell);
-        while (tempCell != start)
-        {
-            tempCell = tempCell.Parent;
-            closedList.Insert(0, tempCell);
-        }
-        return closedList;
+        var failureList = new List<Cell>{ start };
+        return failureList;
     }
 }
