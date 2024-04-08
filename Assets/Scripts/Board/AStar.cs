@@ -27,11 +27,11 @@ public class AStar
                     proposedLocations.Add(cell);
         }
 
-        // if walkable remove from list
+        // if not walkable remove from list
         return proposedLocations;
 
     }
-    public static List<Cell> FindPath(Coord startCoord, Coord targetCoord)
+    public static List<Cell> FindPath(Coord startCoord, Coord targetCoord, bool closest = false)
     {
         CombatGrid grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         Cell[,] map = grid.GetGridCells();
@@ -97,7 +97,7 @@ public class AStar
                         && l.Coord.Y == adjacentSquare.Coord.Y) == null || tentative_g_score < adjacentSquare.G)
                 {
                     // compute its score, set the parent
-                    adjacentSquare.G  = tentative_g_score;
+                    adjacentSquare.G = tentative_g_score;
                     adjacentSquare.H = ComputeHScore(adjacentSquare.Coord, target.Coord);
                     adjacentSquare.F = adjacentSquare.G + adjacentSquare.H;
                     adjacentSquare.Parent = current;
@@ -106,6 +106,17 @@ public class AStar
                     openList.Insert(0, adjacentSquare);
                 }
             }
+        }
+
+        if (closest)
+        {
+            // Get closest cell to target in the whole path
+            closedList.Remove(start);
+            var lowest = closedList.Min(l => l.F);
+            var closestCell = closedList.First(l => l.F == lowest);
+            var closestCellIndex = closedList.IndexOf(closestCell);
+            closedList.Insert(0, start);
+            return closedList.GetRange(0, closestCellIndex + 3);
         }
 
         var failureList = new List<Cell>{ start };

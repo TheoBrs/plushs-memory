@@ -61,7 +61,7 @@ public abstract class Enemy : Entity
         {
             // Check if the player is reachable
             Player _player = FindObjectOfType<Player>();
-            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos);
+            List<Cell> _pathToPlayer = AStar.FindPath(CurrentPos, _player.CurrentPos, true);
 
             _pathToPlayer.RemoveAt(_pathToPlayer.Count - 1);
 
