@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1724,8 +1724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5b40eb472e91b44ac3ea8e8bdf845e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  space: 12
-  items: []
+  _space: 12
+  Items: []
 --- !u!4 &1594887238
 Transform:
   m_ObjectHideFlags: 0
@@ -2540,6 +2540,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 207357890095138079, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 207357890095138079, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558803035515042536, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558803035515042536, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4010920813778250979, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: m_Name
       value: Moomoo
@@ -2591,6 +2607,18 @@ PrefabInstance:
     - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: speed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068166328567616716, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068166328567616716, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068166328567616716, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

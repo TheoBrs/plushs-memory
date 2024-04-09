@@ -22,6 +22,7 @@ public abstract class Entity: MonoBehaviour
     protected bool _isMoving = false;
     protected List<Cell> _pathToTake;
     protected CombatGrid grid;
+    protected HealthBar healthBar;
 
     protected virtual void Start()
     {
@@ -29,6 +30,11 @@ public abstract class Entity: MonoBehaviour
 
         CurrentHP = MaxHP.GetValue();
         CurrentAP = MaxAP.GetValue();
+
+        // HEALTHBAR SHOULD ALWAYS BE THE FIRST CHILD IN THE PREFAB
+        var idunno = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar");
+        healthBar = idunno.GetComponent<HealthBar>();
+        healthBar.SetMaxHP(CurrentHP);
 
         _ability1 = new Ability();
         _ability2 = new Ability();
@@ -53,6 +59,7 @@ public abstract class Entity: MonoBehaviour
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
             CurrentHP -= damage;
             CurrentHP = Mathf.Clamp(CurrentHP, 0, int.MaxValue);
+            healthBar.SetHP(CurrentHP);
             IsDead();
         }
         else

@@ -203,6 +203,14 @@ public class Player : Entity
                 RefreshGridMat();
                 path = AStar.FindPath(CurrentPos, selectedGridCell.Coord);
 
+
+                if (path.Count <= 1)
+                {
+                    selectedGridCell = path[0];
+                    path.Clear();
+                    return;
+                }
+
                 if (selectedGridCell.HasEnemy)
                 {
                     // path[path.Count - 1].Entity Contain the cell with the enemy
@@ -213,13 +221,6 @@ public class Player : Entity
                 }
                 else
                     entity = null;
-
-                if (path.Count <= 1)
-                {
-                    selectedGridCell = path[0];
-                    path.Clear();
-                    return;
-                }
 
                 DrawPath();
             }

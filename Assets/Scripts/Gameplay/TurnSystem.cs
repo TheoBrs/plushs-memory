@@ -176,9 +176,14 @@ public class TurnSystem : MonoBehaviour
     public void OnAbility1Button()
     {
         _entity = _player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
+        if (CurrentState != FightPhase.PLAYERTURN)
         {
-            Debug.Log("no enemy select");
+            Debug.Log("Not the player turn");
+            return;
+        }
+        else if (_entity == null)
+        {
+            Debug.Log("No enemy select");
             return;
         }
         else
