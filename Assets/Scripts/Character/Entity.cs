@@ -21,16 +21,11 @@ public abstract class Entity: MonoBehaviour
 
     protected bool _isMoving = false;
     protected List<Cell> _pathToTake;
-
-    CombatGrid _grid;
-
-    private void Awake()
-    {
-        _grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
-    }
+    protected CombatGrid grid;
 
     protected virtual void Start()
     {
+        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         CurrentHP = MaxHP.GetValue();
         CurrentAP = MaxAP.GetValue();
 
@@ -78,14 +73,15 @@ public abstract class Entity: MonoBehaviour
     {
         if (_pathToTake.Count > 0)
         {
+            if (speed <= 0f)
+                speed = 1f;
+
             Cell nextCell = _pathToTake.First();
-
             Vector3 newPosition = nextCell.GameObject.transform.position;
+            Vector3 directeur = (newPosition - transform.position);
+            Vector3 movement = speed * Time.deltaTime * directeur.normalized;
 
-            // Increase value if model ossilate between two direction during movement
-            // If the speed is bigger so must be the constant
-            // This works for a speed of 2
-            if ((transform.position - newPosition).magnitude < 0.05f)
+            if (movement.magnitude >= directeur.magnitude)
             {
                 _pathToTake.RemoveAt(0);
                 transform.position = newPosition;
@@ -97,18 +93,14 @@ public abstract class Entity: MonoBehaviour
             }
             else
             {
-                if (speed <= 0f)
-                    speed = 1f;
-
-                Vector3 directeur = (newPosition - transform.position).normalized;
-                transform.position += speed * Time.deltaTime * directeur;
-                if (directeur.x > 0)
+                transform.position += movement;
+                if (movement.x > 0)
                     transform.localRotation = Quaternion.Euler(0, 0, 0);
-                if (directeur.x < 0)
+                if (movement.x < 0)
                     transform.localRotation = Quaternion.Euler(0, 180, 0);
-                if (directeur.z > 0)
+                if (movement.z > 0)
                     transform.localRotation = Quaternion.Euler(0, -90, 0);
-                if (directeur.z < 0)
+                if (movement.z < 0)
                     transform.localRotation = Quaternion.Euler(0, 90, 0);
             }
             return false;
@@ -118,8 +110,9 @@ public abstract class Entity: MonoBehaviour
 
     public void Move(List<Cell> pathToTake)
     {
-        _pathToTake = pathToTake;
+        _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1); ;
         _isMoving = true;
+        pathToTake.Clear();
     }
 
     public abstract void Death();

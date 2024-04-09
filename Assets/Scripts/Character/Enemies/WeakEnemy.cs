@@ -1,6 +1,5 @@
 public class WeakEnemy : Enemy
 {
-    public string Name { get; set; }
     protected override void Start()
     {
         base.Start();

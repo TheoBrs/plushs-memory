@@ -19,15 +19,15 @@ public class EquipmentManager : MonoBehaviour
     }
     #endregion
 
-    Equipment[] _currentEquipment;
+    private Equipment[] _currentEquipment;
+    private InventoryManager _inventory;
 
-
-
-    //Inventory inventory;
+    public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
+    public OnEquipmentChanged onEquipmentChanged;
 
     private void Start()
     {
-        //inventory = Inventory.instance;
+        _inventory = InventoryManager.Instance;
 
         int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         _currentEquipment = new Equipment[numSlots];
@@ -37,34 +37,37 @@ public class EquipmentManager : MonoBehaviour
     {
         int slotIndex = (int)newEquipment.equipSlot;
 
-        Equipment oldItem = null;
+        Equipment oldEquipment = null;
 
-        if (_currentEquipment[slotIndex] != null )
+        if (_currentEquipment[slotIndex] != null)
         {
-            oldItem = _currentEquipment[slotIndex];
-            //inventory.Add(oldItem);
+            oldEquipment = _currentEquipment[slotIndex];
+            _inventory.Add(oldEquipment);
         }
+
+        onEquipmentChanged?.Invoke(newEquipment, oldEquipment);
 
         _currentEquipment[slotIndex] = newEquipment;
     }
 
-    public void Unequip(int slotIndex)
+    public void UnEquip(int slotIndex)
     {
-        if (_currentEquipment[slotIndex] != null )
+        if (_currentEquipment[slotIndex] != null)
         {
-            Equipment oldItem  = _currentEquipment[slotIndex];
-            //inventory.Add(oldItem);
+            Equipment oldEquipment = _currentEquipment[slotIndex];
+            _inventory.Add(oldEquipment);
 
             _currentEquipment[slotIndex] = null;
+
+            onEquipmentChanged?.Invoke(null, oldEquipment);
         }
     }
 
-    public void UnequipAll()
+    public void UnEquipAll()
     {
-        for(int i = 0; i < _currentEquipment.Length; i++)
+        for (int i = 0; i < _currentEquipment.Length; i++)
         {
-            Unequip(i);
+            UnEquip(i);
         }
     }
-
 }

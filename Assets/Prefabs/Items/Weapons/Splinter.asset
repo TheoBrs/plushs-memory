@@ -18,3 +18,4 @@ MonoBehaviour:
   equipSlot: 0
   armorModifier: 0
   damageModifier: 0
+  apModifier: 0

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
     #region Singleton
-    public static Inventory Instance;
+    public static InventoryManager Instance;
 
     private void Awake()
     {
@@ -23,37 +23,30 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangeCallback;
 
-    public int space = 12;
+    [SerializeField] private int _space = 12;
 
-    public List<Item> items = new List<Item>();
+    public List<Item> Items = new();
 
     public bool Add(Item item)
     {
-        if(!item.isDefaultItem)
+        if (!item.isDefaultItem)
         {
-            if(items.Count >= space)
+            if (Items.Count >= _space)
             {
                 Debug.Log("Not enough space");
-                return false ;
+                return false;
             }
-            items.Add(item);
+            Items.Add(item);
 
-            if(onItemChangeCallback != null)
-            {
-                onItemChangeCallback.Invoke();
-            }
+            onItemChangeCallback?.Invoke();
         }
         return true;
     }
 
     public void Remove(Item item)
     {
-        items.Remove(item);
+        Items.Remove(item);
 
-        if (onItemChangeCallback != null)
-        {
-            onItemChangeCallback.Invoke();
-        }
+        onItemChangeCallback?.Invoke();
     }
-
 }
