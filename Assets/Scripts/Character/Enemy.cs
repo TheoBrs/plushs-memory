@@ -83,7 +83,7 @@ public abstract class Enemy : Entity
                 grid.GetGridCell(nextPos.X, nextPos.Y).Entity = grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
                 grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
                 CurrentPos = nextPos;
-                _player.RefreshGridMat();
+                grid.RefreshGridMat();
             }
         }
         return !_isMoving;
@@ -133,6 +133,7 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
+        Debug.Log(name + " Dead");
         // Enemy Death / Inform GameManager
     }
 }

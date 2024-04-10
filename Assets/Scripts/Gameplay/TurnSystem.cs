@@ -86,7 +86,7 @@ public class TurnSystem : MonoBehaviour
     {
         if (!enemyTurnInitalized)
         {
-            // Stuff to do only once at the start of an entity
+            // Stuff to do only once at the start of the enemies turn
             playerTurnInitalized = false;
             enemyTurnInitalized = true;
             enemyIndex = 0;
@@ -146,9 +146,10 @@ public class TurnSystem : MonoBehaviour
 
     public void OnEndTurnButton()
     {
-        if (CurrentState != FightPhase.PLAYERTURN)
+        if (CurrentState == FightPhase.PLAYERTURN)
         {
-            return;
+            _player.EndOfTurn();
+            CurrentState = FightPhase.ENEMYTURN;
         }
         /*if( nbEnemie <=0 && Player.health > 0 )
         {
@@ -158,10 +159,6 @@ public class TurnSystem : MonoBehaviour
         {
             current_state = EnumTurn.lose;
         }*/
-        else
-        {
-            CurrentState = FightPhase.ENEMYTURN;
-        }
     }
 
     public void UpdatePlayerHPText()

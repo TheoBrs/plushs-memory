@@ -33,7 +33,21 @@ public class CombatGrid : MonoBehaviour
             }
         }
     }
-
+    public void RefreshGridMat()
+    {
+        foreach (var cell in elements)
+        {
+            if (cell.HasObstacle)
+                cell.SetGameObjectMaterial(GetNotWalkableGridMat());
+            else if (cell.HasEnemy)
+                if (cell.IsSelected)
+                    cell.SetGameObjectMaterial(GetSelectedEnemyGridMat());
+                else
+                    cell.SetGameObjectMaterial(GetEnemyGridMat());
+            else
+                cell.SetGameObjectMaterial(GetDefaultGridMat());
+        }
+    }
     public bool AddObstacle(Coord coord, GameObject obstacle)
     {
         int x = coord.X;
