@@ -11,14 +11,24 @@ public struct Coord
         Y = y;
     }
 
-    static public Vector3 ToVector3(Coord coord)
+    static public Coord ToCenteredCoord(Coord coord, int maxX, int maxY)
     {
-        return new Vector3(coord.X, 0, coord.Y);
+        return new Coord(coord.X - maxX / 2, coord.Y - maxY / 2);
     }
 
-    static public Coord ToCoord(Vector3 vector3)
+    static public Coord ToUncenteredCoord(Coord coord, int maxX, int maxY)
     {
-        return new Coord((int)vector3.x, (int)vector3.y);
+        return new Coord(coord.X + maxX / 2, coord.Y + maxY / 2);
+    }
+
+    static public Coord ToCenteredCoord(int x, int y, int maxX, int maxY)
+    {
+        return new Coord(x - maxX / 2, y - maxY / 2);
+    }
+
+    static public Coord ToUncenteredCoord(int x, int y, int maxX, int maxY)
+    {
+        return new Coord(x + maxX / 2, y + maxY / 2);
     }
 
     public bool Equals(Coord other)

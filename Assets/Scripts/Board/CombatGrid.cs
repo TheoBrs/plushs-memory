@@ -25,7 +25,7 @@ public class CombatGrid : MonoBehaviour
         {
             for (int x = 0; x < maxX; x++)
             {
-                Coord coords = new Coord(x - (maxX / 2), y - (maxY / 2));
+                Coord coords = Coord.ToCenteredCoord(x, y, maxX, maxY);
                 GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.X, 0.01f, coords.Y), Quaternion.identity);
                 newCell.tag = "GridCell";
                 Cell gridElement = new Cell { Coord = coords, GameObject = newCell };
@@ -63,8 +63,9 @@ public class CombatGrid : MonoBehaviour
     }
 
     public Cell GetGridCell(int x, int y)
-    { 
-        return elements[x + (maxX / 2), y + (maxY / 2)];
+    {
+        Coord coord = Coord.ToUncenteredCoord(x, y, maxX, maxY);
+        return elements[coord.X, coord.Y];
     }
 
     public Cell[,] GetGridCells() => elements;
