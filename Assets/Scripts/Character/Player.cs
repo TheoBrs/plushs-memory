@@ -69,35 +69,41 @@ public class Player : Entity
 
     public override void CastAbility1(Entity target)
     {
-        CurrentAP -= _ability1.Cost;
-        if(_pattoBuff > 0)
+        if (CurrentAP - _ability1.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
         {
-            target.TakeDamage((_ability1.Damage + Attack.GetValue()) *2);
-            _pattoBuff -= 1;
-        }
-        else
-        {
-            target.TakeDamage(_ability1.Damage + Attack.GetValue());
+            CurrentAP -= _ability1.Cost;
+            if (_pattoBuff > 0)
+            {
+                target.TakeDamage((_ability1.Damage + Attack.GetValue()) * 2);
+                _pattoBuff -= 1;
+            }
+            else
+            {
+                target.TakeDamage(_ability1.Damage + Attack.GetValue());
+            }
         }
     }
 
     public override void CastAbility2(Entity target)
     {
-        CurrentAP -= _ability2.Cost;
-        if (_pattoBuff > 0)
+        if (CurrentAP - _ability2.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
         {
-            target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
-            _pattoBuff -= 1;
-        }
-        else
-        {
-            target.TakeDamage(_ability2.Damage + Attack.GetValue());
+            CurrentAP -= _ability2.Cost;
+            if (_pattoBuff > 0)
+            {
+                target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
+                _pattoBuff -= 1;
+            }
+            else
+            {
+                target.TakeDamage(_ability2.Damage + Attack.GetValue());
+            }
         }
     }
 
     public void CastFriendAbility1()
     {
-        if(_fAbility1.RoundsBeforeReuse == 0)
+        if (_fAbility1.RoundsBeforeReuse == 0)
         {
             CurrentHP += 5;
             _fAbility1.RoundsBeforeReuse = 2;
@@ -237,7 +243,6 @@ public class Player : Entity
         foreach (var cell in path)
         {
             Cell gridElement = elements[cell.Coord.X + grid.GetMaxX() / 2, cell.Coord.Y + grid.GetMaxY() / 2];
-            // This is assuming that the current AP doesn't change while selecting a movement
             if (steps <= CurrentAP)
             {
                 gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
@@ -248,7 +253,7 @@ public class Player : Entity
             }
             steps++;
         }
-        if (steps <= CurrentAP + 1)
+        if (steps <= CurrentAP + 1 && CurrentAP > 0)
         {
             selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
         }
@@ -300,7 +305,8 @@ public class Player : Entity
     public override void Death()
     {
         Debug.Log("Player Dead");
-        
+        TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
+        turnSystyem.OnPlayerDeath();
         // GameOver
     }
 }

@@ -11,7 +11,8 @@ public class TurnSystem : MonoBehaviour
         PLAYERTURN,
         ENEMYTURN,
         WIN,
-        LOSE
+        LOSE,
+        END
     }
 
     CombatGrid grid;
@@ -38,7 +39,8 @@ public class TurnSystem : MonoBehaviour
 
     void Update()
     {
-        StateSwitch();
+        if(CurrentState != FightPhase.END)
+            StateSwitch();
     }
 
     private void SetUpBattle()
@@ -136,11 +138,13 @@ public class TurnSystem : MonoBehaviour
     private void Win()
     {
         Debug.Log("Win");
+        CurrentState = FightPhase.END;
     }
 
     private void Lose()
     {
-        Debug.Log("lose");
+        Debug.Log("Lose");
+        CurrentState = FightPhase.END;
     }
 
     public void OnEndTurnButton()
@@ -150,14 +154,6 @@ public class TurnSystem : MonoBehaviour
             _player.EndOfTurn();
             CurrentState = FightPhase.ENEMYTURN;
         }
-        /*if( nbEnemie <=0 && Player.health > 0 )
-        {
-            current_state = EnumTurn.Win
-        }
-        else if( Player.health <= 0)
-        {
-            current_state = EnumTurn.lose;
-        }*/
     }
 
     public void UpdatePlayerHPText()
@@ -165,6 +161,18 @@ public class TurnSystem : MonoBehaviour
         _playerHPText.text = _player.GetComponent<Entity>().CurrentHP.ToString() + " / " + _player.GetComponent<Entity>().MaxHP.GetValue().ToString();
     }
 
+    public void OnPlayerDeath()
+    {
+        CurrentState = FightPhase.LOSE;
+    }
+    public void OnEnemyDeath(Enemy enemy)
+    {
+        _enemies.Remove(enemy);
+        if (_enemies.Count == 0 )
+        {
+            CurrentState = FightPhase.WIN;
+        }
+    }
     #region Attaque
 
 
