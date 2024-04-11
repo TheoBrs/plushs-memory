@@ -31,8 +31,7 @@ public abstract class Entity: MonoBehaviour
         CurrentHP = MaxHP.GetValue();
         CurrentAP = MaxAP.GetValue();
 
-        var idunno = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar");
-        healthBar = idunno.GetComponent<HealthBar>();
+        healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
         healthBar.SetMaxHP(CurrentHP);
 
         _ability1 = new Ability();
