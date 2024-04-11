@@ -20,12 +20,11 @@ public class TurnSystem : MonoBehaviour
     private Entity _entity;
     private List<Enemy> _enemies = new List<Enemy>();
 
-    [SerializeField] Text _playerCurrentHPText;
-    [SerializeField] Text _playerMaxHPText;
+    [SerializeField] Text _playerHPText;
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
-
+    int enemyIndex = 0;
     public FightPhase CurrentState = FightPhase.INIT;
 
     void Start()
@@ -44,14 +43,30 @@ public class TurnSystem : MonoBehaviour
 
     private void SetUpBattle()
     {
-        int x = -1;
-        int y = -1;
-        GameObject WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(-1, 0.01f, -1), Quaternion.identity);
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
-        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
-        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
+        var maxX = grid.GetMaxX();
+        var maxY = grid.GetMaxY();
 
-        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
+        int x = 1;
+        int y = -2;
+        Vector3 rotation = new Vector3(0, 180, 0);
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[0], rotation);
+
+        x = 1;
+        y = -1;
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[1], rotation);
+
+        x = 1;
+        y = 0;
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[2], rotation);
+
+        x = 1;
+        y = 1;
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[3], rotation);
+
+        x = 1;
+        y = 2;
+        grid.AddEnemy(new Coord(x, y), enemyPrefabs[4], rotation);
+
         CurrentState = FightPhase.PLAYERTURN;
     }
 
@@ -68,19 +83,27 @@ public class TurnSystem : MonoBehaviour
  
     public void EnemyTurn()
     {
-
         if (!enemyTurnInitalized)
         {
+            // Stuff to do only once at the start of the enemies turn
             playerTurnInitalized = false;
             enemyTurnInitalized = true;
+            enemyIndex = 0;
+            NextEnemyTurn();
+        }
+    }
+
+    public void NextEnemyTurn()
+    {
+        if (enemyIndex == _enemies.Count)
+        {
+            CurrentState = FightPhase.PLAYERTURN;
+            return;
         }
 
-        for (int i = 0; i < _enemies.Count; i++)
-        {
-            _enemies[i].ItsTurn = true;
-            UpdatePlayerHPText();
-        }
-        CurrentState = FightPhase.PLAYERTURN;
+        _enemies[enemyIndex].ItsTurn = true;
+        enemyIndex++;
+        UpdatePlayerHPText();
     }
 
     private void StateSwitch()
@@ -122,9 +145,10 @@ public class TurnSystem : MonoBehaviour
 
     public void OnEndTurnButton()
     {
-        if (CurrentState != FightPhase.PLAYERTURN)
+        if (CurrentState == FightPhase.PLAYERTURN)
         {
-            return;
+            _player.EndOfTurn();
+            CurrentState = FightPhase.ENEMYTURN;
         }
         /*if( nbEnemie <=0 && Player.health > 0 )
         {
@@ -134,16 +158,11 @@ public class TurnSystem : MonoBehaviour
         {
             current_state = EnumTurn.lose;
         }*/
-        else
-        {
-            CurrentState = FightPhase.ENEMYTURN;
-        }
     }
 
     public void UpdatePlayerHPText()
     {
-        _playerCurrentHPText.text = _player.GetComponent<Entity>().CurrentHP.ToString();
-        _playerMaxHPText.text = _player.GetComponent<Entity>().MaxHP.GetValue().ToString();
+        _playerHPText.text = _player.GetComponent<Entity>().CurrentHP.ToString() + " / " + _player.GetComponent<Entity>().MaxHP.GetValue().ToString();
     }
 
     #region Attaque
@@ -152,9 +171,14 @@ public class TurnSystem : MonoBehaviour
     public void OnAbility1Button()
     {
         _entity = _player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
+        if (CurrentState != FightPhase.PLAYERTURN)
         {
-            Debug.Log("no enemy select");
+            Debug.Log("Not the player turn");
+            return;
+        }
+        else if (_entity == null)
+        {
+            Debug.Log("No enemy select");
             return;
         }
         else
