@@ -27,6 +27,8 @@ public class TurnSystem : MonoBehaviour
     int enemyIndex = 0;
     public FightPhase CurrentState = FightPhase.INIT;
 
+    private AlliesManager _alliesManager;
+
     void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
@@ -34,6 +36,8 @@ public class TurnSystem : MonoBehaviour
         SetUpBattle();
         Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
         _enemies.AddRange(_enemiesArray);
+
+        _alliesManager = AlliesManager.Instance;
     }
 
     void Update()
@@ -72,6 +76,8 @@ public class TurnSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
+        _player._actualAlly = _alliesManager._actualAlly;
+
         if (!playerTurnInitalized)
         {
             _player.CurrentAP = _player.MaxAP.GetValue();

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    public int _actualAlly;
     Ability _fAbility1;
     Ability _fAbility2;
     Ability _fAbility3;
@@ -92,6 +93,22 @@ public class Player : Entity
         else
         {
             target.TakeDamage(_ability2.Damage + Attack.GetValue());
+        }
+    }
+
+    public void FriendAbilityButton()
+    {
+        if(_actualAlly == 1)
+        {
+            CastFriendAbility1();
+        }
+        else if(_actualAlly == 2)
+        {
+            CastFriendAbility2();
+        }
+        else if (_actualAlly == 3)
+        {
+            CastFriendAbility3();
         }
     }
 
@@ -290,6 +307,14 @@ public class Player : Entity
             selectedGridCell.IsSelected = false;
         if (selectedEnemyGridCell != null)
             selectedEnemyGridCell.IsSelected = false;
+
+        // Update RoundsBeforeReuse for friend abilities
+        _fAbility1.RoundsBeforeReuse -= 1;
+        _fAbility1.RoundsBeforeReuse = Mathf.Clamp(_fAbility1.RoundsBeforeReuse, 0, 10);
+        _fAbility2.RoundsBeforeReuse -= 1;
+        _fAbility2.RoundsBeforeReuse = Mathf.Clamp(_fAbility2.RoundsBeforeReuse, 0, 10);
+        _fAbility3.RoundsBeforeReuse -= 1;
+        _fAbility3.RoundsBeforeReuse = Mathf.Clamp(_fAbility3.RoundsBeforeReuse, 0, 10);
     }
 
     public Entity GetEnemy()
