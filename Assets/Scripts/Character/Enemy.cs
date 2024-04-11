@@ -34,22 +34,18 @@ public abstract class Enemy : Entity
                 }
                 break;
             case State.Movement:
-
                 bool hasFinishedMoving = Movement();
-
                 if (hasFinishedMoving)
                     ChangeState(State.Attacking);
                 break;
             case State.Attacking:
-
                 Attacking();
-
                 ChangeState(State.EndTurn);
                 break;
             case State.EndTurn:
-
                 ItsTurn = false;
-
+                TurnSystem turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
+                turnSystem.NextEnemyTurn();
                 ChangeState(State.WaitForTurn);
                 break;
         }
@@ -65,7 +61,7 @@ public abstract class Enemy : Entity
         {
             // Check if the player is reachable
             Player _player = FindObjectOfType<Player>();
-            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos);
+            List<Cell> _pathToPlayer = AStar.FindPath(CurrentPos, _player.CurrentPos, true);
 
             _pathToPlayer.RemoveAt(_pathToPlayer.Count - 1);
 
@@ -87,7 +83,7 @@ public abstract class Enemy : Entity
                 grid.GetGridCell(nextPos.X, nextPos.Y).Entity = grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
                 grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
                 CurrentPos = nextPos;
-                _player.RefreshGridMat();
+                grid.RefreshGridMat();
             }
         }
         return !_isMoving;
@@ -102,8 +98,19 @@ public abstract class Enemy : Entity
         Player _player = FindObjectOfType<Player>();
         if ((_player.transform.position - transform.position).magnitude == 1)
         {
+            Vector3 directeur = (_player.transform.position - transform.position);
+            if (directeur.x > 0)
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+            if (directeur.x < 0)
+                transform.localRotation = Quaternion.Euler(0, 180, 0);
+            if (directeur.z > 0)
+                transform.localRotation = Quaternion.Euler(0, -90, 0);
+            if (directeur.z < 0)
+                transform.localRotation = Quaternion.Euler(0, 90, 0);
+
             if (CurrentAP > 0)
             {
+
                 if (CurrentAP >= _ability2.Cost)
                 {
                     CastAbility2(_player);
@@ -117,9 +124,6 @@ public abstract class Enemy : Entity
 
             }
         }
-        //// A MODIFIER
-
-
     }
 
     void ChangeState(State newState)
@@ -129,6 +133,7 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
+        Debug.Log(name + " Dead");
         // Enemy Death / Inform GameManager
     }
 }

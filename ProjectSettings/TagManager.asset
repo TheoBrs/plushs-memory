@@ -8,6 +8,8 @@ TagManager:
   - CombatGrid
   - Enemy
   - GridCell
+  - TurnSystem
+  - HealthBar
   layers:
   - Default
   - TransparentFX
