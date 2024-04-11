@@ -78,7 +78,7 @@ public class TurnSystem : MonoBehaviour
     {
         if (!playerTurnInitalized)
         {
-            turnText.text = "Playing : You";
+            turnText.text = "Tour du joueur";
             player.CurrentAP = player.MaxAP.GetValue();
             player.CheckAP();
             playerTurnInitalized = true;
@@ -92,7 +92,7 @@ public class TurnSystem : MonoBehaviour
         if (!enemyTurnInitalized)
         {
             // Stuff to do only once at the start of the enemies turn
-            turnText.text = "Playing : Enemies";
+            turnText.text = "Tour des ennemis";
             playerTurnInitalized = false;
             enemyTurnInitalized = true;
             enemyIndex = 0;
