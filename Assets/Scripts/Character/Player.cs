@@ -79,6 +79,7 @@ public class Player : Entity
         {
             CurrentAP -= _ability1.Cost;
             CheckAP();
+            TurnTowardTarget(target);
             if (_pattoBuff > 0)
             {
                 target.TakeDamage((_ability1.Damage + Attack.GetValue()) * 2);
@@ -97,6 +98,7 @@ public class Player : Entity
         {
             CurrentAP -= _ability2.Cost;
             CheckAP();
+            TurnTowardTarget(target);
             if (_pattoBuff > 0)
             {
                 target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
@@ -245,6 +247,19 @@ public class Player : Entity
         }
     }
 
+    void HandleTwoTouch()
+    {
+        if (Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+            Vector3 touchPosition = (Input.GetTouch(0).position + Input.GetTouch(1).position) / 2;
+
+            Vector3 newCamPos = new Vector3(-touchPosition.x, -touchPosition.y, -10);
+            newCamPos.x = (newCamPos.x + width) / width;
+            newCamPos.y = (newCamPos.y + height) / height;
+            Camera.main.transform.localPosition = newCamPos;
+        }
+    }
+
     void DrawPath()
     {
         int steps = 0;
@@ -273,17 +288,17 @@ public class Player : Entity
         }
     }
 
-    void HandleTwoTouch()
+    void TurnTowardTarget(Entity target)
     {
-        if (Input.GetTouch(0).phase == TouchPhase.Moved)
-        {
-            Vector3 touchPosition = (Input.GetTouch(0).position + Input.GetTouch(1).position) / 2;
-
-            Vector3 newCamPos = new Vector3(-touchPosition.x, -touchPosition.y, -10);
-            newCamPos.x = (newCamPos.x + width) / width;
-            newCamPos.y = (newCamPos.y + height) / height;
-            Camera.main.transform.localPosition = newCamPos;
-        }
+        Vector3 directeur = (target.transform.position - transform.position);
+        if (directeur.x > 0)
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        if (directeur.x < 0)
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+        if (directeur.z > 0)
+            transform.localRotation = Quaternion.Euler(0, -90, 0);
+        if (directeur.z < 0)
+            transform.localRotation = Quaternion.Euler(0, 90, 0);
     }
 
     public void CheckAP()
