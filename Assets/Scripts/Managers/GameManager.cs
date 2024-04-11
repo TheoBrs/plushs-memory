@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IDataPersistence
 {
     public static GameManager Instance;
+
+    #region Singleton
 
     private void Awake()
     {
@@ -15,7 +17,17 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
-        Application.targetFrameRate = 30;
+    #endregion
+
+    public void LoadData(GameData data)
+    {
+        Application.targetFrameRate = data.Framerate;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.Framerate = Application.targetFrameRate;
     }
 }
