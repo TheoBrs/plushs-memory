@@ -27,11 +27,11 @@ public class AStar
                     proposedLocations.Add(cell);
         }
 
-        // if walkable remove from list
+        // if not walkable remove from list
         return proposedLocations;
 
     }
-    public static List<Cell> FindPath(Coord startCoord, Coord targetCoord)
+    public static List<Cell> FindPath(Coord startCoord, Coord targetCoord, bool closest = false)
     {
         CombatGrid grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         Cell[,] map = grid.GetGridCells();
@@ -46,6 +46,7 @@ public class AStar
         var target = map[targetCoord.X, targetCoord.Y];
         var openList = new List<Cell>();
         var closedList = new List<Cell>();
+        start.H = ComputeHScore(start.Coord, target.Coord);
 
         // start by adding the original position to the open list
         openList.Add(start);
@@ -64,7 +65,17 @@ public class AStar
 
             // if we added the destination to the closed list, we've found a path
             if (closedList.FirstOrDefault(l => l.Coord.X == target.Coord.X && l.Coord.Y == target.Coord.Y) != null)
-                break;
+            {
+                Cell tempCell = closedList.Last();
+                closedList.Clear();
+                closedList.Insert(0, tempCell);
+                while (tempCell != start)
+                {
+                    tempCell = tempCell.Parent;
+                    closedList.Insert(0, tempCell);
+                }
+                return closedList;
+            }
 
             var adjacentSquares = GetWalkableAdjacentSquares(current.Coord.X, current.Coord.Y, map, target, maxX, maxY);
             foreach (var adjacentSquare in adjacentSquares)
@@ -79,15 +90,15 @@ public class AStar
 
                 // if this adjacent square is already in the closed list, ignore it
                 if (closedList.FirstOrDefault(l => l.Coord.X == adjacentSquare.Coord.X
-                        && l.Coord.Y == adjacentSquare.Coord.Y) != null && tentative_g_score >= adjacentSquare.G)
+                    && l.Coord.Y == adjacentSquare.Coord.Y) != null && tentative_g_score >= adjacentSquare.G)
                     continue;
 
                 // if it's not in the open list...
                 if (openList.FirstOrDefault(l => l.Coord.X == adjacentSquare.Coord.X
-                        && l.Coord.Y == adjacentSquare.Coord.Y) == null || tentative_g_score < adjacentSquare.G)
+                    && l.Coord.Y == adjacentSquare.Coord.Y) == null || tentative_g_score < adjacentSquare.G)
                 {
                     // compute its score, set the parent
-                    adjacentSquare.G  = tentative_g_score;
+                    adjacentSquare.G = tentative_g_score;
                     adjacentSquare.H = ComputeHScore(adjacentSquare.Coord, target.Coord);
                     adjacentSquare.F = adjacentSquare.G + adjacentSquare.H;
                     adjacentSquare.Parent = current;
@@ -98,14 +109,16 @@ public class AStar
             }
         }
 
-        Cell tempCell = closedList.Last();
-        closedList.Clear();
-        closedList.Insert(0, tempCell);
-        while (tempCell != start)
+        if (closest)
         {
-            tempCell = tempCell.Parent;
-            closedList.Insert(0, tempCell);
+            // Get closest cell to target in the whole path
+            var lowest = closedList.Min(l => l.H);
+            var closestCell = closedList.First(l => l.H == lowest);
+            var closestCellIndex = closedList.IndexOf(closestCell);
+            return closedList.GetRange(0, closestCellIndex + 2);
         }
-        return closedList;
+
+        var failureList = new List<Cell>{ start };
+        return failureList;
     }
 }

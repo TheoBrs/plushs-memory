@@ -28,7 +28,7 @@ public class Player : Entity
         elements = grid.GetGridCells();
 
         // !!!!!!!! Need Equipment Manager !!!!!!!!
-        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
     void OnEquipmentChanged (Equipment newEquipment, Equipment oldEquipment)
@@ -77,9 +77,7 @@ public class Player : Entity
         }
         else
         {
-            Debug.Log(target.CurrentHP);
             target.TakeDamage(_ability1.Damage + Attack.GetValue());
-            Debug.Log(target.CurrentHP);
         }
     }
 
@@ -162,13 +160,11 @@ public class Player : Entity
             Ray ray = Camera.main.ScreenPointToRay(touch.position);
             RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
             RaycastHit hitCell = new RaycastHit();
-            //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
 
             if (hits.Length > 0)
             {
                 foreach (var hit in hits)
                 {
-                    // Need to use a different check
                     if (hit.transform.CompareTag("GridCell"))
                     {
                         hitCell = hit;
@@ -191,7 +187,7 @@ public class Player : Entity
                     {
                         if (gridElement.HasObstacle)
                         {
-                            RefreshGridMat();
+                            grid.RefreshGridMat();
                             path?.Clear();
                             return;
                         }
@@ -202,9 +198,23 @@ public class Player : Entity
                     }
                 }
 
-                RefreshGridMat();
                 path = AStar.FindPath(CurrentPos, selectedGridCell.Coord);
 
+
+                if (path.Count <= 1)
+                {
+                    if (selectedGridCell != null)
+                        selectedGridCell.IsSelected = false;
+                    if (selectedEnemyGridCell != null)
+                        selectedEnemyGridCell.IsSelected = false;
+                    selectedGridCell = path[0];
+                    entity = null;
+                    path.Clear();
+                    grid.RefreshGridMat();
+                    return;
+                }
+
+                grid.RefreshGridMat();
                 if (selectedGridCell.HasEnemy)
                 {
                     // path[path.Count - 1].Entity Contain the cell with the enemy
@@ -215,13 +225,6 @@ public class Player : Entity
                 }
                 else
                     entity = null;
-
-                if (path.Count <= 1)
-                {
-                    selectedGridCell = path[0];
-                    path.Clear();
-                    return;
-                }
 
                 DrawPath();
             }
@@ -270,33 +273,23 @@ public class Player : Entity
         }
     }
 
-
-    public void RefreshGridMat()
-    {
-        foreach (var cell in elements)
-        {
-            if (cell.HasObstacle)
-                cell.SetGameObjectMaterial(grid.GetNotWalkableGridMat());
-            else if (cell.HasEnemy)
-                if (cell.IsSelected)
-                    cell.SetGameObjectMaterial(grid.GetSelectedEnemyGridMat());
-                else
-                    cell.SetGameObjectMaterial(grid.GetEnemyGridMat());
-            else
-                cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
-        }
-    }
-
     public void Move()
     {
         if (path == null || path.Count == 0)
             return;
 
         CurrentAP -= path.Count - 1;
-
-        RefreshGridMat();
+        grid.RefreshGridMat();
         Move(path);
         CurrentPos = selectedGridCell.Coord;
+    }
+
+    public void EndOfTurn()
+    {
+        if (selectedGridCell != null)
+            selectedGridCell.IsSelected = false;
+        if (selectedEnemyGridCell != null)
+            selectedEnemyGridCell.IsSelected = false;
     }
 
     public Entity GetEnemy()
@@ -306,6 +299,8 @@ public class Player : Entity
     
     public override void Death()
     {
+        Debug.Log("Player Dead");
+        
         // GameOver
     }
 }
