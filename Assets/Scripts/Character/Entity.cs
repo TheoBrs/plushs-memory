@@ -54,7 +54,8 @@ public abstract class Entity: MonoBehaviour
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
             CurrentHP -= damage;
             CurrentHP = Mathf.Clamp(CurrentHP, 0, int.MaxValue);
-            healthBar?.SetHP(CurrentHP);
+            if (healthBar != null)
+                healthBar.SetHP(CurrentHP);
             IsDead();
         }
         else

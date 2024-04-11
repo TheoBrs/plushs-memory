@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TurnSystem : MonoBehaviour
@@ -41,8 +42,7 @@ public class TurnSystem : MonoBehaviour
 
     void Update()
     {
-        if(currentState != FightPhase.END)
-            StateSwitch();
+        StateSwitch();
     }
 
     private void SetUpBattle()
@@ -50,15 +50,16 @@ public class TurnSystem : MonoBehaviour
         var maxX = grid.GetMaxX();
         var maxY = grid.GetMaxY();
 
-        int x = 1;
-        int y = -2;
+        int x = 0;
+        int y = -1;
         Vector3 rotation = new Vector3(0, 180, 0);
         grid.AddEnemy(new Coord(x, y), enemyPrefabs[0], rotation);
 
+        currentState = FightPhase.PLAYERTURN;
+        return;
         x = 1;
         y = -1;
         grid.AddEnemy(new Coord(x, y), enemyPrefabs[1], rotation);
-
         x = 1;
         y = 0;
         grid.AddEnemy(new Coord(x, y), enemyPrefabs[2], rotation);
@@ -104,7 +105,8 @@ public class TurnSystem : MonoBehaviour
     {
         if (enemyIndex == enemies.Count)
         {
-            currentState = FightPhase.PLAYERTURN;
+            if (currentState == FightPhase.ENEMYTURN)
+                currentState = FightPhase.PLAYERTURN;
             return;
         }
 
@@ -147,18 +149,21 @@ public class TurnSystem : MonoBehaviour
     private void Win()
     {
         Debug.Log("Win");
+        IsWin.IsWinBool = true;
         currentState = FightPhase.END;
     }
 
     private void Lose()
     {
         Debug.Log("Lose");
+        IsWin.IsWinBool = false;
         currentState = FightPhase.END;
     }
 
     private void End()
     {
         Debug.Log("End");
+        SceneManager.LoadScene("End");
         // Call animation to exit battleScene or something
     }
 
