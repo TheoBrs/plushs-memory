@@ -20,8 +20,7 @@ public class TurnSystem : MonoBehaviour
     private Entity _entity;
     private List<Enemy> _enemies = new List<Enemy>();
 
-    [SerializeField] Text _playerCurrentHPText;
-    [SerializeField] Text _playerMaxHPText;
+    [SerializeField] Text _playerHPText;
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
@@ -163,8 +162,7 @@ public class TurnSystem : MonoBehaviour
 
     public void UpdatePlayerHPText()
     {
-        _playerCurrentHPText.text = _player.GetComponent<Entity>().CurrentHP.ToString();
-        _playerMaxHPText.text = _player.GetComponent<Entity>().MaxHP.GetValue().ToString();
+        _playerHPText.text = _player.GetComponent<Entity>().CurrentHP.ToString() + " / " + _player.GetComponent<Entity>().MaxHP.GetValue().ToString();
     }
 
     #region Attaque
