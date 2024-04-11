@@ -31,7 +31,6 @@ public abstract class Entity: MonoBehaviour
         CurrentHP = MaxHP.GetValue();
         CurrentAP = MaxAP.GetValue();
 
-        // HEALTHBAR SHOULD ALWAYS BE THE FIRST CHILD IN THE PREFAB
         var idunno = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar");
         healthBar = idunno.GetComponent<HealthBar>();
         healthBar.SetMaxHP(CurrentHP);
