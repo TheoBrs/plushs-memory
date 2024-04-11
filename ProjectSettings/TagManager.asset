@@ -12,6 +12,8 @@ TagManager:
   - HealthBar
   - Ability1
   - Ability2
+  - PlayerAPText
+  - PlayerHPText
   layers:
   - Default
   - TransparentFX

@@ -20,7 +20,8 @@ public class Player : Entity
     Entity entity;
     GameObject buttonAbility1;
     GameObject buttonAbility2;
-    
+    Text playerAPText;
+
 
     protected override void Start()
     {
@@ -32,6 +33,7 @@ public class Player : Entity
         elements = grid.GetGridCells();
         buttonAbility1 = GameObject.FindWithTag("Ability1");
         buttonAbility2 = GameObject.FindWithTag("Ability2");
+        playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
 
         // !!!!!!!! Need Equipment Manager !!!!!!!!
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
@@ -324,6 +326,7 @@ public class Player : Entity
             buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.normalColor;
             buttonAbility2.GetComponent<Button>().enabled = true;
         }
+        playerAPText.text = CurrentAP.ToString() + " / " + MaxAP.ToString();
     }
 
     public void Move()
