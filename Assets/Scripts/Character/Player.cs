@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Player : Entity
 {
@@ -215,35 +216,45 @@ public class Player : Entity
                         break;
                     }
                 }
+                if (selectedGridCell.HasEnemy)
+                {
+                    if (CurrentPos.DistanceTo(selectedGridCell.Coord) == 1)
+                    {
+                        selectedEnemyGridCell = selectedGridCell;
+                        entity = selectedEnemyGridCell.Entity;
+                    }
+                    else
+                    {
+                        selectedGridCell.IsSelected = false;
+                        entity = null;
+                    }
+                    selectedGridCell = null;
+                    grid.RefreshGridMat();
+                    return;
+                }
+                else
+                {
+                    if (selectedEnemyGridCell != null)
+                    {
+                        selectedEnemyGridCell.IsSelected = false;
+                        selectedEnemyGridCell = null;
+                    }
+                    entity = null;
+                }
 
                 path = AStar.FindPath(CurrentPos, selectedGridCell.Coord);
-
 
                 if (path.Count <= 1)
                 {
                     if (selectedGridCell != null)
                         selectedGridCell.IsSelected = false;
-                    if (selectedEnemyGridCell != null)
-                        selectedEnemyGridCell.IsSelected = false;
                     selectedGridCell = path[0];
-                    entity = null;
                     path.Clear();
                     grid.RefreshGridMat();
                     return;
                 }
 
                 grid.RefreshGridMat();
-                if (selectedGridCell.HasEnemy)
-                {
-                    // path[path.Count - 1].Entity Contain the cell with the enemy
-                    entity = path[path.Count - 1].Entity;
-                    selectedEnemyGridCell = path[path.Count - 1];
-                    selectedGridCell = path[path.Count - 2];
-                    path.RemoveAt(path.Count - 1);
-                }
-                else
-                    entity = null;
-
                 DrawPath();
             }
         }
