@@ -19,12 +19,11 @@ public class EquipmentManager : MonoBehaviour
     }
     #endregion
 
-    Equipment[] _currentEquipment;
+    private Equipment[] _currentEquipment;
+    private InventoryManager _inventory;
 
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
-
-    InventoryManager _inventory;
 
     private void Start()
     {
@@ -40,42 +39,35 @@ public class EquipmentManager : MonoBehaviour
 
         Equipment oldEquipment = null;
 
-        if (_currentEquipment[slotIndex] != null )
+        if (_currentEquipment[slotIndex] != null)
         {
             oldEquipment = _currentEquipment[slotIndex];
             _inventory.Add(oldEquipment);
         }
 
-        if(onEquipmentChanged != null)
-        {
-            onEquipmentChanged.Invoke(newEquipment, oldEquipment);
-        }
+        onEquipmentChanged?.Invoke(newEquipment, oldEquipment);
 
         _currentEquipment[slotIndex] = newEquipment;
     }
 
-    public void Unequip(int slotIndex)
+    public void UnEquip(int slotIndex)
     {
-        if (_currentEquipment[slotIndex] != null )
+        if (_currentEquipment[slotIndex] != null)
         {
-            Equipment oldEquipment  = _currentEquipment[slotIndex];
+            Equipment oldEquipment = _currentEquipment[slotIndex];
             _inventory.Add(oldEquipment);
 
             _currentEquipment[slotIndex] = null;
 
-            if (onEquipmentChanged != null)
-            {
-                onEquipmentChanged.Invoke(null, oldEquipment);
-            }
+            onEquipmentChanged?.Invoke(null, oldEquipment);
         }
     }
 
-    public void UnequipAll()
+    public void UnEquipAll()
     {
-        for(int i = 0; i < _currentEquipment.Length; i++)
+        for (int i = 0; i < _currentEquipment.Length; i++)
         {
-            Unequip(i);
+            UnEquip(i);
         }
     }
-
 }
