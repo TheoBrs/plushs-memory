@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -180,7 +181,7 @@ public class Player : Entity
             RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
             RaycastHit hitCell = new RaycastHit();
 
-            if (hits.Length > 0)
+            if (EventSystem.current.currentSelectedGameObject == null && hits.Length > 0 || EventSystem.current.currentSelectedGameObject.layer != 5)
             {
                 foreach (var hit in hits)
                 {
