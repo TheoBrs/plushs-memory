@@ -6,6 +6,7 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
 {
     [SerializeField] private EncyclopediaMonster _monster;
     [SerializeField] private Scrollbar _descriptionScrollbar;
+    [SerializeField] private bool _checkFirst;
 
     // UI
     [Header("UI Components")]
@@ -15,8 +16,10 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
     [SerializeField] private Image _imageAvatar;
     [SerializeField] private Sprite _notDiscoveredSprite;
 
-    void Start()
+    private void Awake()
     {
+        _descriptionScrollbar.value = 1;
+
         _nameText.text = _monster.Name;
         _descriptionText.text = _monster.Description;
         _imageAvatar.sprite = _monster.Avatar;
@@ -25,15 +28,22 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
         _monstersKilledText.text = 0.ToString();
     }
 
+    private void Start()
+    {
+        if (_checkFirst)
+        {
+            SelectMonster();
+        }
+    }
+
     public void SelectMonster()
     {
+        _descriptionScrollbar.value = 1;
+
         _nameText.text = _monster.Name;
         _descriptionText.text = _monster.Description;
 
         // TO DO : Read the number of monsters killed
         _monstersKilledText.text = 0.ToString();
-
-        // Set the scrollbar to the top
-        _descriptionScrollbar.value = 1;
     }
 }
