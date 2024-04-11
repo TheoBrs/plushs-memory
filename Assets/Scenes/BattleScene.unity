@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 945756954}
   m_Layer: 5
   m_Name: Ability 1
-  m_TagString: Untagged
+  m_TagString: Ability1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1596,7 +1596,7 @@ GameObject:
   - component: {fileID: 1681848614}
   m_Layer: 5
   m_Name: Ability 2
-  m_TagString: Untagged
+  m_TagString: Ability2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

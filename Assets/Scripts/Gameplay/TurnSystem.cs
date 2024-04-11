@@ -77,6 +77,7 @@ public class TurnSystem : MonoBehaviour
         if (!playerTurnInitalized)
         {
             _player.CurrentAP = _player.MaxAP.GetValue();
+            _player.CheckAP();
             playerTurnInitalized = true;
             enemyTurnInitalized = false;
         }
@@ -129,6 +130,10 @@ public class TurnSystem : MonoBehaviour
                 Lose();
                 break;
 
+            case FightPhase.END:
+                End();
+                break;
+
             default:
                 CurrentState = FightPhase.INIT;
                 break;
@@ -145,6 +150,12 @@ public class TurnSystem : MonoBehaviour
     {
         Debug.Log("Lose");
         CurrentState = FightPhase.END;
+    }
+
+    private void End()
+    {
+        Debug.Log("End");
+        // Call animation to exit battleScene or something
     }
 
     public void OnEndTurnButton()

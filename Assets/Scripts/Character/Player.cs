@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Entity
 {
@@ -17,6 +18,9 @@ public class Player : Entity
     Cell[,] elements;
     List<Cell> path;
     Entity entity;
+    GameObject buttonAbility1;
+    GameObject buttonAbility2;
+    
 
     protected override void Start()
     {
@@ -26,6 +30,8 @@ public class Player : Entity
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
         elements = grid.GetGridCells();
+        buttonAbility1 = GameObject.FindWithTag("Ability1");
+        buttonAbility2 = GameObject.FindWithTag("Ability2");
 
         // !!!!!!!! Need Equipment Manager !!!!!!!!
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
@@ -72,6 +78,7 @@ public class Player : Entity
         if (CurrentAP - _ability1.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
         {
             CurrentAP -= _ability1.Cost;
+            CheckAP();
             if (_pattoBuff > 0)
             {
                 target.TakeDamage((_ability1.Damage + Attack.GetValue()) * 2);
@@ -89,6 +96,7 @@ public class Player : Entity
         if (CurrentAP - _ability2.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
         {
             CurrentAP -= _ability2.Cost;
+            CheckAP();
             if (_pattoBuff > 0)
             {
                 target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
@@ -278,12 +286,38 @@ public class Player : Entity
         }
     }
 
+    public void CheckAP()
+    {
+        if (CurrentAP < _ability1.Cost)
+        {
+            buttonAbility1.GetComponent<Image>().color = buttonAbility1.GetComponent<Button>().colors.disabledColor;
+            buttonAbility1.GetComponent<Button>().enabled = false;
+        }
+        else
+        {
+            buttonAbility1.GetComponent<Image>().color = buttonAbility1.GetComponent<Button>().colors.normalColor;
+            buttonAbility1.GetComponent<Button>().enabled = true;
+        }
+
+        if (CurrentAP < _ability2.Cost)
+        {
+            buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.disabledColor;
+            buttonAbility2.GetComponent<Button>().enabled = false;
+        }
+        else
+        {
+            buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.normalColor;
+            buttonAbility2.GetComponent<Button>().enabled = true;
+        }
+    }
+
     public void Move()
     {
         if (path == null || path.Count == 0)
             return;
 
         CurrentAP -= path.Count - 1;
+        CheckAP();
         grid.RefreshGridMat();
         Move(path);
         CurrentPos = selectedGridCell.Coord;
@@ -305,7 +339,7 @@ public class Player : Entity
     public override void Death()
     {
         Debug.Log("Player Dead");
-        TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
+        TurnSystem turnSystyem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
         turnSystyem.OnPlayerDeath();
         // GameOver
     }
