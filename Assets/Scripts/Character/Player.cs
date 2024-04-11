@@ -326,7 +326,7 @@ public class Player : Entity
             buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.normalColor;
             buttonAbility2.GetComponent<Button>().enabled = true;
         }
-        playerAPText.text = CurrentAP.ToString() + " / " + MaxAP.ToString();
+        playerAPText.text = CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
     public void Move()

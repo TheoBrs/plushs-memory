@@ -20,6 +20,9 @@ public abstract class Enemy : Entity
     {
         base.Start();
         _currentState = State.WaitForTurn;
+
+        healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
+        healthBar.SetMaxHP(CurrentHP);
     }
 
     protected virtual void Update()
