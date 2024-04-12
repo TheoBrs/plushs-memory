@@ -94,7 +94,7 @@ public abstract class Entity: MonoBehaviour
             Vector3 movement = speed * Time.deltaTime * directeur.normalized;
 
             // last value might need to be increased
-            if (movement.magnitude >= directeur.magnitude || movement.magnitude < 0.01f)
+            if (movement.magnitude >= directeur.magnitude || directeur.magnitude < 0.01f)
             {
                 _pathToTake.RemoveAt(0);
                 transform.position = newPosition;
