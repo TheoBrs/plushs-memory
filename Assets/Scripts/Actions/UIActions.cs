@@ -3,6 +3,7 @@ using UnityEngine;
 public class UIActions : MonoBehaviour
 {
     [SerializeField] private GameObject _ui;
+    [SerializeField] private GameObject _background;
 
     [Header("Buttons")]
     [SerializeField] private GameObject _encyclopediaButton;
@@ -16,6 +17,7 @@ public class UIActions : MonoBehaviour
     private void Start()
     {
         _ui.SetActive(true);
+        _background.SetActive(false);
 
         // Hide components
         _encyclopedia.SetActive(false);
@@ -29,6 +31,8 @@ public class UIActions : MonoBehaviour
 
     public void TriggerEncyclopaedia()
     {
+        _background.SetActive(!_background.activeSelf);
+
         _encyclopedia.SetActive(!_encyclopedia.activeSelf);
 
         _encyclopediaButton.SetActive(!_encyclopediaButton.activeSelf);
@@ -38,6 +42,8 @@ public class UIActions : MonoBehaviour
 
     public void TriggerInventory()
     {
+        _background.SetActive(!_background.activeSelf);
+
         _inventory.SetActive(!_inventory.activeSelf);
 
         _encyclopediaButton.SetActive(!_encyclopediaButton.activeSelf);
