@@ -217,7 +217,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-    public void OnFriend1Button()
+    public void OnFriendButton()
     {
         if (currentState != FightPhase.PLAYERTURN)
         {
@@ -225,34 +225,8 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
-            player.CastFriendAbility1();
-            Debug.Log("Friend Ability 1");
-        }
-    }
-
-    public void OnFriend2Button()
-    {
-        if (currentState != FightPhase.PLAYERTURN)
-        {
-            return;
-        }
-        else
-        {
-            player.CastFriendAbility2();
-            Debug.Log("Friend Ability 2");
-        }
-    }
-
-        public void OnFriend3Button()
-    {
-        if (currentState != FightPhase.PLAYERTURN)
-        {
-            return;
-        }
-        else
-        {
-            player.CastFriendAbility3();
-            Debug.Log("Friend Ability 3");
+            player.FriendAbilityButton();
+            Debug.Log("Friend Ability");
         }
     }
 #endregion

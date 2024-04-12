@@ -130,6 +130,10 @@ public class Player : Entity
         {
             CastFriendAbility3();
         }
+        else
+        {
+            Debug.Log("No ally chose");
+        }
     }
 
     public void CastFriendAbility1()
