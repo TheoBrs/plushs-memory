@@ -262,6 +262,7 @@ public class Player : Entity
                     CheckEntity();
                     selectedGridCell = null;
                     grid.RefreshGridMat();
+                    path?.Clear();
                     return;
                 }
                 else
@@ -428,8 +429,8 @@ public class Player : Entity
     public override void Death()
     {
         Debug.Log("Player Dead");
-        TurnSystem turnSystyem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
-        turnSystyem.OnPlayerDeath();
+        TurnSystem turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
+        turnSystem.OnPlayerDeath();
         // GameOver
     }
 }
