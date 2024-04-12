@@ -17,6 +17,7 @@ TagManager:
   - LoadingBar
   - MoveButton
   - EndTurnButton
+  - FriendlyAbility
   layers:
   - Default
   - TransparentFX
