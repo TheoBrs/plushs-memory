@@ -39,7 +39,7 @@ public class TurnSystem : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         SetUpBattle();
         Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
-        _enemies.AddRange(_enemiesArray);
+        enemies.AddRange(_enemiesArray);
 
         _alliesManager = AlliesManager.Instance;
     }
@@ -62,7 +62,7 @@ public class TurnSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
-        _player._actualAlly = _alliesManager._actualAlly;
+        player._actualAlly = _alliesManager._actualAlly;
 
         if (!playerTurnInitalized)
         {
