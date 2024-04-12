@@ -10,6 +10,11 @@ TagManager:
   - GridCell
   - TurnSystem
   - HealthBar
+  - Ability1
+  - Ability2
+  - PlayerAPText
+  - PlayerHPText
+  - LoadingBar
   layers:
   - Default
   - TransparentFX

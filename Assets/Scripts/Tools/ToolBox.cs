@@ -20,3 +20,8 @@ public class ToolBox
         return null;
     }
 }
+
+public static class IsWin
+{
+    public static bool IsWinBool { get; set; }
+}

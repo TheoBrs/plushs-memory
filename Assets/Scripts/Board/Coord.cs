@@ -35,6 +35,14 @@ public struct Coord
     {
         return other.X == X && other.Y == Y;
     }
+
+    public float DistanceTo(Coord coord)
+    {
+        var x = coord.X - X;
+        var y = coord.Y - Y;
+
+        return Mathf.Sqrt(x * x + y * y);
+    }
     
     public override string ToString()
     {

@@ -31,9 +31,6 @@ public abstract class Entity: MonoBehaviour
         CurrentHP = MaxHP.GetValue();
         CurrentAP = MaxAP.GetValue();
 
-        healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
-        healthBar.SetMaxHP(CurrentHP);
-
         _ability1 = new Ability();
         _ability2 = new Ability();
 
@@ -57,7 +54,8 @@ public abstract class Entity: MonoBehaviour
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
             CurrentHP -= damage;
             CurrentHP = Mathf.Clamp(CurrentHP, 0, int.MaxValue);
-            healthBar.SetHP(CurrentHP);
+            if (healthBar != null)
+                healthBar.SetHP(CurrentHP);
             IsDead();
         }
         else

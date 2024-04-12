@@ -20,6 +20,9 @@ public abstract class Enemy : Entity
     {
         base.Start();
         _currentState = State.WaitForTurn;
+
+        healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
+        healthBar.SetMaxHP(CurrentHP);
     }
 
     protected virtual void Update()
@@ -93,8 +96,6 @@ public abstract class Enemy : Entity
 
     private void Attacking()
     {
-        // Check if the player is reachable
-        
         Player _player = FindObjectOfType<Player>();
         if ((_player.transform.position - transform.position).magnitude == 1)
         {
@@ -110,7 +111,6 @@ public abstract class Enemy : Entity
 
             if (CurrentAP > 0)
             {
-
                 if (CurrentAP >= _ability2.Cost)
                 {
                     CastAbility2(_player);
@@ -119,9 +119,6 @@ public abstract class Enemy : Entity
                 {
                     CastAbility1(_player);
                 }
-
-                // Verify Attack is done / Wait till animation is done
-
             }
         }
     }
@@ -134,6 +131,14 @@ public abstract class Enemy : Entity
     public override void Death()
     {
         Debug.Log(name + " Dead");
+        TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
+        turnSystyem.OnEnemyDeath(this);
         // Enemy Death / Inform GameManager
+        // You should remove yourself
+        Cell cell = grid.GetGridCell(CurrentPos);
+        cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+        cell.HasEnemy = false;
+        cell.Entity = null;
+        Destroy(gameObject);
     }
 }
