@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Player : Entity
 {
@@ -17,6 +20,10 @@ public class Player : Entity
     Cell[,] elements;
     List<Cell> path;
     Entity entity;
+    GameObject buttonAbility1;
+    GameObject buttonAbility2;
+    Text playerAPText;
+
 
     protected override void Start()
     {
@@ -26,6 +33,9 @@ public class Player : Entity
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
         elements = grid.GetGridCells();
+        buttonAbility1 = GameObject.FindWithTag("Ability1");
+        buttonAbility2 = GameObject.FindWithTag("Ability2");
+        playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
 
         // !!!!!!!! Need Equipment Manager !!!!!!!!
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
@@ -69,35 +79,45 @@ public class Player : Entity
 
     public override void CastAbility1(Entity target)
     {
-        CurrentAP -= _ability1.Cost;
-        if(_pattoBuff > 0)
+        if (CurrentAP - _ability1.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
         {
-            target.TakeDamage((_ability1.Damage + Attack.GetValue()) *2);
-            _pattoBuff -= 1;
-        }
-        else
-        {
-            target.TakeDamage(_ability1.Damage + Attack.GetValue());
+            CurrentAP -= _ability1.Cost;
+            CheckAP();
+            TurnTowardTarget(target);
+            if (_pattoBuff > 0)
+            {
+                target.TakeDamage((_ability1.Damage + Attack.GetValue()) * 2);
+                _pattoBuff -= 1;
+            }
+            else
+            {
+                target.TakeDamage(_ability1.Damage + Attack.GetValue());
+            }
         }
     }
 
     public override void CastAbility2(Entity target)
     {
-        CurrentAP -= _ability2.Cost;
-        if (_pattoBuff > 0)
+        if (CurrentAP - _ability2.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
         {
-            target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
-            _pattoBuff -= 1;
-        }
-        else
-        {
-            target.TakeDamage(_ability2.Damage + Attack.GetValue());
+            CurrentAP -= _ability2.Cost;
+            CheckAP();
+            TurnTowardTarget(target);
+            if (_pattoBuff > 0)
+            {
+                target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
+                _pattoBuff -= 1;
+            }
+            else
+            {
+                target.TakeDamage(_ability2.Damage + Attack.GetValue());
+            }
         }
     }
 
     public void CastFriendAbility1()
     {
-        if(_fAbility1.RoundsBeforeReuse == 0)
+        if (_fAbility1.RoundsBeforeReuse == 0)
         {
             CurrentHP += 5;
             _fAbility1.RoundsBeforeReuse = 2;
@@ -161,7 +181,7 @@ public class Player : Entity
             RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
             RaycastHit hitCell = new RaycastHit();
 
-            if (hits.Length > 0)
+            if (EventSystem.current.currentSelectedGameObject == null && hits.Length > 0 || EventSystem.current.currentSelectedGameObject.layer != 5)
             {
                 foreach (var hit in hits)
                 {
@@ -197,66 +217,47 @@ public class Player : Entity
                         break;
                     }
                 }
+                if (selectedGridCell.HasEnemy)
+                {
+                    if (CurrentPos.DistanceTo(selectedGridCell.Coord) == 1)
+                    {
+                        selectedEnemyGridCell = selectedGridCell;
+                        entity = selectedEnemyGridCell.Entity;
+                    }
+                    else
+                    {
+                        selectedGridCell.IsSelected = false;
+                        entity = null;
+                    }
+                    selectedGridCell = null;
+                    grid.RefreshGridMat();
+                    return;
+                }
+                else
+                {
+                    if (selectedEnemyGridCell != null)
+                    {
+                        selectedEnemyGridCell.IsSelected = false;
+                        selectedEnemyGridCell = null;
+                    }
+                    entity = null;
+                }
 
                 path = AStar.FindPath(CurrentPos, selectedGridCell.Coord);
-
 
                 if (path.Count <= 1)
                 {
                     if (selectedGridCell != null)
                         selectedGridCell.IsSelected = false;
-                    if (selectedEnemyGridCell != null)
-                        selectedEnemyGridCell.IsSelected = false;
                     selectedGridCell = path[0];
-                    entity = null;
                     path.Clear();
                     grid.RefreshGridMat();
                     return;
                 }
 
                 grid.RefreshGridMat();
-                if (selectedGridCell.HasEnemy)
-                {
-                    // path[path.Count - 1].Entity Contain the cell with the enemy
-                    entity = path[path.Count - 1].Entity;
-                    selectedEnemyGridCell = path[path.Count - 1];
-                    selectedGridCell = path[path.Count - 2];
-                    path.RemoveAt(path.Count - 1);
-                }
-                else
-                    entity = null;
-
                 DrawPath();
             }
-        }
-    }
-
-    void DrawPath()
-    {
-        int steps = 0;
-        foreach (var cell in path)
-        {
-            Cell gridElement = elements[cell.Coord.X + grid.GetMaxX() / 2, cell.Coord.Y + grid.GetMaxY() / 2];
-            // This is assuming that the current AP doesn't change while selecting a movement
-            if (steps <= CurrentAP)
-            {
-                gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
-            }
-            else
-            {
-                gridElement.SetGameObjectMaterial(grid.GetRedPathGridMat());
-            }
-            steps++;
-        }
-        if (steps <= CurrentAP + 1)
-        {
-            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
-        }
-        else
-        {
-            selectedGridCell.SetGameObjectMaterial(grid.GetRedPathGridMat());
-            // can add more stuff that prevent to move
-            path.Clear();
         }
     }
 
@@ -273,12 +274,80 @@ public class Player : Entity
         }
     }
 
+    void DrawPath()
+    {
+        int steps = 0;
+        foreach (var cell in path)
+        {
+            Cell gridElement = elements[cell.Coord.X + grid.GetMaxX() / 2, cell.Coord.Y + grid.GetMaxY() / 2];
+            if (steps <= CurrentAP)
+            {
+                gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
+            }
+            else
+            {
+                gridElement.SetGameObjectMaterial(grid.GetRedPathGridMat());
+            }
+            steps++;
+        }
+        if (steps <= CurrentAP + 1 && CurrentAP > 0)
+        {
+            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+        }
+        else
+        {
+            selectedGridCell.SetGameObjectMaterial(grid.GetRedPathGridMat());
+            // can add more stuff that prevent to move
+            path.Clear();
+        }
+    }
+
+    void TurnTowardTarget(Entity target)
+    {
+        Vector3 directeur = (target.transform.position - transform.position);
+        if (directeur.x > 0)
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        if (directeur.x < 0)
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+        if (directeur.z > 0)
+            transform.localRotation = Quaternion.Euler(0, -90, 0);
+        if (directeur.z < 0)
+            transform.localRotation = Quaternion.Euler(0, 90, 0);
+    }
+
+    public void CheckAP()
+    {
+        if (CurrentAP < _ability1.Cost)
+        {
+            buttonAbility1.GetComponent<Image>().color = buttonAbility1.GetComponent<Button>().colors.disabledColor;
+            buttonAbility1.GetComponent<Button>().enabled = false;
+        }
+        else
+        {
+            buttonAbility1.GetComponent<Image>().color = buttonAbility1.GetComponent<Button>().colors.normalColor;
+            buttonAbility1.GetComponent<Button>().enabled = true;
+        }
+
+        if (CurrentAP < _ability2.Cost)
+        {
+            buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.disabledColor;
+            buttonAbility2.GetComponent<Button>().enabled = false;
+        }
+        else
+        {
+            buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.normalColor;
+            buttonAbility2.GetComponent<Button>().enabled = true;
+        }
+        playerAPText.text = CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
+    }
+
     public void Move()
     {
         if (path == null || path.Count == 0)
             return;
 
         CurrentAP -= path.Count - 1;
+        CheckAP();
         grid.RefreshGridMat();
         Move(path);
         CurrentPos = selectedGridCell.Coord;
@@ -300,7 +369,8 @@ public class Player : Entity
     public override void Death()
     {
         Debug.Log("Player Dead");
-        
+        TurnSystem turnSystyem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
+        turnSystyem.OnPlayerDeath();
         // GameOver
     }
 }

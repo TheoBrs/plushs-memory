@@ -4,9 +4,14 @@ using UnityEngine.UI;
 public class WinOrLose : MonoBehaviour
 {
 
-    public bool isWin = false;
+    bool isWin;
     [SerializeField] Text Win;
     [SerializeField] Text Lose;
+
+    private void Awake()
+    {
+        isWin = IsWin.IsWinBool;
+    }
 
     void Start()
     {
