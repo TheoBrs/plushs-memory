@@ -3,12 +3,10 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
+    public InventoryManager inventory;
+    public InventorySlot[] slots;
 
-    InventoryManager inventory;
-
-    InventorySlot[] slots;
-
-    void Start()
+    private void Start()
     {
         inventory = InventoryManager.Instance;
         inventory.onItemChangeCallback += UpdateUI;
@@ -16,12 +14,7 @@ public class InventoryUI : MonoBehaviour
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
-    void Update()
-    {
-
-    }
-
-    void UpdateUI()
+    private void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
