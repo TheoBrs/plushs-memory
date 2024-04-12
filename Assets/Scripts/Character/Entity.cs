@@ -122,7 +122,7 @@ public abstract class Entity: MonoBehaviour
 
     public void Move(List<Cell> pathToTake)
     {
-        _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1); ;
+        _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1);
         isMoving = true;
         pathToTake.Clear();
     }

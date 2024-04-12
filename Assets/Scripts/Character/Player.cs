@@ -22,7 +22,11 @@ public class Player : Entity
     Entity entity;
     GameObject buttonAbility1;
     GameObject buttonAbility2;
+    GameObject buttonFriendlyAbility;
+    GameObject MoveButton;
+    GameObject EndTurnButton;
     Text playerAPText;
+    bool movingButtonDisabled = false;
 
 
     protected override void Start()
@@ -35,7 +39,11 @@ public class Player : Entity
         elements = grid.GetGridCells();
         buttonAbility1 = GameObject.FindWithTag("Ability1");
         buttonAbility2 = GameObject.FindWithTag("Ability2");
+        buttonFriendlyAbility = GameObject.FindWithTag("FriendlyAbility");
+        MoveButton = GameObject.FindWithTag("MoveButton");
+        EndTurnButton = GameObject.FindWithTag("EndTurnButton");
         playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
+        CheckEntity();
 
         // !!!!!!!! Need Equipment Manager !!!!!!!!
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
@@ -161,15 +169,37 @@ public class Player : Entity
     {
         if (isMoving)
         {
+            if (!movingButtonDisabled)
+            {
+                MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
+                MoveButton.GetComponent<Button>().enabled = false;
+                EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.disabledColor;
+                EndTurnButton.GetComponent<Button>().enabled = false;
+                movingButtonDisabled = true;
+            }
             MoveOverTime();
         }
-        else if (Input.touchCount == 1)
+        else
         {
-            HandleOneTouch();
-        }
-        else if (Input.touchCount == 2)
-        {
-            HandleTwoTouch();
+            if (movingButtonDisabled)
+            {
+                if (CurrentAP > 0)
+                {
+                    MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
+                    MoveButton.GetComponent<Button>().enabled = true;
+                }
+                EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.normalColor;
+                EndTurnButton.GetComponent<Button>().enabled = true;
+                movingButtonDisabled = false;
+            }
+            if (Input.touchCount == 1)
+            {
+                HandleOneTouch();
+            }
+            else if (Input.touchCount == 2)
+            {
+                HandleTwoTouch();
+            }
         }
     }
     void HandleOneTouch()
@@ -229,6 +259,7 @@ public class Player : Entity
                         selectedGridCell.IsSelected = false;
                         entity = null;
                     }
+                    CheckEntity();
                     selectedGridCell = null;
                     grid.RefreshGridMat();
                     return;
@@ -241,6 +272,7 @@ public class Player : Entity
                         selectedEnemyGridCell = null;
                     }
                     entity = null;
+                    CheckEntity();
                 }
 
                 path = AStar.FindPath(CurrentPos, selectedGridCell.Coord);
@@ -315,6 +347,21 @@ public class Player : Entity
             transform.localRotation = Quaternion.Euler(0, 90, 0);
     }
 
+    public void CheckEntity()
+    {
+        if (entity)
+        {
+            buttonAbility1.SetActive(true);
+            buttonAbility2.SetActive(true);
+            CheckAP();
+        }
+        else
+        {
+            buttonAbility1.SetActive(false);
+            buttonAbility2.SetActive(false);
+        }
+    }
+
     public void CheckAP()
     {
         if (CurrentAP < _ability1.Cost)
@@ -338,6 +385,18 @@ public class Player : Entity
             buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.normalColor;
             buttonAbility2.GetComponent<Button>().enabled = true;
         }
+
+        if (CurrentAP <= 0)
+        {
+            MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
+            MoveButton.GetComponent<Button>().enabled = false;
+        }
+        else
+        {
+            MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
+            MoveButton.GetComponent<Button>().enabled = true;
+        }
+
         playerAPText.text = CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
