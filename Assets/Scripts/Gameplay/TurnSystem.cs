@@ -18,12 +18,15 @@ public class TurnSystem : MonoBehaviour
 
     CombatGrid grid;
     private Player player;
-
     private Entity entity;
     private List<Enemy> enemies = new List<Enemy>();
 
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
+
+    Button MoveButton;
+    Button EndTurnButton;
+
 
 
     bool playerTurnInitalized = false;
@@ -38,6 +41,8 @@ public class TurnSystem : MonoBehaviour
         SetUpBattle();
         Enemy[] enemiesArray = FindObjectsOfType<Enemy>();
         enemies.AddRange(enemiesArray);
+        MoveButton = GameObject.FindWithTag("MoveButton").GetComponent<Button>();
+        EndTurnButton = GameObject.FindWithTag("EndTurnButton").GetComponent<Button>();
     }
 
     void Update()
@@ -87,7 +92,14 @@ public class TurnSystem : MonoBehaviour
         if (enemyIndex == enemies.Count)
         {
             if (currentState == FightPhase.ENEMYTURN)
+            {
                 currentState = FightPhase.PLAYERTURN;
+
+                MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
+                MoveButton.GetComponent<Button>().enabled = true;
+                EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.normalColor;
+                EndTurnButton.GetComponent<Button>().enabled = true;
+            }
             return;
         }
 
@@ -150,6 +162,11 @@ public class TurnSystem : MonoBehaviour
 
     public void OnEndTurnButton()
     {
+        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
+        MoveButton.GetComponent<Button>().enabled = false;
+        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.disabledColor;
+        EndTurnButton.GetComponent<Button>().enabled = false;
+
         if (currentState == FightPhase.PLAYERTURN)
         {
             player.EndOfTurn();

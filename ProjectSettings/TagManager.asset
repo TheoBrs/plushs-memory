@@ -15,6 +15,9 @@ TagManager:
   - PlayerAPText
   - PlayerHPText
   - LoadingBar
+  - MoveButton
+  - EndTurnButton
+  - FriendlyAbility
   layers:
   - Default
   - TransparentFX
