@@ -88,6 +88,12 @@ public class CombatGrid : MonoBehaviour
         return elements[coord.X, coord.Y];
     }
 
+    public Cell GetGridCell(Coord coord)
+    {
+        coord = Coord.ToUncenteredCoord(coord.X, coord.Y, maxX, maxY);
+        return elements[coord.X, coord.Y];
+    }
+
     public Cell[,] GetGridCells() => elements;
 
     public Material GetDefaultGridMat() => defaultGridMat;
