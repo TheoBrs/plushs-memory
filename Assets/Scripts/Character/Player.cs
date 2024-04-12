@@ -159,7 +159,7 @@ public class Player : Entity
 
     void Update()
     {
-        if (_isMoving)
+        if (isMoving)
         {
             MoveOverTime();
         }

@@ -150,6 +150,14 @@ public class TurnSystem : MonoBehaviour
 
     public void OnEndTurnButton()
     {
+        if (player.isMoving)
+            return;
+
+        foreach (var enemy in enemies)
+        {
+            if (enemy.isMoving)
+                return;
+        }
         if (currentState == FightPhase.PLAYERTURN)
         {
             player.EndOfTurn();

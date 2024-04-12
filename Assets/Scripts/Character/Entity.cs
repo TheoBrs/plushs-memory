@@ -20,7 +20,7 @@ public abstract class Entity: MonoBehaviour
     protected Ability _ability2;
     protected bool _invincible = false;
 
-    protected bool _isMoving = false;
+    public bool isMoving = false;
     protected List<Cell> _pathToTake;
     protected CombatGrid grid;
     protected HealthBar healthBar;
@@ -100,7 +100,7 @@ public abstract class Entity: MonoBehaviour
                 CurrentPos = nextCell.Coord;
                 if (_pathToTake.Count == 0)
                 {
-                    _isMoving = false;
+                    isMoving = false;
                 }
             }
             else
@@ -123,7 +123,7 @@ public abstract class Entity: MonoBehaviour
     public void Move(List<Cell> pathToTake)
     {
         _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1); ;
-        _isMoving = true;
+        isMoving = true;
         pathToTake.Clear();
     }
 
