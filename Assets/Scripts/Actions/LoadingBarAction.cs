@@ -35,7 +35,7 @@ public class LoadingBarAction : MonoBehaviour
 
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_battleScene));
 
-        StartCoroutine(ProgressBarLoading());
+        //StartCoroutine(ProgressBarLoading());
     }
 
     public void StartDialogue()
