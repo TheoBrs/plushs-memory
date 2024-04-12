@@ -68,7 +68,7 @@ Material:
     - _CastShadows: 0
     - _Cull: 1
     - _DstBlend: 10
-    - _Outline_Thinkness: 0.05
+    - _Outline_Thinkness: 0.026
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0
