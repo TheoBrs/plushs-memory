@@ -11,25 +11,19 @@ public class NeutralZoneActions : MonoBehaviour
 
     public void ChangeAllyToKero()
     {
-        //Dialogue
-
-        //If player confirm the change
         _alliesManager._actualAlly = 1;
+        Debug.Log("Change ally to Kero");
     }
 
     public void ChangeAllyToBoon()
     {
-        //Dialogue
-
-        //If player confirm the change
         _alliesManager._actualAlly = 2;
+        Debug.Log("Change ally to Boon");
     }
 
     public void ChangeAllyToPatto()
     {
-        //Dialogue
-
-        //If player confirm the change
         _alliesManager._actualAlly = 3;
+        Debug.Log("Change ally to Patto");
     }
 }
