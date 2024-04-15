@@ -63,6 +63,7 @@ public abstract class Entity: MonoBehaviour
         else
         {
             // Do nothing / Show 0 damage
+            ShowFloatingDamage(0);
             _invincible = false;
         }
     }

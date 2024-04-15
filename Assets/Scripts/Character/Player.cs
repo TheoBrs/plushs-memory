@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player : Entity
 {
-    public int _actualAlly;
+    public int _currentAlly;
     Ability _fAbility1;
     Ability _fAbility2;
     Ability _fAbility3;
@@ -44,12 +44,29 @@ public class Player : Entity
         EndTurnButton = GameObject.FindWithTag("EndTurnButton");
         playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
         CheckEntity();
+        SetupAllyPassives();
         healthBar = PlayerHP;
         if (healthBar)
             healthBar.SetMaxHP(MaxHP.GetValue());
-
         // !!!!!!!! Need Equipment Manager !!!!!!!!
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+    }
+
+    void SetupAllyPassives()
+    {
+        if (_currentAlly == 1)
+        {
+            MaxHP.AddModifier(3);
+            CurrentHP = MaxHP.GetValue();
+        }
+        else if (_currentAlly == 2)
+        {
+            Defense.AddModifier(1);
+        }
+        else if (_currentAlly == 3)
+        {
+            Attack.AddModifier(1);
+        }
     }
 
     void OnEquipmentChanged (Equipment newEquipment, Equipment oldEquipment)
@@ -77,15 +94,15 @@ public class Player : Entity
         _fAbility2 = new Ability();
         _fAbility3 = new Ability();
 
-        _ability1.Damage = 2;
+        _ability1.Damage = 1;
         _ability1.Cost = 1;
 
-        _ability2.Damage = 4;
+        _ability2.Damage = 3;
         _ability2.Cost = 2;
 
-        _fAbility1.RoundsBeforeReuse = 2;
-        _fAbility2.RoundsBeforeReuse = 3;
-        _fAbility3.RoundsBeforeReuse = 4;
+        _fAbility1.RoundsBeforeReuse = 0;
+        _fAbility2.RoundsBeforeReuse = 0;
+        _fAbility3.RoundsBeforeReuse = 0;
     }
 
     public override void CastAbility1(Entity target)
@@ -97,7 +114,7 @@ public class Player : Entity
             TurnTowardTarget(target);
             if (_pattoBuff > 0)
             {
-                target.TakeDamage((_ability1.Damage + Attack.GetValue()) * 2);
+                target.TakeDamage((int)Mathf.Ceil((_ability1.Damage + Attack.GetValue()) * 1.5f));
                 _pattoBuff -= 1;
             }
             else
@@ -116,7 +133,7 @@ public class Player : Entity
             TurnTowardTarget(target);
             if (_pattoBuff > 0)
             {
-                target.TakeDamage((_ability2.Damage + Attack.GetValue()) *2);
+                target.TakeDamage((int)Mathf.Ceil((_ability2.Damage + Attack.GetValue()) * 1.5f));
                 _pattoBuff -= 1;
             }
             else
@@ -128,15 +145,15 @@ public class Player : Entity
 
     public void FriendAbilityButton()
     {
-        if(_actualAlly == 1)
+        if(_currentAlly == 1)
         {
             CastFriendAbility1();
         }
-        else if(_actualAlly == 2)
+        else if(_currentAlly == 2)
         {
             CastFriendAbility2();
         }
-        else if (_actualAlly == 3)
+        else if (_currentAlly == 3)
         {
             CastFriendAbility3();
         }
@@ -150,7 +167,7 @@ public class Player : Entity
     {
         if (_fAbility1.RoundsBeforeReuse == 0)
         {
-            CurrentHP += 5;
+            CurrentHP = Mathf.Clamp(CurrentHP + 5, 0, MaxHP.GetValue());
             _fAbility1.RoundsBeforeReuse = 2;
         }
         else
@@ -454,12 +471,9 @@ public class Player : Entity
         grid.RefreshGridMat();
 
         // Update RoundsBeforeReuse for friend abilities
-        _fAbility1.RoundsBeforeReuse -= 1;
-        _fAbility1.RoundsBeforeReuse = Mathf.Clamp(_fAbility1.RoundsBeforeReuse, 0, 10);
-        _fAbility2.RoundsBeforeReuse -= 1;
-        _fAbility2.RoundsBeforeReuse = Mathf.Clamp(_fAbility2.RoundsBeforeReuse, 0, 10);
-        _fAbility3.RoundsBeforeReuse -= 1;
-        _fAbility3.RoundsBeforeReuse = Mathf.Clamp(_fAbility3.RoundsBeforeReuse, 0, 10);
+        _fAbility1.RoundsBeforeReuse = Mathf.Clamp(_fAbility1.RoundsBeforeReuse - 1, 0, 10);
+        _fAbility2.RoundsBeforeReuse = Mathf.Clamp(_fAbility2.RoundsBeforeReuse - 1, 0, 10);
+        _fAbility3.RoundsBeforeReuse = Mathf.Clamp(_fAbility3.RoundsBeforeReuse - 1, 0, 10);
     }
 
     public Entity GetEnemy()

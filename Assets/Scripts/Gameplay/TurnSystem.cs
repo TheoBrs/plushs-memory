@@ -69,7 +69,7 @@ public class TurnSystem : MonoBehaviour
     private void PlayerTurn()
     {
         if (_alliesManager)
-            player._actualAlly = _alliesManager._actualAlly;
+            player._currentAlly = _alliesManager._actualAlly;
 
         if (!playerTurnInitalized)
         {

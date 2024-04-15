@@ -2447,7 +2447,7 @@ GameObject:
   - component: {fileID: 2089600198}
   - component: {fileID: 2089600197}
   m_Layer: 5
-  m_Name: Swap Friendly
+  m_Name: Show Friendly
   m_TagString: FriendlyAbility
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2480,7 +2480,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2089600195}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2820,6 +2820,14 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1771218378}
+    - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: _actualAlly
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: _currentAlly
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7068166328567616716, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
