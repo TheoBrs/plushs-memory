@@ -29,6 +29,10 @@ public class Player : Entity
     Text playerAPText;
     bool movingButtonDisabled = false;
     public HealthBar PlayerHP;
+    public Image allyImage;
+    public Sprite keroImage;
+    public Sprite boonImage;
+    public Sprite pattoImage;
 
     protected override void Start()
     {
@@ -68,20 +72,31 @@ public class Player : Entity
         {
             Attack.RemoveModifier(1);
         }
+        else
+        {
+            buttonFriendlyAbility.SetActive(true);
+        }
         _previousAlly = _currentAlly;
 
         if (_currentAlly == 1)
         {
+            allyImage.sprite = keroImage;
             MaxHP.AddModifier(3);
             CurrentHP = MaxHP.GetValue();
         }
         else if (_currentAlly == 2)
         {
+            allyImage.sprite = boonImage;
             Defense.AddModifier(1);
         }
         else if (_currentAlly == 3)
         {
+            allyImage.sprite = pattoImage;
             Attack.AddModifier(1);
+        }
+        else
+        {
+            buttonFriendlyAbility.SetActive(false);
         }
     }
 
