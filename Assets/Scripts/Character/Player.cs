@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class Player : Entity
 {
@@ -28,7 +27,7 @@ public class Player : Entity
     GameObject EndTurnButton;
     Text playerAPText;
     bool movingButtonDisabled = false;
-
+    public HealthBar PlayerHP;
 
     protected override void Start()
     {
@@ -45,6 +44,9 @@ public class Player : Entity
         EndTurnButton = GameObject.FindWithTag("EndTurnButton");
         playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
         CheckEntity();
+        healthBar = PlayerHP;
+        if (healthBar)
+            healthBar.SetMaxHP(MaxHP.GetValue());
 
         // !!!!!!!! Need Equipment Manager !!!!!!!!
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
@@ -334,12 +336,17 @@ public class Player : Entity
         foreach (var cell in path)
         {
             Cell gridElement = elements[cell.Coord.X + grid.GetMaxX() / 2, cell.Coord.Y + grid.GetMaxY() / 2];
-            if (steps <= CurrentAP)
+            if (steps < CurrentAP)
             {
                 gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
             }
+            else if (steps == CurrentAP)
+            {
+                gridElement.SetGameObjectMaterial(grid.GetSelectedGridMat());
+            }
             else
             {
+                gridElement.Direction = 'u';
                 gridElement.SetGameObjectMaterial(grid.GetRedPathGridMat());
             }
             steps++;
@@ -350,6 +357,7 @@ public class Player : Entity
         }
         else
         {
+            selectedGridCell.Direction = 'u';
             selectedGridCell.SetGameObjectMaterial(grid.GetRedPathGridMat());
             // can add more stuff that prevent to move
             path.Clear();
@@ -419,7 +427,7 @@ public class Player : Entity
             MoveButton.GetComponent<Button>().enabled = true;
         }
 
-        playerAPText.text = CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
+        playerAPText.text = "AP : " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
     public void Move()
@@ -440,6 +448,10 @@ public class Player : Entity
             selectedGridCell.IsSelected = false;
         if (selectedEnemyGridCell != null)
             selectedEnemyGridCell.IsSelected = false;
+        entity = null;
+        path?.Clear();
+        CheckEntity();
+        grid.RefreshGridMat();
 
         // Update RoundsBeforeReuse for friend abilities
         _fAbility1.RoundsBeforeReuse -= 1;

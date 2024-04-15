@@ -68,7 +68,8 @@ public class TurnSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
-        player._actualAlly = _alliesManager._actualAlly;
+        if (_alliesManager)
+            player._actualAlly = _alliesManager._actualAlly;
 
         if (!playerTurnInitalized)
         {
@@ -171,7 +172,7 @@ public class TurnSystem : MonoBehaviour
 
     public void UpdatePlayerHPText()
     {
-        playerHPText.text = player.GetComponent<Entity>().CurrentHP.ToString() + " / " + player.GetComponent<Entity>().MaxHP.GetValue().ToString();
+        //playerHPText.text = "HP : " + player.GetComponent<Entity>().CurrentHP.ToString() + " / " + player.GetComponent<Entity>().MaxHP.GetValue().ToString();
     }
 
     public void OnPlayerDeath()

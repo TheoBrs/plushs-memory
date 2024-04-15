@@ -22,7 +22,7 @@ public abstract class Enemy : Entity
         _currentState = State.WaitForTurn;
 
         healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
-        healthBar.SetMaxHP(CurrentHP);
+        healthBar.SetMaxHP(MaxHP.GetValue());
     }
 
     protected virtual void Update()
