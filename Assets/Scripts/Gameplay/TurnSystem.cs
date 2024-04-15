@@ -69,7 +69,10 @@ public class TurnSystem : MonoBehaviour
     private void PlayerTurn()
     {
         if (_alliesManager)
+        {
             player._currentAlly = _alliesManager._actualAlly;
+            player.SetupAllyPassives();
+        }
 
         if (!playerTurnInitalized)
         {

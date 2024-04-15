@@ -2826,7 +2826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: _currentAlly
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7068166328567616716, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: m_AnchorMax.x

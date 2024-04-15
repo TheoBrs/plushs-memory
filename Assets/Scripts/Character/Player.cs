@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Player : Entity
 {
     public int _currentAlly;
+    int _previousAlly;
     Ability _fAbility1;
     Ability _fAbility2;
     Ability _fAbility3;
@@ -52,8 +53,23 @@ public class Player : Entity
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
-    void SetupAllyPassives()
+    public void SetupAllyPassives()
     {
+        if (_previousAlly == 1)
+        {
+            MaxHP.RemoveModifier(3);
+            CurrentHP = MaxHP.GetValue();
+        }
+        else if (_previousAlly == 2)
+        {
+            Defense.RemoveModifier(1);
+        }
+        else if (_previousAlly == 3)
+        {
+            Attack.RemoveModifier(1);
+        }
+        _previousAlly = _currentAlly;
+
         if (_currentAlly == 1)
         {
             MaxHP.AddModifier(3);
@@ -168,6 +184,7 @@ public class Player : Entity
         if (_fAbility1.RoundsBeforeReuse == 0)
         {
             CurrentHP = Mathf.Clamp(CurrentHP + 5, 0, MaxHP.GetValue());
+            healthBar.SetHP(CurrentHP);
             _fAbility1.RoundsBeforeReuse = 2;
         }
         else
