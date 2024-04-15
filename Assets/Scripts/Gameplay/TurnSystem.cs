@@ -18,6 +18,7 @@ public class TurnSystem : MonoBehaviour
 
     CombatGrid grid;
     private Player player;
+
     private Entity entity;
     private List<Enemy> enemies = new List<Enemy>();
 
@@ -28,21 +29,25 @@ public class TurnSystem : MonoBehaviour
     Button EndTurnButton;
 
 
-
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
     int enemyIndex = 0;
     public FightPhase currentState = FightPhase.INIT;
+
+    private AlliesManager _alliesManager;
 
     void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         SetUpBattle();
-        Enemy[] enemiesArray = FindObjectsOfType<Enemy>();
-        enemies.AddRange(enemiesArray);
+        Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
+        enemies.AddRange(_enemiesArray);
+
         MoveButton = GameObject.FindWithTag("MoveButton").GetComponent<Button>();
         EndTurnButton = GameObject.FindWithTag("EndTurnButton").GetComponent<Button>();
+
+        _alliesManager = AlliesManager.Instance;
     }
 
     void Update()
@@ -63,6 +68,8 @@ public class TurnSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
+        player._actualAlly = _alliesManager._actualAlly;
+
         if (!playerTurnInitalized)
         {
             turnText.text = "Tour du joueur";
@@ -92,14 +99,7 @@ public class TurnSystem : MonoBehaviour
         if (enemyIndex == enemies.Count)
         {
             if (currentState == FightPhase.ENEMYTURN)
-            {
                 currentState = FightPhase.PLAYERTURN;
-
-                MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
-                MoveButton.GetComponent<Button>().enabled = true;
-                EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.normalColor;
-                EndTurnButton.GetComponent<Button>().enabled = true;
-            }
             return;
         }
 
@@ -162,11 +162,6 @@ public class TurnSystem : MonoBehaviour
 
     public void OnEndTurnButton()
     {
-        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
-        MoveButton.GetComponent<Button>().enabled = false;
-        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.disabledColor;
-        EndTurnButton.GetComponent<Button>().enabled = false;
-
         if (currentState == FightPhase.PLAYERTURN)
         {
             player.EndOfTurn();
@@ -228,7 +223,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-    public void OnFriend1Button()
+    public void OnFriendButton()
     {
         if (currentState != FightPhase.PLAYERTURN)
         {
@@ -236,34 +231,8 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
-            player.CastFriendAbility1();
-            Debug.Log("Friend Ability 1");
-        }
-    }
-
-    public void OnFriend2Button()
-    {
-        if (currentState != FightPhase.PLAYERTURN)
-        {
-            return;
-        }
-        else
-        {
-            player.CastFriendAbility2();
-            Debug.Log("Friend Ability 2");
-        }
-    }
-
-        public void OnFriend3Button()
-    {
-        if (currentState != FightPhase.PLAYERTURN)
-        {
-            return;
-        }
-        else
-        {
-            player.CastFriendAbility3();
-            Debug.Log("Friend Ability 3");
+            player.FriendAbilityButton();
+            Debug.Log("Friend Ability");
         }
     }
 #endregion
