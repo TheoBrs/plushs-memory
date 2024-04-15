@@ -29,6 +29,7 @@ public class CombatGrid : MonoBehaviour
                 GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.X, 0.01f, coords.Y), Quaternion.identity);
                 newCell.tag = "GridCell";
                 Cell gridElement = new Cell { Coord = coords, GameObject = newCell };
+                gridElement.GameObject.transform.parent = gameObject.transform;
                 elements[x, y] = gridElement;
             }
         }
