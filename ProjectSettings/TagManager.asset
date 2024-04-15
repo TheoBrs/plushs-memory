@@ -8,6 +8,16 @@ TagManager:
   - CombatGrid
   - Enemy
   - GridCell
+  - TurnSystem
+  - HealthBar
+  - Ability1
+  - Ability2
+  - PlayerAPText
+  - PlayerHPText
+  - LoadingBar
+  - MoveButton
+  - EndTurnButton
+  - FriendlyAbility
   layers:
   - Default
   - TransparentFX

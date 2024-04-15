@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public abstract class Entity: MonoBehaviour
 {
+    public GameObject floatingTextPrefab;
     [Header("HP and AP settings")]
     public Stat MaxHP;
     public Stat MaxAP;
@@ -18,14 +20,15 @@ public abstract class Entity: MonoBehaviour
     protected Ability _ability2;
     protected bool _invincible = false;
 
-
-    protected bool _isMoving = false;
+    public bool isMoving = false;
     protected List<Cell> _pathToTake;
     protected CombatGrid grid;
+    protected HealthBar healthBar;
 
     protected virtual void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+
         CurrentHP = MaxHP.GetValue();
         CurrentAP = MaxAP.GetValue();
 
@@ -52,13 +55,22 @@ public abstract class Entity: MonoBehaviour
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
             CurrentHP -= damage;
             CurrentHP = Mathf.Clamp(CurrentHP, 0, int.MaxValue);
+            if (healthBar != null)
+                healthBar.SetHP(CurrentHP);
             IsDead();
+            ShowFloatingDamage(damage);
         }
         else
         {
             // Do nothing / Show 0 damage
             _invincible = false;
         }
+    }
+
+    void ShowFloatingDamage(int damage)
+    {
+        GameObject damageText = Instantiate(floatingTextPrefab, transform.position + new Vector3(0, 2.3f, 0), Quaternion.identity);
+        damageText.GetComponent<FloatingText>().Init(damage.ToString(), Color.white);
     }
 
     private void IsDead()
@@ -88,7 +100,7 @@ public abstract class Entity: MonoBehaviour
                 CurrentPos = nextCell.Coord;
                 if (_pathToTake.Count == 0)
                 {
-                    _isMoving = false;
+                    isMoving = false;
                 }
             }
             else
@@ -110,8 +122,8 @@ public abstract class Entity: MonoBehaviour
 
     public void Move(List<Cell> pathToTake)
     {
-        _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1); ;
-        _isMoving = true;
+        _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1);
+        isMoving = true;
         pathToTake.Clear();
     }
 

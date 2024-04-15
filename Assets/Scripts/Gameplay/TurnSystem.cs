@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TurnSystem : MonoBehaviour
@@ -11,30 +12,37 @@ public class TurnSystem : MonoBehaviour
         PLAYERTURN,
         ENEMYTURN,
         WIN,
-        LOSE
+        LOSE,
+        END
     }
 
     CombatGrid grid;
-    private Player _player;
+    private Player player;
+    private Entity entity;
+    private List<Enemy> enemies = new List<Enemy>();
 
-    private Entity _entity;
-    private List<Enemy> _enemies = new List<Enemy>();
+    [SerializeField] Text playerHPText;
+    [SerializeField] Text turnText;
 
-    [SerializeField] Text _playerCurrentHPText;
-    [SerializeField] Text _playerMaxHPText;
+    Button MoveButton;
+    Button EndTurnButton;
+
+
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
-
-    public FightPhase CurrentState = FightPhase.INIT;
+    int enemyIndex = 0;
+    public FightPhase currentState = FightPhase.INIT;
 
     void Start()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
-        _player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         SetUpBattle();
-        Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
-        _enemies.AddRange(_enemiesArray);
+        Enemy[] enemiesArray = FindObjectsOfType<Enemy>();
+        enemies.AddRange(enemiesArray);
+        MoveButton = GameObject.FindWithTag("MoveButton").GetComponent<Button>();
+        EndTurnButton = GameObject.FindWithTag("EndTurnButton").GetComponent<Button>();
     }
 
     void Update()
@@ -44,22 +52,22 @@ public class TurnSystem : MonoBehaviour
 
     private void SetUpBattle()
     {
-        int x = -1;
-        int y = -1;
-        GameObject WeakEnemy = Instantiate(enemyPrefabs[0], new Vector3(-1, 0.01f, -1), Quaternion.identity);
-        WeakEnemy.GetComponent<WeakEnemy>().name = "Enemy";
-        WeakEnemy.GetComponent<WeakEnemy>().CurrentPos = new Coord(x, y);
-        WeakEnemy.GetComponent<WeakEnemy>().speed = 2;
+        var maxX = grid.GetMaxX();
+        var maxY = grid.GetMaxY();
 
-        grid.AddEnemy(Coord.ToUncenteredCoord(x, y, grid.GetMaxX(), grid.GetMaxY()), WeakEnemy.GetComponent<Enemy>());
-        CurrentState = FightPhase.PLAYERTURN;
+        Vector3 rotation = new Vector3(0, 180, 0);
+        grid.AddEnemy(new Coord(-1, 0), enemyPrefabs[0], rotation);
+
+        currentState = FightPhase.PLAYERTURN;
     }
 
     private void PlayerTurn()
     {
         if (!playerTurnInitalized)
         {
-            _player.CurrentAP = _player.MaxAP.GetValue();
+            turnText.text = "Tour du joueur";
+            player.CurrentAP = player.MaxAP.GetValue();
+            player.CheckAP();
             playerTurnInitalized = true;
             enemyTurnInitalized = false;
         }
@@ -68,24 +76,41 @@ public class TurnSystem : MonoBehaviour
  
     public void EnemyTurn()
     {
-
         if (!enemyTurnInitalized)
         {
+            // Stuff to do only once at the start of the enemies turn
+            turnText.text = "Tour des ennemis";
             playerTurnInitalized = false;
             enemyTurnInitalized = true;
+            enemyIndex = 0;
+            NextEnemyTurn();
+        }
+    }
+
+    public void NextEnemyTurn()
+    {
+        if (enemyIndex == enemies.Count)
+        {
+            if (currentState == FightPhase.ENEMYTURN)
+            {
+                currentState = FightPhase.PLAYERTURN;
+
+                MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
+                MoveButton.GetComponent<Button>().enabled = true;
+                EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.normalColor;
+                EndTurnButton.GetComponent<Button>().enabled = true;
+            }
+            return;
         }
 
-        for (int i = 0; i < _enemies.Count; i++)
-        {
-            _enemies[i].ItsTurn = true;
-            UpdatePlayerHPText();
-        }
-        CurrentState = FightPhase.PLAYERTURN;
+        enemies[enemyIndex].ItsTurn = true;
+        enemyIndex++;
+        UpdatePlayerHPText();
     }
 
     private void StateSwitch()
     {
-        switch (CurrentState)
+        switch (currentState)
         {
             case FightPhase.PLAYERTURN:
                 UpdatePlayerHPText();
@@ -104,8 +129,12 @@ public class TurnSystem : MonoBehaviour
                 Lose();
                 break;
 
+            case FightPhase.END:
+                End();
+                break;
+
             default:
-                CurrentState = FightPhase.INIT;
+                currentState = FightPhase.INIT;
                 break;
         }
     }
@@ -113,106 +142,127 @@ public class TurnSystem : MonoBehaviour
     private void Win()
     {
         Debug.Log("Win");
+        IsWin.IsWinBool = true;
+        currentState = FightPhase.END;
     }
 
     private void Lose()
     {
-        Debug.Log("lose");
+        Debug.Log("Lose");
+        IsWin.IsWinBool = false;
+        currentState = FightPhase.END;
+    }
+
+    private void End()
+    {
+        Debug.Log("End");
+        SceneManager.LoadScene("End");
+        // Call animation to exit battleScene or something
     }
 
     public void OnEndTurnButton()
     {
-        if (CurrentState != FightPhase.PLAYERTURN)
+        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
+        MoveButton.GetComponent<Button>().enabled = false;
+        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.disabledColor;
+        EndTurnButton.GetComponent<Button>().enabled = false;
+
+        if (currentState == FightPhase.PLAYERTURN)
         {
-            return;
-        }
-        /*if( nbEnemie <=0 && Player.health > 0 )
-        {
-            current_state = EnumTurn.Win
-        }
-        else if( Player.health <= 0)
-        {
-            current_state = EnumTurn.lose;
-        }*/
-        else
-        {
-            CurrentState = FightPhase.ENEMYTURN;
+            player.EndOfTurn();
+            currentState = FightPhase.ENEMYTURN;
         }
     }
 
     public void UpdatePlayerHPText()
     {
-        _playerCurrentHPText.text = _player.GetComponent<Entity>().CurrentHP.ToString();
-        _playerMaxHPText.text = _player.GetComponent<Entity>().MaxHP.GetValue().ToString();
+        playerHPText.text = player.GetComponent<Entity>().CurrentHP.ToString() + " / " + player.GetComponent<Entity>().MaxHP.GetValue().ToString();
     }
 
+    public void OnPlayerDeath()
+    {
+        currentState = FightPhase.LOSE;
+    }
+    public void OnEnemyDeath(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+        if (enemies.Count == 0 )
+        {
+            currentState = FightPhase.WIN;
+        }
+    }
     #region Attaque
 
 
     public void OnAbility1Button()
     {
-        _entity = _player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
+        entity = player.GetEnemy();
+        if (currentState != FightPhase.PLAYERTURN)
         {
-            Debug.Log("no enemy select");
+            Debug.Log("Not the player turn");
+            return;
+        }
+        else if (entity == null)
+        {
+            Debug.Log("No enemy select");
             return;
         }
         else
         {
-            _player.CastAbility1(_entity);
+            player.CastAbility1(entity);
             //detection porter
         }
     }
 
     public void OnAbility2Button()
     {
-        _entity = _player.GetEnemy();
-        if (CurrentState != FightPhase.PLAYERTURN || _entity == null)
+        entity = player.GetEnemy();
+        if (currentState != FightPhase.PLAYERTURN || entity == null)
         {
             return;
         }
         else
         {
-            _player.CastAbility2(_entity);
+            player.CastAbility2(entity);
             //detection porter
         }
     }
 
     public void OnFriend1Button()
     {
-        if (CurrentState != FightPhase.PLAYERTURN)
+        if (currentState != FightPhase.PLAYERTURN)
         {
             return;
         }
         else
         {
-            _player.CastFriendAbility1();
+            player.CastFriendAbility1();
             Debug.Log("Friend Ability 1");
         }
     }
 
     public void OnFriend2Button()
     {
-        if (CurrentState != FightPhase.PLAYERTURN)
+        if (currentState != FightPhase.PLAYERTURN)
         {
             return;
         }
         else
         {
-            _player.CastFriendAbility2();
+            player.CastFriendAbility2();
             Debug.Log("Friend Ability 2");
         }
     }
 
         public void OnFriend3Button()
     {
-        if (CurrentState != FightPhase.PLAYERTURN)
+        if (currentState != FightPhase.PLAYERTURN)
         {
             return;
         }
         else
         {
-            _player.CastFriendAbility3();
+            player.CastFriendAbility3();
             Debug.Log("Friend Ability 3");
         }
     }

@@ -20,6 +20,9 @@ public abstract class Enemy : Entity
     {
         base.Start();
         _currentState = State.WaitForTurn;
+
+        healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
+        healthBar.SetMaxHP(CurrentHP);
     }
 
     protected virtual void Update()
@@ -34,22 +37,18 @@ public abstract class Enemy : Entity
                 }
                 break;
             case State.Movement:
-
                 bool hasFinishedMoving = Movement();
-
                 if (hasFinishedMoving)
                     ChangeState(State.Attacking);
                 break;
             case State.Attacking:
-
                 Attacking();
-
                 ChangeState(State.EndTurn);
                 break;
             case State.EndTurn:
-
                 ItsTurn = false;
-
+                TurnSystem turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
+                turnSystem.NextEnemyTurn();
                 ChangeState(State.WaitForTurn);
                 break;
         }
@@ -57,15 +56,15 @@ public abstract class Enemy : Entity
 
     private bool Movement()
     {
-        if (_isMoving)
+        if (isMoving)
         {
-            _isMoving = !MoveOverTime();
+            isMoving = !MoveOverTime();
         }
         else
         {
             // Check if the player is reachable
             Player _player = FindObjectOfType<Player>();
-            List<Cell> _pathToPlayer =  AStar.FindPath(CurrentPos, _player.CurrentPos);
+            List<Cell> _pathToPlayer = AStar.FindPath(CurrentPos, _player.CurrentPos, true);
 
             _pathToPlayer.RemoveAt(_pathToPlayer.Count - 1);
 
@@ -87,21 +86,29 @@ public abstract class Enemy : Entity
                 grid.GetGridCell(nextPos.X, nextPos.Y).Entity = grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
                 grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
                 CurrentPos = nextPos;
-                _player.RefreshGridMat();
+                grid.RefreshGridMat();
             }
         }
-        return !_isMoving;
+        return !isMoving;
 
         // Verify he arrived at the position / Wait till animation is done
     }
 
     private void Attacking()
     {
-        // Check if the player is reachable
-        
         Player _player = FindObjectOfType<Player>();
         if ((_player.transform.position - transform.position).magnitude == 1)
         {
+            Vector3 directeur = (_player.transform.position - transform.position);
+            if (directeur.x > 0)
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+            if (directeur.x < 0)
+                transform.localRotation = Quaternion.Euler(0, 180, 0);
+            if (directeur.z > 0)
+                transform.localRotation = Quaternion.Euler(0, -90, 0);
+            if (directeur.z < 0)
+                transform.localRotation = Quaternion.Euler(0, 90, 0);
+
             if (CurrentAP > 0)
             {
                 if (CurrentAP >= _ability2.Cost)
@@ -112,14 +119,8 @@ public abstract class Enemy : Entity
                 {
                     CastAbility1(_player);
                 }
-
-                // Verify Attack is done / Wait till animation is done
-
             }
         }
-        //// A MODIFIER
-
-
     }
 
     void ChangeState(State newState)
@@ -129,6 +130,15 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
+        Debug.Log(name + " Dead");
+        TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
+        turnSystyem.OnEnemyDeath(this);
         // Enemy Death / Inform GameManager
+        // You should remove yourself
+        Cell cell = grid.GetGridCell(CurrentPos);
+        cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+        cell.HasEnemy = false;
+        cell.Entity = null;
+        Destroy(gameObject);
     }
 }

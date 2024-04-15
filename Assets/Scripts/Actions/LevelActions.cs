@@ -2,15 +2,8 @@ using UnityEngine;
 
 public class LevelActions : MonoBehaviour
 {
-    [SerializeField] private GameObject _UIGameObject;
-
     void Start()
     {
-        if (!_UIGameObject.activeSelf)
-        {
-            _UIGameObject.SetActive(true);
-        }
-
         AudioManager.Instance.StopMusic();
     }
 
@@ -19,8 +12,13 @@ public class LevelActions : MonoBehaviour
         ScenesManager.Instance.ReturnMenu();
     }
 
-    public void ClickButtonSound()
+    public void PlaySFX(string name)
     {
-        AudioManager.Instance.PlaySFX("SFXTest");
+        AudioManager.Instance.PlaySFX(name);
+    }
+
+    public void PlayMusic(string name)
+    {
+        AudioManager.Instance.PlayMusic(name);
     }
 }
