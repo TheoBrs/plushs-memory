@@ -34,6 +34,16 @@ public class Player : Entity
     public Sprite boonImage;
     public Sprite pattoImage;
 
+    void Awake()
+    {
+        buttonAbility1 = GameObject.FindWithTag("Ability1");
+        buttonAbility2 = GameObject.FindWithTag("Ability2");
+        buttonFriendlyAbility = GameObject.FindWithTag("FriendlyAbility");
+        MoveButton = GameObject.FindWithTag("MoveButton");
+        EndTurnButton = GameObject.FindWithTag("EndTurnButton");
+        playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -42,12 +52,6 @@ public class Player : Entity
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
         elements = grid.GetGridCells();
-        buttonAbility1 = GameObject.FindWithTag("Ability1");
-        buttonAbility2 = GameObject.FindWithTag("Ability2");
-        buttonFriendlyAbility = GameObject.FindWithTag("FriendlyAbility");
-        MoveButton = GameObject.FindWithTag("MoveButton");
-        EndTurnButton = GameObject.FindWithTag("EndTurnButton");
-        playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
         CheckEntity();
         SetupAllyPassives();
         healthBar = PlayerHP;
