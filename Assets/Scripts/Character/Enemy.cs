@@ -111,9 +111,12 @@ public abstract class Enemy : Entity
 
             if (CurrentAP > 0)
             {
-                if (CurrentAP >= _ability2.Cost)
+                if (_ability2.RoundsBeforeReuse == 0)
                 {
-                    CastAbility2(_player);
+                    if (CurrentAP >= _ability2.Cost)
+                    {
+                        CastAbility2(_player);
+                    }
                 }
                 else if (CurrentAP >= _ability1.Cost)
                 {
@@ -121,6 +124,9 @@ public abstract class Enemy : Entity
                 }
             }
         }
+
+        _ability2.RoundsBeforeReuse -= 1;
+        _ability2.RoundsBeforeReuse = Mathf.Clamp(_ability2.RoundsBeforeReuse, 0, 10);
     }
 
     void ChangeState(State newState)

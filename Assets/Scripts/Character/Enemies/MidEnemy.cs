@@ -25,14 +25,7 @@ public class MidEnemy : Enemy
     public override void CastAbility2(Entity target)
     {
         CurrentAP -= _ability2.Cost;
-        if (_ability2.RoundsBeforeReuse == 0)
-        {
-            target.MaxAP.AddModifier(-1);
-            _ability2.RoundsBeforeReuse = 2;
-        }
-        else
-        {
-            // Lower the roundBeforeReuse int each round
-        }
+        target.MaxAP.AddModifier(-1);
+        _ability2.RoundsBeforeReuse = 2;
     }
 }

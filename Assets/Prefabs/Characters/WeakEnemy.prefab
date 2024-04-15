@@ -58,7 +58,7 @@ MonoBehaviour:
   Defense:
     _baseValue: 0
   ItsTurn: 0
-  _name: Enemy
+  _name: Mite
 --- !u!1 &8573402144669312805
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,8 +87,8 @@ Transform:
   m_GameObject: {fileID: 8573402144669312805}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
-  m_LocalScale: {x: 1, y: 0.8, z: 1}
+  m_LocalPosition: {x: 0, y: 0.624, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.6, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5566674713529674762}
@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 9176835743329017190}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071072, w: 0.7071065}
-  m_LocalPosition: {x: 0.7, y: 1, z: 0}
+  m_LocalPosition: {x: 0.424, y: 0.824, z: 0}
   m_LocalScale: {x: 0.1, y: 0.5, z: 0.099999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -347,7 +347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1422741053769447281, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2
+      value: 1.636
       objectReference: {fileID: 0}
     - target: {fileID: 1422741053769447281, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
