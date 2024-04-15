@@ -25,6 +25,9 @@ public class TurnSystem : MonoBehaviour
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
 
+    Button MoveButton;
+    Button EndTurnButton;
+
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
@@ -40,6 +43,9 @@ public class TurnSystem : MonoBehaviour
         SetUpBattle();
         Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
         enemies.AddRange(_enemiesArray);
+
+        MoveButton = GameObject.FindWithTag("MoveButton").GetComponent<Button>();
+        EndTurnButton = GameObject.FindWithTag("EndTurnButton").GetComponent<Button>();
 
         _alliesManager = AlliesManager.Instance;
     }
