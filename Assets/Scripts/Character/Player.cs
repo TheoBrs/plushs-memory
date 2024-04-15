@@ -464,7 +464,7 @@ public class Player : Entity
             MoveButton.GetComponent<Button>().enabled = true;
         }
 
-        playerAPText.text = "AP : " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
+        playerAPText.text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
     public void Move()
