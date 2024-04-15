@@ -56,9 +56,9 @@ public abstract class Enemy : Entity
 
     private bool Movement()
     {
-        if (_isMoving)
+        if (isMoving)
         {
-            _isMoving = !MoveOverTime();
+            isMoving = !MoveOverTime();
         }
         else
         {
@@ -89,7 +89,7 @@ public abstract class Enemy : Entity
                 grid.RefreshGridMat();
             }
         }
-        return !_isMoving;
+        return !isMoving;
 
         // Verify he arrived at the position / Wait till animation is done
     }
