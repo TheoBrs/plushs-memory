@@ -48,6 +48,12 @@ public class TurnSystem : MonoBehaviour
         EndTurnButton = GameObject.FindWithTag("EndTurnButton").GetComponent<Button>();
 
         _alliesManager = AlliesManager.Instance;
+
+        if (_alliesManager)
+        {
+            player._currentAlly = _alliesManager._actualAlly;
+            player.SetupAllyPassives();
+        }
     }
 
     void Update()
@@ -68,12 +74,6 @@ public class TurnSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
-        if (_alliesManager)
-        {
-            player._currentAlly = _alliesManager._actualAlly;
-            player.SetupAllyPassives();
-        }
-
         if (!playerTurnInitalized)
         {
             turnText.text = "Tour du joueur";
