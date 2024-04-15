@@ -43,7 +43,21 @@ public struct Coord
 
         return Mathf.Sqrt(x * x + y * y);
     }
-    
+
+    public char DirectionTo(Coord coord)
+    {
+        char direction = 'n';
+        if (coord.X == X + 1 && coord.Y == Y)
+            direction = 'r';
+        if (coord.X == X - 1 && coord.Y == Y)
+            direction = 'l';
+        if (coord.X == X && coord.Y == Y + 1)
+            direction = 'u';
+        if (coord.X == X && coord.Y == Y - 1)
+            direction = 'd';
+        return direction;
+    }
+
     public override string ToString()
     {
         return "x:" + X + " y:" + Y;

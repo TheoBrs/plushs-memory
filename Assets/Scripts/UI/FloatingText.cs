@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class FloatingText : MonoBehaviour
@@ -8,7 +9,7 @@ public class FloatingText : MonoBehaviour
     public void Init(string text, Color color)
     {
         Destroy(gameObject, animation.length);
-        GetComponent<TextMesh>().text = text;
-        GetComponent<TextMesh>().color = color;
+        transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
+        transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = color;
     }
 }

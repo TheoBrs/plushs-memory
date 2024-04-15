@@ -48,6 +48,12 @@ public class TurnSystem : MonoBehaviour
         EndTurnButton = GameObject.FindWithTag("EndTurnButton").GetComponent<Button>();
 
         _alliesManager = AlliesManager.Instance;
+
+        if (_alliesManager)
+        {
+            player._currentAlly = _alliesManager._actualAlly;
+            player.SetupAllyPassives();
+        }
     }
 
     void Update()
@@ -61,15 +67,13 @@ public class TurnSystem : MonoBehaviour
         var maxY = grid.GetMaxY();
 
         Vector3 rotation = new Vector3(0, 180, 0);
-        grid.AddEnemy(new Coord(-1, 0), enemyPrefabs[0], rotation);
+        grid.AddEnemy(new Coord(2, 0), enemyPrefabs[0], rotation);
 
         currentState = FightPhase.PLAYERTURN;
     }
 
     private void PlayerTurn()
     {
-        player._actualAlly = _alliesManager._actualAlly;
-
         if (!playerTurnInitalized)
         {
             turnText.text = "Tour du joueur";
@@ -171,7 +175,7 @@ public class TurnSystem : MonoBehaviour
 
     public void UpdatePlayerHPText()
     {
-        playerHPText.text = player.GetComponent<Entity>().CurrentHP.ToString() + " / " + player.GetComponent<Entity>().MaxHP.GetValue().ToString();
+        //playerHPText.text = "HP : " + player.GetComponent<Entity>().CurrentHP.ToString() + " / " + player.GetComponent<Entity>().MaxHP.GetValue().ToString();
     }
 
     public void OnPlayerDeath()
