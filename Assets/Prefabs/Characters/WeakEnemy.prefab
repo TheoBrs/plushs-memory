@@ -57,6 +57,7 @@ MonoBehaviour:
     _baseValue: 0
   Defense:
     _baseValue: 0
+  isMoving: 0
   ItsTurn: 0
   _name: Mite
 --- !u!1 &8573402144669312805
@@ -373,9 +374,33 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2579183600193198555, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 382c9e75499b7084db01cdd205820499, type: 3}
+    - target: {fileID: 2579183600193198555, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2579183600193198555, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2579183600193198555, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3644332680932911089, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450678301248737276, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450678301248737276, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
+      propertyPath: m_MaxValue
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
