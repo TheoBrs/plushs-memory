@@ -186,11 +186,7 @@ public class Player : Entity
             CurrentHP = Mathf.Clamp(CurrentHP + 5, 0, MaxHP.GetValue());
             healthBar.SetHP(CurrentHP);
             _fAbility1.RoundsBeforeReuse = 2;
-        }
-        else
-        {
-            // Make the button grey and prevent it for being clicked
-            // (there shouldn't be a "else", it's to not forget to do this)
+            buttonFriendlyAbility.SetActive(false);
         }
     }
 
@@ -200,11 +196,7 @@ public class Player : Entity
         {
             _invincible = true;
             _fAbility2.RoundsBeforeReuse = 3;
-        }
-        else
-        {
-            // Make the button grey and prevent it for being clicked
-            // (there shouldn't be a "else", it's to not forget to do this)
+            buttonFriendlyAbility.SetActive(false);
         }
     }
 
@@ -214,11 +206,7 @@ public class Player : Entity
         {
             _pattoBuff = 2;
             _fAbility3.RoundsBeforeReuse = 4;
-        }
-        else
-        {
-            // Make the button grey and prevent it for being clicked
-            // (there shouldn't be a "else", it's to not forget to do this)
+            buttonFriendlyAbility.SetActive(false);
         }
     }
 
@@ -491,6 +479,13 @@ public class Player : Entity
         _fAbility1.RoundsBeforeReuse = Mathf.Clamp(_fAbility1.RoundsBeforeReuse - 1, 0, 10);
         _fAbility2.RoundsBeforeReuse = Mathf.Clamp(_fAbility2.RoundsBeforeReuse - 1, 0, 10);
         _fAbility3.RoundsBeforeReuse = Mathf.Clamp(_fAbility3.RoundsBeforeReuse - 1, 0, 10);
+
+        if ((_currentAlly == 1 && _fAbility1.RoundsBeforeReuse == 0) || 
+            (_currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) || 
+            (_currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
+        {
+            buttonFriendlyAbility.SetActive(true);
+        }
     }
 
     public Entity GetEnemy()

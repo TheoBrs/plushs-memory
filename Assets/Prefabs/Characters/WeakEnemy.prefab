@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed27f1ada1c715a4a8e83c25dcb559fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingTextPrefab: {fileID: 7963380218173835641, guid: 14827520fcd18d445871868c9eda3a24, type: 3}
+  floatingTextPrefab: {fileID: 7289141583938169690, guid: 14827520fcd18d445871868c9eda3a24, type: 3}
   MaxHP:
     _baseValue: 15
   MaxAP:
