@@ -74,7 +74,9 @@ public class CombatGrid : MonoBehaviour
 
     public void AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size)
     {
-        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation));
+        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale + (size.X - 1) * gridCellScale / 2, 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2) + transform.position, Quaternion.Euler(rotation));
+
+        enemy.transform.localScale *= Mathf.Sqrt(size.X * size.Y);
         Entity enemyScript = enemy.GetComponent<Entity>();
         enemyScript.CurrentPos = coord;
         enemyScript.speed = 2;
