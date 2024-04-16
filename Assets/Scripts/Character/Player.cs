@@ -186,7 +186,6 @@ public class Player : Entity
         {
             CurrentAP -= _ability2.Cost;
             CheckAP();
-            TurnTowardTarget(target);
             if (_pattoBuff > 0)
             {
                 target.TakeDamage((int)Mathf.Ceil((_ability2.Damage + Attack.GetValue()) * 1.5f));
