@@ -14,7 +14,9 @@ public abstract class Enemy : Entity
 {
     private State _currentState;
     public bool ItsTurn = false;
+    public bool cannotMove = false;
     [SerializeField] public string _name = "Enemy";
+    public bool ability2IsntAttack = false;
 
     protected override void Start()
     {
@@ -56,6 +58,9 @@ public abstract class Enemy : Entity
 
     private bool Movement()
     {
+        if (cannotMove)
+            return true;
+
         if (isMoving)
         {
             isMoving = !MoveOverTime();
@@ -94,10 +99,10 @@ public abstract class Enemy : Entity
         // Verify he arrived at the position / Wait till animation is done
     }
 
-    private void Attacking()
+    virtual public void Attacking()
     {
         Player _player = FindObjectOfType<Player>();
-        if ((_player.transform.position - transform.position).magnitude == 1)
+        if ((_player.transform.position - transform.position).magnitude == 1 * grid.gridCellScale)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
             if (directeur.x > 0)
@@ -118,15 +123,19 @@ public abstract class Enemy : Entity
                         CastAbility2(_player);
                     }
                 }
-                else if (CurrentAP >= _ability1.Cost)
+                
+                if (_ability1.RoundsBeforeReuse == 0)
                 {
-                    CastAbility1(_player);
+                    if (CurrentAP >= _ability1.Cost)
+                    {
+                        CastAbility1(_player);
+                    }
                 }
             }
         }
 
-        _ability2.RoundsBeforeReuse -= 1;
-        _ability2.RoundsBeforeReuse = Mathf.Clamp(_ability2.RoundsBeforeReuse, 0, 10);
+        _ability1.RoundsBeforeReuse = Mathf.Clamp(_ability1.RoundsBeforeReuse - 1, 0, 10);
+        _ability2.RoundsBeforeReuse = Mathf.Clamp(_ability2.RoundsBeforeReuse - 1, 0, 10);
     }
 
     void ChangeState(State newState)

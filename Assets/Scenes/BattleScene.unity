@@ -394,6 +394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 2190361485494128904, guid: 373c4ef8a95a91641a23c6dcbb21546c, type: 3}
+  - {fileID: 4475661882108939776, guid: 322be11f9e920bd42b77cee7963318ed, type: 3}
   playerHPText: {fileID: 2042675364}
   turnText: {fileID: 347616123}
   currentState: 0
@@ -2284,10 +2285,6 @@ PrefabInstance:
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1771218382}
@@ -2300,33 +2297,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 854167725}
     - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
-      propertyPath: boonImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 50e71f3159015c941a2bd60f7e5f2e88, type: 3}
-    - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1771218378}
     - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
-      propertyPath: keroImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 10e335cbbd4a4f04c89a9cc20e914547, type: 3}
-    - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
-      propertyPath: pattoImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 4f60db0f4f0c5574597e00be23b661cd, type: 3}
-    - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: _actualAlly
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
-      propertyPath: _currentAlly
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5874568958029765040, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
-      propertyPath: floatingTextPrefab
-      value: 
-      objectReference: {fileID: 7289141583938169690, guid: 14827520fcd18d445871868c9eda3a24, type: 3}
     - target: {fileID: 7068166328567616716, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

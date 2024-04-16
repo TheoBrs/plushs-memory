@@ -45,12 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d5351a1b5fe7648b855bf91abb340a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingTextPrefab: {fileID: 7963380218173835641, guid: 14827520fcd18d445871868c9eda3a24, type: 3}
+  floatingTextPrefab: {fileID: 7289141583938169690, guid: 14827520fcd18d445871868c9eda3a24, type: 3}
   MaxHP:
     _baseValue: 15
   MaxAP:
     _baseValue: 5
-  speed: 0
+  speed: 2
   Attack:
     _baseValue: 0
   Defense:
@@ -61,9 +61,9 @@ MonoBehaviour:
   posY: 0
   PlayerHP: {fileID: 0}
   allyImage: {fileID: 0}
-  keroImage: {fileID: 0}
-  boonImage: {fileID: 0}
-  pattoImage: {fileID: 0}
+  keroImage: {fileID: 21300000, guid: 10e335cbbd4a4f04c89a9cc20e914547, type: 3}
+  boonImage: {fileID: 21300000, guid: 50e71f3159015c941a2bd60f7e5f2e88, type: 3}
+  pattoImage: {fileID: 21300000, guid: 4f60db0f4f0c5574597e00be23b661cd, type: 3}
 --- !u!1001 &4021768133641040204
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -67,7 +67,9 @@ public class TurnSystem : MonoBehaviour
         var maxY = grid.GetMaxY();
 
         Vector3 rotation = new Vector3(0, 180, 0);
-        grid.AddEnemy(new Coord(2, 0), enemyPrefabs[0], rotation);
+        // grid.AddEnemy(new Coord(0, 0), enemyPrefabs[0], rotation, new Coord(1, 1));
+
+        grid.AddEnemy(new Coord(1, 0), enemyPrefabs[1], rotation, new Coord(2, 2));
 
         currentState = FightPhase.PLAYERTURN;
     }

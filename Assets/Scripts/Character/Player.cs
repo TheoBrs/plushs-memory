@@ -142,11 +142,21 @@ public class Player : Entity
 
     public override void CastAbility1(Entity target)
     {
-        if (CurrentAP - _ability1.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
+        bool canReach = false;
+        foreach (Cell cell in target.occupiedCells)
+        {
+            if (CurrentPos.DistanceTo(cell.Coord) == 1)
+            {
+                canReach = true;
+                TurnTowardTarget(cell);
+                break;
+            }
+        }
+
+        if (CurrentAP - _ability1.Cost >= 0 && canReach)
         {
             CurrentAP -= _ability1.Cost;
             CheckAP();
-            TurnTowardTarget(target);
             if (_pattoBuff > 0)
             {
                 target.TakeDamage((int)Mathf.Ceil((_ability1.Damage + Attack.GetValue()) * 1.5f));
@@ -161,7 +171,18 @@ public class Player : Entity
 
     public override void CastAbility2(Entity target)
     {
-        if (CurrentAP - _ability2.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
+        bool canReach = false;
+        foreach (Cell cell in target.occupiedCells)
+        {
+            if (CurrentPos.DistanceTo(cell.Coord) == 1)
+            {
+                canReach = true;
+                TurnTowardTarget(cell);
+                break;
+            }
+        }
+
+        if (CurrentAP - _ability2.Cost >= 0 && canReach)
         {
             CurrentAP -= _ability2.Cost;
             CheckAP();
@@ -408,6 +429,19 @@ public class Player : Entity
     void TurnTowardTarget(Entity target)
     {
         Vector3 directeur = (target.transform.position - transform.position);
+        if (directeur.x > 0)
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        if (directeur.x < 0)
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+        if (directeur.z > 0)
+            transform.localRotation = Quaternion.Euler(0, -90, 0);
+        if (directeur.z < 0)
+            transform.localRotation = Quaternion.Euler(0, 90, 0);
+    }
+
+    void TurnTowardTarget(Cell cell)
+    {
+        Vector3 directeur = (cell.GameObject.transform.position - transform.position);
         if (directeur.x > 0)
             transform.localRotation = Quaternion.Euler(0, 0, 0);
         if (directeur.x < 0)
