@@ -48,7 +48,7 @@ public class Player : Entity
     {
         base.Start();
         CurrentPos = new Coord(posX, posY);
-        transform.position = new Vector3(posX, 0.01f, posY);
+        transform.position = new Vector3(posX * grid.gridCellScale, 0.01f, posY * grid.gridCellScale);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
         elements = grid.GetGridCells();

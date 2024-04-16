@@ -45,8 +45,8 @@ public class AStar
         int maxY = grid.GetMaxY();
 
         Cell current = null;
-        startCoord = Coord.ToUncenteredCoord(startCoord, maxX, maxY);
-        targetCoord = Coord.ToUncenteredCoord(targetCoord, maxX, maxY);
+        startCoord = Coord.ToListCoord(startCoord, maxX, maxY);
+        targetCoord = Coord.ToListCoord(targetCoord, maxX, maxY);
 
         var start = map[startCoord.X, startCoord.Y];
         var target = map[targetCoord.X, targetCoord.Y];

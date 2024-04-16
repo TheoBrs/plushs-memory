@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 726543966}
   - component: {fileID: 726543968}
   - component: {fileID: 726543967}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -763,7 +763,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1114,7 +1114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1033375841}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ----UI-------------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1130,7 +1130,7 @@ Transform:
   m_GameObject: {fileID: 1033375840}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1266, y: 585, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1258,6 +1258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxX: 5
   maxY: 5
+  gridCellScale: 1.5
   defaultGridMat: {fileID: 2100000, guid: d9ebc76ec51d7a649acfb42668bd54db, type: 2}
   notWalkableGridMat: {fileID: 2100000, guid: e022a9af814716c4e83876b977e36b99, type: 2}
   enemyGridMat: {fileID: 2100000, guid: 2405ca9af870e4c44943bcfcb578b68c, type: 2}
@@ -1515,9 +1516,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBarMoomoo
       objectReference: {fileID: 0}
+    - target: {fileID: 3644332680932911089, guid: 32276ac85e6eb1e45a720269eaaef046, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915676075206396989, guid: 32276ac85e6eb1e45a720269eaaef046, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4991509697242146372, guid: 32276ac85e6eb1e45a720269eaaef046, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4991509697242146372, guid: 32276ac85e6eb1e45a720269eaaef046, type: 3}
       propertyPath: m_TagString
       value: HealthBarText
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384563464946198537, guid: 32276ac85e6eb1e45a720269eaaef046, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8316594032484694914, guid: 32276ac85e6eb1e45a720269eaaef046, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

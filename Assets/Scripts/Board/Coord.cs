@@ -11,22 +11,22 @@ public struct Coord
         Y = y;
     }
 
-    static public Coord ToCenteredCoord(Coord coord, int maxX, int maxY)
+    static public Coord ToWorldCoord(Coord coord, int maxX, int maxY)
     {
         return new Coord(coord.X - maxX / 2, coord.Y - maxY / 2);
     }
 
-    static public Coord ToUncenteredCoord(Coord coord, int maxX, int maxY)
+    static public Coord ToListCoord(Coord coord, int maxX, int maxY)
     {
         return new Coord(coord.X + maxX / 2, coord.Y + maxY / 2);
     }
 
-    static public Coord ToCenteredCoord(int x, int y, int maxX, int maxY)
+    static public Coord ToWorldCoord(int x, int y, int maxX, int maxY)
     {
         return new Coord(x - maxX / 2, y - maxY / 2);
     }
 
-    static public Coord ToUncenteredCoord(int x, int y, int maxX, int maxY)
+    static public Coord ToListCoord(int x, int y, int maxX, int maxY)
     {
         return new Coord(x + maxX / 2, y + maxY / 2);
     }
