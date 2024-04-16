@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class LoadingBarAction : MonoBehaviour
     [SerializeField] private SceneField _battleScene;
     [SerializeField] private SceneField _dialogueScene;
     [SerializeField] private SceneField _testInventoryScene;
+    [SerializeField] List<GameObject> enemyPrefabs;
 
     private void Awake()
     {
@@ -31,10 +33,23 @@ public class LoadingBarAction : MonoBehaviour
 
     public void StartBattle()
     {
+        Vector3 rotation = new Vector3(0, 180, 0);
+        BattleManager.Instance.nextBattlePlacement.ClearBattlePlacement();
+        BattleManager.Instance.nextBattlePlacement.AddEnemy(new Coord(0, 0), enemyPrefabs[0], rotation, new Coord(1, 1));
+
         _loadingBarObject.SetActive(true);
-
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_battleScene));
+        StartCoroutine(ProgressBarLoading());
+    }
 
+    public void StartBossBattle()
+    {
+        Vector3 rotation = new Vector3(0, 180, 0);
+        BattleManager.Instance.nextBattlePlacement.ClearBattlePlacement();
+        BattleManager.Instance.nextBattlePlacement.AddEnemy(new Coord(1, 0), enemyPrefabs[1], rotation, new Coord(2, 2));
+
+        _loadingBarObject.SetActive(true);
+        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_battleScene));
         StartCoroutine(ProgressBarLoading());
     }
 

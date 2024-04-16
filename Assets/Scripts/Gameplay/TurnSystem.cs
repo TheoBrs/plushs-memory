@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class TurnSystem : MonoBehaviour
 {
-    [SerializeField] List<GameObject> enemyPrefabs;
     public enum FightPhase
     {
         INIT,
@@ -63,14 +62,6 @@ public class TurnSystem : MonoBehaviour
 
     private void SetUpBattle()
     {
-        var maxX = grid.GetMaxX();
-        var maxY = grid.GetMaxY();
-
-        Vector3 rotation = new Vector3(0, 180, 0);
-        // grid.AddEnemy(new Coord(0, 0), enemyPrefabs[0], rotation, new Coord(1, 1));
-
-        grid.AddEnemy(new Coord(1, 0), enemyPrefabs[1], rotation, new Coord(2, 2));
-
         currentState = FightPhase.PLAYERTURN;
     }
 

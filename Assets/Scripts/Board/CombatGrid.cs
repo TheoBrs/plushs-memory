@@ -16,10 +16,11 @@ public class CombatGrid : MonoBehaviour
 
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
-
+    BattleManager battleManager;
     //creation de la grille de Combat
     void Awake()
     {
+        battleManager = BattleManager.Instance;
         elements = new Cell[maxX, maxY];
 
         for (int y = 0; y < maxY ; y++)
@@ -34,6 +35,16 @@ public class CombatGrid : MonoBehaviour
                 gridElement.GameObject.transform.parent = gameObject.transform;
                 elements[x, y] = gridElement;
             }
+        }
+
+        foreach (var tuple in battleManager.nextBattlePlacement.enemyCellList)
+        {
+            AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+        }
+
+        foreach (var tuple in battleManager.nextBattlePlacement.obstacleCellList)
+        {
+            AddObstacle(tuple.Item1, tuple.Item2);
         }
     }
     public void RefreshGridMat()
@@ -51,18 +62,14 @@ public class CombatGrid : MonoBehaviour
                 cell.SetGameObjectMaterial(GetDefaultGridMat());
         }
     }
-    public bool AddObstacle(Coord coord, GameObject obstacle)
+    public void AddObstacle(Coord coord, GameObject obstacle)
     {
         int x = coord.X;
         int y = coord.Y;
 
-        if (elements[x, y].HasEnemy)
-            return true;
-
         elements[x, y].HasObstacle = true;
         elements[x, y].GameObject = obstacle;
         elements[x, y].SetGameObjectMaterial(notWalkableGridMat);
-        return false;
     }
 
     public void AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size)
