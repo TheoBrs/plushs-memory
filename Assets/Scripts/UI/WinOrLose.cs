@@ -3,10 +3,9 @@ using UnityEngine.UI;
 
 public class WinOrLose : MonoBehaviour
 {
-
     bool isWin;
-    [SerializeField] Text Win;
-    [SerializeField] Text Lose;
+    [SerializeField] GameObject Win;
+    [SerializeField] GameObject Lose;
 
     private void Awake()
     {
@@ -15,15 +14,7 @@ public class WinOrLose : MonoBehaviour
 
     void Start()
     {
-        if (isWin == true) 
-        {
-            Win.gameObject.SetActive(true);
-            Lose.gameObject.SetActive(false);
-        }
-        else
-        {
-            Win.gameObject.SetActive(false);
-            Lose.gameObject.SetActive(true);
-        }
+        Win.SetActive(isWin);
+        Lose.SetActive(!isWin);
     }
 }
