@@ -13,8 +13,16 @@ public class Cell
     public GameObject GameObject { get; set; }
     public Entity Entity { get; set; }
 
+    public char Direction { get; set; }
     public void SetGameObjectMaterial(Material material)
     {
         GameObject.GetComponent<MeshRenderer>().material = material;
+        GameObject.transform.rotation = Direction switch
+        {
+            'l' => Quaternion.Euler(0, 90, 0),
+            'r' => Quaternion.Euler(0, -90, 0),
+            'd' => Quaternion.Euler(0, 0, 0),
+            _ => Quaternion.Euler(0, 180, 0),
+        };
     }
 }

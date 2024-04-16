@@ -23,7 +23,13 @@ public class AStar
         foreach (var coord in adjacentCoord)
         {
             Cell cell = map[Mathf.Clamp(x + coord.Item1 + maxX / 2, 0, maxX - 1), Mathf.Clamp(y + coord.Item2 + maxY / 2, 0, maxY - 1)];
-            if (!cell.HasObstacle && (!cell.HasEnemy || cell == target))
+            if (cell == target)
+            {
+                proposedLocations.Clear();
+                proposedLocations.Add(cell);
+                return proposedLocations;
+            }
+            if (!cell.HasObstacle && !cell.HasEnemy)
                     proposedLocations.Add(cell);
         }
 
@@ -39,8 +45,8 @@ public class AStar
         int maxY = grid.GetMaxY();
 
         Cell current = null;
-        startCoord = Coord.ToUncenteredCoord(startCoord, maxX, maxY);
-        targetCoord = Coord.ToUncenteredCoord(targetCoord, maxX, maxY);
+        startCoord = Coord.ToListCoord(startCoord, maxX, maxY);
+        targetCoord = Coord.ToListCoord(targetCoord, maxX, maxY);
 
         var start = map[startCoord.X, startCoord.Y];
         var target = map[targetCoord.X, targetCoord.Y];
@@ -71,8 +77,11 @@ public class AStar
                 closedList.Insert(0, tempCell);
                 while (tempCell != start)
                 {
-                    tempCell = tempCell.Parent;
-                    closedList.Insert(0, tempCell);
+                    var tempCellParent = tempCell.Parent;
+                    var direction = tempCellParent.Coord.DirectionTo(tempCell.Coord);
+                    tempCellParent.Direction = direction;
+                    closedList.Insert(0, tempCellParent);
+                    tempCell = tempCellParent;
                 }
                 return closedList;
             }

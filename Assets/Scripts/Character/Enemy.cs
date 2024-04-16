@@ -22,7 +22,7 @@ public abstract class Enemy : Entity
         _currentState = State.WaitForTurn;
 
         healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
-        healthBar.SetMaxHP(CurrentHP);
+        healthBar.SetMaxHP(MaxHP.GetValue());
     }
 
     protected virtual void Update()
@@ -97,7 +97,7 @@ public abstract class Enemy : Entity
     private void Attacking()
     {
         Player _player = FindObjectOfType<Player>();
-        if ((_player.transform.position - transform.position).magnitude == 1)
+        if (Coord.Magnitude(_player.CurrentPos - CurrentPos) == 1)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
             if (directeur.x > 0)

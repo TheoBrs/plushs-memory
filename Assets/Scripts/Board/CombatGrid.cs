@@ -4,6 +4,7 @@ public class CombatGrid : MonoBehaviour
 {
     [SerializeField] int maxX;
     [SerializeField] int maxY;
+    public float gridCellScale = 1;
 
     [SerializeField] Material defaultGridMat;
     [SerializeField] Material notWalkableGridMat;
@@ -25,10 +26,12 @@ public class CombatGrid : MonoBehaviour
         {
             for (int x = 0; x < maxX; x++)
             {
-                Coord coords = Coord.ToCenteredCoord(x, y, maxX, maxY);
-                GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.X, 0.01f, coords.Y), Quaternion.identity);
+                Coord coords = Coord.ToWorldCoord(x, y, maxX, maxY);
+                GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.X * gridCellScale, 0.01f, coords.Y * gridCellScale), Quaternion.identity);
+                newCell.transform.localScale *= gridCellScale;
                 newCell.tag = "GridCell";
                 Cell gridElement = new Cell { Coord = coords, GameObject = newCell };
+                gridElement.GameObject.transform.parent = gameObject.transform;
                 elements[x, y] = gridElement;
             }
         }
@@ -64,10 +67,10 @@ public class CombatGrid : MonoBehaviour
 
     public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation)
     {
-        int x = Coord.ToUncenteredCoord(coord, maxX, maxY).X;
-        int y = Coord.ToUncenteredCoord(coord, maxX, maxY).Y;
+        int x = Coord.ToListCoord(coord, maxX, maxY).X;
+        int y = Coord.ToListCoord(coord, maxX, maxY).Y;
 
-        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X, 0.01f, coord.Y) + transform.position, Quaternion.Euler(rotation));
+        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation));
         Entity enemyScript = enemy.GetComponent<Entity>();
         enemyScript.name = "Enemy";
         enemyScript.CurrentPos = coord;
@@ -84,13 +87,13 @@ public class CombatGrid : MonoBehaviour
 
     public Cell GetGridCell(int x, int y)
     {
-        Coord coord = Coord.ToUncenteredCoord(x, y, maxX, maxY);
+        Coord coord = Coord.ToListCoord(x, y, maxX, maxY);
         return elements[coord.X, coord.Y];
     }
 
     public Cell GetGridCell(Coord coord)
     {
-        coord = Coord.ToUncenteredCoord(coord.X, coord.Y, maxX, maxY);
+        coord = Coord.ToListCoord(coord.X, coord.Y, maxX, maxY);
         return elements[coord.X, coord.Y];
     }
 

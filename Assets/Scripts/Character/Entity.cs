@@ -63,14 +63,15 @@ public abstract class Entity: MonoBehaviour
         else
         {
             // Do nothing / Show 0 damage
+            ShowFloatingDamage(0);
             _invincible = false;
         }
     }
 
     void ShowFloatingDamage(int damage)
     {
-        GameObject damageText = Instantiate(floatingTextPrefab, transform.position + new Vector3(0, 2.3f, 0), Quaternion.identity);
-        damageText.GetComponent<FloatingText>().Init(damage.ToString(), Color.white);
+        FloatingText damageText = Instantiate(floatingTextPrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity).GetComponent<FloatingText>();
+        damageText.Init(damage.ToString(), Color.white);
     }
 
     private void IsDead()
