@@ -63,4 +63,14 @@ public struct Coord
         return "x:" + X + " y:" + Y;
     }
 
+    static public Coord operator -(Coord a, Coord b)
+    {
+        return new Coord(a.X - b.X, a.Y - b.Y);
+    }
+
+    static public float Magnitude(Coord a)
+    {
+        return Mathf.Sqrt(a.X * a.X + a.Y * a.Y);
+    }
+
 }
