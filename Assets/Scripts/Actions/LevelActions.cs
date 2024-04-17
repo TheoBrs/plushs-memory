@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class LevelActions : MonoBehaviour
 {
+    [SerializeField] private GameObject _globalUI;
+
     void Start()
     {
         AudioManager.Instance.StopMusic();
@@ -20,5 +22,10 @@ public class LevelActions : MonoBehaviour
     public void PlayMusic(string name)
     {
         AudioManager.Instance.PlayMusic(name);
+    }
+
+    public void TriggerHideUI()
+    {
+        _globalUI.SetActive(!_globalUI.activeSelf);
     }
 }

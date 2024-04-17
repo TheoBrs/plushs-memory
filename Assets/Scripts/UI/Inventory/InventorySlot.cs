@@ -4,11 +4,11 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
     public Image itemIcon;
-    Item item;
+    private Item item;
 
     public void AddItem(Item newItem)
-    { 
-        item = newItem; 
+    {
+        item = newItem;
         itemIcon.sprite = item.icon;
         itemIcon.enabled = true;
     }
@@ -27,7 +27,7 @@ public class InventorySlot : MonoBehaviour
 
     public void UseItem()
     {
-        if(item != null)
+        if (item != null)
         {
             item.Use();
         }
