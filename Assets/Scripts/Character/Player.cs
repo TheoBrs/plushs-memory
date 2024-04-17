@@ -34,19 +34,16 @@ public class Player : Entity
     public Sprite boonImage;
     public Sprite pattoImage;
 
-    void Awake()
+
+    protected override void Awake()
     {
+        base.Awake();
         buttonAbility1 = GameObject.FindWithTag("Ability1");
         buttonAbility2 = GameObject.FindWithTag("Ability2");
         buttonFriendlyAbility = GameObject.FindWithTag("FriendlyAbility");
         MoveButton = GameObject.FindWithTag("MoveButton");
         EndTurnButton = GameObject.FindWithTag("EndTurnButton");
         playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
-    }
-
-    protected override void Start()
-    {
-        base.Start();
         CurrentPos = new Coord(posX, posY);
         transform.position = new Vector3(posX * grid.gridCellScale, 0.01f, posY * grid.gridCellScale);
         width = Screen.width / 2.0f;
@@ -57,6 +54,7 @@ public class Player : Entity
         healthBar = PlayerHP;
         if (healthBar)
             healthBar.SetMaxHP(MaxHP.GetValue());
+
         // !!!!!!!! Need Equipment Manager !!!!!!!!
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }

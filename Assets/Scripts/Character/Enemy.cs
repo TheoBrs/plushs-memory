@@ -19,9 +19,9 @@ public abstract class Enemy : Entity
     public string _name = "Enemy";
     public bool ability2IsntAttack = false;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         _currentState = State.WaitForTurn;
 
         healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();

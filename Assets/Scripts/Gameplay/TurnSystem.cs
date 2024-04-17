@@ -16,12 +16,13 @@ public class TurnSystem : MonoBehaviour
     }
 
     private Player player;
-
+    CombatGrid grid;
     private Entity entity;
     private List<Enemy> enemies = new List<Enemy>();
 
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
+    [SerializeField] Animator animator;
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
@@ -33,6 +34,7 @@ public class TurnSystem : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         SetUpBattle();
         _alliesManager = AlliesManager.Instance;
 
@@ -147,8 +149,19 @@ public class TurnSystem : MonoBehaviour
     private void End()
     {
         Debug.Log("End");
-        SceneManager.LoadScene("End");
-        // Call animation to exit battleScene or something
+        if (!IsWin.IsWinBool || BattleManager.Instance.nextBattlePlacement.nextWave == null)
+            SceneManager.LoadScene("End");
+        else
+        {
+            currentState = FightPhase.INIT;
+            // if end scene isn't loaded then a next wave must be placed
+            BattleManager.Instance.nextBattlePlacement = BattleManager.Instance.nextBattlePlacement.nextWave;
+            // Start Mask
+            // animator.SetTrigger("Mask");
+            grid.SetupGrid();
+            // Stop Mask
+            // animator.ResetTrigger("Mask");
+        }
     }
 
     public void OnEndTurnButton()

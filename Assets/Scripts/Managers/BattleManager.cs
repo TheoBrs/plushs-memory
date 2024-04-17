@@ -28,6 +28,8 @@ public class BattleManager : MonoBehaviour
         Vector3 rotation = new Vector3(0, 180, 0);
         Instance.nextBattlePlacement.ClearBattlePlacement();
         Instance.nextBattlePlacement.AddEnemy(new Coord(0, 0), enemyPrefabs[0], rotation, new Coord(1, 1));
+        Instance.nextBattlePlacement.nextWave = new BattlePlacement();
+        Instance.nextBattlePlacement.nextWave.AddEnemy(new Coord(2, 0), enemyPrefabs[0], rotation, new Coord(1, 1));
     }
     public void SetupBossBattle1()
     {

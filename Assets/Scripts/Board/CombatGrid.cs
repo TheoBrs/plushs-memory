@@ -23,10 +23,15 @@ public class CombatGrid : MonoBehaviour
     void Awake()
     {
         battleManager = BattleManager.Instance;
-        elements = new Cell[maxX, maxY];
         turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
 
-        for (int y = 0; y < maxY ; y++)
+        SetupGrid();
+    }
+
+    public void SetupGrid()
+    {
+        elements = new Cell[maxX, maxY];
+        for (int y = 0; y < maxY; y++)
         {
             for (int x = 0; x < maxX; x++)
             {
@@ -50,6 +55,7 @@ public class CombatGrid : MonoBehaviour
             AddObstacle(tuple.Item1, tuple.Item2);
         }
     }
+
     public void RefreshGridMat()
     {
         foreach (var cell in elements)
