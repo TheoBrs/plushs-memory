@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour, IDataPersistence
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
@@ -21,13 +21,8 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     #endregion
 
-    public void LoadData(GameData data)
+    private void Start()
     {
-        Application.targetFrameRate = data.Framerate;
-    }
-
-    public void SaveData(GameData data)
-    {
-        data.Framerate = Application.targetFrameRate;
+        Application.targetFrameRate = 30;
     }
 }
