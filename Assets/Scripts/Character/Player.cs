@@ -26,10 +26,9 @@ public class Player : Entity
     GameObject buttonFriendlyAbility;
     GameObject MoveButton;
     GameObject EndTurnButton;
-    Text playerAPText;
     bool movingButtonDisabled = false;
-    public HealthBar PlayerHP;
-    public Image allyImage;
+    GameObject playerAP;
+    Image allyImage;
     public Sprite keroImage;
     public Sprite boonImage;
     public Sprite pattoImage;
@@ -43,7 +42,7 @@ public class Player : Entity
         buttonFriendlyAbility = GameObject.FindWithTag("FriendlyAbility");
         MoveButton = GameObject.FindWithTag("MoveButton");
         EndTurnButton = GameObject.FindWithTag("EndTurnButton");
-        playerAPText = GameObject.FindWithTag("PlayerAPText").GetComponent<Text>();
+        playerAP = GameObject.FindWithTag("PlayerAPText");
         CurrentPos = new Coord(posX, posY);
         transform.position = new Vector3(posX * grid.gridCellScale, 0.01f, posY * grid.gridCellScale);
         width = Screen.width / 2.0f;
@@ -51,7 +50,7 @@ public class Player : Entity
         elements = grid.GetGridCells();
         CheckEntity();
         SetupAllyPassives();
-        healthBar = PlayerHP;
+        healthBar = ToolBox.GetChildWithTag(GameObject.FindWithTag("PlayerHPText").transform, "HealthBar").GetComponent<HealthBar>();
         if (healthBar)
             healthBar.SetMaxHP(MaxHP.GetValue());
 
@@ -488,7 +487,7 @@ public class Player : Entity
             buttonAbility2.GetComponent<Button>().enabled = true;
         }
 
-        playerAPText.text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
+        playerAP.GetComponent<Text>().text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
     public void Move()

@@ -54,6 +54,8 @@ public class CombatGrid : MonoBehaviour
         {
             AddObstacle(tuple.Item1, tuple.Item2);
         }
+
+
     }
 
     public void RefreshGridMat()
@@ -81,6 +83,16 @@ public class CombatGrid : MonoBehaviour
         elements[x, y].HasObstacle = true;
         elements[x, y].GameObject = obstacle;
         elements[x, y].SetGameObjectMaterial(notWalkableGridMat);
+        return true;
+    }
+
+    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation)
+    {
+
+        Player _player = FindObjectOfType<Player>();
+        GameObject moomoo = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation));
+        moomoo.GetComponent<Player>().CurrentPos = coord;
+        moomoo.GetComponent<Player>().speed = 2;
         return true;
     }
 
