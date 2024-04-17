@@ -65,6 +65,7 @@ public class TurnSystem : MonoBehaviour
             turnText.text = "Tour du joueur";
             player.CurrentAP = player.MaxAP.GetValue();
             player.CheckAP();
+            player.StartOfTurn();
             playerTurnInitalized = true;
             enemyTurnInitalized = false;
         }

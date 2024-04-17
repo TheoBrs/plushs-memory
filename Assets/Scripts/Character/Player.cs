@@ -490,17 +490,6 @@ public class Player : Entity
             buttonAbility2.GetComponent<Button>().enabled = true;
         }
 
-        if (CurrentAP <= 0)
-        {
-            MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
-            MoveButton.GetComponent<Button>().enabled = false;
-        }
-        else
-        {
-            MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
-            MoveButton.GetComponent<Button>().enabled = true;
-        }
-
         playerAPText.text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
@@ -514,6 +503,21 @@ public class Player : Entity
         grid.RefreshGridMat();
         Move(path);
         CurrentPos = selectedGridCell.Coord;
+    }
+
+    public void StartOfTurn()
+    {
+        if ((_currentAlly == 1 && _fAbility1.RoundsBeforeReuse == 0) ||
+            (_currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) ||
+            (_currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
+        {
+            buttonFriendlyAbility.SetActive(true);
+        }
+
+        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
+        MoveButton.GetComponent<Button>().enabled = true;
+        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.normalColor;
+        EndTurnButton.GetComponent<Button>().enabled = true;
     }
 
     public void EndOfTurn()
@@ -532,12 +536,10 @@ public class Player : Entity
         _fAbility2.RoundsBeforeReuse = Mathf.Clamp(_fAbility2.RoundsBeforeReuse - 1, 0, 10);
         _fAbility3.RoundsBeforeReuse = Mathf.Clamp(_fAbility3.RoundsBeforeReuse - 1, 0, 10);
 
-        if ((_currentAlly == 1 && _fAbility1.RoundsBeforeReuse == 0) || 
-            (_currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) || 
-            (_currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
-        {
-            buttonFriendlyAbility.SetActive(true);
-        }
+        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
+        MoveButton.GetComponent<Button>().enabled = false;
+        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.disabledColor;
+        EndTurnButton.GetComponent<Button>().enabled = false;
     }
 
     public Entity GetEnemy()
