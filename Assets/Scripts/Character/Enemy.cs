@@ -65,7 +65,7 @@ public abstract class Enemy : Entity
 
     private bool Movement()
     {
-        if (cannotMove || CurrentAP <= 0)
+        if (cannotMove || CurrentAP < 0)
             return true;
 
         if (isMoving)
