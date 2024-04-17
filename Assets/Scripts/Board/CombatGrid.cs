@@ -93,8 +93,10 @@ public class CombatGrid : MonoBehaviour
         Vector3 rotation = new Vector3(0, 0, 0);
         Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation)).GetComponent<Player>();
         moomoo.CurrentPos = coord;
+        moomoo.transform.position = new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale);
         moomoo.speed = 2;
         _player = moomoo;
+        turnSystem.AddMoomoo(_player);
     }
 
     public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool canPlayAfterSpawn = true)

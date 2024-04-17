@@ -11,9 +11,6 @@ public class Player : Entity
     Ability _fAbility2;
     Ability _fAbility3;
     int _pattoBuff = 0;
-
-    [SerializeField] int posX;
-    [SerializeField] int posY;
     Cell selectedGridCell;
     Cell selectedEnemyGridCell;
     float width;
@@ -43,8 +40,6 @@ public class Player : Entity
         MoveButton = GameObject.FindWithTag("MoveButton");
         EndTurnButton = GameObject.FindWithTag("EndTurnButton");
         playerAP = GameObject.FindWithTag("PlayerAPText");
-        CurrentPos = new Coord(posX, posY);
-        transform.position = new Vector3(posX * grid.gridCellScale, 0.01f, posY * grid.gridCellScale);
         width = Screen.width / 2.0f;
         height = Screen.height / 2.0f;
         elements = grid.GetGridCells();
@@ -75,7 +70,8 @@ public class Player : Entity
         }
         else
         {
-            buttonFriendlyAbility.SetActive(true);
+            buttonFriendlyAbility.GetComponent<Image>().enabled = true;
+            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = true;
         }
         _previousAlly = _currentAlly;
 
@@ -97,7 +93,8 @@ public class Player : Entity
         }
         else
         {
-            buttonFriendlyAbility.SetActive(false);
+            buttonFriendlyAbility.GetComponent<Image>().enabled = false;
+            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
         }
     }
 
@@ -126,10 +123,10 @@ public class Player : Entity
         _fAbility2 = new Ability();
         _fAbility3 = new Ability();
 
-        _ability1.Damage = 1;
+        _ability1.Damage = 100;
         _ability1.Cost = 1;
 
-        _ability2.Damage = 3;
+        _ability2.Damage = 300;
         _ability2.Cost = 2;
 
         _fAbility1.RoundsBeforeReuse = 0;
@@ -222,7 +219,8 @@ public class Player : Entity
             CurrentHP = Mathf.Clamp(CurrentHP + 5, 0, MaxHP.GetValue());
             healthBar.SetHP(CurrentHP);
             _fAbility1.RoundsBeforeReuse = 2;
-            buttonFriendlyAbility.SetActive(false);
+            buttonFriendlyAbility.GetComponent<Image>().enabled = false;
+            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
         }
     }
 
@@ -232,7 +230,8 @@ public class Player : Entity
         {
             _invincible = true;
             _fAbility2.RoundsBeforeReuse = 3;
-            buttonFriendlyAbility.SetActive(false);
+            buttonFriendlyAbility.GetComponent<Image>().enabled = false;
+            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
         }
     }
 
@@ -242,7 +241,8 @@ public class Player : Entity
         {
             _pattoBuff = 2;
             _fAbility3.RoundsBeforeReuse = 4;
-            buttonFriendlyAbility.SetActive(false);
+            buttonFriendlyAbility.GetComponent<Image>().enabled = false;
+            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
         }
     }
 
@@ -311,6 +311,7 @@ public class Player : Entity
                 if (selectedEnemyGridCell != null)
                     selectedEnemyGridCell.IsSelected = false;
 
+                elements = null;
                 elements = grid.GetGridCells();
                 foreach (var gridElement in elements)
                 {
@@ -452,14 +453,14 @@ public class Player : Entity
     {
         if (entity)
         {
-            buttonAbility1.SetActive(true);
-            buttonAbility2.SetActive(true);
+            buttonAbility1.GetComponent<Image>().enabled = true;
+            buttonAbility2.GetComponent<Image>().enabled = true;
             CheckAP();
         }
         else
         {
-            buttonAbility1.SetActive(false);
-            buttonAbility2.SetActive(false);
+            buttonAbility1.GetComponent<Image>().enabled = false;
+            buttonAbility2.GetComponent<Image>().enabled = false;
         }
     }
 
@@ -508,7 +509,8 @@ public class Player : Entity
             (_currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) ||
             (_currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
         {
-            buttonFriendlyAbility.SetActive(true);
+            buttonFriendlyAbility.GetComponent<Image>().enabled = true;
+            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = true;
         }
 
         MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;

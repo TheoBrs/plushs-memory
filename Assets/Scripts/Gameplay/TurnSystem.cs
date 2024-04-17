@@ -50,6 +50,11 @@ public class TurnSystem : MonoBehaviour
         StateSwitch();
     }
 
+    public void AddMoomoo(Player moomoo)
+    {
+        player = moomoo;
+    }
+
     public void AddEnemy(Enemy enemy)
     {
         enemies.Add(enemy);
@@ -154,6 +159,7 @@ public class TurnSystem : MonoBehaviour
         else
         {
             currentState = FightPhase.INIT;
+            Destroy(player.gameObject);
             // if end scene isn't loaded then a next wave must be placed
             BattleManager.Instance.nextBattlePlacement = BattleManager.Instance.nextBattlePlacement.nextWave;
             // Start Mask
@@ -162,6 +168,11 @@ public class TurnSystem : MonoBehaviour
             // Stop Mask
             // animator.ResetTrigger("Mask");
         }
+    }
+
+    public void OnMoveButton()
+    {
+        player.Move();
     }
 
     public void OnEndTurnButton()
