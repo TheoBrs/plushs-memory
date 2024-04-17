@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -31,9 +32,7 @@ public class LoadingBarAction : MonoBehaviour
     public void StartBattle()
     {
         _loadingBarObject.SetActive(true);
-
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_battleScene));
-
         StartCoroutine(ProgressBarLoading());
     }
 
