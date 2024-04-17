@@ -16,11 +16,15 @@ public class CombatGrid : MonoBehaviour
 
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
+    BattleManager battleManager;
+    TurnSystem turnSystem;
 
     //creation de la grille de Combat
     void Awake()
     {
+        battleManager = BattleManager.Instance;
         elements = new Cell[maxX, maxY];
+        turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
 
         for (int y = 0; y < maxY ; y++)
         {
@@ -34,6 +38,16 @@ public class CombatGrid : MonoBehaviour
                 gridElement.GameObject.transform.parent = gameObject.transform;
                 elements[x, y] = gridElement;
             }
+        }
+
+        foreach (var tuple in battleManager.nextBattlePlacement.enemyCellList)
+        {
+            AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+        }
+
+        foreach (var tuple in battleManager.nextBattlePlacement.obstacleCellList)
+        {
+            AddObstacle(tuple.Item1, tuple.Item2);
         }
     }
     public void RefreshGridMat()
@@ -55,34 +69,55 @@ public class CombatGrid : MonoBehaviour
     {
         int x = coord.X;
         int y = coord.Y;
-
-        if (elements[x, y].HasEnemy)
-            return true;
+        if (elements[x, y].HasObstacle)
+            return false;
 
         elements[x, y].HasObstacle = true;
         elements[x, y].GameObject = obstacle;
         elements[x, y].SetGameObjectMaterial(notWalkableGridMat);
-        return false;
+        return true;
     }
 
-    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation)
+    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool canPlayAfterSpawn = true)
     {
-        int x = Coord.ToListCoord(coord, maxX, maxY).X;
-        int y = Coord.ToListCoord(coord, maxX, maxY).Y;
 
-        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation));
-        Entity enemyScript = enemy.GetComponent<Entity>();
-        enemyScript.name = "Enemy";
+        Player _player = FindObjectOfType<Player>();
+        for (int i = 0; i < size.X; i++)
+        {
+            for (int j = 0; j < size.Y; j++)
+            {
+                int x = Coord.ToListCoord(coord, maxX, maxY).X + i;
+                int y = Coord.ToListCoord(coord, maxX, maxY).Y + j;
+
+                if (elements[x, y].HasObstacle || elements[x, y].HasEnemy || _player.CurrentPos.Equals(coord))
+                    return false;
+            }
+        }
+
+        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale + (size.X - 1) * gridCellScale / 2, 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2) + transform.position, Quaternion.Euler(rotation));
+
+        enemy.transform.localScale *= Mathf.Sqrt(size.X * size.Y);
+        Enemy enemyScript = enemy.GetComponent<Enemy>();
         enemyScript.CurrentPos = coord;
+        enemyScript.justSpawned = !canPlayAfterSpawn;
         enemyScript.speed = 2;
+        enemyScript.Size = size;
+        turnSystem.AddEnemy(enemyScript);
 
-        if (elements[x, y].HasObstacle)
-            return true;
+        for (int i = 0; i < size.X; i++)
+        {
+            for (int j = 0; j < size.Y; j++)
+            {
+                int x = Coord.ToListCoord(coord, maxX, maxY).X + i;
+                int y = Coord.ToListCoord(coord, maxX, maxY).Y + j;
 
-        elements[x, y].HasEnemy = true;
-        elements[x, y].Entity = enemyScript;
-        elements[x, y].SetGameObjectMaterial(enemyGridMat);
-        return false;
+                elements[x, y].HasEnemy = true;
+                elements[x, y].Entity = enemyScript;
+                elements[x, y].SetGameObjectMaterial(enemyGridMat);
+                enemyScript.occupiedCells.Add(elements[x, y]);
+            }
+        }
+        return true;
     }
 
     public Cell GetGridCell(int x, int y)

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,7 +14,6 @@ public class LoadingBarAction : MonoBehaviour
     [SerializeField] private SceneField _neutralZoneScene;
     [SerializeField] private SceneField _battleScene;
     [SerializeField] private SceneField _dialogueScene;
-    [SerializeField] private SceneField _testInventoryScene;
 
     private void Awake()
     {
@@ -32,9 +32,7 @@ public class LoadingBarAction : MonoBehaviour
     public void StartBattle()
     {
         _loadingBarObject.SetActive(true);
-
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_battleScene));
-
         StartCoroutine(ProgressBarLoading());
     }
 
@@ -43,15 +41,6 @@ public class LoadingBarAction : MonoBehaviour
         _loadingBarObject.SetActive(true);
 
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_dialogueScene));
-
-        StartCoroutine(ProgressBarLoading());
-    }
-
-    public void StartInventory()
-    {
-        _loadingBarObject.SetActive(true);
-
-        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_testInventoryScene));
 
         StartCoroutine(ProgressBarLoading());
     }

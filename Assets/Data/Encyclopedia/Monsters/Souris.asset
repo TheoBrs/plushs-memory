@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0973424879c3ad1419ff1849e14985a6, type: 3}
+  m_Name: Souris
+  m_EditorClassIdentifier: 
+  _name: Souris
+  _description: "Dans les ombres les plus sombres, une silhouette agile se faufile,
+    \xE9chappant \xE0 la vue des plus vigilants. C'est la Souris des Profondeurs,
+    une cr\xE9ature minuscule mais redoutable dans sa d\xE9termination. Son pelage
+    sombre lui permet de se fondre dans l'obscurit\xE9, tandis que ses yeux brillent
+    d'une lueur vive, guettant sa proie avec une patience infinie. Ses griffes ac\xE9r\xE9es
+    et ses dents pointues t\xE9moignent de sa capacit\xE9 \xE0 infliger des dommages
+    mortels malgr\xE9 sa taille modeste. Elle se d\xE9place avec une agilit\xE9 remarquable,
+    \xE9vitant habilement les pi\xE8ges et les embuscades tendues par ses ennemis.
+    Sous-estimer sa taille serait une erreur fatale, car elle poss\xE8de une intelligence
+    et une d\xE9termination qui rivalisent avec les plus grands pr\xE9dateurs des
+    profondeurs."
+  _avatar: {fileID: 21300000, guid: c8945cd6a5965354bbdf1ddd600c23ba, type: 3}

@@ -2,25 +2,23 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    public Transform itemsParent;
-    public InventoryManager inventory;
+    public GameObject container;
     public InventorySlot[] slots;
 
     private void Start()
     {
-        inventory = InventoryManager.Instance;
-        inventory.onItemChangeCallback += UpdateUI;
+        InventoryManager.Instance.onItemChangeCallback += UpdateUI;
 
-        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        slots = container.GetComponentsInChildren<InventorySlot>();
     }
 
     private void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventory.Items.Count)
+            if (i < InventoryManager.Instance.Items.Count)
             {
-                slots[i].AddItem(inventory.Items[i]);
+                slots[i].AddItem(InventoryManager.Instance.Items[i]);
             }
             else
             {

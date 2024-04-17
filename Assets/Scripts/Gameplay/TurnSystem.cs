@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class TurnSystem : MonoBehaviour
 {
-    [SerializeField] List<GameObject> enemyPrefabs;
     public enum FightPhase
     {
         INIT,
@@ -16,7 +15,6 @@ public class TurnSystem : MonoBehaviour
         END
     }
 
-    CombatGrid grid;
     private Player player;
 
     private Entity entity;
@@ -24,10 +22,6 @@ public class TurnSystem : MonoBehaviour
 
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
-
-    Button MoveButton;
-    Button EndTurnButton;
-
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
@@ -38,15 +32,8 @@ public class TurnSystem : MonoBehaviour
 
     void Start()
     {
-        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         SetUpBattle();
-        Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
-        enemies.AddRange(_enemiesArray);
-
-        MoveButton = GameObject.FindWithTag("MoveButton").GetComponent<Button>();
-        EndTurnButton = GameObject.FindWithTag("EndTurnButton").GetComponent<Button>();
-
         _alliesManager = AlliesManager.Instance;
 
         if (_alliesManager)
@@ -61,14 +48,13 @@ public class TurnSystem : MonoBehaviour
         StateSwitch();
     }
 
+    public void AddEnemy(Enemy enemy)
+    {
+        enemies.Add(enemy);
+    }
+
     private void SetUpBattle()
     {
-        var maxX = grid.GetMaxX();
-        var maxY = grid.GetMaxY();
-
-        Vector3 rotation = new Vector3(0, 180, 0);
-        grid.AddEnemy(new Coord(2, 0), enemyPrefabs[0], rotation);
-
         currentState = FightPhase.PLAYERTURN;
     }
 
@@ -79,6 +65,7 @@ public class TurnSystem : MonoBehaviour
             turnText.text = "Tour du joueur";
             player.CurrentAP = player.MaxAP.GetValue();
             player.CheckAP();
+            player.StartOfTurn();
             playerTurnInitalized = true;
             enemyTurnInitalized = false;
         }
