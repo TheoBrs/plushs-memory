@@ -5,6 +5,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class FirstBoss : Enemy
 {
+    [SerializeField] GameObject mitePrefab;
     protected override void Start()
     {
         base.Start();
@@ -67,8 +68,13 @@ public class FirstBoss : Enemy
     }
     public override void CastAbility2(Entity target)
     {
-        Debug.Log("Spawn Mite");
-        // Spawn prefab on random tile
-        _ability2.RoundsBeforeReuse = 3;
+        Vector3 rotation = new Vector3(0, 180, 0);
+        var x = 0; // Random or something
+        var y = 0; // Random or something
+        if (grid.AddEnemy(new Coord(x, y), mitePrefab, rotation, new Coord(1, 1)))
+        {
+            Debug.Log("Spawn Mite");
+            _ability2.RoundsBeforeReuse = 3;
+        }
     }
 }

@@ -62,17 +62,20 @@ public class CombatGrid : MonoBehaviour
                 cell.SetGameObjectMaterial(GetDefaultGridMat());
         }
     }
-    public void AddObstacle(Coord coord, GameObject obstacle)
+    public bool AddObstacle(Coord coord, GameObject obstacle)
     {
         int x = coord.X;
         int y = coord.Y;
+        if (elements[x, y].HasObstacle)
+            return false;
 
         elements[x, y].HasObstacle = true;
         elements[x, y].GameObject = obstacle;
         elements[x, y].SetGameObjectMaterial(notWalkableGridMat);
+        return true;
     }
 
-    public void AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size)
+    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size)
     {
         GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale + (size.X - 1) * gridCellScale / 2, 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2) + transform.position, Quaternion.Euler(rotation));
 
@@ -89,12 +92,25 @@ public class CombatGrid : MonoBehaviour
                 int x = Coord.ToListCoord(coord, maxX, maxY).X + i;
                 int y = Coord.ToListCoord(coord, maxX, maxY).Y + j;
 
+                if (elements[x, y].HasObstacle || elements[x, y].HasEnemy)
+                    return false;
+            }
+        }
+
+        for (int i = 0; i < size.X; i++)
+        {
+            for (int j = 0; j < size.Y; j++)
+            {
+                int x = Coord.ToListCoord(coord, maxX, maxY).X + i;
+                int y = Coord.ToListCoord(coord, maxX, maxY).Y + j;
+
                 elements[x, y].HasEnemy = true;
                 elements[x, y].Entity = enemyScript;
                 elements[x, y].SetGameObjectMaterial(enemyGridMat);
                 enemyScript.occupiedCells.Add(elements[x, y]);
             }
         }
+        return true;
     }
 
     public Cell GetGridCell(int x, int y)

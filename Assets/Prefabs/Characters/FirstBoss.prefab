@@ -169,6 +169,7 @@ MonoBehaviour:
   cannotMove: 1
   _name: Souris
   ability2IsntAttack: 1
+  mitePrefab: {fileID: 2190361485494128904, guid: 373c4ef8a95a91641a23c6dcbb21546c, type: 3}
 --- !u!1 &7415590170977834395
 GameObject:
   m_ObjectHideFlags: 0
