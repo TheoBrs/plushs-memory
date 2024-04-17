@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0973424879c3ad1419ff1849e14985a6, type: 3}
+  m_Name: Coleoptere
+  m_EditorClassIdentifier: 
+  _name: "Col\xE9opt\xE8re"
+  _description: "Une masse sombre et luisante se glisse dans l'obscurit\xE9, \xE9mettant
+    un cliquetis sinistre \xE0 chaque pas. C'est le Col\xE9opt\xE8re des Profondeurs,
+    une cr\xE9ature imposante qui incarne la puissance brute de l'obscurit\xE9. Son
+    carapace d'un noir profond est orn\xE9e de reflets iris\xE9s, comme si des \xE9clats
+    d'\xE9b\xE8ne dansaient \xE0 la surface de l'obscurit\xE9. Ses mandibules puissantes
+    broient tout sur leur passage, et ses pattes puissantes \xE9crasent le sol avec
+    une force terrifiante. Des \xE9clairs de lumi\xE8re \xE9mergent parfois de ses
+    antennes, r\xE9v\xE9lant une intelligence inattendue derri\xE8re son apparence
+    bestiale. Lorsqu'il se redresse pour d\xE9ployer ses ailes, une envergure impressionnante
+    se r\xE9v\xE8le, t\xE9moignant de sa domination des cieux souterrains."
+  _avatar: {fileID: 21300000, guid: 2c031e03ce097d245b387ce47810a9b0, type: 3}

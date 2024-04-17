@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0973424879c3ad1419ff1849e14985a6, type: 3}
+  m_Name: Mite
+  m_EditorClassIdentifier: 
+  _name: Mite
+  _description: "Dans les tunnels sans fin des catacombes virtuelles, une cr\xE9ature
+    hideuse r\xF4de, engendrant une terreur indicible chez les aventuriers les plus
+    t\xE9m\xE9raires. La Mite des Abysses, telle qu'elle est nomm\xE9e, est une vision
+    d'horreur \xE0 elle seule. Son corps, recouvert d'un exosquelette d'un noir profond,
+    semble absorber la lumi\xE8re autour d'elle, cr\xE9ant une aura de t\xE9n\xE8bres
+    palpables. Ses mandibules tremblent d'impatience, pr\xEAtes \xE0 d\xE9chirer
+    tout intrus osant s'approcher trop pr\xE8s. Ses multiples yeux brillent d'une
+    lueur malsaine, scrutant chaque recoin de son domaine souterrain. Lorsqu'elle
+    \xE9met son sifflement strident, les \xE9chos r\xE9sonnent dans les tunnels,
+    avertissant qu'un pr\xE9dateur mortel se cache dans l'ombre."
+  _avatar: {fileID: 21300000, guid: ef94a054a95242d4590ae6723588f6cd, type: 3}
