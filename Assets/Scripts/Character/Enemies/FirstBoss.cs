@@ -23,7 +23,6 @@ public class FirstBoss : Enemy
 
     public override void Attacking()
     {
-        Debug.Log("Attackcing");
         Player _player = FindObjectOfType<Player>();
         if (_ability2.RoundsBeforeReuse == 0)
         {
@@ -74,7 +73,6 @@ public class FirstBoss : Enemy
         var y = 0; // Random or something
         if (grid.AddEnemy(new Coord(x, y), mitePrefab, rotation, new Coord(1, 1), false))
         {
-            Debug.Log("Spawn Mite");
             _ability2.RoundsBeforeReuse = 3;
         }
     }
