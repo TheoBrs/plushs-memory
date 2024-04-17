@@ -15,7 +15,8 @@ public abstract class Enemy : Entity
     private State _currentState;
     public bool ItsTurn = false;
     public bool cannotMove = false;
-    [SerializeField] public string _name = "Enemy";
+    public bool justSpawned = false;
+    public string _name = "Enemy";
     public bool ability2IsntAttack = false;
 
     protected override void Start()
@@ -35,6 +36,12 @@ public abstract class Enemy : Entity
                 if (ItsTurn)
                 {
                     CurrentAP = MaxAP.GetValue();
+                    if (justSpawned)
+                    {
+                        justSpawned = false;
+                        ChangeState(State.EndTurn);
+                        break;
+                    }
                     ChangeState(State.Movement);
                 }
                 break;
@@ -58,7 +65,7 @@ public abstract class Enemy : Entity
 
     private bool Movement()
     {
-        if (cannotMove)
+        if (cannotMove || CurrentAP <= 0)
             return true;
 
         if (isMoving)
@@ -91,6 +98,8 @@ public abstract class Enemy : Entity
                 grid.GetGridCell(nextPos.X, nextPos.Y).Entity = grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
                 grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
                 CurrentPos = nextPos;
+                occupiedCells.Clear();
+                occupiedCells.Add(grid.GetGridCell(nextPos.X, nextPos.Y));
                 grid.RefreshGridMat();
             }
         }

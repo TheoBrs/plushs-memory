@@ -15,7 +15,6 @@ public class TurnSystem : MonoBehaviour
         END
     }
 
-    CombatGrid grid;
     private Player player;
 
     private Entity entity;
@@ -23,10 +22,6 @@ public class TurnSystem : MonoBehaviour
 
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
-
-    Button MoveButton;
-    Button EndTurnButton;
-
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
@@ -37,15 +32,8 @@ public class TurnSystem : MonoBehaviour
 
     void Start()
     {
-        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         SetUpBattle();
-        Enemy[] _enemiesArray = FindObjectsOfType<Enemy>();
-        enemies.AddRange(_enemiesArray);
-
-        MoveButton = GameObject.FindWithTag("MoveButton").GetComponent<Button>();
-        EndTurnButton = GameObject.FindWithTag("EndTurnButton").GetComponent<Button>();
-
         _alliesManager = AlliesManager.Instance;
 
         if (_alliesManager)
@@ -58,6 +46,11 @@ public class TurnSystem : MonoBehaviour
     void Update()
     {
         StateSwitch();
+    }
+
+    public void AddEnemy(Enemy enemy)
+    {
+        enemies.Add(enemy);
     }
 
     private void SetUpBattle()

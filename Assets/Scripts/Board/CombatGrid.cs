@@ -17,11 +17,14 @@ public class CombatGrid : MonoBehaviour
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
     BattleManager battleManager;
+    TurnSystem turnSystem;
+
     //creation de la grille de Combat
     void Awake()
     {
         battleManager = BattleManager.Instance;
         elements = new Cell[maxX, maxY];
+        turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
 
         for (int y = 0; y < maxY ; y++)
         {
@@ -75,16 +78,8 @@ public class CombatGrid : MonoBehaviour
         return true;
     }
 
-    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size)
+    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool canPlayAfterSpawn = true)
     {
-        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale + (size.X - 1) * gridCellScale / 2, 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2) + transform.position, Quaternion.Euler(rotation));
-
-        enemy.transform.localScale *= Mathf.Sqrt(size.X * size.Y);
-        Entity enemyScript = enemy.GetComponent<Entity>();
-        enemyScript.CurrentPos = coord;
-        enemyScript.speed = 2;
-        enemyScript.Size = size;
-
         for (int i = 0; i < size.X; i++)
         {
             for (int j = 0; j < size.Y; j++)
@@ -96,6 +91,16 @@ public class CombatGrid : MonoBehaviour
                     return false;
             }
         }
+
+        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale + (size.X - 1) * gridCellScale / 2, 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2) + transform.position, Quaternion.Euler(rotation));
+
+        enemy.transform.localScale *= Mathf.Sqrt(size.X * size.Y);
+        Enemy enemyScript = enemy.GetComponent<Enemy>();
+        enemyScript.CurrentPos = coord;
+        enemyScript.justSpawned = !canPlayAfterSpawn;
+        enemyScript.speed = 2;
+        enemyScript.Size = size;
+        turnSystem.AddEnemy(enemyScript);
 
         for (int i = 0; i < size.X; i++)
         {
