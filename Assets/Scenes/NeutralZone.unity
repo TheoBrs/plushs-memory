@@ -1326,10 +1326,10 @@ RectTransform:
   - {fileID: 417377339}
   m_Father: {fileID: 1138691031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 362.25, y: -502.2038}
-  m_SizeDelta: {x: 724.5, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &353044669
 MonoBehaviour:
@@ -1578,7 +1578,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -30, y: 0}
-  m_SizeDelta: {x: 126, y: 80}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &417377340
 MonoBehaviour:
@@ -1724,7 +1724,7 @@ RectTransform:
   m_Father: {fileID: 332260247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1798,8 +1798,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 180225042}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.38865072}
-  m_AnchorMax: {x: 1, y: 0.99999994}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2011,7 +2011,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 30, y: 0}
-  m_SizeDelta: {x: 299.76, y: 80}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &669595903
 MonoBehaviour:
@@ -2138,7 +2138,7 @@ GameObject:
   - component: {fileID: 737371218}
   - component: {fileID: 737371217}
   m_Layer: 5
-  m_Name: ' Monster Avatar (2)'
+  m_Name: ' Mite Avatar'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2158,10 +2158,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 810276132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -425}
-  m_SizeDelta: {x: 250, y: 250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &737371217
 MonoBehaviour:
@@ -2559,16 +2559,16 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1734691742}
-  - {fileID: 1099508602}
   - {fileID: 737371216}
+  - {fileID: 1099508602}
+  - {fileID: 1734691742}
   - {fileID: 1826478015}
   m_Father: {fileID: 1393557141}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 550}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &810276133
 MonoBehaviour:
@@ -3157,7 +3157,7 @@ GameObject:
   - component: {fileID: 1099508604}
   - component: {fileID: 1099508603}
   m_Layer: 5
-  m_Name: ' Monster Avatar (1)'
+  m_Name: Coleoptere Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3177,10 +3177,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 810276132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 425, y: -125}
-  m_SizeDelta: {x: 250, y: 250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1099508603
 MonoBehaviour:
@@ -3282,7 +3282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monster: {fileID: 11400000, guid: 98d84c08a8889e1458185083a9edd385, type: 2}
   _descriptionScrollbar: {fileID: 2134701482}
-  _checkFirst: 1
+  _checkFirst: 0
   _nameText: {fileID: 1409559696}
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
@@ -4529,10 +4529,10 @@ RectTransform:
   - {fileID: 2134701481}
   m_Father: {fileID: 1138691031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 362.25, y: -267.0733}
-  m_SizeDelta: {x: 724.5, y: 390.26093}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1229805654
 MonoBehaviour:
@@ -4622,7 +4622,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 638.36}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1369927836
 MonoBehaviour:
@@ -4898,10 +4898,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1138691031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 362.25, y: -15.971429}
-  m_SizeDelta: {x: 724.5, y: 31.942858}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1409559696
 MonoBehaviour:
@@ -5697,7 +5697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1583632839
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6108,7 +6108,7 @@ GameObject:
   - component: {fileID: 1734691743}
   - component: {fileID: 1734691745}
   m_Layer: 5
-  m_Name: ' Monster Avatar'
+  m_Name: ' Souris Avatar'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6128,10 +6128,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 810276132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -125}
-  m_SizeDelta: {x: 250, y: 250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1734691743
 MonoBehaviour:
@@ -6241,7 +6241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monster: {fileID: 11400000, guid: d98b2d9487dce4a41a32c9c01b605f2a, type: 2}
   _descriptionScrollbar: {fileID: 2134701482}
-  _checkFirst: 1
+  _checkFirst: 0
   _nameText: {fileID: 1409559696}
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
@@ -6482,7 +6482,7 @@ GameObject:
   - component: {fileID: 1826478017}
   - component: {fileID: 1826478016}
   m_Layer: 5
-  m_Name: ' Monster Avatar (3)'
+  m_Name: ' Reine Mite Avatar'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6502,10 +6502,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 810276132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 425, y: -425}
-  m_SizeDelta: {x: 250, y: 250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1826478016
 MonoBehaviour:
@@ -6607,7 +6607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monster: {fileID: 11400000, guid: 85dd977254acaa84e94c58df507d6936, type: 2}
   _descriptionScrollbar: {fileID: 2134701482}
-  _checkFirst: 1
+  _checkFirst: 0
   _nameText: {fileID: 1409559696}
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
