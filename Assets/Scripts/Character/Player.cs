@@ -311,7 +311,6 @@ public class Player : Entity
                 if (selectedEnemyGridCell != null)
                     selectedEnemyGridCell.IsSelected = false;
 
-                elements = null;
                 elements = grid.GetGridCells();
                 foreach (var gridElement in elements)
                 {

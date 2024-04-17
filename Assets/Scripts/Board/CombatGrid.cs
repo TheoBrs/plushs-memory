@@ -60,6 +60,14 @@ public class CombatGrid : MonoBehaviour
         }
     }
 
+    public void DestroyGrid()
+    {
+        foreach (Cell cell in elements)
+        {
+            Destroy(cell.GameObject);
+        }
+        elements = null;
+    }
     public void RefreshGridMat()
     {
         foreach (var cell in elements)

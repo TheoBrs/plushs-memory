@@ -159,12 +159,14 @@ public class TurnSystem : MonoBehaviour
         else
         {
             currentState = FightPhase.INIT;
-            Destroy(player.gameObject);
             // if end scene isn't loaded then a next wave must be placed
             BattleManager.Instance.nextBattlePlacement = BattleManager.Instance.nextBattlePlacement.nextWave;
             // Start Mask
             // animator.SetTrigger("Mask");
+            Destroy(player.gameObject);
+            grid.DestroyGrid();
             grid.SetupGrid();
+            SetUpBattle();
             // Stop Mask
             // animator.ResetTrigger("Mask");
         }
@@ -220,21 +222,24 @@ public class TurnSystem : MonoBehaviour
         else
         {
             player.CastAbility1(entity);
-            //detection porter
         }
     }
 
     public void OnAbility2Button()
     {
         entity = player.GetEnemy();
-        if (currentState != FightPhase.PLAYERTURN || entity == null)
+        if (currentState != FightPhase.PLAYERTURN)
         {
+            return;
+        }
+        else if (entity == null)
+        {
+            Debug.Log("No enemy select");
             return;
         }
         else
         {
             player.CastAbility2(entity);
-            //detection porter
         }
     }
 
