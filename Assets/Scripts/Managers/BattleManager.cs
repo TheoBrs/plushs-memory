@@ -5,6 +5,7 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
     public BattlePlacement nextBattlePlacement = new BattlePlacement();
+    public BattlePlacement originalPlacement = new BattlePlacement();
 
     #region Singleton
 
