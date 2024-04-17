@@ -142,11 +142,21 @@ public class Player : Entity
 
     public override void CastAbility1(Entity target)
     {
-        if (CurrentAP - _ability1.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
+        bool canReach = false;
+        foreach (Cell cell in target.occupiedCells)
+        {
+            if (CurrentPos.DistanceTo(cell.Coord) == 1)
+            {
+                canReach = true;
+                TurnTowardTarget(cell);
+                break;
+            }
+        }
+
+        if (CurrentAP - _ability1.Cost >= 0 && canReach)
         {
             CurrentAP -= _ability1.Cost;
             CheckAP();
-            TurnTowardTarget(target);
             if (_pattoBuff > 0)
             {
                 target.TakeDamage((int)Mathf.Ceil((_ability1.Damage + Attack.GetValue()) * 1.5f));
@@ -161,11 +171,21 @@ public class Player : Entity
 
     public override void CastAbility2(Entity target)
     {
-        if (CurrentAP - _ability2.Cost >= 0 && CurrentPos.DistanceTo(target.CurrentPos) == 1)
+        bool canReach = false;
+        foreach (Cell cell in target.occupiedCells)
+        {
+            if (CurrentPos.DistanceTo(cell.Coord) == 1)
+            {
+                canReach = true;
+                TurnTowardTarget(cell);
+                break;
+            }
+        }
+
+        if (CurrentAP - _ability2.Cost >= 0 && canReach)
         {
             CurrentAP -= _ability2.Cost;
             CheckAP();
-            TurnTowardTarget(target);
             if (_pattoBuff > 0)
             {
                 target.TakeDamage((int)Mathf.Ceil((_ability2.Damage + Attack.GetValue()) * 1.5f));
@@ -418,6 +438,19 @@ public class Player : Entity
             transform.localRotation = Quaternion.Euler(0, 90, 0);
     }
 
+    void TurnTowardTarget(Cell cell)
+    {
+        Vector3 directeur = (cell.GameObject.transform.position - transform.position);
+        if (directeur.x > 0)
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        if (directeur.x < 0)
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+        if (directeur.z > 0)
+            transform.localRotation = Quaternion.Euler(0, -90, 0);
+        if (directeur.z < 0)
+            transform.localRotation = Quaternion.Euler(0, 90, 0);
+    }
+
     public void CheckEntity()
     {
         if (entity)
@@ -457,17 +490,6 @@ public class Player : Entity
             buttonAbility2.GetComponent<Button>().enabled = true;
         }
 
-        if (CurrentAP <= 0)
-        {
-            MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
-            MoveButton.GetComponent<Button>().enabled = false;
-        }
-        else
-        {
-            MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
-            MoveButton.GetComponent<Button>().enabled = true;
-        }
-
         playerAPText.text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
@@ -481,6 +503,21 @@ public class Player : Entity
         grid.RefreshGridMat();
         Move(path);
         CurrentPos = selectedGridCell.Coord;
+    }
+
+    public void StartOfTurn()
+    {
+        if ((_currentAlly == 1 && _fAbility1.RoundsBeforeReuse == 0) ||
+            (_currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) ||
+            (_currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
+        {
+            buttonFriendlyAbility.SetActive(true);
+        }
+
+        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
+        MoveButton.GetComponent<Button>().enabled = true;
+        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.normalColor;
+        EndTurnButton.GetComponent<Button>().enabled = true;
     }
 
     public void EndOfTurn()
@@ -499,12 +536,10 @@ public class Player : Entity
         _fAbility2.RoundsBeforeReuse = Mathf.Clamp(_fAbility2.RoundsBeforeReuse - 1, 0, 10);
         _fAbility3.RoundsBeforeReuse = Mathf.Clamp(_fAbility3.RoundsBeforeReuse - 1, 0, 10);
 
-        if ((_currentAlly == 1 && _fAbility1.RoundsBeforeReuse == 0) || 
-            (_currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) || 
-            (_currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
-        {
-            buttonFriendlyAbility.SetActive(true);
-        }
+        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
+        MoveButton.GetComponent<Button>().enabled = false;
+        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.disabledColor;
+        EndTurnButton.GetComponent<Button>().enabled = false;
     }
 
     public Entity GetEnemy()

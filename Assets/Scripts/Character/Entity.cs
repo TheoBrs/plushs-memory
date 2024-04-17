@@ -16,12 +16,15 @@ public abstract class Entity: MonoBehaviour
     public Coord CurrentPos { get; set; }
     public int CurrentHP { get; set; }
     public int CurrentAP { get; set; }
+    public Coord Size { get; set; }
+
     protected Ability _ability1;
     protected Ability _ability2;
     protected bool _invincible = false;
 
-    public bool isMoving = false;
+    [HideInInspector] public bool isMoving = false;
     protected List<Cell> _pathToTake;
+    public List<Cell> occupiedCells = new List<Cell>();
     protected CombatGrid grid;
     protected HealthBar healthBar;
 
