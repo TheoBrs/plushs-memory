@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CombatGrid : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] GameObject gridPrefab;
     BattleManager battleManager;
     TurnSystem turnSystem;
+    Player _player;
 
     //creation de la grille de Combat
     void Awake()
@@ -45,6 +47,8 @@ public class CombatGrid : MonoBehaviour
             }
         }
 
+        AddMoomoo(battleManager.nextBattlePlacement.moomooCell.Item1, battleManager.nextBattlePlacement.moomooCell.Item2);
+
         foreach (var tuple in battleManager.nextBattlePlacement.enemyCellList)
         {
             AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
@@ -54,8 +58,6 @@ public class CombatGrid : MonoBehaviour
         {
             AddObstacle(tuple.Item1, tuple.Item2);
         }
-
-
     }
 
     public void RefreshGridMat()
@@ -86,20 +88,17 @@ public class CombatGrid : MonoBehaviour
         return true;
     }
 
-    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation)
+    public void AddMoomoo(Coord coord, GameObject moomooPrefabs) 
     {
-
-        Player _player = FindObjectOfType<Player>();
-        GameObject moomoo = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation));
-        moomoo.GetComponent<Player>().CurrentPos = coord;
-        moomoo.GetComponent<Player>().speed = 2;
-        return true;
+        Vector3 rotation = new Vector3(0, 0, 0);
+        Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation)).GetComponent<Player>();
+        moomoo.CurrentPos = coord;
+        moomoo.speed = 2;
+        _player = moomoo;
     }
 
     public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool canPlayAfterSpawn = true)
     {
-
-        Player _player = FindObjectOfType<Player>();
         for (int i = 0; i < size.X; i++)
         {
             for (int j = 0; j < size.Y; j++)
