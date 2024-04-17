@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class Transition : MonoBehaviour
 {
     public Animator transition;
+    public VideoPlayer videoPlayer;
 
     public float transitionTime = 1.0f;
 
@@ -22,8 +24,7 @@ public class Transition : MonoBehaviour
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
-
-        //load la video/scene
+        
     }
 
 }
