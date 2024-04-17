@@ -80,6 +80,8 @@ public class CombatGrid : MonoBehaviour
 
     public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool canPlayAfterSpawn = true)
     {
+
+        Player _player = FindObjectOfType<Player>();
         for (int i = 0; i < size.X; i++)
         {
             for (int j = 0; j < size.Y; j++)
@@ -87,7 +89,7 @@ public class CombatGrid : MonoBehaviour
                 int x = Coord.ToListCoord(coord, maxX, maxY).X + i;
                 int y = Coord.ToListCoord(coord, maxX, maxY).Y + j;
 
-                if (elements[x, y].HasObstacle || elements[x, y].HasEnemy)
+                if (elements[x, y].HasObstacle || elements[x, y].HasEnemy || _player.CurrentPos.Equals(coord))
                     return false;
             }
         }

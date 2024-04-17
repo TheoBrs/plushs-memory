@@ -15,7 +15,7 @@ public abstract class Enemy : Entity
     private State _currentState;
     public bool ItsTurn = false;
     public bool cannotMove = false;
-    public bool justSpawned = false;
+    public bool justSpawned;
     public string _name = "Enemy";
     public bool ability2IsntAttack = false;
 

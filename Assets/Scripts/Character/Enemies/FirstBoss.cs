@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class FirstBoss : Enemy
 {
@@ -29,14 +27,14 @@ public class FirstBoss : Enemy
             CastAbility2(_player);
         }
         List<Coord> attackCoords = new List<Coord>();
-        for (int i = 0; i < Size.X; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for (int j = 0; j < Size.Y; j++)
+            for (int j = 0; j < 2; j++)
             {
-                attackCoords.Add(new Coord(CurrentPos.X + i - 2, CurrentPos.Y + j));
-                attackCoords.Add(new Coord(CurrentPos.X + i + 2, CurrentPos.Y + j));
-                attackCoords.Add(new Coord(CurrentPos.X + i, CurrentPos.Y + j - 2));
-                attackCoords.Add(new Coord(CurrentPos.X + i, CurrentPos.Y + j + 2));
+                attackCoords.Add(new Coord(CurrentPos.X - 3 + i, CurrentPos.Y + j));
+                attackCoords.Add(new Coord(CurrentPos.X + j, CurrentPos.Y + 4 - i));
+                attackCoords.Add(new Coord(CurrentPos.X + 4 - i, CurrentPos.Y + j));
+                attackCoords.Add(new Coord(CurrentPos.X + j, CurrentPos.Y - 1 - i));
             }
         }
 
@@ -68,10 +66,15 @@ public class FirstBoss : Enemy
     }
     public override void CastAbility2(Entity target)
     {
+        List<Coord> possiblesCells = new List<Coord>
+        {
+            new Coord(+2, +2),
+            new Coord(+2, -1),
+            new Coord(+2, -2)
+        };
+        int index = Mathf.FloorToInt(Random.Range(0, 3));
         Vector3 rotation = new Vector3(0, 180, 0);
-        var x = 0; // Random or something
-        var y = 0; // Random or something
-        if (grid.AddEnemy(new Coord(x, y), mitePrefab, rotation, new Coord(1, 1), false))
+        if (grid.AddEnemy(possiblesCells[index], mitePrefab, rotation, new Coord(1, 1), false))
         {
             _ability2.RoundsBeforeReuse = 3;
         }

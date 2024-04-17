@@ -51,7 +51,7 @@ MonoBehaviour:
   MaxHP:
     _baseValue: 15
   MaxAP:
-    _baseValue: 4
+    _baseValue: 2
   speed: 0
   Attack:
     _baseValue: 0
@@ -60,7 +60,9 @@ MonoBehaviour:
   isMoving: 0
   ItsTurn: 0
   cannotMove: 0
+  justSpawned: 0
   _name: Mite
+  ability2IsntAttack: 0
 --- !u!1 &8573402144669312805
 GameObject:
   m_ObjectHideFlags: 0
