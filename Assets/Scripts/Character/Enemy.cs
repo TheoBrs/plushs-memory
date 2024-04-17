@@ -22,7 +22,7 @@ public abstract class Enemy : Entity
         _currentState = State.WaitForTurn;
 
         healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
-        healthBar.SetMaxHP(CurrentHP);
+        healthBar.SetMaxHP(MaxHP.GetValue());
     }
 
     protected virtual void Update()
@@ -97,7 +97,7 @@ public abstract class Enemy : Entity
     private void Attacking()
     {
         Player _player = FindObjectOfType<Player>();
-        if ((_player.transform.position - transform.position).magnitude == 1)
+        if (Coord.Magnitude(_player.CurrentPos - CurrentPos) == 1)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
             if (directeur.x > 0)
@@ -111,9 +111,12 @@ public abstract class Enemy : Entity
 
             if (CurrentAP > 0)
             {
-                if (CurrentAP >= _ability2.Cost)
+                if (_ability2.RoundsBeforeReuse == 0)
                 {
-                    CastAbility2(_player);
+                    if (CurrentAP >= _ability2.Cost)
+                    {
+                        CastAbility2(_player);
+                    }
                 }
                 else if (CurrentAP >= _ability1.Cost)
                 {
@@ -121,6 +124,9 @@ public abstract class Enemy : Entity
                 }
             }
         }
+
+        _ability2.RoundsBeforeReuse -= 1;
+        _ability2.RoundsBeforeReuse = Mathf.Clamp(_ability2.RoundsBeforeReuse, 0, 10);
     }
 
     void ChangeState(State newState)
