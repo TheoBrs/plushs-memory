@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CombatGrid : MonoBehaviour
 {
@@ -18,15 +19,21 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] GameObject gridPrefab;
     BattleManager battleManager;
     TurnSystem turnSystem;
+    Player _player;
 
     //creation de la grille de Combat
     void Awake()
     {
         battleManager = BattleManager.Instance;
-        elements = new Cell[maxX, maxY];
         turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
 
-        for (int y = 0; y < maxY ; y++)
+        SetupGrid();
+    }
+
+    public void SetupGrid()
+    {
+        elements = new Cell[maxX, maxY];
+        for (int y = 0; y < maxY; y++)
         {
             for (int x = 0; x < maxX; x++)
             {
@@ -40,15 +47,26 @@ public class CombatGrid : MonoBehaviour
             }
         }
 
+        AddMoomoo(battleManager.nextBattlePlacement.moomooCell.Item1, battleManager.nextBattlePlacement.moomooCell.Item2);
+
         foreach (var tuple in battleManager.nextBattlePlacement.enemyCellList)
         {
-            AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+            AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
         }
 
         foreach (var tuple in battleManager.nextBattlePlacement.obstacleCellList)
         {
             AddObstacle(tuple.Item1, tuple.Item2);
         }
+    }
+
+    public void DestroyGrid()
+    {
+        foreach (Cell cell in elements)
+        {
+            Destroy(cell.GameObject);
+        }
+        elements = null;
     }
     public void RefreshGridMat()
     {
@@ -78,10 +96,19 @@ public class CombatGrid : MonoBehaviour
         return true;
     }
 
-    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool canPlayAfterSpawn = true)
+    public void AddMoomoo(Coord coord, GameObject moomooPrefabs) 
     {
+        Vector3 rotation = new Vector3(0, 0, 0);
+        Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation)).GetComponent<Player>();
+        moomoo.CurrentPos = coord;
+        moomoo.transform.position = new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale);
+        moomoo.speed = 2;
+        _player = moomoo;
+        turnSystem.AddMoomoo(_player);
+    }
 
-        Player _player = FindObjectOfType<Player>();
+    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool causeEndOfBattle = false, bool canPlayAfterSpawn = true)
+    {
         for (int i = 0; i < size.X; i++)
         {
             for (int j = 0; j < size.Y; j++)
@@ -102,6 +129,7 @@ public class CombatGrid : MonoBehaviour
         enemyScript.justSpawned = !canPlayAfterSpawn;
         enemyScript.speed = 2;
         enemyScript.Size = size;
+        enemyScript.causeEndOfBattle = causeEndOfBattle;
         turnSystem.AddEnemy(enemyScript);
 
         for (int i = 0; i < size.X; i++)
