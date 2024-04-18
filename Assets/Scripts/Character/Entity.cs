@@ -28,7 +28,7 @@ public abstract class Entity: MonoBehaviour
     protected CombatGrid grid;
     protected HealthBar healthBar;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
 
