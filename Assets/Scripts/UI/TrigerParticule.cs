@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class TrigerParticule : MonoBehaviour
 {
-    [SerializeField]ParticleSystem  blood;
+    [SerializeField] ParticleSystem  blood ;
     public void OnTriggerEntter(Entity entity)
     {
-        if(entity.tag == "Player")
+        if(entity.CompareTag("Player"))
         {
             blood.Play();
         }
