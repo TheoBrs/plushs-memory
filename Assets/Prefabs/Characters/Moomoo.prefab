@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blood: {fileID: 367490195752116980}
+  Greenblood: {fileID: 367490195752116980}
 --- !u!1001 &4987361833148229487
 PrefabInstance:
   m_ObjectHideFlags: 0
