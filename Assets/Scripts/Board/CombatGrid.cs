@@ -102,7 +102,7 @@ public class CombatGrid : MonoBehaviour
         Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation)).GetComponent<Player>();
         moomoo.CurrentPos = coord;
         moomoo.transform.position = new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale);
-        moomoo.speed = 2;
+        moomoo.speed = moomooPrefabs.GetComponent<Player>().speed;
         _player = moomoo;
         turnSystem.AddMoomoo(_player);
     }
@@ -127,7 +127,7 @@ public class CombatGrid : MonoBehaviour
         Enemy enemyScript = enemy.GetComponent<Enemy>();
         enemyScript.CurrentPos = coord;
         enemyScript.justSpawned = !canPlayAfterSpawn;
-        enemyScript.speed = 2;
+        enemyScript.speed = enemyPrefabs.GetComponent<Enemy>().speed;
         enemyScript.Size = size;
         enemyScript.causeEndOfBattle = causeEndOfBattle;
         turnSystem.AddEnemy(enemyScript);

@@ -52,7 +52,7 @@ MonoBehaviour:
     _baseValue: 15
   MaxAP:
     _baseValue: 5
-  speed: 2
+  speed: 3
   Attack:
     _baseValue: 0
   Defense:

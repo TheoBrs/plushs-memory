@@ -50,10 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingTextPrefab: {fileID: 7289141583938169690, guid: 14827520fcd18d445871868c9eda3a24, type: 3}
   MaxHP:
-    _baseValue: 15
+    _baseValue: 5
   MaxAP:
-    _baseValue: 2
-  speed: 0
+    _baseValue: 4
+  speed: 3
   Attack:
     _baseValue: 0
   Defense:
