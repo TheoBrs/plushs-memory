@@ -62,6 +62,7 @@ public class TurnSystem : MonoBehaviour
 
     private void SetUpBattle()
     {
+        player.CheckAP();
         currentState = FightPhase.PLAYERTURN;
     }
 
