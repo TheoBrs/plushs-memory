@@ -112,6 +112,7 @@ public abstract class Enemy : Entity
     virtual public void Attacking()
     {
         Player _player = FindObjectOfType<Player>();
+
         if ((_player.transform.position - transform.position).magnitude == 1 * grid.gridCellScale)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
