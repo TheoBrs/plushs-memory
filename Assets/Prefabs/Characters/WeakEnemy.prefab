@@ -52,7 +52,7 @@ MonoBehaviour:
     _baseValue: 15
   MaxAP:
     _baseValue: 2
-  speed: 0
+  speed: 3
   Attack:
     _baseValue: 0
   Defense:
@@ -60,6 +60,7 @@ MonoBehaviour:
   isMoving: 0
   ItsTurn: 0
   cannotMove: 0
+  causeEndOfBattle: 0
   justSpawned: 0
   _name: Mite
   ability2IsntAttack: 0

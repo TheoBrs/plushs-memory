@@ -26,6 +26,7 @@ public class TurnSystem : MonoBehaviour
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
+    bool battleFullyEnded = false;
     int enemyIndex = 0;
     public FightPhase currentState = FightPhase.INIT;
 
@@ -104,7 +105,6 @@ public class TurnSystem : MonoBehaviour
 
         enemies[enemyIndex].ItsTurn = true;
         enemyIndex++;
-        UpdatePlayerHPText();
     }
 
     private void StateSwitch()
@@ -112,7 +112,6 @@ public class TurnSystem : MonoBehaviour
         switch (currentState)
         {
             case FightPhase.PLAYERTURN:
-                UpdatePlayerHPText();
                 PlayerTurn();
                 break;
 
@@ -153,7 +152,10 @@ public class TurnSystem : MonoBehaviour
     private void End()
     {
         if (!IsWin.IsWinBool || BattleManager.Instance.nextBattlePlacement.nextWave == null)
-            SceneManager.LoadScene("End");
+        {
+            battleFullyEnded = true;
+            animator.SetTrigger("StartFadeIn");
+        }
         else
         {
             currentState = FightPhase.INIT;
@@ -166,11 +168,29 @@ public class TurnSystem : MonoBehaviour
 
     public void OnFadeInFinish()
     {
-        Destroy(player.gameObject);
-        grid.DestroyGrid();
-        grid.SetupGrid();
-        SetUpBattle();
-        animator.SetTrigger("StartFadeOut");
+        if (!battleFullyEnded)
+        {
+            Destroy(player.gameObject);
+            foreach (var tempEnemy in enemies)
+            {
+                foreach (Cell cell in tempEnemy.occupiedCells)
+                {
+                    cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                    cell.HasEnemy = false;
+                    cell.Entity = null;
+                }
+                Destroy(tempEnemy.gameObject);
+            }
+            enemies.Clear();
+            grid.DestroyGrid();
+            grid.SetupGrid();
+            SetUpBattle();
+            animator.SetTrigger("StartFadeOut");
+        }
+        else
+        {
+            SceneManager.LoadScene("End");
+        }
     }
 
     public void OnMoveButton()
@@ -187,11 +207,6 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-    public void UpdatePlayerHPText()
-    {
-        //playerHPText.text = "HP : " + player.GetComponent<Entity>().CurrentHP.ToString() + " / " + player.GetComponent<Entity>().MaxHP.GetValue().ToString();
-    }
-
     public void OnPlayerDeath()
     {
         currentState = FightPhase.LOSE;
@@ -205,17 +220,6 @@ public class TurnSystem : MonoBehaviour
         }
         if (EndBattle)
         {
-            foreach (var tempEnemy in enemies)
-            {
-                foreach (Cell cell in tempEnemy.occupiedCells)
-                {
-                    cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
-                    cell.HasEnemy = false;
-                    cell.Entity = null;
-                }
-                Destroy(tempEnemy.gameObject);
-            }
-            enemies.Clear();
             currentState = FightPhase.WIN;
         }
     }

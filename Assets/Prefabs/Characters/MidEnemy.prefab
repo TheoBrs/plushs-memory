@@ -52,7 +52,7 @@ MonoBehaviour:
     _baseValue: 7
   MaxAP:
     _baseValue: 5
-  speed: 0
+  speed: 3
   Attack:
     _baseValue: 0
   Defense:
@@ -60,7 +60,10 @@ MonoBehaviour:
   isMoving: 0
   ItsTurn: 0
   cannotMove: 0
+  causeEndOfBattle: 0
+  justSpawned: 0
   _name: "Col\xE9opt\xE8re de tapis"
+  ability2IsntAttack: 0
 --- !u!1 &6416979884935201845
 GameObject:
   m_ObjectHideFlags: 0
