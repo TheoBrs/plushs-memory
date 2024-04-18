@@ -162,14 +162,17 @@ public class TurnSystem : MonoBehaviour
             // if end scene isn't loaded then a next wave must be placed
             BattleManager.Instance.nextBattlePlacement = BattleManager.Instance.nextBattlePlacement.nextWave;
             // Start Mask
-            // animator.SetTrigger("Mask");
-            Destroy(player.gameObject);
-            grid.DestroyGrid();
-            grid.SetupGrid();
-            SetUpBattle();
-            // Stop Mask
-            // animator.ResetTrigger("Mask");
+            animator.SetTrigger("StartFadeIn");
         }
+    }
+
+    public void OnFadeInFinish()
+    {
+        Destroy(player.gameObject);
+        grid.DestroyGrid();
+        grid.SetupGrid();
+        SetUpBattle();
+        animator.SetTrigger("StartFadeOut");
     }
 
     public void OnMoveButton()
