@@ -7,7 +7,7 @@ public class EndMenu : MonoBehaviour
     private void Start()
     {
         Instance = BattleManager.Instance;
-        AudioManager.Instance.PlayMusic("MusicTest");
+        //AudioManager.Instance.PlayMusic("MusicTest");
     }
 
     public void RestartGame()

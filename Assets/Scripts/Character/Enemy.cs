@@ -155,6 +155,16 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
+        if (this is WeakEnemy)
+        {
+            StatisticsManager.Instance.miteKillCount++;
+        }
+        if (this is MidEnemy)
+        {
+            StatisticsManager.Instance.coleoptereKillCount++;
+        }
+
+
         TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
         turnSystyem.OnEnemyDeath(this, causeEndOfBattle);
         // Enemy Death / Inform GameManager
