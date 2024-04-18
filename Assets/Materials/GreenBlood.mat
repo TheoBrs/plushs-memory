@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4274348679228091658
+--- !u!114 &-7967346508029203073
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Poussiere
-  m_Shader: {fileID: -6465566751694194690, guid: 0d59bb4161bc8994e80dc9d1d3341e0d, type: 3}
+  m_Name: GreenBlood
+  m_Shader: {fileID: -6465566751694194690, guid: 4c67c0af51ba7574ca97a6ce9c71c0da, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -56,5 +56,6 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    m_Colors:
+    - _Color: {r: 0, g: 0.9245283, b: 0.1795404, a: 0}
   m_BuildTextureStacks: []
