@@ -143,6 +143,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: mite_export
       objectReference: {fileID: 0}
+    - target: {fileID: 5153299522445095953, guid: 36a7af0ae3504764c857108a47259fe4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153299522445095953, guid: 36a7af0ae3504764c857108a47259fe4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: efe78d75d83f0334eb96d2ba3abcda4a, type: 2}
+    - target: {fileID: 5153299522445095953, guid: 36a7af0ae3504764c857108a47259fe4, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce98cc6b32cc2ed42a04679c0b730d57, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

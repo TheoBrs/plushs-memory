@@ -324,6 +324,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a8c0ea1d6b610254bb0fd8ba484d37c0, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a8c0ea1d6b610254bb0fd8ba484d37c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: efe78d75d83f0334eb96d2ba3abcda4a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: a8c0ea1d6b610254bb0fd8ba484d37c0, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 957040fc608846f40a5d8cd0e8960472, type: 2}
     - target: {fileID: 919132149155446097, guid: a8c0ea1d6b610254bb0fd8ba484d37c0, type: 3}
       propertyPath: m_Name
       value: "Col\xE9opt\xE8re_export"
