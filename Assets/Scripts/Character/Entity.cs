@@ -28,8 +28,11 @@ public abstract class Entity: MonoBehaviour
     protected CombatGrid grid;
     protected HealthBar healthBar;
 
+    protected TrigerParticule _particuleSysteme ;
+
     protected virtual void Start()
     {
+        _particuleSysteme = GetComponent<TrigerParticule>();
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
 
         CurrentHP = MaxHP.GetValue();
@@ -75,6 +78,7 @@ public abstract class Entity: MonoBehaviour
     {
         FloatingText damageText = Instantiate(floatingTextPrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity).GetComponent<FloatingText>();
         damageText.Init(damage.ToString(), Color.white);
+        _particuleSysteme.OnTriggerEntter(this);
     }
 
     private void IsDead()
