@@ -59,6 +59,7 @@ MonoBehaviour:
   isMoving: 0
   ItsTurn: 0
   cannotMove: 0
+  causeEndOfBattle: 0
   justSpawned: 0
   _name: "Col\xE9opt\xE8re de tapis"
   ability2IsntAttack: 0
