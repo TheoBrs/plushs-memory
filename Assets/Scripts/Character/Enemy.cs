@@ -15,6 +15,7 @@ public abstract class Enemy : Entity
     private State _currentState;
     public bool ItsTurn = false;
     public bool cannotMove = false;
+    public bool causeEndOfBattle = false;
     public bool justSpawned;
     public string _name = "Enemy";
     public bool ability2IsntAttack = false;
@@ -154,15 +155,16 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
-        Debug.Log(name + " Dead");
         TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
-        turnSystyem.OnEnemyDeath(this);
+        turnSystyem.OnEnemyDeath(this, causeEndOfBattle);
         // Enemy Death / Inform GameManager
         // You should remove yourself
-        Cell cell = grid.GetGridCell(CurrentPos);
-        cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
-        cell.HasEnemy = false;
-        cell.Entity = null;
+        foreach (Cell cell in occupiedCells)
+        {
+            cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+            cell.HasEnemy = false;
+            cell.Entity = null;
+        }
         Destroy(gameObject);
     }
 }

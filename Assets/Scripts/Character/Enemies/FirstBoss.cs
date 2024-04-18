@@ -74,7 +74,7 @@ public class FirstBoss : Enemy
         };
         int index = Mathf.FloorToInt(Random.Range(0, 3));
         Vector3 rotation = new Vector3(0, 180, 0);
-        if (grid.AddEnemy(possiblesCells[index], mitePrefab, rotation, new Coord(1, 1), false))
+        if (grid.AddEnemy(possiblesCells[index], mitePrefab, rotation, new Coord(1, 1), false, false))
         {
             _ability2.RoundsBeforeReuse = 3;
         }

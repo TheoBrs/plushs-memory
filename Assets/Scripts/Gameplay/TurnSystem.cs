@@ -139,21 +139,18 @@ public class TurnSystem : MonoBehaviour
 
     private void Win()
     {
-        Debug.Log("Win");
         IsWin.IsWinBool = true;
         currentState = FightPhase.END;
     }
 
     private void Lose()
     {
-        Debug.Log("Lose");
         IsWin.IsWinBool = false;
         currentState = FightPhase.END;
     }
 
     private void End()
     {
-        Debug.Log("End");
         if (!IsWin.IsWinBool || BattleManager.Instance.nextBattlePlacement.nextWave == null)
             SceneManager.LoadScene("End");
         else
@@ -198,11 +195,26 @@ public class TurnSystem : MonoBehaviour
     {
         currentState = FightPhase.LOSE;
     }
-    public void OnEnemyDeath(Enemy enemy)
+    public void OnEnemyDeath(Enemy enemy, bool EndBattle)
     {
         enemies.Remove(enemy);
-        if (enemies.Count == 0 )
+        if (enemies.Count == 0)
         {
+            currentState = FightPhase.WIN;
+        }
+        if (EndBattle)
+        {
+            foreach (var tempEnemy in enemies)
+            {
+                foreach (Cell cell in tempEnemy.occupiedCells)
+                {
+                    cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                    cell.HasEnemy = false;
+                    cell.Entity = null;
+                }
+                Destroy(tempEnemy.gameObject);
+            }
+            enemies.Clear();
             currentState = FightPhase.WIN;
         }
     }

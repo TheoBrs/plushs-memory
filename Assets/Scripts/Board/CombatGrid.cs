@@ -51,7 +51,7 @@ public class CombatGrid : MonoBehaviour
 
         foreach (var tuple in battleManager.nextBattlePlacement.enemyCellList)
         {
-            AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+            AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
         }
 
         foreach (var tuple in battleManager.nextBattlePlacement.obstacleCellList)
@@ -107,7 +107,7 @@ public class CombatGrid : MonoBehaviour
         turnSystem.AddMoomoo(_player);
     }
 
-    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool canPlayAfterSpawn = true)
+    public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool causeEndOfBattle = false, bool canPlayAfterSpawn = true)
     {
         for (int i = 0; i < size.X; i++)
         {
@@ -129,6 +129,7 @@ public class CombatGrid : MonoBehaviour
         enemyScript.justSpawned = !canPlayAfterSpawn;
         enemyScript.speed = 2;
         enemyScript.Size = size;
+        enemyScript.causeEndOfBattle = causeEndOfBattle;
         turnSystem.AddEnemy(enemyScript);
 
         for (int i = 0; i < size.X; i++)
