@@ -206,9 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e662d1223f067b429ce2e5a09712afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 2190361485494128904, guid: 373c4ef8a95a91641a23c6dcbb21546c, type: 3}
-  - {fileID: 4475661882108939776, guid: 322be11f9e920bd42b77cee7963318ed, type: 3}
 --- !u!4 &110777737
 Transform:
   m_ObjectHideFlags: 0
@@ -833,6 +830,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1635576903}
         m_TargetAssemblyTypeName: LoadingBarAction, Assembly-CSharp
         m_MethodName: StartBattle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 369842237}
+        m_TargetAssemblyTypeName: EndMenu, Assembly-CSharp
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

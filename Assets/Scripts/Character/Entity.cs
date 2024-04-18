@@ -27,10 +27,9 @@ public abstract class Entity: MonoBehaviour
     public List<Cell> occupiedCells = new List<Cell>();
     protected CombatGrid grid;
     protected HealthBar healthBar;
-
     protected TrigerParticule _particuleSysteme ;
-
-    protected virtual void Start()
+    
+    protected virtual void Awake()
     {
         _particuleSysteme = GetComponent<TrigerParticule>();
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
