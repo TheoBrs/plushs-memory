@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public abstract class Entity: MonoBehaviour
 {
@@ -27,8 +26,10 @@ public abstract class Entity: MonoBehaviour
     public List<Cell> occupiedCells = new List<Cell>();
     protected CombatGrid grid;
     protected HealthBar healthBar;
-    protected TrigerParticule _particuleSysteme ;
-    
+    protected TrigerParticule _particuleSysteme;
+    protected new Animator animation;
+
+
     protected virtual void Awake()
     {
         _particuleSysteme = GetComponent<TrigerParticule>();
@@ -64,6 +65,7 @@ public abstract class Entity: MonoBehaviour
                 healthBar.SetHP(CurrentHP);
             IsDead();
             ShowFloatingDamage(damage);
+            animation.SetTrigger("Damage");
         }
         else
         {

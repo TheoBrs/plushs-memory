@@ -25,6 +25,7 @@ public class Mite : Enemy
     public override void CastAbility2(Entity target)
     {
         CurrentAP -= _ability2.Cost;
+        animation.SetTrigger("Damage");
         target.TakeDamage(_ability2.Damage + Attack.GetValue());
     }
 }

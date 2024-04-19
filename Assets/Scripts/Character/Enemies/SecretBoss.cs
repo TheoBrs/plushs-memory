@@ -25,6 +25,7 @@ public class SecretBoss : Enemy
     public override void CastAbility2(Entity target)
     {
         CurrentAP -= _ability2.Cost;
+        animation.SetTrigger("Damage");
         target.TakeDamage(_ability2.Damage + Attack.GetValue());
         target.MaxAP.AddModifier(-1);
         target.Attack.AddModifier(-1);
