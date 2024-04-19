@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstBoss : Enemy
+public class Souris : Enemy
 {
     [SerializeField] GameObject mitePrefab;
     protected override void Awake()

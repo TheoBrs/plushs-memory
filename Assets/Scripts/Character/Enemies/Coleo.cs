@@ -1,4 +1,4 @@
-public class WeakEnemy : Enemy
+public class Coleo : Enemy
 {
     protected override void Awake()
     {
@@ -12,10 +12,10 @@ public class WeakEnemy : Enemy
 
     protected override void AbilitiesInitialization()
     {
-        _ability1.Damage = 1;
+        _ability1.Damage = 2;
         _ability1.Cost = 1;
-        _ability2.Damage = 2;
-        _ability2.Cost = 2;
+        _ability2.Cost = 3;
+        _ability2.RoundsBeforeReuse = 2;
     }
 
     public override void CastAbility1(Entity target)
@@ -25,6 +25,7 @@ public class WeakEnemy : Enemy
     public override void CastAbility2(Entity target)
     {
         CurrentAP -= _ability2.Cost;
-        target.TakeDamage(_ability2.Damage + Attack.GetValue());
+        target.MaxAP.AddModifier(-1);
+        _ability2.RoundsBeforeReuse = 2;
     }
 }

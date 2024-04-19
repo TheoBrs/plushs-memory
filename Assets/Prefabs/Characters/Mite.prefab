@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2862466944569120020}
   - component: {fileID: 3343842419836314376}
   m_Layer: 0
-  m_Name: WeakEnemy
+  m_Name: Mite
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

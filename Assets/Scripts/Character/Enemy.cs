@@ -156,11 +156,11 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
-        if (this is WeakEnemy)
+        if (this is Mite)
         {
             StatisticsManager.Instance.miteKillCount++;
         }
-        if (this is MidEnemy)
+        if (this is Coleo)
         {
             StatisticsManager.Instance.coleoptereKillCount++;
         }
