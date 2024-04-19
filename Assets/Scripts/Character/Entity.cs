@@ -27,7 +27,7 @@ public abstract class Entity: MonoBehaviour
     protected CombatGrid grid;
     protected HealthBar healthBar;
     protected TrigerParticule _particuleSysteme;
-    protected new Animator animation;
+    protected Animator animator;
 
 
     protected virtual void Awake()
@@ -65,7 +65,7 @@ public abstract class Entity: MonoBehaviour
                 healthBar.SetHP(CurrentHP);
             IsDead();
             ShowFloatingDamage(damage);
-            animation.SetTrigger("Damage");
+            animator.SetTrigger("Damage");
         }
         else
         {

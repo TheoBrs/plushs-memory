@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5566674713529674762}
   - component: {fileID: 2862466944569120020}
   - component: {fileID: 3343842419836314376}
+  - component: {fileID: -1980538622194650133}
   m_Layer: 0
   m_Name: Mite
   m_TagString: Enemy
@@ -79,6 +80,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blood: {fileID: 4419980865640383329}
   Greenblood: {fileID: 4419980865640383329}
+--- !u!95 &-1980538622194650133
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190361485494128904}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 923d1371052bb7048bba8e6632b07f6e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &3344271611525301839
 PrefabInstance:
   m_ObjectHideFlags: 0

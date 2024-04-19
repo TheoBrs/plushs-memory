@@ -72,6 +72,7 @@ public abstract class Enemy : Entity
         if (isMoving)
         {
             isMoving = !MoveOverTime();
+            animator.SetBool("Move", isMoving);
         }
         else
         {
@@ -156,15 +157,15 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
-        if (StatisticsManager.Instance)
+        if (GameManager.Instance)
         {
             if (this is Mite)
             {
-                StatisticsManager.Instance.miteKillCount++;
+                GameManager.Instance.miteKillCount++;
             }
             if (this is Coleo)
             {
-                StatisticsManager.Instance.coleoptereKillCount++;
+                GameManager.Instance.coleoptereKillCount++;
             }
         }
 

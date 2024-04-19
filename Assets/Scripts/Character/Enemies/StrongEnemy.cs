@@ -22,12 +22,12 @@ public class StrongEnemy : Enemy
     public override void CastAbility1(Entity target)
     {
         base.CastAbility1(target);
-        animation.SetTrigger("Damage");
+        animator.SetTrigger("Damage");
     }
     public override void CastAbility2(Entity target)
     {
         CurrentAP -= _ability2.Cost;
-        animation.SetTrigger("Damage");
+        animator.SetTrigger("Damage");
         target.TakeDamage(_ability2.Damage + Attack.GetValue());
         _ability2.RoundsBeforeReuse = 3;
     }

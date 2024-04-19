@@ -21,7 +21,7 @@ public class Coleo : Enemy
     public override void CastAbility1(Entity target)
     {
         base.CastAbility1(target);
-        animation.SetTrigger("Damage");
+        animator.SetTrigger("Damage");
     }
     public override void CastAbility2(Entity target)
     {
