@@ -237,6 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc0f5e62506570438bb46795f50ea32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: {fileID: 7400000, guid: a895f2b55faee5844bfcd4a5d63960d2, type: 2}
+  animationClip: {fileID: 7400000, guid: a895f2b55faee5844bfcd4a5d63960d2, type: 2}
   color: {r: 1, g: 1, b: 1, a: 0}
   textObj: {fileID: 5386469977215014516}

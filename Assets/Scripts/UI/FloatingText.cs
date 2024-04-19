@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class FloatingText : MonoBehaviour
 {
-    [SerializeField] new AnimationClip animation;
+    [SerializeField] AnimationClip animationClip;
     [SerializeField] Color color;
     [SerializeField] GameObject textObj;
 
     public void Init(string text, Color color)
     {
-        Destroy(gameObject, animation.length);
+        Destroy(gameObject, animationClip.length);
         textObj.GetComponent<TextMeshProUGUI>().text = text;
         textObj.GetComponent<TextMeshProUGUI>().color = color;
     }
