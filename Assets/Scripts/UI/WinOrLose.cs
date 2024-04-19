@@ -1,11 +1,13 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WinOrLose : MonoBehaviour
 {
     bool isWin;
-    [SerializeField] GameObject Win;
-    [SerializeField] GameObject Lose;
+    [SerializeField] GameObject win;
+    [SerializeField] GameObject lose;
+    [SerializeField] GameObject continueText;
+    [SerializeField] GameObject restartText;
+    [SerializeField] GameObject menuButton;
 
     private void Awake()
     {
@@ -14,7 +16,11 @@ public class WinOrLose : MonoBehaviour
 
     void Start()
     {
-        Win.SetActive(isWin);
-        Lose.SetActive(!isWin);
+        win.SetActive(isWin);
+        continueText.SetActive(isWin);
+
+        lose.SetActive(!isWin);
+        restartText.SetActive(!isWin);
+        menuButton.SetActive(!isWin);
     }
 }

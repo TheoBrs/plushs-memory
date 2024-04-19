@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class BattleManager : MonoBehaviour
+public class StatisticsManager : MonoBehaviour
 {
-    public static BattleManager Instance;
-    public BattlePlacement nextBattlePlacement = new BattlePlacement();
-    public BattlePlacement originalPlacement = new BattlePlacement();
+    public static StatisticsManager Instance;
+    public int miteKillCount;
+    public int coleoptereKillCount;
+
 
     #region Singleton
 
