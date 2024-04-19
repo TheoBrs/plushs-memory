@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class BattleSceneActions : MonoBehaviour
 {
-    BattleManager Instance;
+    public BattlePlacement nextBattlePlacement = new BattlePlacement();
+    public BattlePlacement originalPlacement = new BattlePlacement();
     [SerializeField] Animator animator;
     [SerializeField] GameObject mitePrefab;
     [SerializeField] GameObject coleoPrefab;
@@ -15,7 +16,6 @@ public class BattleSceneActions : MonoBehaviour
 
     private void Start()
     {
-        Instance = BattleManager.Instance;
         animator.SetTrigger("StartFadeOut");
     }
 
@@ -29,7 +29,7 @@ public class BattleSceneActions : MonoBehaviour
     public void SetupChapter1()
     {
         Vector3 rotation = new Vector3(0, 180, 0);
-        BattlePlacement wave = Instance.nextBattlePlacement;
+        BattlePlacement wave = nextBattlePlacement;
         wave.ClearBattlePlacement();
 
         enemyList.Clear();
@@ -55,12 +55,12 @@ public class BattleSceneActions : MonoBehaviour
         wave.AddEnemy(enemyList);
         wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
 
-        Instance.originalPlacement = Instance.nextBattlePlacement;
+        originalPlacement = nextBattlePlacement;
     }
     public void SetupChapter2()
     {
         Vector3 rotation = new Vector3(0, 180, 0);
-        BattlePlacement wave = Instance.nextBattlePlacement;
+        BattlePlacement wave = nextBattlePlacement;
         wave.ClearBattlePlacement();
 
         enemyList.Clear();
@@ -80,12 +80,12 @@ public class BattleSceneActions : MonoBehaviour
         wave.AddEnemy(enemyList);
         wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
 
-        Instance.originalPlacement = Instance.nextBattlePlacement;
+        originalPlacement = nextBattlePlacement;
     }
     public void SetupChapter3()
     {
         Vector3 rotation = new Vector3(0, 180, 0);
-        BattlePlacement wave = Instance.nextBattlePlacement;
+        BattlePlacement wave = .nextBattlePlacement;
         wave.ClearBattlePlacement();
 
         enemyList.Clear();
@@ -95,6 +95,6 @@ public class BattleSceneActions : MonoBehaviour
         wave.AddEnemy(enemyList);
         wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
 
-        Instance.originalPlacement = Instance.nextBattlePlacement;
+        originalPlacement = nextBattlePlacement;
     }
 }
