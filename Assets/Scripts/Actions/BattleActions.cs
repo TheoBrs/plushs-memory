@@ -15,7 +15,7 @@ public class BattleActions : MonoBehaviour
     public void SetupChapter1()
     {
         Vector3 rotation = new Vector3(0, 180, 0);
-        BattlePlacement wave = Instance.nextBattlePlacement;
+        BattlePlacement wave = BattleManager.Instance.nextBattlePlacement;
         wave.ClearBattlePlacement();
 
         wave.AddEnemy(new Coord(2, 1), mitePrefab, rotation, new Coord(1, 1), true);
