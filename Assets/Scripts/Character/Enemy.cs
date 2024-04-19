@@ -156,13 +156,16 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
-        if (this is Mite)
+        if (StatisticsManager.Instance)
         {
-            StatisticsManager.Instance.miteKillCount++;
-        }
-        if (this is Coleo)
-        {
-            StatisticsManager.Instance.coleoptereKillCount++;
+            if (this is Mite)
+            {
+                StatisticsManager.Instance.miteKillCount++;
+            }
+            if (this is Coleo)
+            {
+                StatisticsManager.Instance.coleoptereKillCount++;
+            }
         }
 
 

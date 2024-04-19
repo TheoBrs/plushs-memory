@@ -152,7 +152,7 @@ public class TurnSystem : MonoBehaviour
     private void End()
     {
         AnimationScripts.currentScene = AnimationScripts.Scenes.Battle;
-        if (!IsWin.IsWinBool || BattleManager.Instance.nextBattlePlacement.nextWave == null)
+        if (!IsWin.IsWinBool || grid.battleSceneActions.nextBattlePlacement.nextWave == null)
         {
             battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
@@ -162,7 +162,7 @@ public class TurnSystem : MonoBehaviour
         {
             currentState = FightPhase.INIT;
             // if end scene isn't loaded then a next wave must be placed
-            BattleManager.Instance.nextBattlePlacement = BattleManager.Instance.nextBattlePlacement.nextWave;
+            grid.battleSceneActions.nextBattlePlacement = grid.battleSceneActions.nextBattlePlacement.nextWave;
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
             animator.SetTrigger("StartFadeIn");

@@ -3,13 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class EndMenu : MonoBehaviour
 {
-    BattleManager Instance;
     [SerializeField] Animator animator;
-    [SerializeField] LoadingBarAction loadingBarAction;
+    CombatGrid grid;
 
     private void Start()
     {
-        Instance = BattleManager.Instance;
         animator.SetTrigger("StartFadeOut");
         //AudioManager.Instance.PlayMusic("MusicTest");
     }
@@ -30,8 +28,7 @@ public class EndMenu : MonoBehaviour
 
     public void RestartGame()
     {
-        Instance.nextBattlePlacement = Instance.originalPlacement;
-        loadingBarAction.StartBattle();
+        // Tell battlescene to restart somehow
     }
 
     public void ContinueGame()

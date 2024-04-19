@@ -85,7 +85,7 @@ public class BattleSceneActions : MonoBehaviour
     public void SetupChapter3()
     {
         Vector3 rotation = new Vector3(0, 180, 0);
-        BattlePlacement wave = .nextBattlePlacement;
+        BattlePlacement wave = nextBattlePlacement;
         wave.ClearBattlePlacement();
 
         enemyList.Clear();
