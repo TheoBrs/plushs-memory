@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0973424879c3ad1419ff1849e14985a6, type: 3}
+  m_Name: Souris
+  m_EditorClassIdentifier: 
+  _name: Souris De Combat
+  _description: "Une force de la nature dans le monde des insectes. Elle raffole
+    particuli\xE8rement des tissus laineux et des mites qui se sentent fatigu\xE9es
+    (des proies plus faciles). Pendant longtemps, l\u2019arm\xE9e a essay\xE9 de
+    la dompter, mais en vain."
+  _avatar: {fileID: 21300000, guid: c8945cd6a5965354bbdf1ddd600c23ba, type: 3}
