@@ -10,6 +10,7 @@ public class NeutralZoneUIController : MonoBehaviour
     [SerializeField] private GameObject _encyclopediaPanel;
     [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private GameObject _settingsPanel;
+    [SerializeField] private GameObject _storybookPanel;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class NeutralZoneUIController : MonoBehaviour
         _encyclopediaPanel.SetActive(false);
         _inventoryPanel.SetActive(false);
         _settingsPanel.SetActive(false);
+        _storybookPanel.SetActive(false);
     }
 
     public void TriggerEncyclopedia()
@@ -37,6 +39,13 @@ public class NeutralZoneUIController : MonoBehaviour
     public void TriggerSettings()
     {
         _settingsPanel.SetActive(!_settingsPanel.activeSelf);
+        _darkBackground.SetActive(!_darkBackground.activeSelf);
+        _defaultUI.SetActive(!_defaultUI.activeSelf);
+    }
+
+    public void TriggerStorybook()
+    {
+        _storybookPanel.SetActive(!_storybookPanel.activeSelf);
         _darkBackground.SetActive(!_darkBackground.activeSelf);
         _defaultUI.SetActive(!_defaultUI.activeSelf);
     }
