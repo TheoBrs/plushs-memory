@@ -14,11 +14,15 @@ public abstract class Enemy : Entity
 {
     private State _currentState;
     public bool ItsTurn = false;
-    [SerializeField] public string _name = "Enemy";
+    public bool cannotMove = false;
+    public bool causeEndOfBattle = false;
+    public bool justSpawned;
+    public string _name = "Enemy";
+    public bool ability2IsntAttack = false;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         _currentState = State.WaitForTurn;
 
         healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
@@ -33,6 +37,12 @@ public abstract class Enemy : Entity
                 if (ItsTurn)
                 {
                     CurrentAP = MaxAP.GetValue();
+                    if (justSpawned)
+                    {
+                        justSpawned = false;
+                        ChangeState(State.EndTurn);
+                        break;
+                    }
                     ChangeState(State.Movement);
                 }
                 break;
@@ -56,6 +66,9 @@ public abstract class Enemy : Entity
 
     private bool Movement()
     {
+        if (cannotMove || CurrentAP < 0)
+            return true;
+
         if (isMoving)
         {
             isMoving = !MoveOverTime();
@@ -86,6 +99,8 @@ public abstract class Enemy : Entity
                 grid.GetGridCell(nextPos.X, nextPos.Y).Entity = grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
                 grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
                 CurrentPos = nextPos;
+                occupiedCells.Clear();
+                occupiedCells.Add(grid.GetGridCell(nextPos.X, nextPos.Y));
                 grid.RefreshGridMat();
             }
         }
@@ -94,10 +109,11 @@ public abstract class Enemy : Entity
         // Verify he arrived at the position / Wait till animation is done
     }
 
-    private void Attacking()
+    virtual public void Attacking()
     {
         Player _player = FindObjectOfType<Player>();
-        if (Coord.Magnitude(_player.CurrentPos - CurrentPos) == 1)
+
+        if ((_player.transform.position - transform.position).magnitude == 1 * grid.gridCellScale)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
             if (directeur.x > 0)
@@ -118,15 +134,19 @@ public abstract class Enemy : Entity
                         CastAbility2(_player);
                     }
                 }
-                else if (CurrentAP >= _ability1.Cost)
+                
+                if (_ability1.RoundsBeforeReuse == 0)
                 {
-                    CastAbility1(_player);
+                    if (CurrentAP >= _ability1.Cost)
+                    {
+                        CastAbility1(_player);
+                    }
                 }
             }
         }
 
-        _ability2.RoundsBeforeReuse -= 1;
-        _ability2.RoundsBeforeReuse = Mathf.Clamp(_ability2.RoundsBeforeReuse, 0, 10);
+        _ability1.RoundsBeforeReuse = Mathf.Clamp(_ability1.RoundsBeforeReuse - 1, 0, 10);
+        _ability2.RoundsBeforeReuse = Mathf.Clamp(_ability2.RoundsBeforeReuse - 1, 0, 10);
     }
 
     void ChangeState(State newState)
@@ -136,15 +156,26 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
-        Debug.Log(name + " Dead");
+        if (this is WeakEnemy)
+        {
+            StatisticsManager.Instance.miteKillCount++;
+        }
+        if (this is MidEnemy)
+        {
+            StatisticsManager.Instance.coleoptereKillCount++;
+        }
+
+
         TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
-        turnSystyem.OnEnemyDeath(this);
+        turnSystyem.OnEnemyDeath(this, causeEndOfBattle);
         // Enemy Death / Inform GameManager
         // You should remove yourself
-        Cell cell = grid.GetGridCell(CurrentPos);
-        cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
-        cell.HasEnemy = false;
-        cell.Entity = null;
+        foreach (Cell cell in occupiedCells)
+        {
+            cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+            cell.HasEnemy = false;
+            cell.Entity = null;
+        }
         Destroy(gameObject);
     }
 }

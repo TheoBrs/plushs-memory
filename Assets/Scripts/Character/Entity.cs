@@ -16,17 +16,22 @@ public abstract class Entity: MonoBehaviour
     public Coord CurrentPos { get; set; }
     public int CurrentHP { get; set; }
     public int CurrentAP { get; set; }
+    public Coord Size { get; set; }
+
     protected Ability _ability1;
     protected Ability _ability2;
     protected bool _invincible = false;
 
-    public bool isMoving = false;
+    [HideInInspector] public bool isMoving = false;
     protected List<Cell> _pathToTake;
+    public List<Cell> occupiedCells = new List<Cell>();
     protected CombatGrid grid;
     protected HealthBar healthBar;
-
-    protected virtual void Start()
+    protected TrigerParticule _particuleSysteme ;
+    
+    protected virtual void Awake()
     {
+        _particuleSysteme = GetComponent<TrigerParticule>();
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
 
         CurrentHP = MaxHP.GetValue();
@@ -72,6 +77,7 @@ public abstract class Entity: MonoBehaviour
     {
         FloatingText damageText = Instantiate(floatingTextPrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity).GetComponent<FloatingText>();
         damageText.Init(damage.ToString(), Color.white);
+        _particuleSysteme.OnTriggerEntter(this);
     }
 
     private void IsDead()
