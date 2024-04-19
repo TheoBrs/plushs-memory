@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0973424879c3ad1419ff1849e14985a6, type: 3}
+  m_Name: Mite
+  m_EditorClassIdentifier: 
+  _name: Mite Commune
+  _description: "Sa taille est anormalement plus grande que les mites qui peuplent
+    les cuisines. Ses ailes donnent l\u2019impression que l\u2019on est constamment
+    regard\xE9. Attention \xE0 ses mandibules, en cas d\u2019attaque, si elle perd
+    son arme, elle cherchera \xE0 vous mordre tr\xE8s fort !"
+  _avatar: {fileID: 21300000, guid: ef94a054a95242d4590ae6723588f6cd, type: 3}
