@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleActions : MonoBehaviour
+public class BattleSceneActions : MonoBehaviour
 {
     BattleManager Instance;
     [SerializeField] Animator animator;
@@ -16,6 +16,7 @@ public class BattleActions : MonoBehaviour
     private void Start()
     {
         Instance = BattleManager.Instance;
+        animator.SetTrigger("StartFadeOut");
     }
 
     void SetupAnimation()
@@ -27,7 +28,6 @@ public class BattleActions : MonoBehaviour
 
     public void SetupChapter1()
     {
-        SetupAnimation();
         Vector3 rotation = new Vector3(0, 180, 0);
         BattlePlacement wave = Instance.nextBattlePlacement;
         wave.ClearBattlePlacement();
@@ -59,7 +59,6 @@ public class BattleActions : MonoBehaviour
     }
     public void SetupChapter2()
     {
-        SetupAnimation();
         Vector3 rotation = new Vector3(0, 180, 0);
         BattlePlacement wave = Instance.nextBattlePlacement;
         wave.ClearBattlePlacement();
@@ -85,7 +84,6 @@ public class BattleActions : MonoBehaviour
     }
     public void SetupChapter3()
     {
-        SetupAnimation();
         Vector3 rotation = new Vector3(0, 180, 0);
         BattlePlacement wave = Instance.nextBattlePlacement;
         wave.ClearBattlePlacement();

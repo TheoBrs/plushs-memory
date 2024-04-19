@@ -47,16 +47,19 @@ public class CombatGrid : MonoBehaviour
             }
         }
 
-        AddMoomoo(battleManager.nextBattlePlacement.moomooCell.Item1, battleManager.nextBattlePlacement.moomooCell.Item2);
-
-        foreach (var tuple in battleManager.nextBattlePlacement.enemyCellList)
+        if (battleManager != null && battleManager.nextBattlePlacement != null)
         {
-            AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
-        }
+            AddMoomoo(battleManager.nextBattlePlacement.moomooCell.Item1, battleManager.nextBattlePlacement.moomooCell.Item2);
 
-        foreach (var tuple in battleManager.nextBattlePlacement.obstacleCellList)
-        {
-            AddObstacle(tuple.Item1, tuple.Item2);
+            foreach (var tuple in battleManager.nextBattlePlacement.enemyCellList)
+            {
+                AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+            }
+
+            foreach (var tuple in battleManager.nextBattlePlacement.obstacleCellList)
+            {
+                AddObstacle(tuple.Item1, tuple.Item2);
+            }
         }
     }
 
