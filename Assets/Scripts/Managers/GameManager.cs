@@ -3,8 +3,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public int miteKillCount;
-    public int coleoptereKillCount;
 
     #region Singleton
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombatGrid : MonoBehaviour
 {
@@ -24,7 +25,12 @@ public class CombatGrid : MonoBehaviour
     void Awake()
     {
         // Select chapter somehow
-        battleSceneActions.SetupChapter1();
+        if (SceneManager.GetActiveScene().name == "BattleSceneChapter1")
+            battleSceneActions.SetupChapter1();
+        if (SceneManager.GetActiveScene().name == "BattleSceneChapter2")
+            battleSceneActions.SetupChapter2();
+        if (SceneManager.GetActiveScene().name == "BattleSceneChapter3")
+            battleSceneActions.SetupChapter3();
 
         turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
         

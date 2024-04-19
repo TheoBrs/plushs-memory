@@ -32,6 +32,7 @@ public abstract class Entity: MonoBehaviour
 
     protected virtual void Awake()
     {
+        animator = GetComponent<Animator>();
         _particuleSysteme = GetComponent<TrigerParticule>();
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
 

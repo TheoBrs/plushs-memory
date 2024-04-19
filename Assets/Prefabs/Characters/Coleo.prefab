@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2761169512163272771}
   - component: {fileID: 8934945975012035046}
-  - component: {fileID: 4120041427587440769}
+  - component: {fileID: 4285005948251804447}
   - component: {fileID: 3444706412184123198}
   m_Layer: 0
   m_Name: Coleo
@@ -66,29 +66,20 @@ MonoBehaviour:
   justSpawned: 0
   _name: "Col\xE9opt\xE8re de tapis"
   ability2IsntAttack: 0
---- !u!136 &4120041427587440769
-CapsuleCollider:
+--- !u!114 &4285005948251804447
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618342834062108138}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd8e354f78027445acc66c5856a228e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blood: {fileID: 9029403703035310280, guid: 3b1ab10a17c748b41914000fa3f2b3c9, type: 3}
+  Greenblood: {fileID: 9029403703035310280, guid: 3b1ab10a17c748b41914000fa3f2b3c9, type: 3}
 --- !u!95 &3444706412184123198
 Animator:
   serializedVersion: 5

@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TurnSystem : MonoBehaviour
+public class TurnSystem : MonoBehaviour, IDataPersistence
 {
     public enum FightPhase
     {
@@ -23,7 +24,7 @@ public class TurnSystem : MonoBehaviour
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
     [SerializeField] Animator animator;
-
+    int chapterIndex;
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
     bool battleFullyEnded = false;
@@ -192,10 +193,36 @@ public class TurnSystem : MonoBehaviour
         }
         else
         {
+            chapterIndex = 0;
+            // Select chapter somehow
+            if (SceneManager.GetActiveScene().name == "BattleSceneChapter1")
+                chapterIndex = 1;
+            if (SceneManager.GetActiveScene().name == "BattleSceneChapter2")
+                chapterIndex = 2;
+            if (SceneManager.GetActiveScene().name == "BattleSceneChapter3")
+                chapterIndex = 3;
             SceneManager.LoadScene("End");
         }
     }
+    public void LoadData(GameData data)
+    { }
 
+    public void SaveData(GameData data)
+    {
+        switch (chapterIndex)
+        {
+            case 1:
+                data.chapter1Cleared = true;
+                break;
+            case 2:
+                data.chapter1Cleared = true;
+                break;
+            case 3:
+                data.chapter1Cleared = true;
+                break;
+            default: break;
+        }
+    }
     public void OnMoveButton()
     {
         player.Move();

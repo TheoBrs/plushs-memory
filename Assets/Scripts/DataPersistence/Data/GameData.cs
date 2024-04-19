@@ -12,6 +12,11 @@ public class GameData
 
     public float MusicVolume;
     public float SfxVolume;
+    public int miteKillCount;
+    public int coleoptereKillCount;
+    public bool chapter1Cleared;
+    public bool chapter2Cleared;
+    public bool chapter3Cleared;
 
     // The value defined in the constructor will be the default value when the game is started with no saved data
     public GameData()
@@ -19,5 +24,11 @@ public class GameData
         // Define the default values here
         MusicVolume = 1f;
         SfxVolume = 1f;
+        miteKillCount = 0;
+        coleoptereKillCount = 0;
+        chapter1Cleared = false;
+        chapter2Cleared = false;
+        chapter3Cleared = false;
+
     }
 }
