@@ -4,7 +4,7 @@ public class MenuActions : MonoBehaviour
 {
     private void Start()
     {
-        //AudioManager.Instance.PlayMusic("MusicTest");
+        AudioManager.Instance.PlayMusic("MusicTest");
     }
 
     public void ClickButtonSound()
