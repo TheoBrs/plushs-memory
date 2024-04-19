@@ -580,13 +580,13 @@ MonoBehaviour:
   _loadingBarObject: {fileID: 1612811700}
   _loadingBar: {fileID: 1335000402}
   _neutralZoneScene:
-    _sceneAsset: {fileID: 102900000, guid: 93f101438ab229c49b3c34d20b874381, type: 3}
+    _sceneAsset: {fileID: 0}
     _sceneName: NeutralZone
   _battleScene:
     _sceneAsset: {fileID: 102900000, guid: 32be1906f1d7334429b558243c5b937c, type: 3}
-    _sceneName: BattleScene
+    _sceneName: BattleSceneChapter1
   _dialogueScene:
-    _sceneAsset: {fileID: 102900000, guid: 93f101438ab229c49b3c34d20b874381, type: 3}
+    _sceneAsset: {fileID: 0}
     _sceneName: NeutralZone
 --- !u!1 &261341079
 GameObject:
