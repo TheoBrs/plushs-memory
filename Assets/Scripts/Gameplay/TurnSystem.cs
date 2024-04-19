@@ -16,15 +16,17 @@ public class TurnSystem : MonoBehaviour
     }
 
     private Player player;
-
+    CombatGrid grid;
     private Entity entity;
     private List<Enemy> enemies = new List<Enemy>();
 
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
+    [SerializeField] Animator animator;
 
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
+    bool battleFullyEnded = false;
     int enemyIndex = 0;
     public FightPhase currentState = FightPhase.INIT;
 
@@ -33,6 +35,7 @@ public class TurnSystem : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         SetUpBattle();
         _alliesManager = AlliesManager.Instance;
 
@@ -48,6 +51,11 @@ public class TurnSystem : MonoBehaviour
         StateSwitch();
     }
 
+    public void AddMoomoo(Player moomoo)
+    {
+        player = moomoo;
+    }
+
     public void AddEnemy(Enemy enemy)
     {
         enemies.Add(enemy);
@@ -55,6 +63,7 @@ public class TurnSystem : MonoBehaviour
 
     private void SetUpBattle()
     {
+        player.CheckAP();
         currentState = FightPhase.PLAYERTURN;
     }
 
@@ -96,7 +105,6 @@ public class TurnSystem : MonoBehaviour
 
         enemies[enemyIndex].ItsTurn = true;
         enemyIndex++;
-        UpdatePlayerHPText();
     }
 
     private void StateSwitch()
@@ -104,7 +112,6 @@ public class TurnSystem : MonoBehaviour
         switch (currentState)
         {
             case FightPhase.PLAYERTURN:
-                UpdatePlayerHPText();
                 PlayerTurn();
                 break;
 
@@ -132,23 +139,63 @@ public class TurnSystem : MonoBehaviour
 
     private void Win()
     {
-        Debug.Log("Win");
         IsWin.IsWinBool = true;
         currentState = FightPhase.END;
     }
 
     private void Lose()
     {
-        Debug.Log("Lose");
         IsWin.IsWinBool = false;
         currentState = FightPhase.END;
     }
 
     private void End()
     {
-        Debug.Log("End");
-        SceneManager.LoadScene("End");
-        // Call animation to exit battleScene or something
+        if (!IsWin.IsWinBool || BattleManager.Instance.nextBattlePlacement.nextWave == null)
+        {
+            battleFullyEnded = true;
+            animator.SetTrigger("StartFadeIn");
+        }
+        else
+        {
+            currentState = FightPhase.INIT;
+            // if end scene isn't loaded then a next wave must be placed
+            BattleManager.Instance.nextBattlePlacement = BattleManager.Instance.nextBattlePlacement.nextWave;
+            // Start Mask
+            animator.SetTrigger("StartFadeIn");
+        }
+    }
+
+    public void OnFadeInFinish()
+    {
+        if (!battleFullyEnded)
+        {
+            Destroy(player.gameObject);
+            foreach (var tempEnemy in enemies)
+            {
+                foreach (Cell cell in tempEnemy.occupiedCells)
+                {
+                    cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                    cell.HasEnemy = false;
+                    cell.Entity = null;
+                }
+                Destroy(tempEnemy.gameObject);
+            }
+            enemies.Clear();
+            grid.DestroyGrid();
+            grid.SetupGrid();
+            SetUpBattle();
+            animator.SetTrigger("StartFadeOut");
+        }
+        else
+        {
+            SceneManager.LoadScene("End");
+        }
+    }
+
+    public void OnMoveButton()
+    {
+        player.Move();
     }
 
     public void OnEndTurnButton()
@@ -160,19 +207,18 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-    public void UpdatePlayerHPText()
-    {
-        //playerHPText.text = "HP : " + player.GetComponent<Entity>().CurrentHP.ToString() + " / " + player.GetComponent<Entity>().MaxHP.GetValue().ToString();
-    }
-
     public void OnPlayerDeath()
     {
         currentState = FightPhase.LOSE;
     }
-    public void OnEnemyDeath(Enemy enemy)
+    public void OnEnemyDeath(Enemy enemy, bool EndBattle)
     {
         enemies.Remove(enemy);
-        if (enemies.Count == 0 )
+        if (enemies.Count == 0)
+        {
+            currentState = FightPhase.WIN;
+        }
+        if (EndBattle)
         {
             currentState = FightPhase.WIN;
         }
@@ -196,21 +242,24 @@ public class TurnSystem : MonoBehaviour
         else
         {
             player.CastAbility1(entity);
-            //detection porter
         }
     }
 
     public void OnAbility2Button()
     {
         entity = player.GetEnemy();
-        if (currentState != FightPhase.PLAYERTURN || entity == null)
+        if (currentState != FightPhase.PLAYERTURN)
         {
+            return;
+        }
+        else if (entity == null)
+        {
+            Debug.Log("No enemy select");
             return;
         }
         else
         {
             player.CastAbility2(entity);
-            //detection porter
         }
     }
 

@@ -15,13 +15,14 @@ public abstract class Enemy : Entity
     private State _currentState;
     public bool ItsTurn = false;
     public bool cannotMove = false;
+    public bool causeEndOfBattle = false;
     public bool justSpawned;
     public string _name = "Enemy";
     public bool ability2IsntAttack = false;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         _currentState = State.WaitForTurn;
 
         healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
@@ -111,6 +112,7 @@ public abstract class Enemy : Entity
     virtual public void Attacking()
     {
         Player _player = FindObjectOfType<Player>();
+
         if ((_player.transform.position - transform.position).magnitude == 1 * grid.gridCellScale)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
@@ -154,15 +156,26 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
-        Debug.Log(name + " Dead");
+        if (this is WeakEnemy)
+        {
+            StatisticsManager.Instance.miteKillCount++;
+        }
+        if (this is MidEnemy)
+        {
+            StatisticsManager.Instance.coleoptereKillCount++;
+        }
+
+
         TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
-        turnSystyem.OnEnemyDeath(this);
+        turnSystyem.OnEnemyDeath(this, causeEndOfBattle);
         // Enemy Death / Inform GameManager
         // You should remove yourself
-        Cell cell = grid.GetGridCell(CurrentPos);
-        cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
-        cell.HasEnemy = false;
-        cell.Entity = null;
+        foreach (Cell cell in occupiedCells)
+        {
+            cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+            cell.HasEnemy = false;
+            cell.Entity = null;
+        }
         Destroy(gameObject);
     }
 }
