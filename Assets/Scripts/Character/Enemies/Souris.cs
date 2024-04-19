@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstBoss : Enemy
+public class Souris : Enemy
 {
     [SerializeField] GameObject mitePrefab;
     protected override void Awake()
@@ -62,6 +62,7 @@ public class FirstBoss : Enemy
     public override void CastAbility1(Entity target)
     {
         base.CastAbility1(target);
+        animator.SetTrigger("Damage");
         _ability1.RoundsBeforeReuse = 1;
     }
     public override void CastAbility2(Entity target)
