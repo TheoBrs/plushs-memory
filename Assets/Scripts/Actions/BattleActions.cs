@@ -3,6 +3,7 @@ using UnityEngine;
 public class BattleActions : MonoBehaviour
 {
     BattleManager Instance;
+    [SerializeField] Animator animator;
     [SerializeField] GameObject mitePrefab;
     [SerializeField] GameObject coleoPrefab;
     [SerializeField] GameObject sourisPrefab;
@@ -12,8 +13,17 @@ public class BattleActions : MonoBehaviour
     {
         Instance = BattleManager.Instance;
     }
+
+    void SetupAnimation()
+    {
+        AnimationScripts.currentScene = AnimationScripts.Scenes.Menu;
+        AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
+        animator.SetTrigger("StartFadeIn");
+    }
+
     public void SetupChapter1()
     {
+        SetupAnimation();
         Vector3 rotation = new Vector3(0, 180, 0);
         BattlePlacement wave = Instance.nextBattlePlacement;
         wave.ClearBattlePlacement();
@@ -39,6 +49,7 @@ public class BattleActions : MonoBehaviour
     }
     public void SetupChapter2()
     {
+        SetupAnimation();
         Vector3 rotation = new Vector3(0, 180, 0);
         BattlePlacement wave = Instance.nextBattlePlacement;
         wave.ClearBattlePlacement();
@@ -60,6 +71,7 @@ public class BattleActions : MonoBehaviour
     }
     public void SetupChapter3()
     {
+        SetupAnimation();
         Vector3 rotation = new Vector3(0, 180, 0);
         BattlePlacement wave = Instance.nextBattlePlacement;
         wave.ClearBattlePlacement();

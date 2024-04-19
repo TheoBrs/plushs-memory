@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class BattleSceneAction : MonoBehaviour
 {
-    public void ReturnMenu()
+    [SerializeField] Animator animator;
+    private void Start()
     {
-        ScenesManager.Instance.ReturnMenu();
+        animator.SetTrigger("StartFadeOut");
     }
 }

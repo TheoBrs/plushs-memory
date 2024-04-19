@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class MenuActions : MonoBehaviour
 {
+    [SerializeField] Animator animator;
     private void Start()
     {
-        AudioManager.Instance.PlayMusic("MusicTest");
+        animator.SetTrigger("StartFadeOut");
+        //AudioManager.Instance.PlayMusic("MusicTest");
     }
 
     public void ClickButtonSound()

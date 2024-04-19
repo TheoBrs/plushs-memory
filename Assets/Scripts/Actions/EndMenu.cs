@@ -16,11 +16,18 @@ public class EndMenu : MonoBehaviour
 
     public void ContinueRestartButtonClick()
     {
-        if (IsWin.IsWinBool)
-            ContinueGame();
-        else
-            RestartGame();
+        AnimationScripts.currentScene = AnimationScripts.Scenes.End;
+        AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
+        animator.SetTrigger("StartFadeIn");
     }
+
+    public void MenuButtonClick()
+    {
+        AnimationScripts.currentScene = AnimationScripts.Scenes.End;
+        AnimationScripts.nextScene = AnimationScripts.Scenes.Menu;
+        animator.SetTrigger("StartFadeIn");
+    }
+
     public void RestartGame()
     {
         Instance.nextBattlePlacement = Instance.originalPlacement;
