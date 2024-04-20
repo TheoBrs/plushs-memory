@@ -1,4 +1,4 @@
-public class MidEnemy : Enemy
+public class Coleo : Enemy
 {
     protected override void Awake()
     {
@@ -21,6 +21,7 @@ public class MidEnemy : Enemy
     public override void CastAbility1(Entity target)
     {
         base.CastAbility1(target);
+        animator.SetTrigger("Damage");
     }
     public override void CastAbility2(Entity target)
     {

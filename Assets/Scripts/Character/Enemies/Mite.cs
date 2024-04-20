@@ -1,4 +1,4 @@
-public class WeakEnemy : Enemy
+public class Mite : Enemy
 {
     protected override void Awake()
     {
@@ -25,6 +25,7 @@ public class WeakEnemy : Enemy
     public override void CastAbility2(Entity target)
     {
         CurrentAP -= _ability2.Cost;
+        animator.SetTrigger("Damage");
         target.TakeDamage(_ability2.Damage + Attack.GetValue());
     }
 }

@@ -1,5 +1,5 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.SceneManagement;
 
 public class CombatGrid : MonoBehaviour
 {
@@ -16,17 +16,24 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] Material redPathGridMat;
 
     Cell[,] elements;
+    public BattleSceneActions battleSceneActions;
     [SerializeField] GameObject gridPrefab;
-    BattleManager battleManager;
     TurnSystem turnSystem;
     Player _player;
 
     //creation de la grille de Combat
     void Awake()
     {
-        battleManager = BattleManager.Instance;
-        turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
+        // Select chapter somehow
+        if (SceneManager.GetActiveScene().name == "BattleSceneChapter1")
+            battleSceneActions.SetupChapter1();
+        if (SceneManager.GetActiveScene().name == "BattleSceneChapter2")
+            battleSceneActions.SetupChapter2();
+        if (SceneManager.GetActiveScene().name == "BattleSceneChapter3")
+            battleSceneActions.SetupChapter3();
 
+        turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
+        
         SetupGrid();
     }
 
@@ -47,16 +54,19 @@ public class CombatGrid : MonoBehaviour
             }
         }
 
-        AddMoomoo(battleManager.nextBattlePlacement.moomooCell.Item1, battleManager.nextBattlePlacement.moomooCell.Item2);
-
-        foreach (var tuple in battleManager.nextBattlePlacement.enemyCellList)
+        if (battleSceneActions != null && battleSceneActions.nextBattlePlacement != null)
         {
-            AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
-        }
+            AddMoomoo(battleSceneActions.nextBattlePlacement.moomooCell.Item1, battleSceneActions.nextBattlePlacement.moomooCell.Item2);
 
-        foreach (var tuple in battleManager.nextBattlePlacement.obstacleCellList)
-        {
-            AddObstacle(tuple.Item1, tuple.Item2);
+            foreach (var tuple in battleSceneActions.nextBattlePlacement.enemyCellList)
+            {
+                AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+            }
+
+            foreach (var tuple in battleSceneActions.nextBattlePlacement.obstacleCellList)
+            {
+                AddObstacle(tuple.Item1, tuple.Item2);
+            }
         }
     }
 

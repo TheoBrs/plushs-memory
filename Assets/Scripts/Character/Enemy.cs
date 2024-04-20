@@ -10,7 +10,7 @@ public enum State
     EndTurn
 }
 
-public abstract class Enemy : Entity
+public abstract class Enemy : Entity, IDataPersistence
 {
     private State _currentState;
     public bool ItsTurn = false;
@@ -19,6 +19,8 @@ public abstract class Enemy : Entity
     public bool justSpawned;
     public string _name = "Enemy";
     public bool ability2IsntAttack = false;
+    int miteKillCount;
+    int coleoptereKillCount;
 
     protected override void Awake()
     {
@@ -154,15 +156,30 @@ public abstract class Enemy : Entity
         _currentState = newState;
     }
 
+    public void SaveData(GameData data)
+    {
+        data.miteKillCount = miteKillCount;
+        data.coleoptereKillCount = coleoptereKillCount;
+    }
+
+    public void LoadData(GameData data)
+    {
+        miteKillCount = data.miteKillCount;
+        coleoptereKillCount = data.coleoptereKillCount;
+    }
+
     public override void Death()
     {
-        if (this is WeakEnemy)
+        if (GameManager.Instance)
         {
-            StatisticsManager.Instance.miteKillCount++;
-        }
-        if (this is MidEnemy)
-        {
-            StatisticsManager.Instance.coleoptereKillCount++;
+            if (this is Mite)
+            {
+                miteKillCount++;
+            }
+            if (this is Coleo)
+            {
+                coleoptereKillCount++;
+            }
         }
 
 
