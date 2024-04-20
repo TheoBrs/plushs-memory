@@ -23,7 +23,7 @@ public class StorybookChapterDisplay : MonoBehaviour
         _labelText.text = _chapter.Label;
         _nameText.text = _chapter.Name;
         _descriptionText.text = _chapter.Description;
-        _previewImage.sprite = _chapter.Preview;
+        _previewImage.sprite = _blockedPreviewImage;
     }
 
     private void Start()
@@ -40,5 +40,14 @@ public class StorybookChapterDisplay : MonoBehaviour
 
         _nameText.text = _chapter.Name;
         _descriptionText.text = _chapter.Description;
+    }
+
+    private void Update()
+    {
+        // TODO: Change the condition to check if the chapter is unlocked
+        if (true)
+        {
+            _previewImage.sprite = _chapter.Preview;
+        }
     }
 }
