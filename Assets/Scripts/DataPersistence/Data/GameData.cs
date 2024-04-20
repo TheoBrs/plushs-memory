@@ -10,8 +10,13 @@ public class GameData
     // public void LoadData(GameData data) {}
     // public void SaveData(GameData data) {}
 
+    // Audio
     public float MusicVolume;
     public float SfxVolume;
+    public bool IsMusicMuted;
+    public bool IsSfxMuted;
+
+    // Others
     public int miteKillCount;
     public int coleoptereKillCount;
     public bool chapter1Cleared;
@@ -22,8 +27,14 @@ public class GameData
     public GameData()
     {
         // Define the default values here
-        MusicVolume = 1f;
-        SfxVolume = 1f;
+
+        // Audio
+        MusicVolume = 0.8f;
+        SfxVolume = 0.8f;
+        IsMusicMuted = false;
+        IsSfxMuted = false;
+
+        // Others
         miteKillCount = 0;
         coleoptereKillCount = 0;
         chapter1Cleared = false;

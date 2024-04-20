@@ -1,13 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoBehaviour, IDataPersistence
 {
+    #region Singleton
+
     public static AudioManager Instance;
-
-    public Sound[] musicSounds, sfxSounds;
-    public AudioSource musicSource, sfxSource;
-
     private void Awake()
     {
         if (Instance == null)
@@ -19,6 +18,23 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    #endregion
+    public Sound[] musicSounds, sfxSounds;
+    public AudioSource musicSource, sfxSource;
+
+    [Header("Sliders")]
+    [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _sfxSlider;
+
+    private bool _isMusicMuted;
+    private bool _isSfxMuted;
+
+    private void Start()
+    {
+        musicSource.mute = _isMusicMuted;
+        sfxSource.mute = _isSfxMuted;
     }
 
     public void PlayMusic(string name)
@@ -53,11 +69,15 @@ public class AudioManager : MonoBehaviour
     public void ToggleMusic()
     {
         musicSource.mute = !musicSource.mute;
+
+        _isMusicMuted = !_isMusicMuted;
     }
 
     public void ToggleSFX()
     {
         sfxSource.mute = !sfxSource.mute;
+
+        _isSfxMuted = !_isSfxMuted;
     }
 
     public void MusicVolume(float volume)
@@ -73,5 +93,31 @@ public class AudioManager : MonoBehaviour
     public void StopMusic()
     {
         musicSource.Stop();
+    }
+
+    public bool IsMusicMuted()
+    {
+        return _isMusicMuted;
+    }
+
+    public bool IsSfxMuted()
+    {
+        return _isSfxMuted;
+    }
+
+    public void LoadData(GameData data)
+    {
+        _musicSlider.value = data.MusicVolume;
+        _sfxSlider.value = data.SfxVolume;
+        _isMusicMuted = data.IsMusicMuted;
+        _isSfxMuted = data.IsSfxMuted;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.MusicVolume = _musicSlider.value;
+        data.SfxVolume = _sfxSlider.value;
+        data.IsMusicMuted = _isMusicMuted;
+        data.IsSfxMuted = _isSfxMuted;
     }
 }
