@@ -7,14 +7,20 @@ public class BattlePlacement
     public List<(Coord, GameObject)> obstacleCellList = new List<(Coord, GameObject)>();
     public (Coord, GameObject) moomooCell;
     public BattlePlacement nextWave;
-    public void AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool causeEndOfBattle = false)
+    public void AddEnemy(List<(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool causeEndOfBattle)> enemyList)
     {
-        enemyCellList.Add((coord, enemyPrefabs, rotation, size, causeEndOfBattle));
+        foreach (var enemy in enemyList)
+        {
+            enemyCellList.Add(enemy);
+        }
     }
 
-    public void AddObstacle(Coord coord, GameObject obstacle)
+    public void AddObstacle(List<(Coord coord, GameObject obstacle)> obstacleList)
     {
-        obstacleCellList.Add((coord, obstacle));
+        foreach (var obstacle in obstacleList)
+        {
+            obstacleCellList.Add(obstacle);
+        }
     }
 
     public void AddMoomoo((Coord coord, GameObject moomooPrefab) tuple)
