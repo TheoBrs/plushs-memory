@@ -15,8 +15,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Awake()
     {
-        #region Singleton
-
         if (Instance == null)
         {
             Instance = this;
@@ -26,9 +24,10 @@ public class DataPersistenceManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
-        #endregion
-
+    private void Start()
+    {
         _dataHandler = new FileDataHandler(Application.persistentDataPath, _fileName);
         _dataPersistenceObjects = FindAllDataPersistenceObjects();
 

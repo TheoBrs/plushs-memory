@@ -28,11 +28,16 @@ public class AudioManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _sfxSlider;
 
+    private float _musicVolume;
+    private float _sfxVolume;
     private bool _isMusicMuted;
     private bool _isSfxMuted;
 
     private void Start()
     {
+        _musicSlider.value = _musicVolume;
+        _sfxSlider.value = _sfxVolume;
+
         musicSource.mute = _isMusicMuted;
         sfxSource.mute = _isSfxMuted;
     }
@@ -83,11 +88,15 @@ public class AudioManager : MonoBehaviour, IDataPersistence
     public void MusicVolume(float volume)
     {
         musicSource.volume = volume;
+
+        _musicVolume = volume;
     }
 
     public void SFXVolume(float volume)
     {
         sfxSource.volume = volume;
+
+        _sfxVolume = volume;
     }
 
     public void StopMusic()
@@ -107,16 +116,16 @@ public class AudioManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        _musicSlider.value = data.MusicVolume;
-        _sfxSlider.value = data.SfxVolume;
+        _musicVolume = data.MusicVolume;
+        _sfxVolume = data.SfxVolume;
         _isMusicMuted = data.IsMusicMuted;
         _isSfxMuted = data.IsSfxMuted;
     }
 
     public void SaveData(GameData data)
     {
-        data.MusicVolume = _musicSlider.value;
-        data.SfxVolume = _sfxSlider.value;
+        data.MusicVolume = _musicVolume;
+        data.SfxVolume = _sfxVolume;
         data.IsMusicMuted = _isMusicMuted;
         data.IsSfxMuted = _isSfxMuted;
     }
