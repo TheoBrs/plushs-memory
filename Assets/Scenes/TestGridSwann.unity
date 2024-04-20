@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -272,6 +272,63 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1001 &363923206
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4010920813778250979, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_Name
+      value: Moomoo
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.8027055
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.5618458
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593845126587767671, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db51e990dbc53af419e29b678b2f727a, type: 3}
 --- !u!1 &382202213
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,16 +448,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d5351a1b5fe7648b855bf91abb340a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingTextPrefab: {fileID: 0}
   MaxHP:
     _baseValue: 0
   MaxAP:
     _baseValue: 5
+  speed: 0
   Attack:
     _baseValue: 0
   Defense:
     _baseValue: 0
-  posX: 0
-  posY: 0
+  isMoving: 0
+  _currentAlly: 0
+  keroImage: {fileID: 0}
+  boonImage: {fileID: 0}
+  pattoImage: {fileID: 0}
 --- !u!1 &693028442
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,14 +724,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxX: 5
   maxY: 5
+  gridCellScale: 1
   defaultGridMat: {fileID: 2100000, guid: d9ebc76ec51d7a649acfb42668bd54db, type: 2}
   notWalkableGridMat: {fileID: 2100000, guid: e022a9af814716c4e83876b977e36b99, type: 2}
   enemyGridMat: {fileID: 2100000, guid: 2405ca9af870e4c44943bcfcb578b68c, type: 2}
+  selectedEnemyGridMat: {fileID: 0}
   selectedGridMat: {fileID: 2100000, guid: 1343a48b000c41e43b13c92e2eb5833d, type: 2}
   pathGridMat: {fileID: 2100000, guid: 73c9bf0361083334d87b5482edd9cffd, type: 2}
   redPathGridMat: {fileID: 2100000, guid: 4f7e1e6f05242794c836f323a81485a3, type: 2}
   gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77, type: 3}
-  enemyPrefab: {fileID: 2190361485494128904, guid: 373c4ef8a95a91641a23c6dcbb21546c, type: 3}
 --- !u!1 &1061407116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,3 +1623,4 @@ SceneRoots:
   - {fileID: 693028443}
   - {fileID: 1004524765}
   - {fileID: 1788171534}
+  - {fileID: 363923206}
