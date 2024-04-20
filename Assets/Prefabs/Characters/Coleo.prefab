@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2761169512163272771}
   - component: {fileID: 8934945975012035046}
   - component: {fileID: 4285005948251804447}
-  - component: {fileID: 3444706412184123198}
   m_Layer: 0
   m_Name: Coleo
   m_TagString: Enemy
@@ -80,27 +79,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blood: {fileID: 9029403703035310280, guid: 3b1ab10a17c748b41914000fa3f2b3c9, type: 3}
   Greenblood: {fileID: 9029403703035310280, guid: 3b1ab10a17c748b41914000fa3f2b3c9, type: 3}
---- !u!95 &3444706412184123198
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618342834062108138}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 923d1371052bb7048bba8e6632b07f6e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1646713646451418052
 PrefabInstance:
   m_ObjectHideFlags: 0
