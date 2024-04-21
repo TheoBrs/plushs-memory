@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ColorsLib
   m_EditorClassIdentifier: 
   m_Presets:
-  - m_Name: text-primary
+  - m_Name: primary
     m_Color: {r: 0.90588236, g: 0.87058824, b: 0.8117647, a: 1}
-  - m_Name: text-secondary
+  - m_Name: secondary
     m_Color: {r: 0.5058824, g: 0.38039216, b: 0.2901961, a: 1}
+  - m_Name: tertiary
+    m_Color: {r: 0.3803922, g: 0.18823531, b: 0.14117648, a: 1}
