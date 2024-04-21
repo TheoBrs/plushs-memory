@@ -5,6 +5,8 @@ public class CombatGrid : MonoBehaviour
 {
     [SerializeField] int maxX;
     [SerializeField] int maxY;
+    [SerializeField] float offsetX;
+    [SerializeField] float offsetY;
     public float gridCellScale = 1;
 
     [SerializeField] Material defaultGridMat;
@@ -18,6 +20,7 @@ public class CombatGrid : MonoBehaviour
     Cell[,] elements;
     public BattleSceneActions battleSceneActions;
     [SerializeField] GameObject gridPrefab;
+    [SerializeField] GameObject mainCam;
     TurnSystem turnSystem;
     Player _player;
 
@@ -33,19 +36,24 @@ public class CombatGrid : MonoBehaviour
             battleSceneActions.SetupChapter3();
 
         turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
-        
+
+        offsetX *= gridCellScale;
+        offsetY *= gridCellScale;
+        mainCam.transform.position += new Vector3(offsetX * gridCellScale, 0, offsetY * gridCellScale);
+
         SetupGrid();
     }
 
     public void SetupGrid()
     {
+
         elements = new Cell[maxX, maxY];
         for (int y = 0; y < maxY; y++)
         {
             for (int x = 0; x < maxX; x++)
             {
                 Coord coords = Coord.ToWorldCoord(x, y, maxX, maxY);
-                GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.X * gridCellScale, 0.01f, coords.Y * gridCellScale), Quaternion.identity);
+                GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.X * gridCellScale + offsetX * gridCellScale, 0.01f, coords.Y * gridCellScale + offsetY * gridCellScale), Quaternion.identity);
                 newCell.transform.localScale *= gridCellScale;
                 newCell.tag = "GridCell";
                 Cell gridElement = new Cell { Coord = coords, GameObject = newCell };
@@ -109,9 +117,9 @@ public class CombatGrid : MonoBehaviour
     public void AddMoomoo(Coord coord, GameObject moomooPrefabs) 
     {
         Vector3 rotation = new Vector3(0, 0, 0);
-        Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + transform.position, Quaternion.Euler(rotation)).GetComponent<Player>();
+        Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale + offsetX * gridCellScale, 0.01f, coord.Y * gridCellScale + offsetY * gridCellScale), Quaternion.Euler(rotation)).GetComponent<Player>();
         moomoo.CurrentPos = coord;
-        moomoo.transform.position = new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale);
+        moomoo.transform.position = new Vector3(coord.X * gridCellScale + offsetX * gridCellScale, 0.01f, coord.Y * gridCellScale + offsetY * gridCellScale);
         moomoo.speed = moomooPrefabs.GetComponent<Player>().speed;
         _player = moomoo;
         turnSystem.AddMoomoo(_player);
@@ -131,7 +139,8 @@ public class CombatGrid : MonoBehaviour
             }
         }
 
-        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale + (size.X - 1) * gridCellScale / 2, 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2) + transform.position, Quaternion.Euler(rotation));
+        GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale + (size.X - 1) * gridCellScale / 2 + offsetX * gridCellScale
+            , 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2 + offsetY * gridCellScale), Quaternion.Euler(rotation));
 
         enemy.transform.localScale *= Mathf.Sqrt(size.X * size.Y);
         Enemy enemyScript = enemy.GetComponent<Enemy>();
