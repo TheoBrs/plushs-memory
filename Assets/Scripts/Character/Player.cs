@@ -149,7 +149,7 @@ public class Player : Entity
 
         if (CurrentAP - _ability1.Cost >= 0 && canReach)
         {
-            animator.SetTrigger("Damage");
+            animator.SetTrigger("Attack");
             CurrentAP -= _ability1.Cost;
             CheckAP();
             if (_pattoBuff > 0)
@@ -179,7 +179,7 @@ public class Player : Entity
 
         if (CurrentAP - _ability2.Cost >= 0 && canReach)
         {
-            animator.SetTrigger("Damage");
+            animator.SetTrigger("Attack");
             CurrentAP -= _ability2.Cost;
             CheckAP();
             if (_pattoBuff > 0)

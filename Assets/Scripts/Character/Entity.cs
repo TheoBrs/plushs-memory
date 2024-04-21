@@ -66,7 +66,6 @@ public abstract class Entity: MonoBehaviour
                 healthBar.SetHP(CurrentHP);
             IsDead();
             ShowFloatingDamage(damage);
-            animator.SetTrigger("Damage");
         }
         else
         {
@@ -112,6 +111,7 @@ public abstract class Entity: MonoBehaviour
                 if (_pathToTake.Count == 0)
                 {
                     isMoving = false;
+                    animator.SetBool("Move", isMoving);
                 }
             }
             else
@@ -135,6 +135,7 @@ public abstract class Entity: MonoBehaviour
     {
         _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1);
         isMoving = true;
+        animator.SetBool("Move", isMoving);
         pathToTake.Clear();
     }
 
