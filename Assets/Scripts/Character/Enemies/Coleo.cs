@@ -20,13 +20,13 @@ public class Coleo : Enemy
 
     public override void CastAbility1(Entity target)
     {
+        lastAbilityAttack = 1;
         base.CastAbility1(target);
-        animator.SetTrigger("Damage");
     }
     public override void CastAbility2(Entity target)
     {
-        CurrentAP -= _ability2.Cost;
-        target.MaxAP.AddModifier(-1);
+        lastAbilityAttack = 2;
+        base.CastAbility2(target);
         _ability2.RoundsBeforeReuse = 2;
     }
 }

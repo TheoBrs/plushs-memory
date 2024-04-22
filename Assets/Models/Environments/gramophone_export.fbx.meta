@@ -3,7 +3,22 @@ guid: 88cd6d41aad92f54c937520acb59e4d0
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: accessoires1
+    second: {fileID: 2100000, guid: 653eaf14b27661246bc3cd4c6bdf34ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: boite
+    second: {fileID: 2100000, guid: c89c944c9f847b042b3223ef04d3d428, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: corole
+    second: {fileID: 2100000, guid: 28bfafc0809882b428078e707a4abc66, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -48,7 +63,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

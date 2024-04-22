@@ -16,7 +16,7 @@ public class BattleSceneActions : MonoBehaviour
 
     private void Start()
     {
-        animator.SetTrigger("StartFadeOut");
+        //animator.SetTrigger("StartFadeOut");
     }
 
     void SetupAnimation()

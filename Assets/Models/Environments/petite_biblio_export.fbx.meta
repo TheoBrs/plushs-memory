@@ -3,7 +3,22 @@ guid: 77e80ff0a5560bb43ae535e04e67a15b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cover1
+    second: {fileID: -876546973899608171, guid: 80f0edef7ffd8924fbd7eb592311ec4a, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pages2
+    second: {fileID: -876546973899608171, guid: 40ffdadb31602a84387dc82050ebb946, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface40
+    second: {fileID: -876546973899608171, guid: 9ba191edda584634c9ed387b39e1f37f, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -48,7 +63,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

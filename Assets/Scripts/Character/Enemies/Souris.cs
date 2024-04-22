@@ -61,8 +61,8 @@ public class Souris : Enemy
     }
     public override void CastAbility1(Entity target)
     {
+        lastAbilityAttack = 1;
         base.CastAbility1(target);
-        animator.SetTrigger("Damage");
         _ability1.RoundsBeforeReuse = 1;
     }
     public override void CastAbility2(Entity target)

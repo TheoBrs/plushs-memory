@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5566674713529674762}
   - component: {fileID: 2862466944569120020}
   - component: {fileID: 3343842419836314376}
+  - component: {fileID: 8434644989764248924}
   m_Layer: 0
-  m_Name: WeakEnemy
+  m_Name: Mite
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +46,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2190361485494128904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed27f1ada1c715a4a8e83c25dcb559fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3288bbac67010bd4685dadb1bc6aaabd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floatingTextPrefab: {fileID: 7289141583938169690, guid: 14827520fcd18d445871868c9eda3a24, type: 3}
@@ -79,6 +80,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blood: {fileID: 4419980865640383329}
   Greenblood: {fileID: 4419980865640383329}
+--- !u!95 &8434644989764248924
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190361485494128904}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8a1bf5603a590e54abda5025bde53e9b, type: 3}
+  m_Controller: {fileID: 22100000, guid: 248ccb307aaf56e4387c58eaa7f3926a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &531584150562019991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -231,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1422741053769447281, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.636
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1422741053769447281, guid: 644dc70e1f2e2964c89ba7ac40fe0833, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
