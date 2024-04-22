@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Chapter3
   m_EditorClassIdentifier: 
   _label: Chapitre 3
+  _index: 3
   _name: "Les \xC9preuves du Destin"
   _description: "Dans le troisi\xE8me chapitre, Sarah et Aiden affrontent une s\xE9rie
     d'\xE9preuves redoutables alors qu'ils se rapprochent de leur objectif. Leur

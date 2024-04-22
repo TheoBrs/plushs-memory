@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/NeutralZone.unity
     guid: 35f297eef5708254cb249a7699939d4a
   - enabled: 1
-    path: Assets/Scenes/Chapter1.unity
+    path: Assets/Scenes/Chapter/Chapter1.unity
     guid: 32be1906f1d7334429b558243c5b937c
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c08da4cfbc1725741a8ff78a21450d5d, type: 2}
