@@ -21,6 +21,7 @@ public abstract class Entity: MonoBehaviour
     protected Ability _ability2;
     protected bool _invincible = false;
     protected Entity currentTarget;
+    protected int lastAbilityAttack;
 
     [HideInInspector] public bool isMoving = false;
     protected List<Cell> _pathToTake;
@@ -52,14 +53,15 @@ public abstract class Entity: MonoBehaviour
     {
         CurrentAP -= _ability1.Cost;
         animator.SetTrigger("Attack");
-        target.TakeDamage(_ability1.Damage + Attack.GetValue());
     }
 
-    public abstract void CastAbility1Event();
+    public virtual void CastAbility2(Entity target)
+    {
+        CurrentAP -= _ability2.Cost;
+        animator.SetTrigger("Attack");
+    }
 
-    public abstract void CastAbility2(Entity target);
-
-    public abstract void CastAbility2Event();
+    public abstract void AttackEvent();
 
     public void TakeDamage(int damage)
     {

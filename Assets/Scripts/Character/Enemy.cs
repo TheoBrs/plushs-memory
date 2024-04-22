@@ -151,6 +151,17 @@ public abstract class Enemy : Entity, IDataPersistence
         _ability2.RoundsBeforeReuse = Mathf.Clamp(_ability2.RoundsBeforeReuse - 1, 0, 10);
     }
 
+    public override void AttackEvent()
+    {
+        if (lastAbilityAttack == 1)
+        {
+            currentTarget.TakeDamage(_ability1.Damage + Attack.GetValue());
+        }
+        if (lastAbilityAttack == 2)
+        {
+            currentTarget.TakeDamage(_ability2.Damage + Attack.GetValue());
+        }
+    }
     void ChangeState(State newState)
     {
         _currentState = newState;
