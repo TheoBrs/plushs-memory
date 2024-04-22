@@ -3,7 +3,32 @@ guid: e56b9bab528613045a01cb296b278490
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: livre2
+    second: {fileID: -876546973899608171, guid: 9bae58e1cba0b684293492b8f04d4701, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pages1
+    second: {fileID: -876546973899608171, guid: 7b9a256eaf20cc141948dd80d3536a8d, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface21
+    second: {fileID: -876546973899608171, guid: caa7cd8221e8bd645b6f5ca97874cec1, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface22
+    second: {fileID: -876546973899608171, guid: 9bae58e1cba0b684293492b8f04d4701, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface23
+    second: {fileID: -876546973899608171, guid: caa7cd8221e8bd645b6f5ca97874cec1, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -48,7 +73,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

@@ -64,7 +64,8 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
 
     private void SetUpBattle()
     {
-        player.CheckAP();
+        player.ItsTurn = true;
+        player.CheckAP(false);
         currentState = FightPhase.PLAYERTURN;
     }
 
@@ -74,7 +75,8 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         {
             turnText.text = "Tour du joueur";
             player.CurrentAP = player.MaxAP.GetValue();
-            player.CheckAP();
+            player.ItsTurn = true;
+            player.CheckAP(false);
             player.StartOfTurn();
             playerTurnInitalized = true;
             enemyTurnInitalized = false;
@@ -243,6 +245,8 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     }
     public void OnEnemyDeath(Enemy enemy, bool EndBattle)
     {
+        player.entity = null;
+        player.CheckEntity();
         enemies.Remove(enemy);
         if (enemies.Count == 0)
         {
@@ -271,6 +275,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         }
         else
         {
+            player.isAttacking = true;
             player.CastAbility1(entity);
         }
     }
@@ -289,6 +294,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         }
         else
         {
+            player.isAttacking = true;
             player.CastAbility2(entity);
         }
     }
