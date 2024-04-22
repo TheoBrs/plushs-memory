@@ -152,15 +152,23 @@ public class Player : Entity
             animator.SetTrigger("Attack");
             CurrentAP -= _ability1.Cost;
             CheckAP();
-            if (_pattoBuff > 0)
-            {
-                target.TakeDamage((int)Mathf.Ceil((_ability1.Damage + Attack.GetValue()) * 1.5f));
-                _pattoBuff -= 1;
-            }
-            else
-            {
-                target.TakeDamage(_ability1.Damage + Attack.GetValue());
-            }
+            currentTarget = target;
+        }
+        else
+        {
+            currentTarget = null;
+        }
+    }
+    public override void CastAbility1Event()
+    {
+        if (_pattoBuff > 0)
+        {
+            currentTarget.TakeDamage((int)Mathf.Ceil((_ability1.Damage + Attack.GetValue()) * 1.5f));
+            _pattoBuff -= 1;
+        }
+        else
+        {
+            currentTarget.TakeDamage(_ability1.Damage + Attack.GetValue());
         }
     }
 
@@ -191,6 +199,18 @@ public class Player : Entity
             {
                 target.TakeDamage(_ability2.Damage + Attack.GetValue());
             }
+        }
+    }
+    public override void CastAbility2Event()
+    {
+        if (_pattoBuff > 0)
+        {
+            currentTarget.TakeDamage((int)Mathf.Ceil((_ability2.Damage + Attack.GetValue()) * 1.5f));
+            _pattoBuff -= 1;
+        }
+        else
+        {
+            currentTarget.TakeDamage(_ability2.Damage + Attack.GetValue());
         }
     }
 

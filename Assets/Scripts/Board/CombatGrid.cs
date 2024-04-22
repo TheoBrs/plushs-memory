@@ -117,7 +117,6 @@ public class CombatGrid : MonoBehaviour
         Vector3 rotation = new Vector3(0, 0, 0);
         Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + offset, Quaternion.Euler(rotation)).GetComponent<Player>();
         moomoo.CurrentPos = coord;
-        moomoo.transform.position = new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale);
         moomoo.speed = moomooPrefabs.GetComponent<Player>().speed;
         _player = moomoo;
         turnSystem.AddMoomoo(_player);
