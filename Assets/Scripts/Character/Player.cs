@@ -17,7 +17,6 @@ public class Player : Entity
     float height;
     Cell[,] elements;
     List<Cell> path;
-    Entity entity;
     GameObject buttonAbility1;
     GameObject buttonAbility2;
     GameObject buttonFriendlyAbility;
@@ -30,6 +29,7 @@ public class Player : Entity
     public Sprite boonImage;
     public Sprite pattoImage;
     public bool isAttacking = false;
+    public Entity entity;
 
 
     protected override void Awake()

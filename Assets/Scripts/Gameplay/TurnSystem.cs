@@ -245,6 +245,8 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     }
     public void OnEnemyDeath(Enemy enemy, bool EndBattle)
     {
+        player.entity = null;
+        player.CheckEntity();
         enemies.Remove(enemy);
         if (enemies.Count == 0)
         {
