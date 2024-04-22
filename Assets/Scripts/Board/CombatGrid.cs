@@ -18,7 +18,7 @@ public class CombatGrid : MonoBehaviour
     public BattleSceneActions battleSceneActions;
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
-    [SerializeField] GameObject mainCam;
+    [SerializeField] GameObject mainCamPivot;
     TurnSystem turnSystem;
     Player _player;
     Vector3 offset;
@@ -36,8 +36,8 @@ public class CombatGrid : MonoBehaviour
 
         turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
 
-        offset = transform.position * gridCellScale;
-        mainCam.transform.position += offset;
+        offset = transform.position;
+        mainCamPivot.transform.position += offset;
 
         SetupGrid();
     }

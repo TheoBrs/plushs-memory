@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.7, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.05, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1322066800647028515}
   - {fileID: 161418942332825519}
@@ -59,8 +59,8 @@ MonoBehaviour:
     _baseValue: 0
   Defense:
     _baseValue: 0
-  isMoving: 0
   ItsTurn: 0
+  isMoving: 0
   cannotMove: 1
   causeEndOfBattle: 1
   justSpawned: 0

@@ -154,10 +154,12 @@ public abstract class Enemy : Entity, IDataPersistence
     {
         if (lastAbilityAttack == 1)
         {
+            SFXplayer.Play(false);
             currentTarget.TakeDamage(_ability1.Damage + Attack.GetValue());
         }
         if (lastAbilityAttack == 2)
         {
+            SFXplayer.Play(true);
             currentTarget.TakeDamage(_ability2.Damage + Attack.GetValue());
         }
     }

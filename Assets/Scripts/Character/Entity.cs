@@ -31,6 +31,7 @@ public abstract class Entity: MonoBehaviour
     protected HealthBar healthBar;
     protected TrigerParticule _particuleSysteme;
     protected Animator animator;
+    protected PlayerSFX SFXplayer = new PlayerSFX();
 
 
     protected virtual void Awake()

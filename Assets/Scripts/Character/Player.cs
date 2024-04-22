@@ -185,6 +185,7 @@ public class Player : Entity
     {
         if (lastAbilityAttack == 1)
         {
+            SFXplayer.Play(false);
             if (_pattoBuff > 0)
             {
                 currentTarget.TakeDamage((int)Mathf.Ceil((_ability1.Damage + Attack.GetValue()) * 1.5f));
@@ -198,6 +199,7 @@ public class Player : Entity
 
         if (lastAbilityAttack == 2)
         {
+            SFXplayer.Play(true);
             if (_pattoBuff > 0)
             {
                 currentTarget.TakeDamage((int)Mathf.Ceil((_ability2.Damage + Attack.GetValue()) * 1.5f));
