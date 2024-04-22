@@ -28,11 +28,11 @@ public class CombatGrid : MonoBehaviour
     void Awake()
     {
         // Select chapter somehow
-        if (SceneManager.GetActiveScene().name == "BattleSceneChapter1")
+        if (SceneManager.GetActiveScene().name == "Chapter1")
             battleSceneActions.SetupChapter1();
-        if (SceneManager.GetActiveScene().name == "BattleSceneChapter2")
+        if (SceneManager.GetActiveScene().name == "Chapter2")
             battleSceneActions.SetupChapter2();
-        if (SceneManager.GetActiveScene().name == "BattleSceneChapter3")
+        if (SceneManager.GetActiveScene().name == "Chapter3")
             battleSceneActions.SetupChapter3();
 
         turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
