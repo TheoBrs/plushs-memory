@@ -3,7 +3,12 @@ guid: 3587d5415c07eca4eb84262e9d11db88
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface39
+    second: {fileID: -876546973899608171, guid: 0ab7a7eeb096efb4ab5a1fda83649979, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -48,7 +53,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4593845126587767671}
   - component: {fileID: 5874568958029765040}
   - component: {fileID: 3764064212899648000}
+  - component: {fileID: -6715759269265494301}
   m_Layer: 0
   m_Name: Moomoo
   m_TagString: Player
@@ -76,6 +77,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blood: {fileID: 367490195752116980}
   Greenblood: {fileID: 367490195752116980}
+--- !u!95 &-6715759269265494301
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010920813778250979}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 4f606ffd7df1b5346be2857faea42287, type: 3}
+  m_Controller: {fileID: 22100000, guid: d5bf9b65ae5c20941bbe9f2e65215e8d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7587333380842257227
 PrefabInstance:
   m_ObjectHideFlags: 0

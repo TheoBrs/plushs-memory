@@ -11,6 +11,7 @@ public abstract class Entity: MonoBehaviour
     public float speed;
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
+    [HideInInspector] public bool ItsTurn = false;
 
     public Coord CurrentPos { get; set; }
     public int CurrentHP { get; set; }
@@ -20,6 +21,8 @@ public abstract class Entity: MonoBehaviour
     protected Ability _ability1;
     protected Ability _ability2;
     protected bool _invincible = false;
+    protected Entity currentTarget;
+    protected int lastAbilityAttack;
 
     [HideInInspector] public bool isMoving = false;
     protected List<Cell> _pathToTake;
@@ -50,9 +53,18 @@ public abstract class Entity: MonoBehaviour
     public virtual void CastAbility1(Entity target)
     {
         CurrentAP -= _ability1.Cost;
-        target.TakeDamage(_ability1.Damage + Attack.GetValue());
+        currentTarget = target;
+        animator.SetTrigger("Attack");
     }
-    public abstract void CastAbility2(Entity target);
+
+    public virtual void CastAbility2(Entity target)
+    {
+        CurrentAP -= _ability2.Cost;
+        currentTarget = target;
+        animator.SetTrigger("Attack");
+    }
+
+    public abstract void AttackEvent();
 
     public void TakeDamage(int damage)
     {
@@ -66,7 +78,6 @@ public abstract class Entity: MonoBehaviour
                 healthBar.SetHP(CurrentHP);
             IsDead();
             ShowFloatingDamage(damage);
-            animator.SetTrigger("Damage");
         }
         else
         {
@@ -112,6 +123,7 @@ public abstract class Entity: MonoBehaviour
                 if (_pathToTake.Count == 0)
                 {
                     isMoving = false;
+                    animator.SetBool("Move", isMoving);
                 }
             }
             else
@@ -135,6 +147,7 @@ public abstract class Entity: MonoBehaviour
     {
         _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1);
         isMoving = true;
+        animator.SetBool("Move", isMoving);
         pathToTake.Clear();
     }
 
