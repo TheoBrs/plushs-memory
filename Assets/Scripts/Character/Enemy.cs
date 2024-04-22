@@ -13,7 +13,6 @@ public enum State
 public abstract class Enemy : Entity, IDataPersistence
 {
     private State _currentState;
-    public bool ItsTurn = false;
     public bool cannotMove = false;
     public bool causeEndOfBattle = false;
     public bool justSpawned;

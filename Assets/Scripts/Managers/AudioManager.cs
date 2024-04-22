@@ -35,8 +35,10 @@ public class AudioManager : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        _musicSlider.value = _musicVolume;
-        _sfxSlider.value = _sfxVolume;
+        if (_musicSlider != null)
+            _musicSlider.value = _musicVolume;
+        if (_sfxSlider != null)
+            _sfxSlider.value = _sfxVolume;
 
         musicSource.mute = _isMusicMuted;
         sfxSource.mute = _isSfxMuted;

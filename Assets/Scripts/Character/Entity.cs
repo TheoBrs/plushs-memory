@@ -11,6 +11,7 @@ public abstract class Entity: MonoBehaviour
     public float speed;
     [HideInInspector] public Stat Attack;
     [HideInInspector] public Stat Defense;
+    [HideInInspector] public bool ItsTurn = false;
 
     public Coord CurrentPos { get; set; }
     public int CurrentHP { get; set; }

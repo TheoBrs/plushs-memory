@@ -64,7 +64,8 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
 
     private void SetUpBattle()
     {
-        player.CheckAP();
+        player.ItsTurn = true;
+        player.CheckAP(false);
         currentState = FightPhase.PLAYERTURN;
     }
 
@@ -74,7 +75,8 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         {
             turnText.text = "Tour du joueur";
             player.CurrentAP = player.MaxAP.GetValue();
-            player.CheckAP();
+            player.ItsTurn = true;
+            player.CheckAP(false);
             player.StartOfTurn();
             playerTurnInitalized = true;
             enemyTurnInitalized = false;

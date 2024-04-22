@@ -123,7 +123,7 @@ public class Player : Entity
         _fAbility2 = new Ability();
         _fAbility3 = new Ability();
 
-        _ability1.Damage = 1;
+        _ability1.Damage = 100;
         _ability1.Cost = 1;
 
         _ability2.Damage = 3;
@@ -151,7 +151,7 @@ public class Player : Entity
         {
             animator.SetTrigger("Attack");
             CurrentAP -= _ability1.Cost;
-            CheckAP();
+            CheckAP(true);
             lastAbilityAttack = 1;
             currentTarget = target;
         }
@@ -174,11 +174,12 @@ public class Player : Entity
         {
             animator.SetTrigger("Attack");
             CurrentAP -= _ability2.Cost;
-            CheckAP();
+            CheckAP(true);
             lastAbilityAttack = 2;
             currentTarget = target;
         }
     }
+
     public override void AttackEvent()
     {
         if (lastAbilityAttack == 1)
@@ -206,6 +207,7 @@ public class Player : Entity
                 currentTarget.TakeDamage(_ability2.Damage + Attack.GetValue());
             }
         }
+        CheckAP(false);
     }
 
     public void FriendAbilityButton()
@@ -291,7 +293,8 @@ public class Player : Entity
             }
             if (Input.touchCount == 1)
             {
-                HandleOneTouch();
+                if (ItsTurn)
+                    HandleOneTouch();
             }
             else if (Input.touchCount == 2)
             {
@@ -470,7 +473,7 @@ public class Player : Entity
         {
             buttonAbility1.GetComponent<Image>().enabled = true;
             buttonAbility2.GetComponent<Image>().enabled = true;
-            CheckAP();
+            CheckAP(false);
         }
         else
         {
@@ -479,9 +482,9 @@ public class Player : Entity
         }
     }
 
-    public void CheckAP()
+    public void CheckAP(bool hide)
     {
-        if (CurrentAP < _ability1.Cost)
+        if (CurrentAP < _ability1.Cost || hide)
         {
             buttonAbility1.GetComponent<Image>().color = buttonAbility1.GetComponent<Button>().colors.disabledColor;
             buttonAbility1.GetComponent<Button>().enabled = false;
@@ -492,7 +495,7 @@ public class Player : Entity
             buttonAbility1.GetComponent<Button>().enabled = true;
         }
 
-        if (CurrentAP < _ability2.Cost)
+        if (CurrentAP < _ability2.Cost || hide)
         {
             buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.disabledColor;
             buttonAbility2.GetComponent<Button>().enabled = false;
@@ -512,7 +515,7 @@ public class Player : Entity
             return;
 
         CurrentAP -= path.Count - 1;
-        CheckAP();
+        CheckAP(true);
         grid.RefreshGridMat();
         Move(path);
         CurrentPos = selectedGridCell.Coord;
@@ -540,6 +543,7 @@ public class Player : Entity
             selectedGridCell.IsSelected = false;
         if (selectedEnemyGridCell != null)
             selectedEnemyGridCell.IsSelected = false;
+        ItsTurn = false;
         entity = null;
         path?.Clear();
         CheckEntity();
