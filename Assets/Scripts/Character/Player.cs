@@ -29,6 +29,7 @@ public class Player : Entity
     public Sprite keroImage;
     public Sprite boonImage;
     public Sprite pattoImage;
+    public bool isAttacking = false;
 
 
     protected override void Awake()
@@ -208,6 +209,7 @@ public class Player : Entity
             }
         }
         CheckAP(false);
+        isAttacking = false;
     }
 
     public void FriendAbilityButton()
@@ -293,7 +295,7 @@ public class Player : Entity
             }
             if (Input.touchCount == 1)
             {
-                if (ItsTurn)
+                if (ItsTurn && !isAttacking)
                     HandleOneTouch();
             }
             else if (Input.touchCount == 2)

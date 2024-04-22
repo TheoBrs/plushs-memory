@@ -273,6 +273,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         }
         else
         {
+            player.isAttacking = true;
             player.CastAbility1(entity);
         }
     }
@@ -291,6 +292,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         }
         else
         {
+            player.isAttacking = true;
             player.CastAbility2(entity);
         }
     }
