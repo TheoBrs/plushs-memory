@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +23,16 @@ public class CombatGrid : MonoBehaviour
     TurnSystem turnSystem;
     Player _player;
     Vector3 offset;
+    [SerializeField] private DialogueChannel _dialogueChannel;
+    [SerializeField] private Dialogue _dialogue0;
+    [SerializeField] private Dialogue _dialogue1;
+    [SerializeField] private Dialogue _dialogue2;
+    [SerializeField] private Dialogue _dialogue3;
+    [SerializeField] private Dialogue _dialogue4;
+    [SerializeField] private Dialogue _dialogue5;
+    [SerializeField] private Dialogue _dialogue6;
+    [SerializeField] private Dialogue _dialogue7;
+    [SerializeField] private GameObject _dialogueBox;
 
     //creation de la grille de Combat
     void Awake()
@@ -40,6 +51,33 @@ public class CombatGrid : MonoBehaviour
         mainCamPivot.transform.position += offset;
 
         SetupGrid();
+
+    }
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "Chapter1")
+            SetupChapter1();
+        if (SceneManager.GetActiveScene().name == "Chapter2")
+            SetupChapter2();
+        if (SceneManager.GetActiveScene().name == "Chapter3")
+            SetupChapter3();
+    }
+
+    void SetupChapter1()
+    {
+        _dialogueBox.SetActive(true); // NANIIIIIIIIII ????
+        _dialogueChannel.RaiseRequestDialogue(_dialogue0);
+    }
+
+    void SetupChapter2()
+    {
+        _dialogueBox.SetActive(true);
+    }
+
+    void SetupChapter3()
+    {
+        _dialogueBox.SetActive(true);
     }
 
     public void SetupGrid()
@@ -99,6 +137,7 @@ public class CombatGrid : MonoBehaviour
                 cell.SetGameObjectMaterial(GetDefaultGridMat());
         }
     }
+    
     public bool AddObstacle(Coord coord, GameObject obstacle)
     {
         int x = coord.X;
