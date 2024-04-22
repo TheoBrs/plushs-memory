@@ -155,10 +155,6 @@ public class Player : Entity
             lastAbilityAttack = 1;
             currentTarget = target;
         }
-        else
-        {
-            currentTarget = null;
-        }
     }
 
     public override void CastAbility2(Entity target)
@@ -181,10 +177,6 @@ public class Player : Entity
             CheckAP();
             lastAbilityAttack = 2;
             currentTarget = target;
-        }
-        else
-        {
-            currentTarget = null;
         }
     }
     public override void AttackEvent()

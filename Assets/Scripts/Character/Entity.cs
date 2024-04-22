@@ -52,12 +52,14 @@ public abstract class Entity: MonoBehaviour
     public virtual void CastAbility1(Entity target)
     {
         CurrentAP -= _ability1.Cost;
+        currentTarget = target;
         animator.SetTrigger("Attack");
     }
 
     public virtual void CastAbility2(Entity target)
     {
         CurrentAP -= _ability2.Cost;
+        currentTarget = target;
         animator.SetTrigger("Attack");
     }
 
