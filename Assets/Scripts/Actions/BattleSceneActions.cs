@@ -5,25 +5,20 @@ public class BattleSceneActions : MonoBehaviour
 {
     public BattlePlacement nextBattlePlacement = new BattlePlacement();
     public BattlePlacement originalPlacement = new BattlePlacement();
-    [SerializeField] Animator animator;
-    [SerializeField] GameObject mitePrefab;
-    [SerializeField] GameObject coleoPrefab;
-    [SerializeField] GameObject sourisPrefab;
-    [SerializeField] GameObject moomooPrefab;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject _mitePrefab;
+    [SerializeField] private GameObject _coleoPrefab;
+    [SerializeField] private GameObject _sourisPrefab;
+    [SerializeField] private GameObject _moomooPrefab;
 
-    List<(Coord, GameObject, Vector3, Coord, bool)> enemyList = new List<(Coord coord, GameObject prefab, Vector3 rotation, Coord size, bool causeEndOfBattle)>();
-    List<(Coord, GameObject)> obstacleList = new List<(Coord coord, GameObject prefab)>();
-
-    private void Start()
-    {
-        //animator.SetTrigger("StartFadeOut");
-    }
+    List<(Coord, GameObject, Vector3, Coord, bool)> _enemyList = new List<(Coord coord, GameObject prefab, Vector3 rotation, Coord size, bool causeEndOfBattle)>();
+    List<(Coord, GameObject)> _obstacleList = new List<(Coord coord, GameObject prefab)>();
 
     void SetupAnimation()
     {
         AnimationScripts.currentScene = AnimationScripts.Scenes.Menu;
         AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
-        animator.SetTrigger("StartFadeIn");
+        _animator.SetTrigger("StartFadeIn");
     }
 
     public void SetupChapter1()
@@ -32,28 +27,28 @@ public class BattleSceneActions : MonoBehaviour
         BattlePlacement wave = nextBattlePlacement;
         wave.ClearBattlePlacement();
 
-        enemyList.Clear();
-        enemyList.Add((new Coord(2, 1), mitePrefab, rotation, new Coord(1, 1), true));
-        enemyList.Add((new Coord(2, -1), mitePrefab, rotation, new Coord(1, 1), true));
-        wave.AddEnemy(enemyList);
-        wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
+        _enemyList.Clear();
+        _enemyList.Add((new Coord(2, 1), _mitePrefab, rotation, new Coord(1, 1), true));
+        _enemyList.Add((new Coord(2, -1), _mitePrefab, rotation, new Coord(1, 1), true));
+        wave.AddEnemy(_enemyList);
+        wave.AddMoomoo((new Coord(-2, 0), _moomooPrefab));
 
         wave.nextWave = new BattlePlacement();
         wave = wave.nextWave;
-        enemyList.Clear();
-        enemyList.Add((new Coord(2, 1), mitePrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(2, -1), mitePrefab, rotation, new Coord(1, 1), false));
-        wave.AddEnemy(enemyList);
-        wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
+        _enemyList.Clear();
+        _enemyList.Add((new Coord(2, 1), _mitePrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(2, -1), _mitePrefab, rotation, new Coord(1, 1), false));
+        wave.AddEnemy(_enemyList);
+        wave.AddMoomoo((new Coord(-2, 0), _moomooPrefab));
 
         wave.nextWave = new BattlePlacement();
         wave = wave.nextWave;
-        enemyList.Clear();
-        enemyList.Add((new Coord(2, 2), mitePrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(2, 0), mitePrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(2, -2), mitePrefab, rotation, new Coord(1, 1), false));
-        wave.AddEnemy(enemyList);
-        wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
+        _enemyList.Clear();
+        _enemyList.Add((new Coord(2, 2), _mitePrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(2, 0), _mitePrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(2, -2), _mitePrefab, rotation, new Coord(1, 1), false));
+        wave.AddEnemy(_enemyList);
+        wave.AddMoomoo((new Coord(-2, 0), _moomooPrefab));
 
         originalPlacement = nextBattlePlacement;
     }
@@ -63,22 +58,22 @@ public class BattleSceneActions : MonoBehaviour
         BattlePlacement wave = nextBattlePlacement;
         wave.ClearBattlePlacement();
 
-        enemyList.Clear();
-        enemyList.Add((new Coord(2, 2), mitePrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(2, 0), coleoPrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(2, -2), mitePrefab, rotation, new Coord(1, 1), false));
-        wave.AddEnemy(enemyList);
-        wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
+        _enemyList.Clear();
+        _enemyList.Add((new Coord(2, 2), _mitePrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(2, 0), _coleoPrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(2, -2), _mitePrefab, rotation, new Coord(1, 1), false));
+        wave.AddEnemy(_enemyList);
+        wave.AddMoomoo((new Coord(-2, 0), _moomooPrefab));
 
         wave.nextWave = new BattlePlacement();
         wave = wave.nextWave;
-        enemyList.Clear();
-        enemyList.Add((new Coord(2, 2), mitePrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(2, 1), coleoPrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(2, -1), coleoPrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(2, -2), mitePrefab, rotation, new Coord(1, 1), false));
-        wave.AddEnemy(enemyList);
-        wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
+        _enemyList.Clear();
+        _enemyList.Add((new Coord(2, 2), _mitePrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(2, 1), _coleoPrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(2, -1), _coleoPrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(2, -2), _mitePrefab, rotation, new Coord(1, 1), false));
+        wave.AddEnemy(_enemyList);
+        wave.AddMoomoo((new Coord(-2, 0), _moomooPrefab));
 
         originalPlacement = nextBattlePlacement;
     }
@@ -88,12 +83,12 @@ public class BattleSceneActions : MonoBehaviour
         BattlePlacement wave = nextBattlePlacement;
         wave.ClearBattlePlacement();
 
-        enemyList.Clear();
-        enemyList.Add((new Coord(1, 2), mitePrefab, rotation, new Coord(1, 1), false));
-        enemyList.Add((new Coord(1, 0), sourisPrefab, rotation, new Coord(2, 2), true));
-        enemyList.Add((new Coord(1, -1), mitePrefab, rotation, new Coord(1, 1), false));
-        wave.AddEnemy(enemyList);
-        wave.AddMoomoo((new Coord(-2, 0), moomooPrefab));
+        _enemyList.Clear();
+        _enemyList.Add((new Coord(1, 2), _mitePrefab, rotation, new Coord(1, 1), false));
+        _enemyList.Add((new Coord(1, 0), _sourisPrefab, rotation, new Coord(2, 2), true));
+        _enemyList.Add((new Coord(1, -1), _mitePrefab, rotation, new Coord(1, 1), false));
+        wave.AddEnemy(_enemyList);
+        wave.AddMoomoo((new Coord(-2, 0), _moomooPrefab));
 
         originalPlacement = nextBattlePlacement;
     }

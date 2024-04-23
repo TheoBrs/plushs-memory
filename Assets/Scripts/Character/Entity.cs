@@ -9,36 +9,36 @@ public abstract class Entity: MonoBehaviour
     public Stat MaxHP;
     public Stat MaxAP;
     public float speed;
-    [HideInInspector] public Stat Attack;
-    [HideInInspector] public Stat Defense;
-    [HideInInspector] public bool IsTurn = false;
 
-    public Coord CurrentPos { get; set; }
-    public int CurrentHP { get; set; }
-    public int CurrentAP { get; set; }
-    public Coord Size { get; set; }
 
     protected Ability _ability1;
     protected Ability _ability2;
     protected bool _invincible = false;
-    protected Entity currentTarget;
-    protected int lastAbilityAttack;
-
-    [HideInInspector] public bool isMoving = false;
+    protected Entity _currentTarget;
+    protected int _lastAbilityAttack;
     protected List<Cell> _pathToTake;
-    public List<Cell> occupiedCells = new List<Cell>();
-    protected CombatGrid grid;
-    protected HealthBar healthBar;
+    protected CombatGrid _grid;
+    protected HealthBar _healthBar;
     protected TrigerParticule _particuleSysteme;
-    protected Animator animator;
-    protected PlayerSFX SFXplayer = new PlayerSFX();
+    protected Animator _animator;
+    protected PlayerSFX _SFXplayer = new PlayerSFX();
+
+    [HideInInspector] public Stat Attack;
+    [HideInInspector] public Stat Defense;
+    [HideInInspector] public bool IsTurn = false;
+    [HideInInspector] public bool isMoving = false;
+    [HideInInspector] public List<Cell> occupiedCells = new List<Cell>();
+    [HideInInspector] public Coord CurrentPos { get; set; }
+    [HideInInspector] public int CurrentHP { get; set; }
+    [HideInInspector] public int CurrentAP { get; set; }
+    [HideInInspector] public Coord Size { get; set; }
 
 
     protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _particuleSysteme = GetComponent<TrigerParticule>();
-        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+        _grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
 
         CurrentHP = MaxHP.GetValue();
         CurrentAP = MaxAP.GetValue();
@@ -54,15 +54,15 @@ public abstract class Entity: MonoBehaviour
     public virtual void CastAbility1(Entity target)
     {
         CurrentAP -= _ability1.Cost;
-        currentTarget = target;
-        animator.SetTrigger("Attack");
+        _currentTarget = target;
+        _animator.SetTrigger("Attack");
     }
 
     public virtual void CastAbility2(Entity target)
     {
         CurrentAP -= _ability2.Cost;
-        currentTarget = target;
-        animator.SetTrigger("Attack");
+        _currentTarget = target;
+        _animator.SetTrigger("Attack");
     }
 
     public abstract void AttackEvent();
@@ -75,8 +75,8 @@ public abstract class Entity: MonoBehaviour
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
             CurrentHP -= damage;
             CurrentHP = Mathf.Clamp(CurrentHP, 0, int.MaxValue);
-            if (healthBar != null)
-                healthBar.SetHP(CurrentHP);
+            if (_healthBar != null)
+                _healthBar.SetHP(CurrentHP);
             IsDead();
             ShowFloatingDamage(damage);
         }
@@ -124,7 +124,7 @@ public abstract class Entity: MonoBehaviour
                 if (_pathToTake.Count == 0)
                 {
                     isMoving = false;
-                    animator.SetBool("Move", isMoving);
+                    _animator.SetBool("Move", isMoving);
                 }
             }
             else
@@ -148,7 +148,7 @@ public abstract class Entity: MonoBehaviour
     {
         _pathToTake = pathToTake.GetRange(1, pathToTake.Count - 1);
         isMoving = true;
-        animator.SetBool("Move", isMoving);
+        _animator.SetBool("Move", isMoving);
         pathToTake.Clear();
     }
 

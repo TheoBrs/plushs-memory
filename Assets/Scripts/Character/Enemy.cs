@@ -12,22 +12,23 @@ public enum State
 
 public abstract class Enemy : Entity, IDataPersistence
 {
-    private State _currentState;
     public bool cannotMove = false;
     public bool causeEndOfBattle = false;
     public bool justSpawned;
     public string _name = "Enemy";
     public bool ability2IsntAttack = false;
-    int miteKillCount;
-    int coleoptereKillCount;
+
+    private State _currentState;
+    private int _miteKillCount;
+    private int _coleoptereKillCount;
 
     protected override void Awake()
     {
         base.Awake();
         _currentState = State.WaitForTurn;
 
-        healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
-        healthBar.SetMaxHP(MaxHP.GetValue());
+        _healthBar = ToolBox.GetChildWithTag(gameObject.transform, "HealthBar").GetComponent<HealthBar>();
+        _healthBar.SetMaxHP(MaxHP.GetValue());
     }
 
     protected virtual void Update()
@@ -95,14 +96,14 @@ public abstract class Enemy : Entity, IDataPersistence
                 Coord nextPos = _pathToPlayer.Last().Coord;
 
                 Move(_pathToPlayer);
-                grid.GetGridCell(CurrentPos.X, CurrentPos.Y).HasEnemy = false;
-                grid.GetGridCell(nextPos.X, nextPos.Y).HasEnemy = true;
-                grid.GetGridCell(nextPos.X, nextPos.Y).Entity = grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
-                grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
+                _grid.GetGridCell(CurrentPos.X, CurrentPos.Y).HasEnemy = false;
+                _grid.GetGridCell(nextPos.X, nextPos.Y).HasEnemy = true;
+                _grid.GetGridCell(nextPos.X, nextPos.Y).Entity = _grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity;
+                _grid.GetGridCell(CurrentPos.X, CurrentPos.Y).Entity = null;
                 CurrentPos = nextPos;
                 occupiedCells.Clear();
-                occupiedCells.Add(grid.GetGridCell(nextPos.X, nextPos.Y));
-                grid.RefreshGridMat();
+                occupiedCells.Add(_grid.GetGridCell(nextPos.X, nextPos.Y));
+                _grid.RefreshGridMat();
             }
         }
         return !isMoving;
@@ -114,7 +115,7 @@ public abstract class Enemy : Entity, IDataPersistence
     {
         Player _player = FindObjectOfType<Player>();
 
-        if ((_player.transform.position - transform.position).magnitude == 1 * grid.gridCellScale)
+        if ((_player.transform.position - transform.position).magnitude == 1 * _grid.gridCellScale)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
             if (directeur.x > 0)
@@ -152,15 +153,15 @@ public abstract class Enemy : Entity, IDataPersistence
 
     public override void AttackEvent()
     {
-        if (lastAbilityAttack == 1)
+        if (_lastAbilityAttack == 1)
         {
-            SFXplayer.Play(false);
-            currentTarget.TakeDamage(_ability1.Damage + Attack.GetValue());
+            _SFXplayer.Play(false);
+            _currentTarget.TakeDamage(_ability1.Damage + Attack.GetValue());
         }
-        if (lastAbilityAttack == 2)
+        if (_lastAbilityAttack == 2)
         {
-            SFXplayer.Play(true);
-            currentTarget.TakeDamage(_ability2.Damage + Attack.GetValue());
+            _SFXplayer.Play(true);
+            _currentTarget.TakeDamage(_ability2.Damage + Attack.GetValue());
         }
     }
     void ChangeState(State newState)
@@ -170,14 +171,14 @@ public abstract class Enemy : Entity, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        data.miteKillCount = miteKillCount;
-        data.coleoptereKillCount = coleoptereKillCount;
+        data.miteKillCount = _miteKillCount;
+        data.coleoptereKillCount = _coleoptereKillCount;
     }
 
     public void LoadData(GameData data)
     {
-        miteKillCount = data.miteKillCount;
-        coleoptereKillCount = data.coleoptereKillCount;
+        _miteKillCount = data.miteKillCount;
+        _coleoptereKillCount = data.coleoptereKillCount;
     }
 
     public override void Death()
@@ -186,11 +187,11 @@ public abstract class Enemy : Entity, IDataPersistence
         {
             if (this is Mite)
             {
-                miteKillCount++;
+                _miteKillCount++;
             }
             if (this is Coleo)
             {
-                coleoptereKillCount++;
+                _coleoptereKillCount++;
             }
         }
 
@@ -201,7 +202,7 @@ public abstract class Enemy : Entity, IDataPersistence
         // You should remove yourself
         foreach (Cell cell in occupiedCells)
         {
-            cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+            cell.SetGameObjectMaterial(_grid.GetDefaultGridMat());
             cell.HasEnemy = false;
             cell.Entity = null;
         }

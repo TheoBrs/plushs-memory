@@ -5,29 +5,32 @@ using UnityEngine.UI;
 
 public class Player : Entity
 {
+    [Header("Ally")]
     public int _currentAlly;
-    int _previousAlly;
-    Ability _fAbility1;
-    Ability _fAbility2;
-    Ability _fAbility3;
-    int _pattoBuff = 0;
-    Cell selectedGridCell;
-    Cell selectedEnemyGridCell;
-    float width;
-    float height;
-    Cell[,] elements;
-    List<Cell> path;
-    GameObject buttonAbility1;
-    GameObject buttonAbility2;
-    GameObject buttonFriendlyAbility;
-    GameObject MoveButton;
-    GameObject EndTurnButton;
-    bool movingButtonDisabled = false;
-    GameObject playerAP;
-    Image allyImage;
     public Sprite keroImage;
     public Sprite boonImage;
     public Sprite pattoImage;
+
+
+    private int _previousAlly;
+    private Ability _fAbility1;
+    private Ability _fAbility2;
+    private Ability _fAbility3;
+    private int _pattoBuff = 0;
+    private Cell _selectedGridCell;
+    private Cell _selectedEnemyGridCell;
+    private float _width;
+    private float _height;
+    private Cell[,] _elements;
+    private List<Cell> _path;
+    private GameObject _buttonAbility1;
+    private GameObject _buttonAbility2;
+    private GameObject _buttonFriendlyAbility;
+    private GameObject _MoveButton;
+    private GameObject _EndTurnButton;
+    private bool _movingButtonDisabled = false;
+    private GameObject _playerAP;
+    private Image _allyImage;
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public Entity entity;
 
@@ -35,20 +38,20 @@ public class Player : Entity
     protected override void Awake()
     {
         base.Awake();
-        buttonAbility1 = GameObject.FindWithTag("Ability1");
-        buttonAbility2 = GameObject.FindWithTag("Ability2");
-        buttonFriendlyAbility = GameObject.FindWithTag("FriendlyAbility");
-        MoveButton = GameObject.FindWithTag("MoveButton");
-        EndTurnButton = GameObject.FindWithTag("EndTurnButton");
-        playerAP = GameObject.FindWithTag("PlayerAPText");
-        width = Screen.width / 2.0f;
-        height = Screen.height / 2.0f;
-        elements = grid.GetGridCells();
+        _buttonAbility1 = GameObject.FindWithTag("Ability1");
+        _buttonAbility2 = GameObject.FindWithTag("Ability2");
+        _buttonFriendlyAbility = GameObject.FindWithTag("FriendlyAbility");
+        _MoveButton = GameObject.FindWithTag("MoveButton");
+        _EndTurnButton = GameObject.FindWithTag("EndTurnButton");
+        _playerAP = GameObject.FindWithTag("PlayerAPText");
+        _width = Screen.width / 2.0f;
+        _height = Screen.height / 2.0f;
+        _elements = _grid.GetGridCells();
         CheckEntity();
         SetupAllyPassives();
-        healthBar = ToolBox.GetChildWithTag(GameObject.FindWithTag("PlayerHPText").transform, "HealthBar").GetComponent<HealthBar>();
-        if (healthBar)
-            healthBar.SetMaxHP(MaxHP.GetValue());
+        _healthBar = ToolBox.GetChildWithTag(GameObject.FindWithTag("PlayerHPText").transform, "HealthBar").GetComponent<HealthBar>();
+        if (_healthBar)
+            _healthBar.SetMaxHP(MaxHP.GetValue());
 
         // !!!!!!!! Need Equipment Manager !!!!!!!!
         // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
@@ -71,31 +74,31 @@ public class Player : Entity
         }
         else
         {
-            buttonFriendlyAbility.GetComponent<Image>().enabled = true;
-            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            _buttonFriendlyAbility.GetComponent<Image>().enabled = true;
+            _buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = true;
         }
         _previousAlly = _currentAlly;
 
         if (_currentAlly == 1)
         {
-            allyImage.sprite = keroImage;
+            _allyImage.sprite = keroImage;
             MaxHP.AddModifier(3);
             CurrentHP = MaxHP.GetValue();
         }
         else if (_currentAlly == 2)
         {
-            allyImage.sprite = boonImage;
+            _allyImage.sprite = boonImage;
             Defense.AddModifier(1);
         }
         else if (_currentAlly == 3)
         {
-            allyImage.sprite = pattoImage;
+            _allyImage.sprite = pattoImage;
             Attack.AddModifier(1);
         }
         else
         {
-            buttonFriendlyAbility.GetComponent<Image>().enabled = false;
-            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            _buttonFriendlyAbility.GetComponent<Image>().enabled = false;
+            _buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
         }
     }
 
@@ -154,11 +157,11 @@ public class Player : Entity
 
         if (CurrentAP - _ability1.Cost >= 0 && canReach)
         {
-            animator.SetTrigger("Attack");
+            _animator.SetTrigger("Attack");
             CurrentAP -= _ability1.Cost;
             CheckAP(true);
-            lastAbilityAttack = 1;
-            currentTarget = target;
+            _lastAbilityAttack = 1;
+            _currentTarget = target;
         }
     }
 
@@ -177,41 +180,41 @@ public class Player : Entity
 
         if (CurrentAP - _ability2.Cost >= 0 && canReach)
         {
-            animator.SetTrigger("Attack");
+            _animator.SetTrigger("Attack");
             CurrentAP -= _ability2.Cost;
             CheckAP(true);
-            lastAbilityAttack = 2;
-            currentTarget = target;
+            _lastAbilityAttack = 2;
+            _currentTarget = target;
         }
     }
 
     public override void AttackEvent()
     {
-        if (lastAbilityAttack == 1)
+        if (_lastAbilityAttack == 1)
         {
-            SFXplayer.Play(false);
+            _SFXplayer.Play(false);
             if (_pattoBuff > 0)
             {
-                currentTarget.TakeDamage((int)Mathf.Ceil((_ability1.Damage + Attack.GetValue()) * 1.5f));
+                _currentTarget.TakeDamage((int)Mathf.Ceil((_ability1.Damage + Attack.GetValue()) * 1.5f));
                 _pattoBuff -= 1;
             }
             else
             {
-                currentTarget.TakeDamage(_ability1.Damage + Attack.GetValue());
+                _currentTarget.TakeDamage(_ability1.Damage + Attack.GetValue());
             }
         }
 
-        if (lastAbilityAttack == 2)
+        if (_lastAbilityAttack == 2)
         {
-            SFXplayer.Play(true);
+            _SFXplayer.Play(true);
             if (_pattoBuff > 0)
             {
-                currentTarget.TakeDamage((int)Mathf.Ceil((_ability2.Damage + Attack.GetValue()) * 1.5f));
+                _currentTarget.TakeDamage((int)Mathf.Ceil((_ability2.Damage + Attack.GetValue()) * 1.5f));
                 _pattoBuff -= 1;
             }
             else
             {
-                currentTarget.TakeDamage(_ability2.Damage + Attack.GetValue());
+                _currentTarget.TakeDamage(_ability2.Damage + Attack.GetValue());
             }
         }
         CheckAP(false);
@@ -243,10 +246,10 @@ public class Player : Entity
         if (_fAbility1.RoundsBeforeReuse == 0)
         {
             CurrentHP = Mathf.Clamp(CurrentHP + 5, 0, MaxHP.GetValue());
-            healthBar.SetHP(CurrentHP);
+            _healthBar.SetHP(CurrentHP);
             _fAbility1.RoundsBeforeReuse = 2;
-            buttonFriendlyAbility.GetComponent<Image>().enabled = false;
-            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            _buttonFriendlyAbility.GetComponent<Image>().enabled = false;
+            _buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
         }
     }
 
@@ -256,8 +259,8 @@ public class Player : Entity
         {
             _invincible = true;
             _fAbility2.RoundsBeforeReuse = 3;
-            buttonFriendlyAbility.GetComponent<Image>().enabled = false;
-            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            _buttonFriendlyAbility.GetComponent<Image>().enabled = false;
+            _buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
         }
     }
 
@@ -267,8 +270,8 @@ public class Player : Entity
         {
             _pattoBuff = 2;
             _fAbility3.RoundsBeforeReuse = 4;
-            buttonFriendlyAbility.GetComponent<Image>().enabled = false;
-            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            _buttonFriendlyAbility.GetComponent<Image>().enabled = false;
+            _buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = false;
         }
     }
 
@@ -276,32 +279,32 @@ public class Player : Entity
     {
         if (isMoving)
         {
-            if (!movingButtonDisabled)
+            if (!_movingButtonDisabled)
             {
-                MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
-                MoveButton.GetComponent<Button>().enabled = false;
-                EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.disabledColor;
-                EndTurnButton.GetComponent<Button>().enabled = false;
-                movingButtonDisabled = true;
+                _MoveButton.GetComponent<Image>().color = _MoveButton.GetComponent<Button>().colors.disabledColor;
+                _MoveButton.GetComponent<Button>().enabled = false;
+                _EndTurnButton.GetComponent<Image>().color = _EndTurnButton.GetComponent<Button>().colors.disabledColor;
+                _EndTurnButton.GetComponent<Button>().enabled = false;
+                _movingButtonDisabled = true;
             }
             MoveOverTime();
         }
         else
         {
-            if (movingButtonDisabled)
+            if (_movingButtonDisabled)
             {
                 if (CurrentAP > 0)
                 {
-                    MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
-                    MoveButton.GetComponent<Button>().enabled = true;
+                    _MoveButton.GetComponent<Image>().color = _MoveButton.GetComponent<Button>().colors.normalColor;
+                    _MoveButton.GetComponent<Button>().enabled = true;
                 }
-                EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.normalColor;
-                EndTurnButton.GetComponent<Button>().enabled = true;
-                movingButtonDisabled = false;
+                _EndTurnButton.GetComponent<Image>().color = _EndTurnButton.GetComponent<Button>().colors.normalColor;
+                _EndTurnButton.GetComponent<Button>().enabled = true;
+                _movingButtonDisabled = false;
             }
             if (Input.touchCount == 1)
             {
-                if (IsTurn && !isAttacking && !grid._dialogueBox.activeSelf)
+                if (IsTurn && !isAttacking && !_grid._dialogueBox.activeSelf)
                     HandleOneTouch();
             }
             else if (Input.touchCount == 2)
@@ -333,70 +336,70 @@ public class Player : Entity
                     return;
 
                 GameObject touchedObject = hitCell.transform.gameObject;
-                if (selectedGridCell != null)
-                    selectedGridCell.IsSelected = false;
-                if (selectedEnemyGridCell != null)
-                    selectedEnemyGridCell.IsSelected = false;
+                if (_selectedGridCell != null)
+                    _selectedGridCell.IsSelected = false;
+                if (_selectedEnemyGridCell != null)
+                    _selectedEnemyGridCell.IsSelected = false;
 
-                elements = grid.GetGridCells();
-                foreach (var gridElement in elements)
+                _elements = _grid.GetGridCells();
+                foreach (var gridElement in _elements)
                 {
                     if (touchedObject == gridElement.GameObject)
                     {
                         if (gridElement.HasObstacle)
                         {
-                            grid.RefreshGridMat();
-                            path?.Clear();
+                            _grid.RefreshGridMat();
+                            _path?.Clear();
                             return;
                         }
 
-                        selectedGridCell = gridElement;
-                        selectedGridCell.IsSelected = true;
+                        _selectedGridCell = gridElement;
+                        _selectedGridCell.IsSelected = true;
                         break;
                     }
                 }
-                if (selectedGridCell.HasEnemy)
+                if (_selectedGridCell.HasEnemy)
                 {
-                    if (CurrentPos.DistanceTo(selectedGridCell.Coord) == 1)
+                    if (CurrentPos.DistanceTo(_selectedGridCell.Coord) == 1)
                     {
-                        selectedEnemyGridCell = selectedGridCell;
-                        entity = selectedEnemyGridCell.Entity;
+                        _selectedEnemyGridCell = _selectedGridCell;
+                        entity = _selectedEnemyGridCell.Entity;
                     }
                     else
                     {
-                        selectedGridCell.IsSelected = false;
+                        _selectedGridCell.IsSelected = false;
                         entity = null;
                     }
                     CheckEntity();
-                    selectedGridCell = null;
-                    grid.RefreshGridMat();
-                    path?.Clear();
+                    _selectedGridCell = null;
+                    _grid.RefreshGridMat();
+                    _path?.Clear();
                     return;
                 }
                 else
                 {
-                    if (selectedEnemyGridCell != null)
+                    if (_selectedEnemyGridCell != null)
                     {
-                        selectedEnemyGridCell.IsSelected = false;
-                        selectedEnemyGridCell = null;
+                        _selectedEnemyGridCell.IsSelected = false;
+                        _selectedEnemyGridCell = null;
                     }
                     entity = null;
                     CheckEntity();
                 }
 
-                path = AStar.FindPath(CurrentPos, selectedGridCell.Coord);
+                _path = AStar.FindPath(CurrentPos, _selectedGridCell.Coord);
 
-                if (path.Count <= 1)
+                if (_path.Count <= 1)
                 {
-                    if (selectedGridCell != null)
-                        selectedGridCell.IsSelected = false;
-                    selectedGridCell = path[0];
-                    path.Clear();
-                    grid.RefreshGridMat();
+                    if (_selectedGridCell != null)
+                        _selectedGridCell.IsSelected = false;
+                    _selectedGridCell = _path[0];
+                    _path.Clear();
+                    _grid.RefreshGridMat();
                     return;
                 }
 
-                grid.RefreshGridMat();
+                _grid.RefreshGridMat();
                 DrawPath();
             }
         }
@@ -409,8 +412,8 @@ public class Player : Entity
             Vector3 touchPosition = (Input.GetTouch(0).position + Input.GetTouch(1).position) / 2;
 
             Vector3 newCamPos = new Vector3(-touchPosition.x, -touchPosition.y, -10);
-            newCamPos.x = (newCamPos.x + width) / width;
-            newCamPos.y = (newCamPos.y + height) / height;
+            newCamPos.x = (newCamPos.x + _width) / _width;
+            newCamPos.y = (newCamPos.y + _height) / _height;
             Camera.main.transform.localPosition = newCamPos;
         }
     }
@@ -418,34 +421,34 @@ public class Player : Entity
     void DrawPath()
     {
         int steps = 0;
-        foreach (var cell in path)
+        foreach (var cell in _path)
         {
-            Cell gridElement = elements[cell.Coord.X + grid.GetMaxX() / 2, cell.Coord.Y + grid.GetMaxY() / 2];
+            Cell gridElement = _elements[cell.Coord.X + _grid.GetMaxX() / 2, cell.Coord.Y + _grid.GetMaxY() / 2];
             if (steps < CurrentAP)
             {
-                gridElement.SetGameObjectMaterial(grid.GetPathGridMat());
+                gridElement.SetGameObjectMaterial(_grid.GetPathGridMat());
             }
             else if (steps == CurrentAP)
             {
-                gridElement.SetGameObjectMaterial(grid.GetSelectedGridMat());
+                gridElement.SetGameObjectMaterial(_grid.GetSelectedGridMat());
             }
             else
             {
                 gridElement.Direction = 'u';
-                gridElement.SetGameObjectMaterial(grid.GetRedPathGridMat());
+                gridElement.SetGameObjectMaterial(_grid.GetRedPathGridMat());
             }
             steps++;
         }
         if (steps <= CurrentAP + 1 && CurrentAP > 0)
         {
-            selectedGridCell.SetGameObjectMaterial(grid.GetSelectedGridMat());
+            _selectedGridCell.SetGameObjectMaterial(_grid.GetSelectedGridMat());
         }
         else
         {
-            selectedGridCell.Direction = 'u';
-            selectedGridCell.SetGameObjectMaterial(grid.GetRedPathGridMat());
+            _selectedGridCell.Direction = 'u';
+            _selectedGridCell.SetGameObjectMaterial(_grid.GetRedPathGridMat());
             // can add more stuff that prevent to move
-            path.Clear();
+            _path.Clear();
         }
     }
 
@@ -479,14 +482,14 @@ public class Player : Entity
     {
         if (entity)
         {
-            buttonAbility1.GetComponent<Image>().enabled = true;
-            buttonAbility2.GetComponent<Image>().enabled = true;
+            _buttonAbility1.GetComponent<Image>().enabled = true;
+            _buttonAbility2.GetComponent<Image>().enabled = true;
             CheckAP(false);
         }
         else
         {
-            buttonAbility1.GetComponent<Image>().enabled = false;
-            buttonAbility2.GetComponent<Image>().enabled = false;
+            _buttonAbility1.GetComponent<Image>().enabled = false;
+            _buttonAbility2.GetComponent<Image>().enabled = false;
         }
     }
 
@@ -494,39 +497,39 @@ public class Player : Entity
     {
         if (CurrentAP < _ability1.Cost || hide)
         {
-            buttonAbility1.GetComponent<Image>().color = buttonAbility1.GetComponent<Button>().colors.disabledColor;
-            buttonAbility1.GetComponent<Button>().enabled = false;
+            _buttonAbility1.GetComponent<Image>().color = _buttonAbility1.GetComponent<Button>().colors.disabledColor;
+            _buttonAbility1.GetComponent<Button>().enabled = false;
         }
         else
         {
-            buttonAbility1.GetComponent<Image>().color = buttonAbility1.GetComponent<Button>().colors.normalColor;
-            buttonAbility1.GetComponent<Button>().enabled = true;
+            _buttonAbility1.GetComponent<Image>().color = _buttonAbility1.GetComponent<Button>().colors.normalColor;
+            _buttonAbility1.GetComponent<Button>().enabled = true;
         }
 
         if (CurrentAP < _ability2.Cost || hide)
         {
-            buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.disabledColor;
-            buttonAbility2.GetComponent<Button>().enabled = false;
+            _buttonAbility2.GetComponent<Image>().color = _buttonAbility2.GetComponent<Button>().colors.disabledColor;
+            _buttonAbility2.GetComponent<Button>().enabled = false;
         }
         else
         {
-            buttonAbility2.GetComponent<Image>().color = buttonAbility2.GetComponent<Button>().colors.normalColor;
-            buttonAbility2.GetComponent<Button>().enabled = true;
+            _buttonAbility2.GetComponent<Image>().color = _buttonAbility2.GetComponent<Button>().colors.normalColor;
+            _buttonAbility2.GetComponent<Button>().enabled = true;
         }
 
-        playerAP.GetComponent<Text>().text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
+        _playerAP.GetComponent<Text>().text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
     public void Move()
     {
-        if (path == null || path.Count == 0)
+        if (_path == null || _path.Count == 0)
             return;
 
-        CurrentAP -= path.Count - 1;
+        CurrentAP -= _path.Count - 1;
         CheckAP(true);
-        grid.RefreshGridMat();
-        Move(path);
-        CurrentPos = selectedGridCell.Coord;
+        _grid.RefreshGridMat();
+        Move(_path);
+        CurrentPos = _selectedGridCell.Coord;
     }
 
     public void StartOfTurn()
@@ -535,37 +538,37 @@ public class Player : Entity
             (_currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) ||
             (_currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
         {
-            buttonFriendlyAbility.GetComponent<Image>().enabled = true;
-            buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = true;
+            _buttonFriendlyAbility.GetComponent<Image>().enabled = true;
+            _buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = true;
         }
 
-        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.normalColor;
-        MoveButton.GetComponent<Button>().enabled = true;
-        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.normalColor;
-        EndTurnButton.GetComponent<Button>().enabled = true;
+        _MoveButton.GetComponent<Image>().color = _MoveButton.GetComponent<Button>().colors.normalColor;
+        _MoveButton.GetComponent<Button>().enabled = true;
+        _EndTurnButton.GetComponent<Image>().color = _EndTurnButton.GetComponent<Button>().colors.normalColor;
+        _EndTurnButton.GetComponent<Button>().enabled = true;
     }
 
     public void EndOfTurn()
     {
-        if (selectedGridCell != null)
-            selectedGridCell.IsSelected = false;
-        if (selectedEnemyGridCell != null)
-            selectedEnemyGridCell.IsSelected = false;
+        if (_selectedGridCell != null)
+            _selectedGridCell.IsSelected = false;
+        if (_selectedEnemyGridCell != null)
+            _selectedEnemyGridCell.IsSelected = false;
         IsTurn = false;
         entity = null;
-        path?.Clear();
+        _path?.Clear();
         CheckEntity();
-        grid.RefreshGridMat();
+        _grid.RefreshGridMat();
 
         // Update RoundsBeforeReuse for friend abilities
         _fAbility1.RoundsBeforeReuse = Mathf.Clamp(_fAbility1.RoundsBeforeReuse - 1, 0, 10);
         _fAbility2.RoundsBeforeReuse = Mathf.Clamp(_fAbility2.RoundsBeforeReuse - 1, 0, 10);
         _fAbility3.RoundsBeforeReuse = Mathf.Clamp(_fAbility3.RoundsBeforeReuse - 1, 0, 10);
 
-        MoveButton.GetComponent<Image>().color = MoveButton.GetComponent<Button>().colors.disabledColor;
-        MoveButton.GetComponent<Button>().enabled = false;
-        EndTurnButton.GetComponent<Image>().color = EndTurnButton.GetComponent<Button>().colors.disabledColor;
-        EndTurnButton.GetComponent<Button>().enabled = false;
+        _MoveButton.GetComponent<Image>().color = _MoveButton.GetComponent<Button>().colors.disabledColor;
+        _MoveButton.GetComponent<Button>().enabled = false;
+        _EndTurnButton.GetComponent<Image>().color = _EndTurnButton.GetComponent<Button>().colors.disabledColor;
+        _EndTurnButton.GetComponent<Button>().enabled = false;
     }
 
     public Entity GetEnemy()

@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EndMenu : MonoBehaviour
+public class EndMenuActions : MonoBehaviour
 {
-    [SerializeField] Animator animator;
-    CombatGrid grid;
+    [SerializeField] private Animator _animator;
+    private CombatGrid _grid;
 
     private void Start()
     {
-        animator.SetTrigger("StartFadeOut");
+        _animator.SetTrigger("StartFadeOut");
         //AudioManager.Instance.PlayMusic("MusicTest");
     }
 
@@ -16,14 +16,14 @@ public class EndMenu : MonoBehaviour
     {
         AnimationScripts.currentScene = AnimationScripts.Scenes.End;
         AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
-        animator.SetTrigger("StartFadeIn");
+        _animator.SetTrigger("StartFadeIn");
     }
 
     public void MenuButtonClick()
     {
         AnimationScripts.currentScene = AnimationScripts.Scenes.End;
         AnimationScripts.nextScene = AnimationScripts.Scenes.Menu;
-        animator.SetTrigger("StartFadeIn");
+        _animator.SetTrigger("StartFadeIn");
     }
 
     public void RestartGame()

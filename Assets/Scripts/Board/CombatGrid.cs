@@ -4,27 +4,23 @@ using UnityEngine.SceneManagement;
 
 public class CombatGrid : MonoBehaviour
 {
-    [SerializeField] int maxX;
-    [SerializeField] int maxY;
+    [Header("Position")]
+    [SerializeField] int _maxX;
+    [SerializeField] int _maxY;
     public float gridCellScale = 1;
 
-    [SerializeField] Material defaultGridMat;
-    [SerializeField] Material notWalkableGridMat;
-    [SerializeField] Material enemyGridMat;
-    [SerializeField] Material selectedEnemyGridMat;
-    [SerializeField] Material selectedGridMat;
-    [SerializeField] Material pathGridMat;
-    [SerializeField] Material redPathGridMat;
+    [Header("Materials")]
+    [SerializeField] private Material _defaultGridMat;
+    [SerializeField] private Material _notWalkableGridMat;
+    [SerializeField] private Material _enemyGridMat;
+    [SerializeField] private Material _selectedEnemyGridMat;
+    [SerializeField] private Material _selectedGridMat;
+    [SerializeField] private Material _pathGridMat;
+    [SerializeField] private Material _redPathGridMat;
 
-    public BattleSceneActions battleSceneActions;
-    // Gonna need to put that in a statis gameobject
-    public int dialogueIndex;
-    Cell[,] elements;
-    [SerializeField] GameObject gridPrefab;
-    [SerializeField] GameObject mainCamPivot;
-    TurnSystem turnSystem;
-    Player _player;
-    Vector3 offset;
+
+    [Header("Dialogues")]
+    public GameObject _dialogueBox;
     [SerializeField] private DialogueChannel _dialogueChannel;
     [SerializeField] private Dialogue _dialogue0;
     [SerializeField] private Dialogue _dialogue1;
@@ -34,8 +30,18 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] private Dialogue _dialogue5;
     [SerializeField] private Dialogue _dialogue6;
     [SerializeField] private Dialogue _dialogue7;
-    [SerializeField] public GameObject _dialogueBox;
+
+    [Header("Misc")]
+    [SerializeField] private GameObject _gridPrefab;
+    [SerializeField] private GameObject _mainCamPivot;
     [SerializeField] private GameObject _combatUI;
+    [HideInInspector] public BattleSceneActions battleSceneActions;
+    [HideInInspector] public int dialogueIndex;
+
+    private Cell[,] _elements;
+    private TurnSystem _turnSystem;
+    private Player _player;
+    private Vector3 _offset;
 
     //creation de la grille de Combat
     void Awake()
@@ -57,10 +63,10 @@ public class CombatGrid : MonoBehaviour
             dialogueIndex = 11;
         }
 
-        turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
+        _turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
         _dialogueBox.SetActive(true);
-        offset = transform.position;
-        mainCamPivot.transform.position += offset;
+        _offset = transform.position;
+        _mainCamPivot.transform.position += _offset;
 
         SetupGrid();
 
@@ -136,7 +142,7 @@ public class CombatGrid : MonoBehaviour
             case 4:
                 // Start transition
                 DisableDialogue();
-                turnSystem.animator.SetTrigger("StartFadeIn");
+                _turnSystem.animator.SetTrigger("StartFadeIn");
                 break;
             case 7:
                 DisableDialogue();
@@ -144,7 +150,7 @@ public class CombatGrid : MonoBehaviour
             case 8:
                 // Start transition
                 DisableDialogue();
-                turnSystem.animator.SetTrigger("StartFadeIn");
+                _turnSystem.animator.SetTrigger("StartFadeIn");
                 break;
             case 11:
                 DisableDialogue();
@@ -156,7 +162,7 @@ public class CombatGrid : MonoBehaviour
             case 13:
                 // Start transition
                 DisableDialogue();
-                turnSystem.animator.SetTrigger("StartFadeIn");
+                _turnSystem.animator.SetTrigger("StartFadeIn");
                 break;
 
             default:
@@ -168,18 +174,18 @@ public class CombatGrid : MonoBehaviour
     public void SetupGrid()
     {
 
-        elements = new Cell[maxX, maxY];
-        for (int y = 0; y < maxY; y++)
+        _elements = new Cell[_maxX, _maxY];
+        for (int y = 0; y < _maxY; y++)
         {
-            for (int x = 0; x < maxX; x++)
+            for (int x = 0; x < _maxX; x++)
             {
-                Coord coords = Coord.ToWorldCoord(x, y, maxX, maxY);
-                GameObject newCell = Instantiate(gridPrefab, new Vector3(coords.X * gridCellScale, 0.01f, coords.Y * gridCellScale) + offset, Quaternion.identity);
+                Coord coords = Coord.ToWorldCoord(x, y, _maxX, _maxY);
+                GameObject newCell = Instantiate(_gridPrefab, new Vector3(coords.X * gridCellScale, 0.01f, coords.Y * gridCellScale) + _offset, Quaternion.identity);
                 newCell.transform.localScale *= gridCellScale;
                 newCell.tag = "GridCell";
                 Cell gridElement = new Cell { Coord = coords, GameObject = newCell };
                 gridElement.GameObject.transform.parent = gameObject.transform;
-                elements[x, y] = gridElement;
+                _elements[x, y] = gridElement;
             }
         }
 
@@ -201,15 +207,15 @@ public class CombatGrid : MonoBehaviour
 
     public void DestroyGrid()
     {
-        foreach (Cell cell in elements)
+        foreach (Cell cell in _elements)
         {
             Destroy(cell.GameObject);
         }
-        elements = null;
+        _elements = null;
     }
     public void RefreshGridMat()
     {
-        foreach (var cell in elements)
+        foreach (var cell in _elements)
         {
             if (cell.HasObstacle)
                 cell.SetGameObjectMaterial(GetNotWalkableGridMat());
@@ -227,23 +233,23 @@ public class CombatGrid : MonoBehaviour
     {
         int x = coord.X;
         int y = coord.Y;
-        if (elements[x, y].HasObstacle)
+        if (_elements[x, y].HasObstacle)
             return false;
 
-        elements[x, y].HasObstacle = true;
-        elements[x, y].GameObject = obstacle;
-        elements[x, y].SetGameObjectMaterial(notWalkableGridMat);
+        _elements[x, y].HasObstacle = true;
+        _elements[x, y].GameObject = obstacle;
+        _elements[x, y].SetGameObjectMaterial(_notWalkableGridMat);
         return true;
     }
 
     public void AddMoomoo(Coord coord, GameObject moomooPrefabs) 
     {
         Vector3 rotation = new Vector3(0, 0, 0);
-        Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + offset, Quaternion.Euler(rotation)).GetComponent<Player>();
+        Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + _offset, Quaternion.Euler(rotation)).GetComponent<Player>();
         moomoo.CurrentPos = coord;
         moomoo.speed = moomooPrefabs.GetComponent<Player>().speed;
         _player = moomoo;
-        turnSystem.AddMoomoo(_player);
+        _turnSystem.AddMoomoo(_player);
     }
 
     public bool AddEnemy(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool causeEndOfBattle = false, bool canPlayAfterSpawn = true)
@@ -252,16 +258,16 @@ public class CombatGrid : MonoBehaviour
         {
             for (int j = 0; j < size.Y; j++)
             {
-                int x = Coord.ToListCoord(coord, maxX, maxY).X + i;
-                int y = Coord.ToListCoord(coord, maxX, maxY).Y + j;
+                int x = Coord.ToListCoord(coord, _maxX, _maxY).X + i;
+                int y = Coord.ToListCoord(coord, _maxX, _maxY).Y + j;
 
-                if (elements[x, y].HasObstacle || elements[x, y].HasEnemy || _player.CurrentPos.Equals(coord))
+                if (_elements[x, y].HasObstacle || _elements[x, y].HasEnemy || _player.CurrentPos.Equals(coord))
                     return false;
             }
         }
 
         GameObject enemy = Instantiate(enemyPrefabs, new Vector3(coord.X * gridCellScale + (size.X - 1) * gridCellScale / 2
-            , 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2) + offset, Quaternion.Euler(rotation));
+            , 0.01f, coord.Y * gridCellScale + (size.Y - 1) * gridCellScale / 2) + _offset, Quaternion.Euler(rotation));
 
         enemy.transform.localScale *= Mathf.Sqrt(size.X * size.Y);
         Enemy enemyScript = enemy.GetComponent<Enemy>();
@@ -270,19 +276,19 @@ public class CombatGrid : MonoBehaviour
         enemyScript.speed = enemyPrefabs.GetComponent<Enemy>().speed;
         enemyScript.Size = size;
         enemyScript.causeEndOfBattle = causeEndOfBattle;
-        turnSystem.AddEnemy(enemyScript);
+        _turnSystem.AddEnemy(enemyScript);
 
         for (int i = 0; i < size.X; i++)
         {
             for (int j = 0; j < size.Y; j++)
             {
-                int x = Coord.ToListCoord(coord, maxX, maxY).X + i;
-                int y = Coord.ToListCoord(coord, maxX, maxY).Y + j;
+                int x = Coord.ToListCoord(coord, _maxX, _maxY).X + i;
+                int y = Coord.ToListCoord(coord, _maxX, _maxY).Y + j;
 
-                elements[x, y].HasEnemy = true;
-                elements[x, y].Entity = enemyScript;
-                elements[x, y].SetGameObjectMaterial(enemyGridMat);
-                enemyScript.occupiedCells.Add(elements[x, y]);
+                _elements[x, y].HasEnemy = true;
+                _elements[x, y].Entity = enemyScript;
+                _elements[x, y].SetGameObjectMaterial(_enemyGridMat);
+                enemyScript.occupiedCells.Add(_elements[x, y]);
             }
         }
         return true;
@@ -290,34 +296,34 @@ public class CombatGrid : MonoBehaviour
 
     public Cell GetGridCell(int x, int y)
     {
-        Coord coord = Coord.ToListCoord(x, y, maxX, maxY);
-        return elements[coord.X, coord.Y];
+        Coord coord = Coord.ToListCoord(x, y, _maxX, _maxY);
+        return _elements[coord.X, coord.Y];
     }
 
     public Cell GetGridCell(Coord coord)
     {
-        coord = Coord.ToListCoord(coord.X, coord.Y, maxX, maxY);
-        return elements[coord.X, coord.Y];
+        coord = Coord.ToListCoord(coord.X, coord.Y, _maxX, _maxY);
+        return _elements[coord.X, coord.Y];
     }
 
-    public Cell[,] GetGridCells() => elements;
+    public Cell[,] GetGridCells() => _elements;
 
-    public Material GetDefaultGridMat() => defaultGridMat;
+    public Material GetDefaultGridMat() => _defaultGridMat;
 
-    public Material GetNotWalkableGridMat() => notWalkableGridMat;
+    public Material GetNotWalkableGridMat() => _notWalkableGridMat;
 
-    public Material GetEnemyGridMat() => enemyGridMat;
+    public Material GetEnemyGridMat() => _enemyGridMat;
 
-    public Material GetSelectedEnemyGridMat() => selectedEnemyGridMat;
+    public Material GetSelectedEnemyGridMat() => _selectedEnemyGridMat;
 
-    public Material GetSelectedGridMat() => selectedGridMat;
+    public Material GetSelectedGridMat() => _selectedGridMat;
 
-    public Material GetPathGridMat() => pathGridMat;
+    public Material GetPathGridMat() => _pathGridMat;
 
-    public Material GetRedPathGridMat() => redPathGridMat;
+    public Material GetRedPathGridMat() => _redPathGridMat;
 
-    public int GetMaxX() => maxX;
+    public int GetMaxX() => _maxX;
 
-    public int GetMaxY() => maxY;
+    public int GetMaxY() => _maxY;
 }
 
