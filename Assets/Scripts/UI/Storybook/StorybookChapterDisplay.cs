@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -9,14 +8,11 @@ public class StorybookChapterDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject[] _chapterButtonList;
     [SerializeField] private Transform _chapterButtonGrid;
+    [SerializeField] private Slider _loadingBar;
 
     [Header("Scrollbars")]
     [SerializeField] private Scrollbar _chapterButtonsScrollbar;
     [SerializeField] private Scrollbar _chapterDescriptionScrollbar;
-
-    [Header("Loading Bar")]
-    [SerializeField] private GameObject _loadingBarObject;
-    [SerializeField] private Image _loadingBar;
 
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI _chapterTitle;
@@ -53,25 +49,8 @@ public class StorybookChapterDisplay : MonoBehaviour
 
     public void LoadChapterScene()
     {
-        _loadingBarObject.SetActive(true);
-
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync("Chapter" + _currentChapterIndex));
 
-        StartCoroutine(ProgressBarLoading());
-    }
-
-    private IEnumerator ProgressBarLoading()
-    {
-        float loadProgress = 0;
-
-        for (int i = 0; i < ScenesManager.Instance.ScenesToLoad.Count; i++)
-        {
-            while (!ScenesManager.Instance.ScenesToLoad[i].isDone)
-            {
-                loadProgress += ScenesManager.Instance.ScenesToLoad[i].progress;
-                _loadingBar.fillAmount = loadProgress / ScenesManager.Instance.ScenesToLoad.Count;
-                yield return null;
-            }
-        }
+        StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
     }
 }
