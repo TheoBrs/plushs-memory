@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/UI/Panel Safe Area.prefab.meta
 guid: 7ef224999b7d13e48822b51998d2a340
 PrefabImporter:
+========
+guid: 136ddbf15c496d6458a3daa96d623903
+NativeFormatImporter:
+>>>>>>>> main:Assets/Scriptable Objects/Dialogue/Narration/Dialogue/Chapters/Chapter1/Dialogue 2/Chapter1_Dialogue2_Node2.asset.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

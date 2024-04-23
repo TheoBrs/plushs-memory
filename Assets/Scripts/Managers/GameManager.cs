@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-
     #region Singleton
+    public static GameManager Instance;
 
     private void Awake()
     {
@@ -17,12 +16,37 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Application.targetFrameRate = 30;
     }
 
     #endregion
 
-    private void Start()
+    private bool _isGamePaused;
+
+    public void PauseGame()
     {
-        Application.targetFrameRate = 30;
+        Time.timeScale = 0;
+        _isGamePaused = true;
     }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        _isGamePaused = false;
+    }
+
+    public void TogglePauseGame()
+    {
+        if (_isGamePaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    public bool IsGamePaused => _isGamePaused;
 }

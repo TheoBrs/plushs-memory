@@ -15,7 +15,6 @@ MonoBehaviour:
   _speaker: {fileID: 11400000, guid: f3e8b9ff5442d904a98d7a76ce18e83b, type: 2}
   _text: "Oh non, les mites t\u2019attaquent ! Tu ne peux pas rester sans rien faire.
     Il faut les d\xE9faire pour r\xE9cup\xE9rer ta m\xE9moire. Tiens, appuie sur
-    cette case surbrillance d\u2019une case Si tu appuies sur une case, tu t\u2019y
-    d\xE9placeras automatiquement en cliquant sur le bouton d\u2019action en bas
-    \xE0 gauche surbrillance du bouton Attention, te d\xE9placer va te co\xFBter
-    des points d\u2019action."
+    cette case. Si tu appuies sur une case, tu t\u2019y d\xE9placeras automatiquement
+    en cliquant sur le bouton d\u2019action en bas \xE0 gauche. Attention, te d\xE9placer
+    va te co\xFBter des points d\u2019action surbrillance des PA\r\n"
