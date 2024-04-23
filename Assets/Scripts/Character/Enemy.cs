@@ -35,7 +35,7 @@ public abstract class Enemy : Entity, IDataPersistence
         switch (_currentState)
         {
             case State.WaitForTurn:
-                if (ItsTurn)
+                if (IsTurn)
                 {
                     CurrentAP = MaxAP.GetValue();
                     if (justSpawned)
@@ -57,7 +57,7 @@ public abstract class Enemy : Entity, IDataPersistence
                 ChangeState(State.EndTurn);
                 break;
             case State.EndTurn:
-                ItsTurn = false;
+                IsTurn = false;
                 TurnSystem turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
                 turnSystem.NextEnemyTurn();
                 ChangeState(State.WaitForTurn);

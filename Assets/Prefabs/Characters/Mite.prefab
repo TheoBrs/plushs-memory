@@ -54,12 +54,12 @@ MonoBehaviour:
     _baseValue: 5
   MaxAP:
     _baseValue: 4
-  speed: 3
+  speed: 30
   Attack:
     _baseValue: 0
   Defense:
     _baseValue: 0
-  ItsTurn: 0
+  IsTurn: 0
   isMoving: 0
   cannotMove: 0
   causeEndOfBattle: 0

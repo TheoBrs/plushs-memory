@@ -23,7 +23,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
 
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
-    [SerializeField] Animator animator;
+    public Animator animator;
     int chapterIndex;
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
@@ -64,7 +64,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
 
     private void SetUpBattle()
     {
-        player.ItsTurn = true;
+        player.IsTurn = true;
         player.CheckAP(false);
         currentState = FightPhase.PLAYERTURN;
     }
@@ -75,7 +75,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         {
             turnText.text = "Tour du joueur";
             player.CurrentAP = player.MaxAP.GetValue();
-            player.ItsTurn = true;
+            player.IsTurn = true;
             player.CheckAP(false);
             player.StartOfTurn();
             playerTurnInitalized = true;
@@ -106,7 +106,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             return;
         }
 
-        enemies[enemyIndex].ItsTurn = true;
+        enemies[enemyIndex].IsTurn = true;
         enemyIndex++;
     }
 
@@ -157,25 +157,57 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         AnimationScripts.currentScene = AnimationScripts.Scenes.Battle;
         if (!IsWin.IsWinBool || grid.battleSceneActions.nextBattlePlacement.nextWave == null)
         {
+            // If you lose or there is no next wave
             battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
-            animator.SetTrigger("StartFadeIn");
-        }
-        else
-        {
+            switch (grid.dialogueIndex)
+            {
+                case 4:
+                case 8:
+                case 13:
+                    grid.RunDialogue();
+                    break;
+
+                default:
+                    break;
+            }
             currentState = FightPhase.INIT;
-            // if end scene isn't loaded then a next wave must be placed
+        }
+        else // If we're going to next wave
+        {
+            animator.SetTrigger("StartFadeIn");
             grid.battleSceneActions.nextBattlePlacement = grid.battleSceneActions.nextBattlePlacement.nextWave;
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
-            animator.SetTrigger("StartFadeIn");
+            currentState = FightPhase.INIT;
         }
     }
 
     public void OnFadeInFinish()
     {
-        if (!battleFullyEnded)
+        if (battleFullyEnded)
         {
+            chapterIndex = 0;
+            // Select chapter somehow
+            if (SceneManager.GetActiveScene().name == "Chapter1")
+                chapterIndex = 1;
+            if (SceneManager.GetActiveScene().name == "Chapter2")
+                chapterIndex = 2;
+            if (SceneManager.GetActiveScene().name == "Chapter3")
+                chapterIndex = 3;
+            SceneManager.LoadScene("End");
+        }
+        else
+        {
+            switch (grid.dialogueIndex)
+            {
+                case 3:
+                    grid.RunDialogue();
+                    break;
+
+                default:
+                    break;
+            }
             Destroy(player.gameObject);
             foreach (var tempEnemy in enemies)
             {
@@ -192,18 +224,6 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.SetupGrid();
             SetUpBattle();
             animator.SetTrigger("StartFadeOut");
-        }
-        else
-        {
-            chapterIndex = 0;
-            // Select chapter somehow
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter1")
-                chapterIndex = 1;
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter2")
-                chapterIndex = 2;
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter3")
-                chapterIndex = 3;
-            SceneManager.LoadScene("End");
         }
     }
     public void LoadData(GameData data)

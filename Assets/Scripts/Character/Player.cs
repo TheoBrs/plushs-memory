@@ -28,8 +28,8 @@ public class Player : Entity
     public Sprite keroImage;
     public Sprite boonImage;
     public Sprite pattoImage;
-    public bool isAttacking = false;
-    public Entity entity;
+    [HideInInspector] public bool isAttacking = false;
+    [HideInInspector] public Entity entity;
 
 
     protected override void Awake()
@@ -127,7 +127,11 @@ public class Player : Entity
         _ability1.Damage = 1;
         _ability1.Cost = 1;
 
+#if UNITY_EDITOR
+        _ability2.Damage = 999;
+#else
         _ability2.Damage = 3;
+#endif
         _ability2.Cost = 2;
 
         _fAbility1.RoundsBeforeReuse = 0;
@@ -297,7 +301,7 @@ public class Player : Entity
             }
             if (Input.touchCount == 1)
             {
-                if (ItsTurn && !isAttacking)
+                if (IsTurn && !isAttacking && !grid._dialogueBox.activeSelf)
                     HandleOneTouch();
             }
             else if (Input.touchCount == 2)
@@ -547,7 +551,7 @@ public class Player : Entity
             selectedGridCell.IsSelected = false;
         if (selectedEnemyGridCell != null)
             selectedEnemyGridCell.IsSelected = false;
-        ItsTurn = false;
+        IsTurn = false;
         entity = null;
         path?.Clear();
         CheckEntity();

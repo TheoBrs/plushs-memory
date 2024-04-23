@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd2c1887a808da4b8f0a6cec8d8b890, type: 3}
   m_Name: NarrationLine_Chapter1_Dialogue1_1
   m_EditorClassIdentifier: 
-  _speaker: {fileID: 11400000, guid: 9dd3082631238414f8db3e72be080f21, type: 2}
+  _speaker: {fileID: 11400000, guid: f3e8b9ff5442d904a98d7a76ce18e83b, type: 2}
   _text: "Parfait, tu es enfin \xE0 distance pour mettre un coup de sabot \xE0 ce
     r\xE9pugnant insecte. Clique dessus (et lavez vous les mains juste apr\xE8s)
     et tu verras s\u2019afficher le menu des comp\xE9tences surbrillance des comp\xE9tences

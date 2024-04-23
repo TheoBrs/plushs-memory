@@ -17,6 +17,8 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] Material redPathGridMat;
 
     public BattleSceneActions battleSceneActions;
+    // Gonna need to put that in a statis gameobject
+    public int dialogueIndex;
     Cell[,] elements;
     [SerializeField] GameObject gridPrefab;
     [SerializeField] GameObject mainCamPivot;
@@ -32,21 +34,31 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] private Dialogue _dialogue5;
     [SerializeField] private Dialogue _dialogue6;
     [SerializeField] private Dialogue _dialogue7;
-    [SerializeField] private GameObject _dialogueBox;
+    [SerializeField] public GameObject _dialogueBox;
+    [SerializeField] private GameObject _combatUI;
 
     //creation de la grille de Combat
     void Awake()
     {
         // Select chapter somehow
         if (SceneManager.GetActiveScene().name == "Chapter1")
+        {
             battleSceneActions.SetupChapter1();
+            dialogueIndex = 2;
+        }
         if (SceneManager.GetActiveScene().name == "Chapter2")
+        {
             battleSceneActions.SetupChapter2();
+            dialogueIndex = 7;
+        }
         if (SceneManager.GetActiveScene().name == "Chapter3")
+        {
             battleSceneActions.SetupChapter3();
+            dialogueIndex = 11;
+        }
 
         turnSystem = GameObject.FindWithTag("TurnSystem").GetComponent<TurnSystem>();
-
+        _dialogueBox.SetActive(true);
         offset = transform.position;
         mainCamPivot.transform.position += offset;
 
@@ -56,28 +68,101 @@ public class CombatGrid : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Chapter1")
-            SetupChapter1();
-        if (SceneManager.GetActiveScene().name == "Chapter2")
-            SetupChapter2();
-        if (SceneManager.GetActiveScene().name == "Chapter3")
-            SetupChapter3();
+        RunDialogue();
     }
-
-    void SetupChapter1()
-    {
-        _dialogueBox.SetActive(true); // NANIIIIIIIIII ????
-        _dialogueChannel.RaiseRequestDialogue(_dialogue0);
-    }
-
-    void SetupChapter2()
+    void EnableDialogue()
     {
         _dialogueBox.SetActive(true);
+        _combatUI.transform.localPosition += new Vector3(0, 10000, 0);
+    }
+    void DisableDialogue()
+    {
+        _dialogueBox.SetActive(false);
+        _combatUI.transform.localPosition -= new Vector3(0, 10000, 0);
     }
 
-    void SetupChapter3()
+    public void RunDialogue()
     {
-        _dialogueBox.SetActive(true);
+        switch (dialogueIndex)
+        {
+            case 2:
+                EnableDialogue();
+                _dialogueChannel.RaiseRequestDialogue(_dialogue0);
+                break;
+            case 3:
+                EnableDialogue();
+                _dialogueChannel.RaiseRequestDialogue(_dialogue1);
+                break;
+            case 4:
+                EnableDialogue();
+                _dialogueChannel.RaiseRequestDialogue(_dialogue2);
+                break;
+            case 7:
+                EnableDialogue();
+                _dialogueChannel.RaiseRequestDialogue(_dialogue3);
+                break;
+            case 8:
+                EnableDialogue();
+                _dialogueChannel.RaiseRequestDialogue(_dialogue4);
+                break;
+            case 11:
+                EnableDialogue();
+                _dialogueChannel.RaiseRequestDialogue(_dialogue5);
+                break;
+            case 12:
+                EnableDialogue();
+                _dialogueChannel.RaiseRequestDialogue(_dialogue6);
+                break;
+            case 13:
+                EnableDialogue();
+                _dialogueChannel.RaiseRequestDialogue(_dialogue7);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void OnDialogueEnd()
+    {
+        switch (dialogueIndex)
+        {
+            case 2:
+                DisableDialogue();
+                break;
+            case 3:
+                DisableDialogue();
+                break;
+            case 4:
+                // Start transition
+                DisableDialogue();
+                turnSystem.animator.SetTrigger("StartFadeIn");
+                break;
+            case 7:
+                DisableDialogue();
+                break;
+            case 8:
+                // Start transition
+                DisableDialogue();
+                turnSystem.animator.SetTrigger("StartFadeIn");
+                break;
+            case 11:
+                DisableDialogue();
+                break;
+            case 12:
+                // Souris thingy
+                DisableDialogue();
+                break;
+            case 13:
+                // Start transition
+                DisableDialogue();
+                turnSystem.animator.SetTrigger("StartFadeIn");
+                break;
+
+            default:
+                break;
+        }
+        dialogueIndex++;
     }
 
     public void SetupGrid()
