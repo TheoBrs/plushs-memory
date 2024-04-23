@@ -183,16 +183,13 @@ public abstract class Enemy : Entity, IDataPersistence
 
     public override void Death()
     {
-        if (GameManager.Instance)
+        if (this is Mite)
         {
-            if (this is Mite)
-            {
-                _miteKillCount++;
-            }
-            if (this is Coleo)
-            {
-                _coleoptereKillCount++;
-            }
+            _miteKillCount++;
+        }
+        if (this is Coleo)
+        {
+            _coleoptereKillCount++;
         }
 
 
