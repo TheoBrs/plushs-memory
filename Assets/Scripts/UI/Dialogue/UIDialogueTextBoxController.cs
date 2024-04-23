@@ -34,6 +34,9 @@ public class UIDialogueTextBoxController : MonoBehaviour, DialogueNodeVisitor
         if (_listenToInput)
         {
             _dialogueChannel.RaiseRequestDialogueNode(_nextNode);
+
+            // TODO : Add a sound effect when the player clicks on the continue button
+            AudioManager.Instance.PlaySFX("SFXTest");
         }
     }
 
