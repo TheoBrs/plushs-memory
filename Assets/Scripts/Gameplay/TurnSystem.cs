@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class TurnSystem : MonoBehaviour, IDataPersistence
 {
@@ -31,7 +32,10 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     int enemyIndex = 0;
     public FightPhase currentState = FightPhase.INIT;
 
+    private VideoPlayer _videoPlayer;
+
     private AlliesManager _alliesManager;
+    //private Vide
 
     void Start()
     {
@@ -39,6 +43,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         SetUpBattle();
         _alliesManager = AlliesManager.Instance;
+        _videoPlayer = GetComponent<VideoPlayer>();
 
         if (_alliesManager)
         {
@@ -160,6 +165,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
             animator.SetTrigger("StartFadeIn");
+            
         }
         else
         {
@@ -169,6 +175,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
             animator.SetTrigger("StartFadeIn");
+            _videoPlayer.Play();
         }
     }
 
