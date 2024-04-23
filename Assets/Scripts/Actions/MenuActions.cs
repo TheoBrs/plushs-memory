@@ -14,6 +14,6 @@ public class MenuActions : MonoBehaviour
 
     public void ExitGame()
     {
-        ScenesManager.Instance.ExitGame();
+        GameManager.Instance.ExitGame();
     }
 }

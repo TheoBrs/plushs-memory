@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuUIController : MonoBehaviour, IDataPersistence
 {
@@ -10,6 +12,10 @@ public class MenuUIController : MonoBehaviour, IDataPersistence
 
     [Header("Button")]
     [SerializeField] private TextMeshProUGUI _startButtonText;
+
+    [Header("Scene Management")]
+    [SerializeField] private Slider _loadingBar;
+    [SerializeField] private SceneField _neutralZone;
 
     private bool _isNewGame;
 
@@ -41,6 +47,13 @@ public class MenuUIController : MonoBehaviour, IDataPersistence
     public void StartedNewGame()
     {
         if (_isNewGame) _isNewGame = false;
+    }
+
+    public void LoadNeutralZone()
+    {
+        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_neutralZone));
+
+        StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
     }
 
     public void LoadData(GameData data)

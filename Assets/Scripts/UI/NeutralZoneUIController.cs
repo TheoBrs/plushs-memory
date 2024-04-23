@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class NeutralZoneUIController : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class NeutralZoneUIController : MonoBehaviour
     [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private GameObject _storybookPanel;
     [SerializeField] private GameObject _tutorialPanel;
+
+    [Header("Scene Management")]
+    [SerializeField] private SceneField _menuScene;
+    [SerializeField] private Slider _loadingBar;
 
     private void Start()
     {
@@ -57,5 +63,12 @@ public class NeutralZoneUIController : MonoBehaviour
         _tutorialPanel.SetActive(!_tutorialPanel.activeSelf);
         _darkBackground.SetActive(!_darkBackground.activeSelf);
         _defaultUI.SetActive(!_defaultUI.activeSelf);
+    }
+
+    public void ReturnToMenu()
+    {
+        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_menuScene));
+
+        StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
     }
 }

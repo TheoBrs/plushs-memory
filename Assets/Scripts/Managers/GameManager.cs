@@ -22,23 +22,23 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    private bool _isGamePaused;
+    public bool IsGamePaused { get; private set; }
 
     public void PauseGame()
     {
         Time.timeScale = 0;
-        _isGamePaused = true;
+        IsGamePaused = true;
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
-        _isGamePaused = false;
+        IsGamePaused = false;
     }
 
     public void TogglePauseGame()
     {
-        if (_isGamePaused)
+        if (IsGamePaused)
         {
             ResumeGame();
         }
@@ -48,5 +48,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool IsGamePaused => _isGamePaused;
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
+    }
 }

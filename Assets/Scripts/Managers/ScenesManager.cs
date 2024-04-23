@@ -1,9 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
+    #region Singleton
     public static ScenesManager Instance;
 
     private void Awake()
@@ -19,22 +21,24 @@ public class ScenesManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private SceneField _menuScene;
+    #endregion
 
     private readonly List<AsyncOperation> _scenesToLoad = new();
     public List<AsyncOperation> ScenesToLoad => _scenesToLoad;
 
-    public void ReturnMenu()
+    public IEnumerator ProgressBarLoading(Slider loadingBar)
     {
-        ScenesToLoad.Add(SceneManager.LoadSceneAsync(_menuScene));
-    }
+        float loadProgress = 0;
 
-    public void ExitGame()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.ExitPlaymode();
-#else
-        Application.Quit();
-#endif
+        for (int i = 0; i < ScenesToLoad.Count; i++)
+        {
+            while (!ScenesToLoad[i].isDone)
+            {
+                loadProgress += ScenesToLoad[i].progress;
+                loadingBar.value = loadProgress / ScenesToLoad.Count;
+
+                yield return null;
+            }
+        }
     }
 }
