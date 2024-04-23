@@ -19,6 +19,7 @@ TagManager:
   - EndTurnButton
   - FriendlyAbility
   - HealthBarText
+  - ChapterButton
   layers:
   - Default
   - TransparentFX

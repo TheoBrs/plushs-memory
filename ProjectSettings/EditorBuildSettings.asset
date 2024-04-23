@@ -20,6 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chapter/Chapter1.unity
     guid: 32be1906f1d7334429b558243c5b937c
+  - enabled: 1
+    path: Assets/Scenes/Chapter/Chapter2.unity
+    guid: 059c2b198d113cb4c98d89edb431f42e
+  - enabled: 1
+    path: Assets/Scenes/Chapter/Chapter3.unity
+    guid: 50de5f3f1cc19744caad29588510b7da
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c08da4cfbc1725741a8ff78a21450d5d, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: c440d5fa6857c1d438d1c07bf1ba25f6, type: 2}

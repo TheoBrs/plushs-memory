@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,66 +7,55 @@ using UnityEngine.UI;
 
 public class StorybookChapterDisplay : MonoBehaviour
 {
-    [SerializeField] private StorybookChapter _chapter;
-    [SerializeField] private Scrollbar _descriptionScrollbar;
-    [SerializeField] private bool _checkFirst;
+    [SerializeField] private GameObject[] _chapterButtonList;
+    [SerializeField] private Transform _chapterButtonGrid;
 
-    [Header("UI Components")]
-    [SerializeField] private TextMeshProUGUI _labelText;
-    [SerializeField] private TextMeshProUGUI _nameText;
-    [SerializeField] private TextMeshProUGUI _descriptionText;
-    [SerializeField] private Image _previewImage;
-    [SerializeField] private Sprite _blockedPreviewImage;
-    [SerializeField] private Button _startChapterButton;
+    [Header("Scrollbars")]
+    [SerializeField] private Scrollbar _chapterButtonsScrollbar;
+    [SerializeField] private Scrollbar _chapterDescriptionScrollbar;
 
-    [Header("Progress Bar")]
+    [Header("Loading Bar")]
     [SerializeField] private GameObject _loadingBarObject;
     [SerializeField] private Image _loadingBar;
 
+    [Header("Components")]
+    [SerializeField] private TextMeshProUGUI _chapterTitle;
+    [SerializeField] private TextMeshProUGUI _chapterDescription;
+
+    private int _currentChapterIndex = 0;
+
     private void Awake()
     {
-        _loadingBarObject.SetActive(false);
-
-        _descriptionScrollbar.value = 1;
-
-        _labelText.text = _chapter.Label;
-        _nameText.text = _chapter.Name;
-        _descriptionText.text = _chapter.Description;
-        _previewImage.sprite = _blockedPreviewImage;
+        for (int i = 0; i < _chapterButtonList.Count(); i++)
+        {
+            Instantiate(_chapterButtonList[i], _chapterButtonGrid);
+        }
     }
 
     private void Start()
     {
-        _startChapterButton.onClick.AddListener(LoadChapterScene);
+        _chapterButtonsScrollbar.value = 1;
 
-        if (_checkFirst)
+        foreach (GameObject button in _chapterButtonList)
         {
-            SelectChapter();
+            StorybookButtons.OnButtonClicked += HandleButtonClick;
         }
+
+        HandleButtonClick(_chapterButtonList[0]);
     }
 
-    private void Update()
+    public void HandleButtonClick(GameObject clickedButton)
     {
-        // TODO: Change the condition to check if the chapter is unlocked
-        if (true)
-        {
-            _previewImage.sprite = _chapter.Preview;
-        }
-    }
-
-    public void SelectChapter()
-    {
-        _descriptionScrollbar.value = 1;
-
-        _nameText.text = _chapter.Name;
-        _descriptionText.text = _chapter.Description;
+        _currentChapterIndex = clickedButton.GetComponent<StorybookButtons>().GetChapterIndex();
+        _chapterTitle.text = clickedButton.GetComponent<StorybookButtons>().GetChapter().Name;
+        _chapterDescription.text = clickedButton.GetComponent<StorybookButtons>().GetChapter().Description;
     }
 
     public void LoadChapterScene()
     {
         _loadingBarObject.SetActive(true);
 
-        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync("Chapter" + _chapter.Index));
+        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync("Chapter" + _currentChapterIndex));
 
         StartCoroutine(ProgressBarLoading());
     }
@@ -83,7 +73,5 @@ public class StorybookChapterDisplay : MonoBehaviour
                 yield return null;
             }
         }
-
-        // _loadingBarObject.SetActive(false);
     }
 }
