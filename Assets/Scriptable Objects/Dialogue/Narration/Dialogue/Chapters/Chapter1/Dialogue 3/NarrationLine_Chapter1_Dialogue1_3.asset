@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abaa1d01ebe65f6469c9f7f9cd89f2dc, type: 3}
-  m_Name: Chapter1_Dialogue3_Node1 1
+  m_Script: {fileID: 11500000, guid: bbd2c1887a808da4b8f0a6cec8d8b890, type: 3}
+  m_Name: NarrationLine_Chapter1_Dialogue1_3
   m_EditorClassIdentifier: 
-  m_DialogueLine: {fileID: 11400000, guid: 6b63b299a8996764c859fd3120ff992c, type: 2}
-  m_NextNode: {fileID: 11400000, guid: 7fa286906464c5049a4e28145f465a32, type: 2}
+  _speaker: {fileID: 11400000, guid: 9dd3082631238414f8db3e72be080f21, type: 2}
+  _text: "Mais\u2026 Qui es-tu ? Aaah ! Tu es immense !"
