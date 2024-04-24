@@ -64,4 +64,9 @@ public class MenuUIController : MonoBehaviour, IDataPersistence
     {
         data.IsNewGame = _isNewGame;
     }
+
+    public void ExitGame()
+    {
+        GameManager.Instance.ExitGame();
+    }
 }

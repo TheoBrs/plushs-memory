@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour, IDataPersistence
 {
@@ -24,10 +23,6 @@ public class AudioManager : MonoBehaviour, IDataPersistence
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
 
-    [Header("Sliders")]
-    [SerializeField] private Slider _musicSlider;
-    [SerializeField] private Slider _sfxSlider;
-
     private float _musicVolume;
     private float _sfxVolume;
     private bool _isMusicMuted;
@@ -35,11 +30,6 @@ public class AudioManager : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        if (_musicSlider != null)
-            _musicSlider.value = _musicVolume;
-        if (_sfxSlider != null)
-            _sfxSlider.value = _sfxVolume;
-
         musicSource.mute = _isMusicMuted;
         sfxSource.mute = _isSfxMuted;
     }
@@ -114,6 +104,16 @@ public class AudioManager : MonoBehaviour, IDataPersistence
     public bool IsSfxMuted()
     {
         return _isSfxMuted;
+    }
+
+    public float GetMusicVolume()
+    {
+        return _musicVolume;
+    }
+
+    public float GetSFXVolume()
+    {
+        return _sfxVolume;
     }
 
     public void LoadData(GameData data)
