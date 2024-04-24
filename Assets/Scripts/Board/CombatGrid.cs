@@ -37,6 +37,7 @@ public class CombatGrid : MonoBehaviour
     [SerializeField] private List<GameObject> _combatUI = new List<GameObject>();
     [HideInInspector] public BattleSceneActions battleSceneActions;
     [HideInInspector] public int dialogueIndex;
+    [HideInInspector] public bool checkDialogue;
 
     private Cell[,] _elements;
     private TurnSystem _turnSystem;
@@ -76,6 +77,12 @@ public class CombatGrid : MonoBehaviour
     {
         RunDialogue();
     }
+
+    private void Update()
+    {
+        if (checkDialogue)
+            OnDialogueEnd();
+    }
     void EnableDialogue()
     {
         _dialogueBox.SetActive(true);
@@ -86,7 +93,7 @@ public class CombatGrid : MonoBehaviour
     }
     void DisableDialogue()
     {
-        _dialogueBox.SetActive(false);
+        //_dialogueBox.SetActive(false);
         foreach (var go in _combatUI)
         {
             go.transform.localPosition -= new Vector3(0, 10000, 0);
@@ -133,13 +140,14 @@ public class CombatGrid : MonoBehaviour
             default:
                 break;
         }
+        checkDialogue = true;
     }
 
     public void OnDialogueEnd()
     {
-        if (true) // DialogueSequencer.CanStartDialogue()
+        if (!_dialogueBox.activeSelf)
         {
-            //_dialogue0.FirstNode.
+            checkDialogue = false;
             switch (dialogueIndex)
             {
                 case 2:
@@ -163,6 +171,8 @@ public class CombatGrid : MonoBehaviour
                     break;
                 case 11:
                     DisableDialogue();
+                    // Le truc de la souris est pas fait au cause des problems ducoup on le skip
+                    dialogueIndex++;
                     break;
                 case 12:
                     // Souris thingy

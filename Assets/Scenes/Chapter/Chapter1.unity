@@ -643,17 +643,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4997836473242214018, guid: 351bc09c6820b0b49b01fee4dfbba1e9, type: 3}
   m_PrefabInstance: {fileID: 1221592496}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &376391927 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 83262120642726305, guid: 351bc09c6820b0b49b01fee4dfbba1e9, type: 3}
-  m_PrefabInstance: {fileID: 1221592496}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b42041914383964aab9af9368704261, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &387839284
 GameObject:
   m_ObjectHideFlags: 0
@@ -6009,34 +5998,6 @@ PrefabInstance:
     - target: {fileID: 3998563587116200674, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770642984624854434, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770642984624854434, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770642984624854434, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 376391927}
-    - target: {fileID: 5770642984624854434, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770642984624854434, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnDialogueEnd
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770642984624854434, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: CombatGrid, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770642984624854434, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6027237924002839360, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

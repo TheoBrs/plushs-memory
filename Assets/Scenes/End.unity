@@ -1790,14 +1790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af5802584746c943ae1b086cdb01bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingBarObject: {fileID: 1813175969}
-  _loadingBar: {fileID: 280338007}
-  _neutralZoneScene:
-    _sceneAsset: {fileID: 102900000, guid: 35f297eef5708254cb249a7699939d4a, type: 3}
-    _sceneName: NeutralZone
-  _battleScene:
-    _sceneAsset: {fileID: 102900000, guid: 32be1906f1d7334429b558243c5b937c, type: 3}
-    _sceneName: Chapter1
 --- !u!1 &1641492360
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,8 +2359,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _win: {fileID: 1900088276}
   _lose: {fileID: 203776789}
-  _continueText: {fileID: 569082205}
-  _restartText: {fileID: 1179219701}
+  _continueText: {fileID: 1179219701}
+  _restartText: {fileID: 569082205}
   _menuButton: {fileID: 806389312}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
