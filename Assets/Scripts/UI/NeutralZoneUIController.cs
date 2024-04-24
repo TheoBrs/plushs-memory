@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +20,13 @@ public class NeutralZoneUIController : MonoBehaviour
     [SerializeField] private SceneField _menuScene;
     [SerializeField] private Slider _loadingBar;
 
+    [Header("Dialogues")]
+    [SerializeField] private GameObject _dialogueBox;
+    [SerializeField] private DialogueChannel _dialogueChanel;
+    [SerializeField] private Dialogue _dialogue5;
+    [SerializeField] private Dialogue _dialogue_6;
+    [SerializeField] private Dialogue _dialogueTuto_4;
+
     private void Start()
     {
         _defaultUI.SetActive(true);
@@ -28,6 +36,20 @@ public class NeutralZoneUIController : MonoBehaviour
         _settingsPanel.SetActive(false);
         _storybookPanel.SetActive(false);
         _tutorialPanel.SetActive(false);
+
+        // TODO Change progression number
+        if (GameManager.Instance.Progression == 1)
+        {
+            StartCoroutine(ShowDialogue());
+        }
+    }
+
+    public IEnumerator ShowDialogue()
+    {
+        yield return new WaitForSeconds(1f);
+
+        _dialogueBox.SetActive(true);
+        _dialogueChanel.RaiseRequestDialogue(_dialogue5);
     }
 
     public void TriggerEncyclopedia()

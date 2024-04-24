@@ -1397,7 +1397,7 @@ MonoBehaviour:
   _startButtonText: {fileID: 871201848}
   _loadingBar: {fileID: 2107967354}
   _neutralZone:
-    _sceneAsset: {fileID: 102900000, guid: 93f101438ab229c49b3c34d20b874381, type: 3}
+    _sceneAsset: {fileID: 0}
     _sceneName: NeutralZone
 --- !u!1 &1214219886
 GameObject:
@@ -1731,8 +1731,6 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 66e7039a7a4ed7545b25a80a9886c194, type: 3}
   musicSource: {fileID: 1512363378}
   sfxSource: {fileID: 932099924}
-  _musicSlider: {fileID: 1808192198}
-  _sfxSlider: {fileID: 1550512523}
 --- !u!1 &1462900069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,18 +2359,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1031505721}
-        m_TargetAssemblyTypeName: MenuUIController, Assembly-CSharp
-        m_MethodName: StartedNewGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1031505721}
         m_TargetAssemblyTypeName: MenuUIController, Assembly-CSharp
         m_MethodName: LoadNeutralZone

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuUIController : MonoBehaviour, IDataPersistence
+public class MenuUIController : MonoBehaviour
 {
     [Header("UI Objects")]
     [SerializeField] private GameObject _defaultPanel;
@@ -17,8 +17,6 @@ public class MenuUIController : MonoBehaviour, IDataPersistence
     [SerializeField] private Slider _loadingBar;
     [SerializeField] private SceneField _neutralZone;
 
-    private bool _isNewGame;
-
     private void Start()
     {
         // panel
@@ -26,7 +24,7 @@ public class MenuUIController : MonoBehaviour, IDataPersistence
         _optionPanel.SetActive(false);
         _darkBackground.SetActive(false);
 
-        if (_isNewGame)
+        if (GameManager.Instance.Progression == 0)
         {
             _startButtonText.text = "Nouvelle partie";
         }
@@ -44,25 +42,16 @@ public class MenuUIController : MonoBehaviour, IDataPersistence
         _darkBackground.SetActive(!_darkBackground.activeSelf);
     }
 
-    public void StartedNewGame()
-    {
-        if (_isNewGame) _isNewGame = false;
-    }
-
     public void LoadNeutralZone()
     {
+        if (GameManager.Instance.Progression == 0)
+        {
+            GameManager.Instance.Progression = 1;
+        }
+
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_neutralZone));
 
         StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
-    }
-
-    public void LoadData(GameData data)
-    {
-        _isNewGame = data.IsNewGame;
-    }
-    public void SaveData(GameData data)
-    {
-        data.IsNewGame = _isNewGame;
     }
 
     public void ExitGame()
