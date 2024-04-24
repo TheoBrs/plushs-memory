@@ -35,7 +35,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
 
     private AlliesManager _alliesManager;
     
-    [SerializeField] VideoPlayer videoPlayer;
+    [SerializeField] GameObject videoPlayer;
 
     void Start()
     {
@@ -163,7 +163,6 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
             animator.SetTrigger("StartFadeIn");
-            videoPlayer.Play();
         }
         else
         {
@@ -172,13 +171,14 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.battleSceneActions.nextBattlePlacement = grid.battleSceneActions.nextBattlePlacement.nextWave;
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
-            animator.SetTrigger("StartFadeIn");
-            videoPlayer.Play();
+            animator.SetTrigger("StartFadeIn");          
         }
     }
 
     public void OnFadeInFinish()
     {
+        videoPlayer.SetActive(true);
+        videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
 
         if (!battleFullyEnded)
         {
@@ -197,7 +197,6 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.DestroyGrid();
             grid.SetupGrid();
             SetUpBattle();
-            animator.SetTrigger("StartFadeOut");
         }
         else
         {
