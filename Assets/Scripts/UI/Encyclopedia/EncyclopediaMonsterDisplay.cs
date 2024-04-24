@@ -24,8 +24,7 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
         _descriptionText.text = _monster.Description;
         _imageAvatar.sprite = _monster.Avatar;
 
-        // TO DO : Read the number of monsters killed
-        _monstersKilledText.text = 0.ToString();
+        SwitchMonsterKillCount();
     }
 
     private void Start()
@@ -43,7 +42,27 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
         _nameText.text = _monster.Name;
         _descriptionText.text = _monster.Description;
 
-        // TO DO : Read the number of monsters killed
-        _monstersKilledText.text = 0.ToString();
+        SwitchMonsterKillCount();
+    }
+
+    private void SwitchMonsterKillCount()
+    {
+        switch (_monster.name)
+        {
+            case "Mite":
+                _monstersKilledText.text = StatisticsManager.Instance.miteKillCount.ToString();
+                break;
+            case "Coleoptere":
+                _monstersKilledText.text = StatisticsManager.Instance.coleoptereKillCount.ToString();
+                break;
+            case "Souris":
+                // _monstersKilledText.text = StatisticsManager.Instance.sourisKillCount.ToString();
+                break;
+            case "ReineMite":
+                // _monstersKilledText.text = StatisticsManager.Instance.reineMiteKillCount.ToString();
+                break;
+            default:
+                break;
+        }
     }
 }

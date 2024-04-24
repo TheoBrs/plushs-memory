@@ -51,6 +51,11 @@ public class StorybookChapterDisplay : MonoBehaviour
 
     public void LoadChapterScene()
     {
+        if (GameManager.Instance.Progression == 1)
+        {
+            return;
+        }
+
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync("Chapter" + _currentChapterIndex));
 
         StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
