@@ -224,13 +224,11 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.DestroyGrid();
             grid.SetupGrid();
             SetUpBattle();
-            if (IsPlayed == true)
+            if (IsPlayed == true && videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
             {
-                if (!videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying) // while
-                {
-                    videoPlayer.SetActive(false);
-                    IsPlayed = false;
-                }
+                 animator.Play("TransitionOut");
+                 videoPlayer.SetActive(false);
+                 IsPlayed = false;
             }
 
         }
