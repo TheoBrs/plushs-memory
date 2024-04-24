@@ -113,7 +113,7 @@ public abstract class Enemy : Entity
     {
         Player _player = FindObjectOfType<Player>();
 
-        if ((_player.transform.position - transform.position).magnitude == 1 * _grid.gridCellScale)
+        if ((_player.transform.position - transform.position).magnitude <= 1.1 * _grid.gridCellScale)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
             if (directeur.x > 0)
