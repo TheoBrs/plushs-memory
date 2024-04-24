@@ -545,6 +545,9 @@ public class Player : Entity
         _MoveButton.GetComponent<Button>().enabled = true;
         _EndTurnButton.GetComponent<Image>().color = _EndTurnButton.GetComponent<Button>().colors.normalColor;
         _EndTurnButton.GetComponent<Button>().enabled = true;
+        _buttonFriendlyAbility.GetComponent<Image>().color = _buttonFriendlyAbility.GetComponent<Button>().colors.normalColor;
+        _allyImage.GetComponent<Image>().color = _buttonFriendlyAbility.GetComponent<Button>().colors.normalColor;
+        _buttonFriendlyAbility.GetComponent<Button>().enabled = true;
     }
 
     public void EndOfTurn()
@@ -568,6 +571,9 @@ public class Player : Entity
         _MoveButton.GetComponent<Button>().enabled = false;
         _EndTurnButton.GetComponent<Image>().color = _EndTurnButton.GetComponent<Button>().colors.disabledColor;
         _EndTurnButton.GetComponent<Button>().enabled = false;
+        _buttonFriendlyAbility.GetComponent<Image>().color = _buttonFriendlyAbility.GetComponent<Button>().colors.disabledColor;
+        _allyImage.GetComponent<Image>().color = _buttonFriendlyAbility.GetComponent<Button>().colors.disabledColor;
+        _buttonFriendlyAbility.GetComponent<Button>().enabled = false;
     }
 
     public Entity GetEnemy()
