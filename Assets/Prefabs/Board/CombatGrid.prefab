@@ -64,8 +64,16 @@ MonoBehaviour:
   _dialogue5: {fileID: 11400000, guid: 6ead544988677e0439c8ae2c9526572f, type: 2}
   _dialogue6: {fileID: 11400000, guid: 9dcab73a82cfe5f49a96ec3c49b2aa3f, type: 2}
   _dialogue7: {fileID: 11400000, guid: fb7db657862a6484e9b515cac18b9163, type: 2}
-  _gridPrefab: {fileID: 0}
+  _gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77, type: 3}
   _mainCamPivot: {fileID: 0}
-  _combatUI: {fileID: 0}
+  _combatUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   battleSceneActions: {fileID: 0}
   dialogueIndex: 0

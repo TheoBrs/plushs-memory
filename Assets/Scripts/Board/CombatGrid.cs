@@ -34,7 +34,7 @@ public class CombatGrid : MonoBehaviour
     [Header("Misc")]
     [SerializeField] private GameObject _gridPrefab;
     [SerializeField] private GameObject _mainCamPivot;
-    [SerializeField] private GameObject _combatUI;
+    [SerializeField] private List<GameObject> _combatUI = new List<GameObject>();
     [HideInInspector] public BattleSceneActions battleSceneActions;
     [HideInInspector] public int dialogueIndex;
 
@@ -79,12 +79,18 @@ public class CombatGrid : MonoBehaviour
     void EnableDialogue()
     {
         _dialogueBox.SetActive(true);
-        _combatUI.transform.localPosition += new Vector3(0, 10000, 0);
+        foreach (var go in _combatUI)
+        {
+            go.transform.localPosition += new Vector3(0, 10000, 0);
+        }
     }
     void DisableDialogue()
     {
         _dialogueBox.SetActive(false);
-        _combatUI.transform.localPosition -= new Vector3(0, 10000, 0);
+        foreach (var go in _combatUI)
+        {
+            go.transform.localPosition -= new Vector3(0, 10000, 0);
+        }
     }
 
     public void RunDialogue()
@@ -133,6 +139,7 @@ public class CombatGrid : MonoBehaviour
     {
         if (true) // DialogueSequencer.CanStartDialogue()
         {
+            //_dialogue0.FirstNode.
             switch (dialogueIndex)
             {
                 case 2:
