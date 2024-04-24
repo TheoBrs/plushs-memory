@@ -42,6 +42,8 @@ public class StorybookChapterDisplay : MonoBehaviour
 
     public void HandleButtonClick(GameObject clickedButton)
     {
+        _chapterDescriptionScrollbar.value = 1;
+
         _currentChapterIndex = clickedButton.GetComponent<StorybookButtons>().GetChapterIndex();
         _chapterTitle.text = clickedButton.GetComponent<StorybookButtons>().GetChapter().Name;
         _chapterDescription.text = clickedButton.GetComponent<StorybookButtons>().GetChapter().Description;
