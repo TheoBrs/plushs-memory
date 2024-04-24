@@ -204,6 +204,25 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         StartCoroutine(WaitForVideoPlayer());
     }   
     
+    
+IEnumerator WaitForHide()
+{
+    yield return new WaitForSeconds(10.0f);
+    if (IsPlayed && !videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
+    {
+        animator.Play("TransitionOut");
+        videoPlayer.SetActive(false);
+        IsPlayed = false;
+        yield return null;
+    }
+   
+}
+
+  void StartHide()
+    {
+        StartCoroutine(WaitForHide());
+    }   
+    
   
     public void OnFadeInFinish()
     {
@@ -224,12 +243,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.DestroyGrid();
             grid.SetupGrid();
             SetUpBattle();
-            if (IsPlayed == true && videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
-            {
-                 animator.Play("TransitionOut");
-                 videoPlayer.SetActive(false);
-                 IsPlayed = false;
-            }
+            StartHide();
 
         }
         else
