@@ -452,6 +452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 190264987}
   - component: {fileID: 190264986}
+  - component: {fileID: 190264988}
   m_Layer: 0
   m_Name: TurnSystem
   m_TagString: TurnSystem
@@ -473,9 +474,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHPText: {fileID: 2042675364}
   turnText: {fileID: 347616123}
-  animator: {fileID: 908692520}
-  currentState: 0
+  animator: {fileID: 190264988}
   videoPlayer: {fileID: 721181225}
+  currentState: 0
 --- !u!4 &190264987
 Transform:
   m_ObjectHideFlags: 0
@@ -491,6 +492,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 28790324}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &190264988
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190264985}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7b557765562047b448723ae3c521e430, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &280598955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2733,6 +2755,30 @@ PrefabInstance:
     - target: {fileID: 5454610519623364173, guid: 902656ae68297f64ebae28900c999228, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786905269971955449, guid: 902656ae68297f64ebae28900c999228, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786905269971955449, guid: 902656ae68297f64ebae28900c999228, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786905269971955449, guid: 902656ae68297f64ebae28900c999228, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786905269971955449, guid: 902656ae68297f64ebae28900c999228, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786905269971955449, guid: 902656ae68297f64ebae28900c999228, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -2460
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786905269971955449, guid: 902656ae68297f64ebae28900c999228, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -1340
       objectReference: {fileID: 0}
     - target: {fileID: 6240605370637920769, guid: 902656ae68297f64ebae28900c999228, type: 3}
       propertyPath: m_Name

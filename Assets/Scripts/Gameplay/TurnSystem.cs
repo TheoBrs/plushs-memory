@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
     [SerializeField] Animator animator;
+    [SerializeField] GameObject videoPlayer;
     int chapterIndex;
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
@@ -34,13 +36,13 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     public FightPhase currentState = FightPhase.INIT;
 
     private AlliesManager _alliesManager;
-    
-    [SerializeField] GameObject videoPlayer;
+
 
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+        videoPlayer.GetComponentInChildren<VideoPlayer>().Prepare();
         SetUpBattle();
         _alliesManager = AlliesManager.Instance;
         if (_alliesManager)
@@ -53,6 +55,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     void Update()
     {
         StateSwitch();
+        Debug.Log("Play" + videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying);
     }
 
     public void AddMoomoo(Player moomoo)
@@ -86,7 +89,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         }
         //Debug.Log("TurnPlayer");
     }
- 
+
     public void EnemyTurn()
     {
         if (!enemyTurnInitalized)
@@ -162,7 +165,12 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         {
             battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
-            animator.SetTrigger("StartFadeIn");
+            animator.Play("TransitionIn");
+            videoPlayer.SetActive(true);
+            videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
+
+            OnFadeInFinish();
+
         }
         else
         {
@@ -171,15 +179,45 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.battleSceneActions.nextBattlePlacement = grid.battleSceneActions.nextBattlePlacement.nextWave;
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
-            animator.SetTrigger("StartFadeIn");          
+            animator.Play("TransitionIn");
+
+            StartCoroutine();
         }
+    }
+
+    IEnumerator WaitForVideoPlayer()
+    {
+        videoPlayer.SetActive(true);
+        videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
+        if (videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
+        {
+            OnFadeInFinish();
+        }
+        yield return null;
+    }
+
+    IEnumerator WaitForDisableVideoPlayer()
+    {
+        if (!videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
+        {
+            animator.Play("TransitionOut");
+            videoPlayer.SetActive(false);
+        }
+        yield return null;
+    }
+
+    void StartCoroutine()
+    {
+        StartCoroutine(WaitForVideoPlayer());
+    }
+
+    void StartDisable()
+    {
+        StartCoroutine(WaitForDisableVideoPlayer());
     }
 
     public void OnFadeInFinish()
     {
-        videoPlayer.SetActive(true);
-        videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
-
         if (!battleFullyEnded)
         {
             Destroy(player.gameObject);
@@ -197,6 +235,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.DestroyGrid();
             grid.SetupGrid();
             SetUpBattle();
+            StartDisable();
         }
         else
         {
@@ -211,6 +250,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             SceneManager.LoadScene("End");
         }
     }
+
     public void LoadData(GameData data)
     { }
 
@@ -316,5 +356,5 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             Debug.Log("Friend Ability");
         }
     }
-#endregion
+    #endregion
 }
