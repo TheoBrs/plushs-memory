@@ -130,11 +130,7 @@ public class Player : Entity
         _ability1.Damage = 1;
         _ability1.Cost = 1;
 
-#if UNITY_EDITOR
-        _ability2.Damage = 999;
-#else
         _ability2.Damage = 3;
-#endif
         _ability2.Cost = 2;
 
         _fAbility1.RoundsBeforeReuse = 0;

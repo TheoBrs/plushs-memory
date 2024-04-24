@@ -53,7 +53,7 @@ MonoBehaviour:
     _baseValue: 15
   MaxAP:
     _baseValue: 6
-  speed: 30
+  speed: 3
   Attack:
     _baseValue: 0
   Defense:
@@ -65,7 +65,6 @@ MonoBehaviour:
   boonImage: {fileID: 21300000, guid: 50e71f3159015c941a2bd60f7e5f2e88, type: 3}
   pattoImage: {fileID: 21300000, guid: 4f60db0f4f0c5574597e00be23b661cd, type: 3}
   isAttacking: 0
-  canPlay: 0
   entity: {fileID: 0}
 --- !u!114 &3764064212899648000
 MonoBehaviour:

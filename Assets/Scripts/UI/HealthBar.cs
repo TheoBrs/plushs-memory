@@ -10,8 +10,11 @@ public class HealthBar : MonoBehaviour
     private void Awake()
     {
         var go = ToolBox.GetChildWithTag(gameObject.transform, "HealthBarText");
-        if (go != null )
+        if (go)
+        {
             _healthBarText = go.GetComponent<Text>();
+            SetMaxHP(_maxHP);
+        }
     }
 
     public void SetMaxHP(int maxHP)
