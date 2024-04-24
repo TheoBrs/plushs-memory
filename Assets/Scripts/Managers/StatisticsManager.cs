@@ -20,11 +20,11 @@ public class StatisticsManager : MonoBehaviour, IDataPersistence
 
     #endregion
 
-    public int miteKillCount;
-    public int coleoptereKillCount;
-    public bool chapter1Cleared;
-    public bool chapter2Cleared;
-    public bool chapter3Cleared;
+    [HideInInspector] public int miteKillCount;
+    [HideInInspector] public int coleoptereKillCount;
+    [HideInInspector] public bool chapter1Cleared;
+    [HideInInspector] public bool chapter2Cleared;
+    [HideInInspector] public bool chapter3Cleared;
 
     public void SaveData(GameData data)
     {

@@ -12,7 +12,8 @@ public class TurnSystem : MonoBehaviour
         ENEMYTURN,
         WIN,
         LOSE,
-        END
+        END,
+        STOP
     }
 
     [SerializeField] Text _playerHPText;
@@ -133,6 +134,9 @@ public class TurnSystem : MonoBehaviour
                 End();
                 break;
 
+            case FightPhase.STOP:
+                break;
+
             default:
                 currentState = FightPhase.INIT;
                 break;
@@ -159,6 +163,7 @@ public class TurnSystem : MonoBehaviour
             // If you lose or there is no next wave
             _battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
+            currentState = FightPhase.STOP;
             switch (_grid.dialogueIndex)
             {
                 case 4:
@@ -170,7 +175,6 @@ public class TurnSystem : MonoBehaviour
                 default:
                     break;
             }
-            currentState = FightPhase.INIT;
         }
         else // If we're going to next wave
         {

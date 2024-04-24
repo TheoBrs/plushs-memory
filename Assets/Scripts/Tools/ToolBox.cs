@@ -1,6 +1,8 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class ToolBox
+public class ToolBox : MonoBehaviour
 {
     public static Transform GetChildWithTag(Transform transform, string tag, bool recurcive = false)
     {
@@ -24,6 +26,11 @@ public class ToolBox
             }
         }
         return null;
+    }
+
+    public static void LoadChapter1()
+    {
+        SceneManager.LoadScene("Chapter1");
     }
 }
 
