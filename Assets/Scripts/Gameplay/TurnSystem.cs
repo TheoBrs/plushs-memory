@@ -32,6 +32,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
     bool battleFullyEnded = false;
+    bool IsPlayed = false;
     int enemyIndex = 0;
     public FightPhase currentState = FightPhase.INIT;
 
@@ -56,6 +57,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     {
         StateSwitch();
         Debug.Log("Play" + videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying);
+        Debug.Log(IsPlayed);
     }
 
     public void AddMoomoo(Player moomoo)
@@ -193,15 +195,16 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         {
             OnFadeInFinish();
         }
+        IsPlayed = true;
         yield return null;
     }
 
     void StartCoroutine()
     {
         StartCoroutine(WaitForVideoPlayer());
-    }
-
-
+    }   
+    
+  
     public void OnFadeInFinish()
     {
         if (!battleFullyEnded)
@@ -221,9 +224,14 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.DestroyGrid();
             grid.SetupGrid();
             SetUpBattle();
-            animator.Play("TransitionOut");
-            videoPlayer.SetActive(false);
-
+            if (IsPlayed == true)
+            {
+                if (!videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying) // while
+                {
+                    videoPlayer.SetActive(false);
+                    IsPlayed = false;
+                }
+            }
 
         }
         else
