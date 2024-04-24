@@ -133,9 +133,9 @@ public abstract class Enemy : Entity
                     {
                         CastAbility2(_player);
                     }
+
                 }
-                
-                if (_ability1.RoundsBeforeReuse == 0)
+                else if (_ability1.RoundsBeforeReuse == 0)
                 {
                     if (CurrentAP >= _ability1.Cost)
                     {
