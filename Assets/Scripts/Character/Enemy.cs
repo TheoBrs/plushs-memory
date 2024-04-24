@@ -113,7 +113,7 @@ public abstract class Enemy : Entity
     {
         Player _player = FindObjectOfType<Player>();
 
-        if ((_player.transform.position - transform.position).magnitude == 1 * _grid.gridCellScale)
+        if ((_player.transform.position - transform.position).magnitude <= 1.1 * _grid.gridCellScale)
         {
             Vector3 directeur = (_player.transform.position - transform.position);
             if (directeur.x > 0)
@@ -133,9 +133,9 @@ public abstract class Enemy : Entity
                     {
                         CastAbility2(_player);
                     }
+
                 }
-                
-                if (_ability1.RoundsBeforeReuse == 0)
+                else if (_ability1.RoundsBeforeReuse == 0)
                 {
                     if (CurrentAP >= _ability1.Cost)
                     {

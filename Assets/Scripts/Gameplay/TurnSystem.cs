@@ -42,7 +42,7 @@ public class TurnSystem : MonoBehaviour
 
         if (_alliesManager)
         {
-            _player._currentAlly = _alliesManager._actualAlly;
+            _player.currentAlly = _alliesManager._actualAlly;
             _player.SetupAllyPassives();
         }
     }

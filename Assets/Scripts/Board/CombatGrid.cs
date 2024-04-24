@@ -211,16 +211,17 @@ public class CombatGrid : MonoBehaviour
 
         if (battleSceneActions != null && battleSceneActions.nextBattlePlacement != null)
         {
-            AddMoomoo(battleSceneActions.nextBattlePlacement.moomooCell.Item1, battleSceneActions.nextBattlePlacement.moomooCell.Item2);
+            var moomoo = battleSceneActions.nextBattlePlacement.moomooCell;
+            AddMoomoo(moomoo.coord, moomoo.Item2, moomoo.ally);
 
-            foreach (var tuple in battleSceneActions.nextBattlePlacement.enemyCellList)
+            foreach (var (coord, prefab, rotation, size, causeEndOfBattle) in battleSceneActions.nextBattlePlacement.enemyCellList)
             {
-                AddEnemy(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+                AddEnemy(coord, prefab, rotation, size, causeEndOfBattle);
             }
 
-            foreach (var tuple in battleSceneActions.nextBattlePlacement.obstacleCellList)
+            foreach (var (coord, prefab) in battleSceneActions.nextBattlePlacement.obstacleCellList)
             {
-                AddObstacle(tuple.Item1, tuple.Item2);
+                AddObstacle(coord, prefab);
             }
         }
     }
@@ -262,12 +263,15 @@ public class CombatGrid : MonoBehaviour
         return true;
     }
 
-    public void AddMoomoo(Coord coord, GameObject moomooPrefabs) 
+    public void AddMoomoo(Coord coord, GameObject moomooPrefabs, int ally) 
     {
         Vector3 rotation = new Vector3(0, 0, 0);
         Player moomoo = Instantiate(moomooPrefabs, new Vector3(coord.X * gridCellScale, 0.01f, coord.Y * gridCellScale) + _offset, Quaternion.Euler(rotation)).GetComponent<Player>();
         moomoo.CurrentPos = coord;
         moomoo.speed = moomooPrefabs.GetComponent<Player>().speed;
+        moomoo.currentAlly = ally;
+        moomoo.SetupAllyPassives();
+        moomoo.CheckAP(false);
         _player = moomoo;
         _turnSystem.AddMoomoo(_player);
     }

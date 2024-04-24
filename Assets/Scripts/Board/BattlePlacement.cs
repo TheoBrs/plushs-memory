@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class BattlePlacement
 {
-    public List<(Coord, GameObject, Vector3, Coord, bool)> enemyCellList = new List<(Coord, GameObject, Vector3, Coord, bool)>();
-    public List<(Coord, GameObject)> obstacleCellList = new List<(Coord, GameObject)>();
-    public (Coord, GameObject) moomooCell;
+    public List<(Coord coord, GameObject prefab, Vector3 rotation, Coord size, bool causeEndOfBattle)> enemyCellList = new List<(Coord, GameObject, Vector3, Coord, bool)>();
+    public List<(Coord coord, GameObject prefab)> obstacleCellList = new List<(Coord, GameObject)>();
+    public (Coord coord, GameObject prefab, int ally) moomooCell;
     public BattlePlacement nextWave;
     public void AddEnemy(List<(Coord coord, GameObject enemyPrefabs, Vector3 rotation, Coord size, bool causeEndOfBattle)> enemyList)
     {
@@ -23,9 +23,9 @@ public class BattlePlacement
         }
     }
 
-    public void AddMoomoo((Coord coord, GameObject moomooPrefab) tuple)
+    public void AddMoomoo((Coord coord, GameObject moomooPrefab, int ally) tuple)
     {
-        moomooCell = (tuple.coord, tuple.moomooPrefab);
+        moomooCell = (tuple.coord, tuple.moomooPrefab, tuple.ally);
     }
 
     public void ClearBattlePlacement()
