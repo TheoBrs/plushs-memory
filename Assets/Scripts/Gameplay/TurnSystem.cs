@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,14 +26,14 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
     [SerializeField] Animator animator;
+
+    [SerializeField] VideoPlayer videoPlayer;
     int chapterIndex;
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
     bool battleFullyEnded = false;
     int enemyIndex = 0;
     public FightPhase currentState = FightPhase.INIT;
-
-    private VideoPlayer _videoPlayer;
 
     private AlliesManager _alliesManager;
     //private Vide
@@ -43,8 +44,6 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         SetUpBattle();
         _alliesManager = AlliesManager.Instance;
-        _videoPlayer = GetComponent<VideoPlayer>();
-
         if (_alliesManager)
         {
             player._currentAlly = _alliesManager._actualAlly;
@@ -165,7 +164,6 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
             animator.SetTrigger("StartFadeIn");
-            
         }
         else
         {
@@ -175,12 +173,12 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
             animator.SetTrigger("StartFadeIn");
-            _videoPlayer.Play();
         }
     }
 
     public void OnFadeInFinish()
     {
+        videoPlayer.Play();
         if (!battleFullyEnded)
         {
             Destroy(player.gameObject);
