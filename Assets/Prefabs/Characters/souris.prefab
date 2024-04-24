@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingTextPrefab: {fileID: 7289141583938169690, guid: 14827520fcd18d445871868c9eda3a24, type: 3}
   MaxHP:
-    _baseValue: 40
+    _baseValue: 30
   MaxAP:
     _baseValue: 5
   speed: 3

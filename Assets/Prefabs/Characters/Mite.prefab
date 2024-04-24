@@ -53,8 +53,8 @@ MonoBehaviour:
   MaxHP:
     _baseValue: 5
   MaxAP:
-    _baseValue: 4
-  speed: 3
+    _baseValue: 3
+  speed: 6
   Attack:
     _baseValue: 0
   Defense:

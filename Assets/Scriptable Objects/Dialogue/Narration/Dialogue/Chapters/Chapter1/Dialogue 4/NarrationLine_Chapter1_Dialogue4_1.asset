@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd2c1887a808da4b8f0a6cec8d8b890, type: 3}
   m_Name: NarrationLine_Chapter1_Dialogue4_1
   m_EditorClassIdentifier: 
-  _speaker: {fileID: 11400000, guid: e964aeadd1a1cb544b32907ac6c07249, type: 2}
-  _text: "On l\u2019a fait ! Viens, trouvons-nous un endroit pour nous reposer."
+  _speaker: {fileID: 11400000, guid: 9dd3082631238414f8db3e72be080f21, type: 2}
+  _text: "Tu m\u2019as sauv\xE9e ! Merci pour ton aide. Maintenant, finissons-en
+    avec ces carapaces toutes pleines de poussi\xE8re ! \r"
