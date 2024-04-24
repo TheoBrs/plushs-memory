@@ -42,7 +42,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
-        videoPlayer.GetComponentInChildren<VideoPlayer>().Prepare();
+       // videoPlayer.GetComponentInChildren<VideoPlayer>().Prepare();
         SetUpBattle();
         _alliesManager = AlliesManager.Instance;
         if (_alliesManager)
@@ -169,7 +169,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             videoPlayer.SetActive(true);
             videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
 
-            OnFadeInFinish();
+            StartCoroutine();
 
         }
         else
@@ -196,25 +196,11 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         yield return null;
     }
 
-    IEnumerator WaitForDisableVideoPlayer()
-    {
-        if (!videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
-        {
-            animator.Play("TransitionOut");
-            videoPlayer.SetActive(false);
-        }
-        yield return null;
-    }
-
     void StartCoroutine()
     {
         StartCoroutine(WaitForVideoPlayer());
     }
 
-    void StartDisable()
-    {
-        StartCoroutine(WaitForDisableVideoPlayer());
-    }
 
     public void OnFadeInFinish()
     {
@@ -235,7 +221,10 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.DestroyGrid();
             grid.SetupGrid();
             SetUpBattle();
-            StartDisable();
+            animator.Play("TransitionOut");
+            videoPlayer.SetActive(false);
+
+
         }
         else
         {
