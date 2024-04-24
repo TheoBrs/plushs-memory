@@ -53,7 +53,7 @@ public class StorybookChapterDisplay : MonoBehaviour
     {
         if (GameManager.Instance.Progression == 1)
         {
-            return;
+            //
         }
 
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync("Chapter" + _currentChapterIndex));

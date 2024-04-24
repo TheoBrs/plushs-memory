@@ -19,12 +19,7 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
     private void Awake()
     {
         _descriptionScrollbar.value = 1;
-
-        _nameText.text = _monster.Name;
-        _descriptionText.text = _monster.Description;
         _imageAvatar.sprite = _monster.Avatar;
-
-        SwitchMonsterKillCount();
     }
 
     private void Start()
@@ -56,10 +51,10 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
                 _monstersKilledText.text = StatisticsManager.Instance.coleoptereKillCount.ToString();
                 break;
             case "Souris":
-                // _monstersKilledText.text = StatisticsManager.Instance.sourisKillCount.ToString();
+                _monstersKilledText.text = 0.ToString();
                 break;
             case "ReineMite":
-                // _monstersKilledText.text = StatisticsManager.Instance.reineMiteKillCount.ToString();
+                _monstersKilledText.text = 0.ToString();
                 break;
             default:
                 break;
