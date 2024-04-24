@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Player : Entity
 {
     [Header("Ally")]
-    public int _currentAlly;
+    public int currentAlly;
     public Sprite keroImage;
     public Sprite boonImage;
     public Sprite pattoImage;
@@ -41,6 +41,7 @@ public class Player : Entity
         _buttonAbility1 = GameObject.FindWithTag("Ability1");
         _buttonAbility2 = GameObject.FindWithTag("Ability2");
         _buttonFriendlyAbility = GameObject.FindWithTag("FriendlyAbility");
+        _allyImage = GameObject.FindWithTag("FriendlyAbilityImage").GetComponent<Image>();
         _MoveButton = GameObject.FindWithTag("MoveButton");
         _EndTurnButton = GameObject.FindWithTag("EndTurnButton");
         _playerAP = GameObject.FindWithTag("PlayerAPText");
@@ -77,20 +78,22 @@ public class Player : Entity
             _buttonFriendlyAbility.GetComponent<Image>().enabled = true;
             _buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = true;
         }
-        _previousAlly = _currentAlly;
+        _previousAlly = currentAlly;
 
-        if (_currentAlly == 1)
+        if (currentAlly == 1)
         {
             _allyImage.sprite = keroImage;
             MaxHP.AddModifier(3);
             CurrentHP = MaxHP.GetValue();
+            if (_healthBar)
+                _healthBar.SetMaxHP(MaxHP.GetValue());
         }
-        else if (_currentAlly == 2)
+        else if (currentAlly == 2)
         {
             _allyImage.sprite = boonImage;
             Defense.AddModifier(1);
         }
-        else if (_currentAlly == 3)
+        else if (currentAlly == 3)
         {
             _allyImage.sprite = pattoImage;
             Attack.AddModifier(1);
@@ -219,15 +222,15 @@ public class Player : Entity
 
     public void FriendAbilityButton()
     {
-        if(_currentAlly == 1)
+        if(currentAlly == 1)
         {
             CastFriendAbility1();
         }
-        else if(_currentAlly == 2)
+        else if(currentAlly == 2)
         {
             CastFriendAbility2();
         }
-        else if (_currentAlly == 3)
+        else if (currentAlly == 3)
         {
             CastFriendAbility3();
         }
@@ -530,9 +533,9 @@ public class Player : Entity
 
     public void StartOfTurn()
     {
-        if ((_currentAlly == 1 && _fAbility1.RoundsBeforeReuse == 0) ||
-            (_currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) ||
-            (_currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
+        if ((currentAlly == 1 && _fAbility1.RoundsBeforeReuse == 0) ||
+            (currentAlly == 2 && _fAbility2.RoundsBeforeReuse == 0) ||
+            (currentAlly == 3 && _fAbility3.RoundsBeforeReuse == 0))
         {
             _buttonFriendlyAbility.GetComponent<Image>().enabled = true;
             _buttonFriendlyAbility.transform.GetChild(0).GetComponent<Image>().enabled = true;
