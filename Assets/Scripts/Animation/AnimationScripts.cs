@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AnimationScripts : MonoBehaviour
 {
-    [SerializeField] EndMenu endMenu;
+    [SerializeField] private EndMenuActions _endMenu;
 
     public enum Scenes
     {
@@ -27,13 +27,13 @@ public class AnimationScripts : MonoBehaviour
         if (currentScene == Scenes.End && nextScene == Scenes.Battle)
         {
             if (IsWin.IsWinBool)
-                endMenu.ContinueGame();
+                _endMenu.ContinueGame();
             else
-                endMenu.RestartGame();
+                _endMenu.RestartGame();
         }
         if (currentScene == Scenes.End && nextScene == Scenes.Menu)
         {
-            endMenu.MainMenu();
+            _endMenu.MainMenu();
         }
         if (currentScene == Scenes.Menu && nextScene == Scenes.Battle)
         {

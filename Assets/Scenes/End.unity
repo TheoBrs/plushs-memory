@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135f9aaa482ae7146acd3858f72c1081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1001038981}
+  _animator: {fileID: 1001038981}
 --- !u!1 &421453766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,6 +1296,10 @@ PrefabInstance:
       propertyPath: endMenu
       value: 
       objectReference: {fileID: 369842237}
+    - target: {fileID: 3980199444873021658, guid: 902656ae68297f64ebae28900c999228, type: 3}
+      propertyPath: _endMenu
+      value: 
+      objectReference: {fileID: 369842237}
     - target: {fileID: 5454610519623364173, guid: 902656ae68297f64ebae28900c999228, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1786,14 +1790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af5802584746c943ae1b086cdb01bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingBarObject: {fileID: 1813175969}
-  _loadingBar: {fileID: 280338007}
-  _neutralZoneScene:
-    _sceneAsset: {fileID: 102900000, guid: 35f297eef5708254cb249a7699939d4a, type: 3}
-    _sceneName: NeutralZone
-  _battleScene:
-    _sceneAsset: {fileID: 102900000, guid: 32be1906f1d7334429b558243c5b937c, type: 3}
-    _sceneName: Chapter1
 --- !u!1 &1641492360
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,11 +2357,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6c5deb05d313c418161ade841e8159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  win: {fileID: 1900088276}
-  lose: {fileID: 203776789}
-  continueText: {fileID: 1179219701}
-  restartText: {fileID: 569082205}
-  menuButton: {fileID: 806389312}
+  _win: {fileID: 1900088276}
+  _lose: {fileID: 203776789}
+  _continueText: {fileID: 1179219701}
+  _restartText: {fileID: 569082205}
+  _menuButton: {fileID: 806389312}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

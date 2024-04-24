@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class FloatingText : MonoBehaviour
 {
-    [SerializeField] AnimationClip animationClip;
-    [SerializeField] Color color;
-    [SerializeField] GameObject textObj;
+    [SerializeField] private AnimationClip _animationClip;
+    [SerializeField] private Color _color;
+    [SerializeField] private GameObject _textObj;
 
     public void Init(string text, Color color)
     {
-        Destroy(gameObject, animationClip.length);
-        textObj.GetComponent<TextMeshProUGUI>().text = text;
-        textObj.GetComponent<TextMeshProUGUI>().color = color;
+        Destroy(gameObject, _animationClip.length);
+        _textObj.GetComponent<TextMeshProUGUI>().text = text;
+        _textObj.GetComponent<TextMeshProUGUI>().color = color;
     }
 }

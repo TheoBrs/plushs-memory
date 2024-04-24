@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2800098814178607519}
   - {fileID: 7980702894878727328}
@@ -52,17 +52,20 @@ MonoBehaviour:
   MaxHP:
     _baseValue: 15
   MaxAP:
-    _baseValue: 5
+    _baseValue: 6
   speed: 3
   Attack:
     _baseValue: 0
   Defense:
     _baseValue: 0
+  IsTurn: 0
   isMoving: 0
   _currentAlly: 0
   keroImage: {fileID: 21300000, guid: 10e335cbbd4a4f04c89a9cc20e914547, type: 3}
   boonImage: {fileID: 21300000, guid: 50e71f3159015c941a2bd60f7e5f2e88, type: 3}
   pattoImage: {fileID: 21300000, guid: 4f60db0f4f0c5574597e00be23b661cd, type: 3}
+  isAttacking: 0
+  entity: {fileID: 0}
 --- !u!114 &3764064212899648000
 MonoBehaviour:
   m_ObjectHideFlags: 0
