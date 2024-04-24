@@ -131,44 +131,47 @@ public class CombatGrid : MonoBehaviour
 
     public void OnDialogueEnd()
     {
-        switch (dialogueIndex)
+        if (true) // DialogueSequencer.CanStartDialogue()
         {
-            case 2:
-                DisableDialogue();
-                break;
-            case 3:
-                DisableDialogue();
-                break;
-            case 4:
-                // Start transition
-                DisableDialogue();
-                _turnSystem.animator.SetTrigger("StartFadeIn");
-                break;
-            case 7:
-                DisableDialogue();
-                break;
-            case 8:
-                // Start transition
-                DisableDialogue();
-                _turnSystem.animator.SetTrigger("StartFadeIn");
-                break;
-            case 11:
-                DisableDialogue();
-                break;
-            case 12:
-                // Souris thingy
-                DisableDialogue();
-                break;
-            case 13:
-                // Start transition
-                DisableDialogue();
-                _turnSystem.animator.SetTrigger("StartFadeIn");
-                break;
+            switch (dialogueIndex)
+            {
+                case 2:
+                    DisableDialogue();
+                    break;
+                case 3:
+                    DisableDialogue();
+                    break;
+                case 4:
+                    // Start transition
+                    DisableDialogue();
+                    _turnSystem.animator.SetTrigger("StartFadeIn");
+                    break;
+                case 7:
+                    DisableDialogue();
+                    break;
+                case 8:
+                    // Start transition
+                    DisableDialogue();
+                    _turnSystem.animator.SetTrigger("StartFadeIn");
+                    break;
+                case 11:
+                    DisableDialogue();
+                    break;
+                case 12:
+                    // Souris thingy
+                    DisableDialogue();
+                    break;
+                case 13:
+                    // Start transition
+                    DisableDialogue();
+                    _turnSystem.animator.SetTrigger("StartFadeIn");
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
+            dialogueIndex++;
         }
-        dialogueIndex++;
     }
 
     public void SetupGrid()
