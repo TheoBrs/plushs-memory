@@ -16,6 +16,9 @@ public class GameData
     public bool IsMusicMuted;
     public bool IsSfxMuted;
 
+    // Player
+    public bool IsNewGame;
+
     // Others
     public int miteKillCount;
     public int coleoptereKillCount;
@@ -33,6 +36,9 @@ public class GameData
         SfxVolume = 0.8f;
         IsMusicMuted = false;
         IsSfxMuted = false;
+
+        // Player
+        IsNewGame = true;
 
         // Others
         miteKillCount = 0;

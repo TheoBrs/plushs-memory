@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Chapter1
   m_EditorClassIdentifier: 
   _label: Chapitre 1
+  _index: 1
   _name: Les Premiers Pas
   _description: "Dans le premier chapitre, nous faisons la connaissance de notre
     protagoniste, Sarah, une jeune femme en qu\xEAte d'aventure dans un monde en

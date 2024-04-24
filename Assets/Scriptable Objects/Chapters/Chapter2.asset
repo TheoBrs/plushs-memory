@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Chapter2
   m_EditorClassIdentifier: 
   _label: Chapitre 2
+  _index: 2
   _name: Les Rencontres Inattendues
   _description: "Le deuxi\xE8me chapitre transporte Sarah dans un monde empreint
     de magie et de myst\xE8re. Au cours de son p\xE9riple, elle rencontre des personnages
