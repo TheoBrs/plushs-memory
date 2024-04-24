@@ -23,9 +23,9 @@ public class NeutralZoneUIController : MonoBehaviour
     [Header("Dialogues")]
     [SerializeField] private GameObject _dialogueBox;
     [SerializeField] private DialogueChannel _dialogueChanel;
-    [SerializeField] private Dialogue _dialogue5;
-    [SerializeField] private Dialogue _dialogue_6;
-    [SerializeField] private Dialogue _dialogueTuto_4;
+    [SerializeField] private Dialogue _dialogue_5;
+    [SerializeField] private Dialogue _dialogue_9;
+    [SerializeField] private Dialogue _dialogue_14;
 
     private void Start()
     {
@@ -37,19 +37,26 @@ public class NeutralZoneUIController : MonoBehaviour
         _storybookPanel.SetActive(false);
         _tutorialPanel.SetActive(false);
 
-        // TODO Change progression number
         if (GameManager.Instance.Progression == 1)
         {
-            StartCoroutine(ShowDialogue());
+            StartCoroutine(ShowDialogue(_dialogue_5));
+        }
+        else if (GameManager.Instance.Progression == 3)
+        {
+            StartCoroutine(ShowDialogue(_dialogue_9));
+        }
+        else if (GameManager.Instance.Progression == 4)
+        {
+            StartCoroutine(ShowDialogue(_dialogue_14));
         }
     }
 
-    public IEnumerator ShowDialogue()
+    public IEnumerator ShowDialogue(Dialogue dialogue)
     {
         yield return new WaitForSeconds(1f);
 
         _dialogueBox.SetActive(true);
-        _dialogueChanel.RaiseRequestDialogue(_dialogue5);
+        _dialogueChanel.RaiseRequestDialogue(dialogue);
     }
 
     public void TriggerEncyclopedia()

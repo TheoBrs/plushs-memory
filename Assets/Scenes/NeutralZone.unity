@@ -2167,18 +2167,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1866558709}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 748691161}
         m_TargetAssemblyTypeName: StorybookChapterDisplay, Assembly-CSharp
         m_MethodName: LoadChapterScene
@@ -3107,11 +3095,16 @@ MonoBehaviour:
   - {fileID: 4817285815721467818, guid: 4cb5df0910a1ebf46997d1ba3a450ba4, type: 3}
   - {fileID: 4817285815721467818, guid: 26b79dfe8d2867249b51da5311f31984, type: 3}
   _chapterButtonGrid: {fileID: 580034934}
+  _loadingPanel: {fileID: 1866558709}
   _loadingBar: {fileID: 1866558708}
   _chapterButtonsScrollbar: {fileID: 454549369}
   _chapterDescriptionScrollbar: {fileID: 1560539014}
   _chapterTitle: {fileID: 2011203304}
   _chapterDescription: {fileID: 1344303762}
+  _dialogueBox: {fileID: 125378237}
+  _dialogueChanel: {fileID: 11400000, guid: 20e76ab5c4289f240b52438dbb95e083, type: 2}
+  _dialogue_6: {fileID: 11400000, guid: d8b3c5e089dfe744181ebdae9fdde2ad, type: 2}
+  _dialogue_10: {fileID: 11400000, guid: 813e4daeebe83b14f8f26e397b85ccd6, type: 2}
 --- !u!1 &763139957
 GameObject:
   m_ObjectHideFlags: 0
@@ -5532,9 +5525,9 @@ MonoBehaviour:
   _loadingBar: {fileID: 1866558708}
   _dialogueBox: {fileID: 125378237}
   _dialogueChanel: {fileID: 11400000, guid: 20e76ab5c4289f240b52438dbb95e083, type: 2}
-  _dialogue5: {fileID: 11400000, guid: c7fb895613524e444b73dc5b5149aa6c, type: 2}
-  _dialogue_6: {fileID: 11400000, guid: d8b3c5e089dfe744181ebdae9fdde2ad, type: 2}
-  _dialogueTuto_4: {fileID: 11400000, guid: d54d4bcc5d9222f4b9b7dfffc669c568, type: 2}
+  _dialogue_5: {fileID: 11400000, guid: c7fb895613524e444b73dc5b5149aa6c, type: 2}
+  _dialogue_9: {fileID: 11400000, guid: f7a5ef4b98305234f8d45d59ac74db44, type: 2}
+  _dialogue_14: {fileID: 11400000, guid: d54d4bcc5d9222f4b9b7dfffc669c568, type: 2}
 --- !u!114 &1129492305
 MonoBehaviour:
   m_ObjectHideFlags: 0
