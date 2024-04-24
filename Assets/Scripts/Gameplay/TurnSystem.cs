@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TurnSystem : MonoBehaviour, IDataPersistence
+public class TurnSystem : MonoBehaviour
 {
     public enum FightPhase
     {
@@ -13,37 +12,38 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         ENEMYTURN,
         WIN,
         LOSE,
-        END
+        END,
+        STOP
     }
 
-    private Player player;
-    CombatGrid grid;
-    private Entity entity;
-    private List<Enemy> enemies = new List<Enemy>();
+    [SerializeField] Text _playerHPText;
+    [SerializeField] Text _turnText;
+    public Animator animator;
+    [HideInInspector] public FightPhase currentState = FightPhase.INIT;
 
-    [SerializeField] Text playerHPText;
-    [SerializeField] Text turnText;
-    [SerializeField] Animator animator;
-    int chapterIndex;
-    bool playerTurnInitalized = false;
-    bool enemyTurnInitalized = false;
-    bool battleFullyEnded = false;
-    int enemyIndex = 0;
-    public FightPhase currentState = FightPhase.INIT;
 
+    private Player _player;
+    private CombatGrid _grid;
+    private Entity _entity;
+    private List<Enemy> _enemies = new List<Enemy>();
+    private int _chapterIndex;
+    private bool _playerTurnInitalized = false;
+    private bool _enemyTurnInitalized = false;
+    private bool _battleFullyEnded = false;
+    private int _enemyIndex = 0;
     private AlliesManager _alliesManager;
 
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
+        _player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        _grid = GameObject.FindWithTag("CombatGrid").GetComponent<CombatGrid>();
         SetUpBattle();
         _alliesManager = AlliesManager.Instance;
 
         if (_alliesManager)
         {
-            player._currentAlly = _alliesManager._actualAlly;
-            player.SetupAllyPassives();
+            _player._currentAlly = _alliesManager._actualAlly;
+            _player.SetupAllyPassives();
         }
     }
 
@@ -54,60 +54,60 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
 
     public void AddMoomoo(Player moomoo)
     {
-        player = moomoo;
+        _player = moomoo;
     }
 
     public void AddEnemy(Enemy enemy)
     {
-        enemies.Add(enemy);
+        _enemies.Add(enemy);
     }
 
     private void SetUpBattle()
     {
-        player.ItsTurn = true;
-        player.CheckAP(false);
+        _player.IsTurn = true;
+        _player.CheckAP(false);
         currentState = FightPhase.PLAYERTURN;
     }
 
     private void PlayerTurn()
     {
-        if (!playerTurnInitalized)
+        if (!_playerTurnInitalized)
         {
-            turnText.text = "Tour du joueur";
-            player.CurrentAP = player.MaxAP.GetValue();
-            player.ItsTurn = true;
-            player.CheckAP(false);
-            player.StartOfTurn();
-            playerTurnInitalized = true;
-            enemyTurnInitalized = false;
+            _turnText.text = "Tour du joueur";
+            _player.CurrentAP = _player.MaxAP.GetValue();
+            _player.IsTurn = true;
+            _player.CheckAP(false);
+            _player.StartOfTurn();
+            _playerTurnInitalized = true;
+            _enemyTurnInitalized = false;
         }
         //Debug.Log("TurnPlayer");
     }
  
     public void EnemyTurn()
     {
-        if (!enemyTurnInitalized)
+        if (!_enemyTurnInitalized)
         {
             // Stuff to do only once at the start of the enemies turn
-            turnText.text = "Tour des ennemis";
-            playerTurnInitalized = false;
-            enemyTurnInitalized = true;
-            enemyIndex = 0;
+            _turnText.text = "Tour des ennemis";
+            _playerTurnInitalized = false;
+            _enemyTurnInitalized = true;
+            _enemyIndex = 0;
             NextEnemyTurn();
         }
     }
 
     public void NextEnemyTurn()
     {
-        if (enemyIndex == enemies.Count)
+        if (_enemyIndex == _enemies.Count)
         {
             if (currentState == FightPhase.ENEMYTURN)
                 currentState = FightPhase.PLAYERTURN;
             return;
         }
 
-        enemies[enemyIndex].ItsTurn = true;
-        enemyIndex++;
+        _enemies[_enemyIndex].IsTurn = true;
+        _enemyIndex++;
     }
 
     private void StateSwitch()
@@ -134,6 +134,9 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
                 End();
                 break;
 
+            case FightPhase.STOP:
+                break;
+
             default:
                 currentState = FightPhase.INIT;
                 break;
@@ -155,86 +158,99 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     private void End()
     {
         AnimationScripts.currentScene = AnimationScripts.Scenes.Battle;
-        if (!IsWin.IsWinBool || grid.battleSceneActions.nextBattlePlacement.nextWave == null)
+        if (!IsWin.IsWinBool || _grid.battleSceneActions.nextBattlePlacement.nextWave == null)
         {
-            battleFullyEnded = true;
+            // If you lose or there is no next wave
+            _battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
-            animator.SetTrigger("StartFadeIn");
+            currentState = FightPhase.STOP;
+            if (IsWin.IsWinBool)
+            {
+                switch (_grid.dialogueIndex)
+                {
+                    case 4:
+                    case 8:
+                    case 13:
+                        _grid.RunDialogue();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            else
+                animator.SetTrigger("StartFadeIn");
         }
-        else
+        else // If we're going to next wave
         {
-            currentState = FightPhase.INIT;
-            // if end scene isn't loaded then a next wave must be placed
-            grid.battleSceneActions.nextBattlePlacement = grid.battleSceneActions.nextBattlePlacement.nextWave;
+            animator.SetTrigger("StartFadeIn");
+            _grid.battleSceneActions.nextBattlePlacement = _grid.battleSceneActions.nextBattlePlacement.nextWave;
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
-            animator.SetTrigger("StartFadeIn");
+            currentState = FightPhase.INIT;
         }
     }
 
     public void OnFadeInFinish()
     {
-        if (!battleFullyEnded)
+        if (_battleFullyEnded)
         {
-            Destroy(player.gameObject);
-            foreach (var tempEnemy in enemies)
+            if (IsWin.IsWinBool)
+            {
+                if (StatisticsManager.Instance)
+                {
+                    if (SceneManager.GetActiveScene().name == "Chapter1")
+                        StatisticsManager.Instance.chapter1Cleared = true;
+                    if (SceneManager.GetActiveScene().name == "Chapter2")
+                        StatisticsManager.Instance.chapter2Cleared = true;
+                    if (SceneManager.GetActiveScene().name == "Chapter3")
+                        StatisticsManager.Instance.chapter3Cleared = true;
+                }
+            }
+            else
+                EndMenuActions.lastBattleChapter = SceneManager.GetActiveScene().name;
+
+            SceneManager.LoadScene("End");
+        }
+        else
+        {
+            switch (_grid.dialogueIndex)
+            {
+                case 3:
+                    _grid.RunDialogue();
+                    break;
+
+                default:
+                    break;
+            }
+            Destroy(_player.gameObject);
+            foreach (var tempEnemy in _enemies)
             {
                 foreach (Cell cell in tempEnemy.occupiedCells)
                 {
-                    cell.SetGameObjectMaterial(grid.GetDefaultGridMat());
+                    cell.SetGameObjectMaterial(_grid.GetDefaultGridMat());
                     cell.HasEnemy = false;
                     cell.Entity = null;
                 }
                 Destroy(tempEnemy.gameObject);
             }
-            enemies.Clear();
-            grid.DestroyGrid();
-            grid.SetupGrid();
+            _enemies.Clear();
+            _grid.DestroyGrid();
+            _grid.SetupGrid();
             SetUpBattle();
             animator.SetTrigger("StartFadeOut");
-        }
-        else
-        {
-            chapterIndex = 0;
-            // Select chapter somehow
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter1")
-                chapterIndex = 1;
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter2")
-                chapterIndex = 2;
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter3")
-                chapterIndex = 3;
-            SceneManager.LoadScene("End");
-        }
-    }
-    public void LoadData(GameData data)
-    { }
-
-    public void SaveData(GameData data)
-    {
-        switch (chapterIndex)
-        {
-            case 1:
-                data.chapter1Cleared = true;
-                break;
-            case 2:
-                data.chapter1Cleared = true;
-                break;
-            case 3:
-                data.chapter1Cleared = true;
-                break;
-            default: break;
         }
     }
     public void OnMoveButton()
     {
-        player.Move();
+        _player.Move();
     }
 
     public void OnEndTurnButton()
     {
         if (currentState == FightPhase.PLAYERTURN)
         {
-            player.EndOfTurn();
+            _player.EndOfTurn();
             currentState = FightPhase.ENEMYTURN;
         }
     }
@@ -245,10 +261,10 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     }
     public void OnEnemyDeath(Enemy enemy, bool EndBattle)
     {
-        player.entity = null;
-        player.CheckEntity();
-        enemies.Remove(enemy);
-        if (enemies.Count == 0)
+        _player.entity = null;
+        _player.CheckEntity();
+        _enemies.Remove(enemy);
+        if (_enemies.Count == 0)
         {
             currentState = FightPhase.WIN;
         }
@@ -262,40 +278,40 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
 
     public void OnAbility1Button()
     {
-        entity = player.GetEnemy();
+        _entity = _player.GetEnemy();
         if (currentState != FightPhase.PLAYERTURN)
         {
             Debug.Log("Not the player turn");
             return;
         }
-        else if (entity == null)
+        else if (_entity == null)
         {
             Debug.Log("No enemy select");
             return;
         }
         else
         {
-            player.isAttacking = true;
-            player.CastAbility1(entity);
+            _player.isAttacking = true;
+            _player.CastAbility1(_entity);
         }
     }
 
     public void OnAbility2Button()
     {
-        entity = player.GetEnemy();
+        _entity = _player.GetEnemy();
         if (currentState != FightPhase.PLAYERTURN)
         {
             return;
         }
-        else if (entity == null)
+        else if (_entity == null)
         {
             Debug.Log("No enemy select");
             return;
         }
         else
         {
-            player.isAttacking = true;
-            player.CastAbility2(entity);
+            _player.isAttacking = true;
+            _player.CastAbility2(_entity);
         }
     }
 
@@ -307,7 +323,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         }
         else
         {
-            player.FriendAbilityButton();
+            _player.FriendAbilityButton();
             Debug.Log("Friend Ability");
         }
     }

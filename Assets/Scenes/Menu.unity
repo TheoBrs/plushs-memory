@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -496,6 +496,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee1803f4cd7a1c4fa06bdaab420f9d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &629856487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 629856489}
+  - component: {fileID: 629856488}
+  m_Layer: 0
+  m_Name: Statistics Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &629856488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629856487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc2ab2ba2e08dc4bbdb20393a6e3139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miteKillCount: 0
+  coleoptereKillCount: 0
+  chapter1Cleared: 0
+  chapter2Cleared: 0
+  chapter3Cleared: 0
+--- !u!4 &629856489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629856487}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &661910539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1446,7 @@ MonoBehaviour:
   _startButtonText: {fileID: 871201848}
   _loadingBar: {fileID: 2107967354}
   _neutralZone:
-    _sceneAsset: {fileID: 102900000, guid: 93f101438ab229c49b3c34d20b874381, type: 3}
+    _sceneAsset: {fileID: 0}
     _sceneName: NeutralZone
 --- !u!1 &1214219886
 GameObject:
@@ -1729,10 +1778,20 @@ MonoBehaviour:
   sfxSounds:
   - _name: SFXTest
     _clip: {fileID: 8300000, guid: 66e7039a7a4ed7545b25a80a9886c194, type: 3}
+  - _name: hitHard1
+    _clip: {fileID: 8300000, guid: 40c8566c1d7fdbf45a637669387f8bbc, type: 3}
+  - _name: hitHard2
+    _clip: {fileID: 8300000, guid: 1b859a53204498340959c13c57df4d2f, type: 3}
+  - _name: hitHard3
+    _clip: {fileID: 8300000, guid: 754c980e4ae22574b8d14598347ecd09, type: 3}
+  - _name: hitSoft1
+    _clip: {fileID: 8300000, guid: b03bfbec99120d74198bb4bfcd94ca41, type: 3}
+  - _name: hitSoft2
+    _clip: {fileID: 8300000, guid: 9b71413037c978c48a125c3404357dcc, type: 3}
+  - _name: hitSoft3
+    _clip: {fileID: 8300000, guid: f8f8edc1dcbfed9488417bb408f57cd3, type: 3}
   musicSource: {fileID: 1512363378}
   sfxSource: {fileID: 932099924}
-  _musicSlider: {fileID: 1808192198}
-  _sfxSlider: {fileID: 1550512523}
 --- !u!1 &1462900069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3185,6 +3244,7 @@ SceneRoots:
   - {fileID: 1408358188}
   - {fileID: 1861710095}
   - {fileID: 1812171817}
+  - {fileID: 629856489}
   - {fileID: 1764829439}
   - {fileID: 1753108185}
   - {fileID: 1732607639}
