@@ -164,17 +164,22 @@ public class TurnSystem : MonoBehaviour
             _battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
             currentState = FightPhase.STOP;
-            switch (_grid.dialogueIndex)
+            if (IsWin.IsWinBool)
             {
-                case 4:
-                case 8:
-                case 13:
-                    _grid.RunDialogue();
-                    break;
+                switch (_grid.dialogueIndex)
+                {
+                    case 4:
+                    case 8:
+                    case 13:
+                        _grid.RunDialogue();
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
+            else
+                animator.SetTrigger("StartFadeIn");
         }
         else // If we're going to next wave
         {
@@ -190,15 +195,21 @@ public class TurnSystem : MonoBehaviour
     {
         if (_battleFullyEnded)
         {
-            if (StatisticsManager.Instance)
+            if (IsWin.IsWinBool)
             {
-                if (SceneManager.GetActiveScene().name == "Chapter1")
-                    StatisticsManager.Instance.chapter1Cleared = true;
-                if (SceneManager.GetActiveScene().name == "Chapter2")
-                    StatisticsManager.Instance.chapter2Cleared = true;
-                if (SceneManager.GetActiveScene().name == "Chapter3")
-                    StatisticsManager.Instance.chapter3Cleared = true;
+                if (StatisticsManager.Instance)
+                {
+                    if (SceneManager.GetActiveScene().name == "Chapter1")
+                        StatisticsManager.Instance.chapter1Cleared = true;
+                    if (SceneManager.GetActiveScene().name == "Chapter2")
+                        StatisticsManager.Instance.chapter2Cleared = true;
+                    if (SceneManager.GetActiveScene().name == "Chapter3")
+                        StatisticsManager.Instance.chapter3Cleared = true;
+                }
             }
+            else
+                EndMenuActions.lastBattleChapter = SceneManager.GetActiveScene().name;
+
             SceneManager.LoadScene("End");
         }
         else

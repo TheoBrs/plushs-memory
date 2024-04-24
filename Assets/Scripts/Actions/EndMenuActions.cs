@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class EndMenuActions : MonoBehaviour
 {
+    public static string lastBattleChapter;
     [SerializeField] private Animator _animator;
     private CombatGrid _grid;
 
@@ -28,12 +29,12 @@ public class EndMenuActions : MonoBehaviour
 
     public void RestartGame()
     {
-        // Tell battlescene to restart somehow
+        SceneManager.LoadScene(lastBattleChapter);
     }
 
     public void ContinueGame()
     {
-        //something
+        SceneManager.LoadScene("NeutralZone");
     }
 
     public void MainMenu()
