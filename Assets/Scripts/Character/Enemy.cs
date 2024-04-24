@@ -10,7 +10,7 @@ public enum State
     EndTurn
 }
 
-public abstract class Enemy : Entity, IDataPersistence
+public abstract class Enemy : Entity
 {
     public bool cannotMove = false;
     public bool causeEndOfBattle = false;
@@ -19,8 +19,6 @@ public abstract class Enemy : Entity, IDataPersistence
     public bool ability2IsntAttack = false;
 
     private State _currentState;
-    private int _miteKillCount;
-    private int _coleoptereKillCount;
 
     protected override void Awake()
     {
@@ -169,29 +167,19 @@ public abstract class Enemy : Entity, IDataPersistence
         _currentState = newState;
     }
 
-    public void SaveData(GameData data)
-    {
-        data.miteKillCount = _miteKillCount;
-        data.coleoptereKillCount = _coleoptereKillCount;
-    }
-
-    public void LoadData(GameData data)
-    {
-        _miteKillCount = data.miteKillCount;
-        _coleoptereKillCount = data.coleoptereKillCount;
-    }
-
     public override void Death()
     {
-        if (this is Mite)
+        if (StatisticsManager.Instance)
         {
-            _miteKillCount++;
+            if (this is Mite)
+            {
+                StatisticsManager.Instance.miteKillCount++;
+            }
+            if (this is Coleo)
+            {
+                StatisticsManager.Instance.coleoptereKillCount++;
+            }
         }
-        if (this is Coleo)
-        {
-            _coleoptereKillCount++;
-        }
-
 
         TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();
         turnSystyem.OnEnemyDeath(this, causeEndOfBattle);

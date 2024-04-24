@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TurnSystem : MonoBehaviour, IDataPersistence
+public class TurnSystem : MonoBehaviour
 {
     public enum FightPhase
     {
@@ -186,14 +186,15 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     {
         if (_battleFullyEnded)
         {
-            _chapterIndex = 0;
-            // Select chapter somehow
-            if (SceneManager.GetActiveScene().name == "Chapter1")
-                _chapterIndex = 1;
-            if (SceneManager.GetActiveScene().name == "Chapter2")
-                _chapterIndex = 2;
-            if (SceneManager.GetActiveScene().name == "Chapter3")
-                _chapterIndex = 3;
+            if (StatisticsManager.Instance)
+            {
+                if (SceneManager.GetActiveScene().name == "Chapter1")
+                    StatisticsManager.Instance.chapter1Cleared = true;
+                if (SceneManager.GetActiveScene().name == "Chapter2")
+                    StatisticsManager.Instance.chapter2Cleared = true;
+                if (SceneManager.GetActiveScene().name == "Chapter3")
+                    StatisticsManager.Instance.chapter3Cleared = true;
+            }
             SceneManager.LoadScene("End");
         }
         else
@@ -223,25 +224,6 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             _grid.SetupGrid();
             SetUpBattle();
             animator.SetTrigger("StartFadeOut");
-        }
-    }
-    public void LoadData(GameData data)
-    { }
-
-    public void SaveData(GameData data)
-    {
-        switch (_chapterIndex)
-        {
-            case 1:
-                data.chapter1Cleared = true;
-                break;
-            case 2:
-                data.chapter1Cleared = true;
-                break;
-            case 3:
-                data.chapter1Cleared = true;
-                break;
-            default: break;
         }
     }
     public void OnMoveButton()
