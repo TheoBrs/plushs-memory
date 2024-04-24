@@ -1679,6 +1679,7 @@ MonoBehaviour:
   turnText: {fileID: 347616123}
   animator: {fileID: 0}
   currentState: 0
+  videoPlayer: {fileID: 0}
 --- !u!4 &190264987
 Transform:
   m_ObjectHideFlags: 0
@@ -4148,6 +4149,7 @@ MonoBehaviour:
   redPathGridMat: {fileID: 2100000, guid: 4f7e1e6f05242794c836f323a81485a3, type: 2}
   battleSceneActions: {fileID: 0}
   gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77, type: 3}
+  mainCam: {fileID: 0}
 --- !u!64 &520252292
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8313,6 +8315,7 @@ MonoBehaviour:
   redPathGridMat: {fileID: 2100000, guid: 4f7e1e6f05242794c836f323a81485a3, type: 2}
   battleSceneActions: {fileID: 0}
   gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77, type: 3}
+  mainCam: {fileID: 0}
 --- !u!1 &1060872465
 GameObject:
   m_ObjectHideFlags: 0
@@ -8853,6 +8856,7 @@ MonoBehaviour:
   redPathGridMat: {fileID: 2100000, guid: 4f7e1e6f05242794c836f323a81485a3, type: 2}
   battleSceneActions: {fileID: 0}
   gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77, type: 3}
+  mainCam: {fileID: 0}
 --- !u!64 &1079292083
 MeshCollider:
   m_ObjectHideFlags: 0

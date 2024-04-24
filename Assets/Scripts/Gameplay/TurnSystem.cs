@@ -26,8 +26,6 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
     [SerializeField] Animator animator;
-
-    [SerializeField] VideoPlayer videoPlayer;
     int chapterIndex;
     bool playerTurnInitalized = false;
     bool enemyTurnInitalized = false;
@@ -36,7 +34,8 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
     public FightPhase currentState = FightPhase.INIT;
 
     private AlliesManager _alliesManager;
-    //private Vide
+    
+    [SerializeField] VideoPlayer videoPlayer;
 
     void Start()
     {
@@ -164,6 +163,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
             animator.SetTrigger("StartFadeIn");
+            videoPlayer.Play();
         }
         else
         {
@@ -173,12 +173,13 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
             animator.SetTrigger("StartFadeIn");
+            videoPlayer.Play();
         }
     }
 
     public void OnFadeInFinish()
     {
-        videoPlayer.Play();
+
         if (!battleFullyEnded)
         {
             Destroy(player.gameObject);
