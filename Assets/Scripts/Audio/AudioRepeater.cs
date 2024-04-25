@@ -7,11 +7,6 @@ public class AudioRepeater : MonoBehaviour
         AudioManager.Instance.StopMusic();
     }
 
-    private void Start()
-    {
-        PlayMusic("MusicTest");
-    }
-
     public void PlayMusic(string name)
     {
         AudioManager.Instance.PlayMusic(name);
