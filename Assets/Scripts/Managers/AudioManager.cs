@@ -40,7 +40,6 @@ public class AudioManager : MonoBehaviour, IDataPersistence
 
         if (s == null)
         {
-            Debug.Log("Sound Not Found");
         }
         else
         {
@@ -55,7 +54,6 @@ public class AudioManager : MonoBehaviour, IDataPersistence
 
         if (s == null)
         {
-            Debug.Log("SFX Not Found");
         }
         else
         {

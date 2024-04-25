@@ -14,7 +14,6 @@ public class AnimationScripts : MonoBehaviour
 
     public static Scenes currentScene;
     public static Scenes nextScene;
-    // Start is called before the first frame update
     public void OnFadeInFinishEvent()
     {
         if (currentScene == Scenes.Battle)
@@ -33,7 +32,6 @@ public class AnimationScripts : MonoBehaviour
         }
         if (currentScene == Scenes.Menu && nextScene == Scenes.Battle)
         {
-            // load battle thingy
         }
 
     }

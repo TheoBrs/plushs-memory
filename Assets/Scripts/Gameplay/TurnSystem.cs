@@ -86,7 +86,6 @@ public class TurnSystem : MonoBehaviour
             _playerTurnInitalized = true;
             _enemyTurnInitalized = false;
         }
-        //Debug.Log("TurnPlayer");
     }
  
     public void EnemyTurn()
@@ -342,12 +341,10 @@ public class TurnSystem : MonoBehaviour
         _entity = _player.GetEnemy();
         if (currentState != FightPhase.PLAYERTURN)
         {
-            Debug.Log("Not the player turn");
             return;
         }
         else if (_entity == null)
         {
-            Debug.Log("No enemy select");
             return;
         }
         else
@@ -366,7 +363,6 @@ public class TurnSystem : MonoBehaviour
         }
         else if (_entity == null)
         {
-            Debug.Log("No enemy select");
             return;
         }
         else
@@ -385,7 +381,6 @@ public class TurnSystem : MonoBehaviour
         else
         {
             _player.FriendAbilityButton();
-            Debug.Log("Friend Ability");
         }
     }
 #endregion

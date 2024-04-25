@@ -10,7 +10,6 @@ public class EndMenuActions : MonoBehaviour
     private void Start()
     {
         _animator.SetTrigger("StartFadeOut");
-        //AudioManager.Instance.PlayMusic("MusicTest");
     }
 
     public void ContinueRestartButtonClick()
