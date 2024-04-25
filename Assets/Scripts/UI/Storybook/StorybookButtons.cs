@@ -12,20 +12,17 @@ public class StorybookButtons : MonoBehaviour
     public delegate void ButtonClickedEventHandler(GameObject clickedButton);
     public static event ButtonClickedEventHandler OnButtonClicked;
 
-    private void Awake()
+    private void Start()
     {
-        // Implement this
-
         _labelText.text = _chapter.Label;
-        _previewImage.sprite = _blockedPreviewImage;
-    }
 
-    private void Update()
-    {
-        // TODO: Change the condition to check if the chapter is unlocked
-        if (true)
+        if (_chapter.Index <= GameManager.Instance.Progression)
         {
             _previewImage.sprite = _chapter.Preview;
+        }
+        else
+        {
+            _previewImage.sprite = _blockedPreviewImage;
         }
     }
 

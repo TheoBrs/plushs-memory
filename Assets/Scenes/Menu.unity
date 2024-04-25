@@ -809,6 +809,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   miteKillCount: 0
   coleoptereKillCount: 0
+  sourisKillCount: 0
+  reineKillCount: 0
 --- !u!4 &629856489
 Transform:
   m_ObjectHideFlags: 0
@@ -1077,7 +1079,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Etes-vous sur de vouloir supprimer la sauvegarde actuelle ?
+  m_text: "Etes-vous s\xFBr de vouloir supprimer la sauvegarde actuelle ?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0d8991e80b0538947b22ee48cdf85499, type: 2}
   m_sharedMaterial: {fileID: -2685602680472008693, guid: 0d8991e80b0538947b22ee48cdf85499, type: 2}
@@ -1208,7 +1210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &748372479
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1226,7 +1228,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 50, y: 50}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 115.46, y: 43.65}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &748372480
 MonoBehaviour:
@@ -2417,8 +2419,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSounds:
-  - _name: MusicTest
-    _clip: {fileID: 8300000, guid: 0f588a778a8a2f945a9a9d05e961dfdc, type: 3}
+  - _name: Neutre
+    _clip: {fileID: 8300000, guid: 97abafbfb720bf742a05f8d09aecae11, type: 3}
+  - _name: Combat
+    _clip: {fileID: 8300000, guid: e8c38f3cedfac9b45bf0de79405f22a6, type: 3}
   sfxSounds:
   - _name: SFXTest
     _clip: {fileID: 8300000, guid: 66e7039a7a4ed7545b25a80a9886c194, type: 3}
