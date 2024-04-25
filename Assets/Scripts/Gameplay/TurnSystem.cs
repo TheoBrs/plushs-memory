@@ -35,6 +35,7 @@ public class TurnSystem : MonoBehaviour
     private int _enemyIndex = 0;
     private AlliesManager _alliesManager;
     [SerializeField] private GameObject videoPlayer;
+    [SerializeField] private AnimationClip FadeInClip;
     private bool IsPlayed = false;
 
     void Start()
@@ -252,15 +253,15 @@ public class TurnSystem : MonoBehaviour
     }
     IEnumerator WaitForVideoPlayer()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(FadeInClip.length);
         videoPlayer.SetActive(true);
         videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
         while (!IsPlayed)
         {
             if (videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
             {
-                OnFadeInFinish();
                 IsPlayed = true;
+                OnFadeInFinish();
             }
             yield return null;
         }
@@ -273,13 +274,16 @@ public class TurnSystem : MonoBehaviour
 
     IEnumerator WaitForHide()
     {
-        yield return new WaitForSeconds(2.0f);
-        while(IsPlayed)
+        double videoRemainingTime = videoPlayer.GetComponentInChildren<VideoPlayer>().clip.length;
+        while (IsPlayed)
         {
-            if (!videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
+            videoRemainingTime -= Time.deltaTime;
+            if (videoRemainingTime < FadeInClip.length)
             {
-                animator.Play("StartFadeOut");
+                animator.SetTrigger("StartFadeIn");
+                yield return new WaitForSeconds(FadeInClip.length);
                 videoPlayer.SetActive(false);
+                animator.SetTrigger("StartFadeOut");
                 IsPlayed = false;
             }
             yield return null;

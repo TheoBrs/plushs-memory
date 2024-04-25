@@ -268,6 +268,7 @@ MonoBehaviour:
   animator: {fileID: 908692520}
   currentState: 0
   videoPlayer: {fileID: 1902757031}
+  FadeInClip: {fileID: 7400000, guid: ad03d2428c92f9347a2e819a2f5bf9d6, type: 2}
 --- !u!4 &190264987
 Transform:
   m_ObjectHideFlags: 0
@@ -5077,6 +5078,10 @@ PrefabInstance:
     - target: {fileID: 1916759514856391633, guid: 19621a6ce910ab643a6c83048bfcfbc9, type: 3}
       propertyPath: m_RenderMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1916759514856391633, guid: 19621a6ce910ab643a6c83048bfcfbc9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1916759514856391633, guid: 19621a6ce910ab643a6c83048bfcfbc9, type: 3}
       propertyPath: m_OverridePixelPerfect
