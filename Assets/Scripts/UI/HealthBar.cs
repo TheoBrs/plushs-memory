@@ -1,10 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
     public Slider healthSlider;
-    private Text _healthBarText;
+    private TextMeshProUGUI _healthBarText;
     private int _maxHP;
 
     private void Awake()
@@ -12,7 +13,7 @@ public class HealthBar : MonoBehaviour
         var go = ToolBox.GetChildWithTag(gameObject.transform, "HealthBarText");
         if (go)
         {
-            _healthBarText = go.GetComponent<Text>();
+            _healthBarText = go.GetComponent<TextMeshProUGUI>();
             SetMaxHP(_maxHP);
         }
     }
