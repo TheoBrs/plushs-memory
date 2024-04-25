@@ -9,5 +9,5 @@ AnimatorOverrideController:
   m_Name: ReineMiteAnimController
   m_Controller: {fileID: 9100000, guid: 923d1371052bb7048bba8e6632b07f6e, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: c9661c500717b004395a184281aa7b8f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 907805a65d01f6245a9ab02a42c693d5, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 41f7a9b79e86a284288eb98bdf6f386b, type: 2}
