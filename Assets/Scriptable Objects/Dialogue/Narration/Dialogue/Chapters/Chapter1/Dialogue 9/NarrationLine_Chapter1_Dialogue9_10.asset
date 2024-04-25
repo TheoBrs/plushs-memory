@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbd2c1887a808da4b8f0a6cec8d8b890, type: 3}
-  m_Name: NarrationLine_Chapter1_Dialogue9_7
+  m_Name: NarrationLine_Chapter1_Dialogue9_10
   m_EditorClassIdentifier: 
-  _speaker: {fileID: 11400000, guid: e964aeadd1a1cb544b32907ac6c07249, type: 2}
-  _text: "Depuis que je marche sur ces planches poussi\xE9reuses, j\u2019ai ce sentiment
-    que les souvenirs envol\xE9s sont importants."
+  _speaker: {fileID: 11400000, guid: 9dd3082631238414f8db3e72be080f21, type: 2}
+  _text: "Oui, tu as raison ! Et puis, qui sait, si toi et moi on s\u2019est r\xE9veill\xE9e,
+    peut-\xEAtre que d\u2019autres ont eu l\u2019occasion de prendre vie comme nous.
+    Allez, remettons-nous en route ! \r\n"
