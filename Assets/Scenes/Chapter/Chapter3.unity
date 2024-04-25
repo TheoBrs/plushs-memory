@@ -706,8 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a16b4d6a5b231045931c051b53a0511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerHPText: {fileID: 2042675364}
-  _turnText: {fileID: 347616123}
+  _turnText: {fileID: 1414486565}
   animator: {fileID: 908692520}
   currentState: 0
   videoPlayer: {fileID: 89736479}
@@ -805,17 +804,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e891b88fd1f773046a77133bff76fbc5, type: 3}
   m_PrefabInstance: {fileID: 320139759}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &347616123 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3027881087193513274, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-  m_PrefabInstance: {fileID: 2106724919}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106724925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &412091363
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,6 +3959,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e816075d18afc7b4bab7b3aebdec3f76, type: 3}
   m_PrefabInstance: {fileID: 1353445797}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1414486565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6617836253055216851, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
+  m_PrefabInstance: {fileID: 2106724919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106724925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1427449330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5581,17 +5580,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: da879863fe3e1894e862c7b70c850103, type: 3}
   m_PrefabInstance: {fileID: 2013976674}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2042675364 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2787321825820969661, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-  m_PrefabInstance: {fileID: 2106724919}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106724923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2099578251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5749,6 +5737,10 @@ PrefabInstance:
     - target: {fileID: 2510487220842103493, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
       propertyPath: m_Color.r
       value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550142518534088684, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4291813095
       objectReference: {fileID: 0}
     - target: {fileID: 2787321825820969661, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
       propertyPath: m_Color.b
@@ -5918,10 +5910,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 190264986}
-    - target: {fileID: 6413149533470148879, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnAbility1Button
-      objectReference: {fileID: 0}
     - target: {fileID: 6516298964062114663, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5929,6 +5917,10 @@ PrefabInstance:
     - target: {fileID: 6516298964062114663, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnMoveButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617836253055216851, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4291813095
       objectReference: {fileID: 0}
     - target: {fileID: 7728602106847174652, guid: 7ef224999b7d13e48822b51998d2a340, type: 3}
       propertyPath: m_Color.b

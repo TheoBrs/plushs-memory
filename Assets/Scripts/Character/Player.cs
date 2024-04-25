@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -53,8 +54,8 @@ public class Player : Entity
         _healthBar = ToolBox.GetChildWithTag(GameObject.FindWithTag("PlayerHPText").transform, "HealthBar").GetComponent<HealthBar>();
         if (_healthBar)
             _healthBar.SetMaxHP(MaxHP.GetValue());
-
-        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        if (EquipmentManager.Instance)
+            EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
     public void SetupAllyPassives()
@@ -511,7 +512,7 @@ public class Player : Entity
             _buttonAbility2.GetComponent<Button>().enabled = true;
         }
 
-        _playerAP.GetComponent<Text>().text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
+        _playerAP.GetComponent<TextMeshProUGUI>().text = "PA :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
     public void Move()
