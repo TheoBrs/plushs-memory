@@ -9,11 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 2d886d03fd7dd294c8c307c372b37bb1
   - enabled: 1
-    path: Assets/Scenes/LoadingScreen.unity
-    guid: 167c1d525ec37d64681d0019220fab67
-  - enabled: 1
     path: Assets/Scenes/NeutralZone.unity
-    guid: 93f101438ab229c49b3c34d20b874381
+    guid: 6f266a3e6a958174fb5b45137d780175
   - enabled: 1
     path: Assets/Scenes/End.unity
     guid: b245936c1c5c8d742bdd984c3b18257e
