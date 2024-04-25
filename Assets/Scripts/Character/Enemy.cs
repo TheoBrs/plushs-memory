@@ -178,6 +178,14 @@ public abstract class Enemy : Entity
             {
                 StatisticsManager.Instance.coleoptereKillCount++;
             }
+            if (this is Souris)
+            {
+                StatisticsManager.Instance.sourisKillCount++;
+            }
+            if (this is SecretBoss)
+            {
+                StatisticsManager.Instance.reineKillCount++;
+            }
         }
 
         TurnSystem turnSystyem = GameObject.FindGameObjectWithTag("TurnSystem").GetComponent<TurnSystem>();

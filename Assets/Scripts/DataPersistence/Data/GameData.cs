@@ -22,9 +22,8 @@ public class GameData
     // Others
     public int miteKillCount;
     public int coleoptereKillCount;
-    public bool chapter1Cleared;
-    public bool chapter2Cleared;
-    public bool chapter3Cleared;
+    public int sourisKillCount;
+    public int reineKillCount;
 
     // The value defined in the constructor will be the default value when the game is started with no saved data
     public GameData()
@@ -43,9 +42,8 @@ public class GameData
         // Others
         miteKillCount = 0;
         coleoptereKillCount = 0;
-        chapter1Cleared = false;
-        chapter2Cleared = false;
-        chapter3Cleared = false;
+        sourisKillCount = 0;
+        reineKillCount = 0;
 
     }
 }
