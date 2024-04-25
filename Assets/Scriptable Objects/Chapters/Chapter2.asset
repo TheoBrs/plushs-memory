@@ -12,14 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac743284cb19dc45a0a4fcacdf6c045, type: 3}
   m_Name: Chapter2
   m_EditorClassIdentifier: 
-  _label: Chapitre 2
   _index: 2
-  _name: Les Rencontres Inattendues
-  _description: "Le deuxi\xE8me chapitre transporte Sarah dans un monde empreint
-    de magie et de myst\xE8re. Au cours de son p\xE9riple, elle rencontre des personnages
-    fascinants, chacun avec son propre pass\xE9 et ses secrets. Parmi eux se trouve
-    Aiden, un vagabond au charme \xE9nigmatique qui semble en savoir plus qu'il ne
-    veut bien le dire. Leur rencontre marque le d\xE9but d'une alliance improbable
-    alors qu'ils se lancent ensemble dans une qu\xEAte p\xE9rilleuse \xE0 la recherche
-    d'un artefact ancien qui pourrait changer le cours de l'histoire."
+  _label: Chapitre 2
+  _name: Kero, la grenouille sauveuse
+  _description: "Apr\xE8s leur combat \xE9prouvant contre l'escouade de mites, Moo-Moo
+    et K\xE9ro font plus ample connaissance tout en avan\xE7ant dans ce labyrinthe
+    obscur. Sur quoi vont-elles encore tomber au d\xE9tour d'un meuble ? "
   _preview: {fileID: 21300000, guid: c7e9e8666fdd13e4b9fc1dc24489d7a8, type: 3}

@@ -54,8 +54,7 @@ public class Player : Entity
         if (_healthBar)
             _healthBar.SetMaxHP(MaxHP.GetValue());
 
-        // !!!!!!!! Need Equipment Manager !!!!!!!!
-        // EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
     public void SetupAllyPassives()
@@ -234,10 +233,7 @@ public class Player : Entity
         {
             CastFriendAbility3();
         }
-        else
-        {
-            Debug.Log("No ally chose");
-        }
+
     }
 
     public void CastFriendAbility1()
@@ -446,7 +442,6 @@ public class Player : Entity
         {
             _selectedGridCell.Direction = 'u';
             _selectedGridCell.SetGameObjectMaterial(_grid.GetRedPathGridMat());
-            // can add more stuff that prevent to move
             _path.Clear();
         }
     }

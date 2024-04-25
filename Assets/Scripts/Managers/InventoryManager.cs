@@ -33,7 +33,6 @@ public class InventoryManager : MonoBehaviour
         {
             if (Items.Count >= _space)
             {
-                Debug.Log("Not enough space");
                 return false;
             }
             Items.Add(item);
