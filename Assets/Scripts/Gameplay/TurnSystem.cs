@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,8 +19,7 @@ public class TurnSystem : MonoBehaviour
         STOP
     }
 
-    [SerializeField] Text _playerHPText;
-    [SerializeField] Text _turnText;
+    [SerializeField] private TextMeshProUGUI _turnText;
     public Animator animator;
     [HideInInspector] public FightPhase currentState = FightPhase.INIT;
 
