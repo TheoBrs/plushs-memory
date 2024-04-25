@@ -29,7 +29,7 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
                 _imageAvatar.sprite = StatisticsManager.Instance.coleoptereKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
                 break;
             case "Souris":
-                _imageAvatar.sprite = _notDiscoveredSprite;
+                _imageAvatar.sprite = StatisticsManager.Instance.sourisKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
                 break;
             case "ReineMite":
                 _imageAvatar.sprite = _notDiscoveredSprite;
@@ -72,7 +72,7 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
                 break;
             case "Souris":
                 _monstersKilledText.text = 0.ToString();
-                _imageAvatar.sprite = _notDiscoveredSprite;
+                _imageAvatar.sprite = StatisticsManager.Instance.sourisKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
                 break;
             case "ReineMite":
                 _monstersKilledText.text = 0.ToString();
