@@ -5076,20 +5076,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1794360620}
     - target: {fileID: 1916759514856391633, guid: 19621a6ce910ab643a6c83048bfcfbc9, type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1916759514856391633, guid: 19621a6ce910ab643a6c83048bfcfbc9, type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1916759514856391633, guid: 19621a6ce910ab643a6c83048bfcfbc9, type: 3}
       propertyPath: m_OverridePixelPerfect
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7827631875974755955, guid: 19621a6ce910ab643a6c83048bfcfbc9, type: 3}
       propertyPath: m_Name
-      value: "Vid\xE9oPlayer"
+      value: VideoPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 7827631875974755955, guid: 19621a6ce910ab643a6c83048bfcfbc9, type: 3}
       propertyPath: m_IsActive

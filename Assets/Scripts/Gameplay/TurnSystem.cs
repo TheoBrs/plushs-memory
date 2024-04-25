@@ -254,6 +254,12 @@ public class TurnSystem : MonoBehaviour
     IEnumerator WaitForVideoPlayer()
     {
         yield return new WaitForSeconds(FadeInClip.length);
+        if (_battleFullyEnded)
+        {
+            OnFadeInFinish();
+            yield break;
+        }
+
         videoPlayer.SetActive(true);
         videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
         while (!IsPlayed)
@@ -267,7 +273,7 @@ public class TurnSystem : MonoBehaviour
         }
     }
 
-    void StartCoroutine()
+    public void StartCoroutine()
     {
         StartCoroutine(WaitForVideoPlayer());
     }
