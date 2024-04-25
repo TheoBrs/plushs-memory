@@ -22,11 +22,15 @@ public class StatisticsManager : MonoBehaviour, IDataPersistence
 
     [HideInInspector] public int miteKillCount;
     [HideInInspector] public int coleoptereKillCount;
+    [HideInInspector] public int sourisKillCount;
+    [HideInInspector] public int reineKillCount;
 
     public void SaveData(GameData data)
     {
         data.miteKillCount = miteKillCount;
         data.coleoptereKillCount = coleoptereKillCount;
+        data.sourisKillCount = sourisKillCount;
+        data.reineKillCount = reineKillCount;
 
     }
 
@@ -34,5 +38,7 @@ public class StatisticsManager : MonoBehaviour, IDataPersistence
     {
         miteKillCount = data.miteKillCount;
         coleoptereKillCount = data.coleoptereKillCount;
+        sourisKillCount = data.sourisKillCount;
+        reineKillCount = data.reineKillCount;
     }
 }
