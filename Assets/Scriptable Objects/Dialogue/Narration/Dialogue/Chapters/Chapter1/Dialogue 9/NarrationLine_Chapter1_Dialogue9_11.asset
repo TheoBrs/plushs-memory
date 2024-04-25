@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbd2c1887a808da4b8f0a6cec8d8b890, type: 3}
-  m_Name: NarrationLine_Chapter1_Dialogue9_9
+  m_Name: NarrationLine_Chapter1_Dialogue9_11
   m_EditorClassIdentifier: 
   _speaker: {fileID: 11400000, guid: 9dd3082631238414f8db3e72be080f21, type: 2}
-  _text: "Oui, \xE7a me fait le m\xEAme effet. Je peux m\u2019imaginer des silhouettes,
-    des visages flout\xE9s, c\u2019est comme si on avait effac\xE9 tous les d\xE9tails
-    en ne laissant que des couleurs.\r\n"
+  _text: "Oui, tu as raison ! Et puis, qui sait, si toi et moi on s\u2019est r\xE9veill\xE9e,
+    peut-\xEAtre que d\u2019autres ont eu l\u2019occasion de prendre vie comme nous.
+    Allez, remettons-nous en route ! \r\n"
