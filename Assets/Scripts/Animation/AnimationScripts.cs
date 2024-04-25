@@ -19,10 +19,6 @@ public class AnimationScripts : MonoBehaviour
     {
         if (currentScene == Scenes.Battle)
         {
-            // This is if we finish a wave but not the battle full
-            var turnSystem = GameObject.FindWithTag("TurnSystem");
-            if (turnSystem != null)
-                turnSystem.GetComponent<TurnSystem>().OnFadeInFinish();
         }
         if (currentScene == Scenes.End && nextScene == Scenes.Battle)
         {
