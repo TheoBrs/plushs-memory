@@ -32,10 +32,7 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
                 _imageAvatar.sprite = StatisticsManager.Instance.sourisKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
                 break;
             case "ReineMite":
-                _imageAvatar.sprite = _notDiscoveredSprite;
-                break;
-            default:
-                _imageAvatar.sprite = _notDiscoveredSprite;
+                _imageAvatar.sprite = StatisticsManager.Instance.reineKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
                 break;
         }
     }
@@ -76,7 +73,7 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
                 break;
             case "ReineMite":
                 _monstersKilledText.text = 0.ToString();
-                _imageAvatar.sprite = _notDiscoveredSprite;
+                _imageAvatar.sprite = StatisticsManager.Instance.reineKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
                 break;
             default:
                 break;

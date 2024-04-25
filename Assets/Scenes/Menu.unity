@@ -809,6 +809,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   miteKillCount: 0
   coleoptereKillCount: 0
+  sourisKillCount: 0
+  reineKillCount: 0
 --- !u!4 &629856489
 Transform:
   m_ObjectHideFlags: 0
@@ -1077,7 +1079,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Etes-vous sur de vouloir supprimer la sauvegarde actuelle ?
+  m_text: "Etes-vous s\xFBr de vouloir supprimer la sauvegarde actuelle ?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0d8991e80b0538947b22ee48cdf85499, type: 2}
   m_sharedMaterial: {fileID: -2685602680472008693, guid: 0d8991e80b0538947b22ee48cdf85499, type: 2}

@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour, IDataPersistence
         data.Progression = Progression;
     }
 
+    private void Update()
+    {
+        Debug.Log("Progression: " + Progression);
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0;
