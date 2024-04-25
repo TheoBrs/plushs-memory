@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: NarrationLine_Chapter1_Dialogue1_4
   m_EditorClassIdentifier: 
   _speaker: {fileID: 11400000, guid: e964aeadd1a1cb544b32907ac6c07249, type: 2}
-  _text: " T\u2019inqui\xE8tes ! Je viens te redonner un peu de force. Elles ont
-    aussi vol\xE9 quelque chose qui m\u2019appartient. On sera plus fortes toutes
-    les deux !\r\n"
+  _text: "T\u2019inqui\xE8tes ! Je viens te redonner un peu de force. Elles ont aussi
+    vol\xE9 quelque chose qui m\u2019appartient. On sera plus fortes toutes les deux
+    !\r\n"
