@@ -963,7 +963,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -500, y: -50}
+  m_AnchoredPosition: {x: -350, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &281460514
@@ -2954,7 +2954,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
   _imageAvatar: {fileID: 737371218}
-  _notDiscoveredSprite: {fileID: 21300000, guid: 979ff26506752004d85bbe110eb6531b, type: 3}
+  _notDiscoveredSprite: {fileID: 21300000, guid: 91561bd90ba1d4147b10b87c56a1f000, type: 3}
 --- !u!222 &737371220
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4569,7 +4569,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -650, y: -50}
+  m_AnchoredPosition: {x: -500, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1049769914
@@ -5093,7 +5093,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
   _imageAvatar: {fileID: 1099508604}
-  _notDiscoveredSprite: {fileID: 21300000, guid: 979ff26506752004d85bbe110eb6531b, type: 3}
+  _notDiscoveredSprite: {fileID: 21300000, guid: 91561bd90ba1d4147b10b87c56a1f000, type: 3}
 --- !u!222 &1099508606
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5120,7 +5120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1109639375
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5137,7 +5137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -350, y: -50}
+  m_AnchoredPosition: {x: -650, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1109639376
@@ -5515,7 +5515,6 @@ MonoBehaviour:
   _defaultUI: {fileID: 1679960287}
   _darkBackground: {fileID: 2144224990}
   _encyclopediaPanel: {fileID: 1583632838}
-  _inventoryPanel: {fileID: 1873066145}
   _settingsPanel: {fileID: 1227325590}
   _storybookPanel: {fileID: 748691156}
   _tutorialPanel: {fileID: 147530238}
@@ -9694,7 +9693,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
   _imageAvatar: {fileID: 1734691743}
-  _notDiscoveredSprite: {fileID: 21300000, guid: 979ff26506752004d85bbe110eb6531b, type: 3}
+  _notDiscoveredSprite: {fileID: 21300000, guid: 91561bd90ba1d4147b10b87c56a1f000, type: 3}
 --- !u!1 &1736519191
 GameObject:
   m_ObjectHideFlags: 0
@@ -10113,7 +10112,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
   _imageAvatar: {fileID: 1826478017}
-  _notDiscoveredSprite: {fileID: 21300000, guid: 979ff26506752004d85bbe110eb6531b, type: 3}
+  _notDiscoveredSprite: {fileID: 21300000, guid: 91561bd90ba1d4147b10b87c56a1f000, type: 3}
 --- !u!222 &1826478019
 CanvasRenderer:
   m_ObjectHideFlags: 0

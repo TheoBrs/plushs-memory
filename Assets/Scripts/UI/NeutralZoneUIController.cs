@@ -11,7 +11,7 @@ public class NeutralZoneUIController : MonoBehaviour
 
     [Header("Panels")]
     [SerializeField] private GameObject _encyclopediaPanel;
-    [SerializeField] private GameObject _inventoryPanel;
+    // [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private GameObject _storybookPanel;
     [SerializeField] private GameObject _tutorialPanel;
@@ -32,7 +32,7 @@ public class NeutralZoneUIController : MonoBehaviour
         _defaultUI.SetActive(true);
         _darkBackground.SetActive(false);
         _encyclopediaPanel.SetActive(false);
-        _inventoryPanel.SetActive(false);
+        // _inventoryPanel.SetActive(false);
         _settingsPanel.SetActive(false);
         _storybookPanel.SetActive(false);
         _tutorialPanel.SetActive(false);
@@ -66,12 +66,12 @@ public class NeutralZoneUIController : MonoBehaviour
         _defaultUI.SetActive(!_defaultUI.activeSelf);
     }
 
-    public void TriggerInventory()
-    {
-        _inventoryPanel.SetActive(!_inventoryPanel.activeSelf);
-        _darkBackground.SetActive(!_darkBackground.activeSelf);
-        _defaultUI.SetActive(!_defaultUI.activeSelf);
-    }
+    // public void TriggerInventory()
+    // {
+    //     _inventoryPanel.SetActive(!_inventoryPanel.activeSelf);
+    //     _darkBackground.SetActive(!_darkBackground.activeSelf);
+    //     _defaultUI.SetActive(!_defaultUI.activeSelf);
+    // }
 
     public void TriggerSettings()
     {
