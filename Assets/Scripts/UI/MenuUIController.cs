@@ -9,6 +9,7 @@ public class MenuUIController : MonoBehaviour
     [Header("UI Objects")]
     [SerializeField] private GameObject _defaultPanel;
     [SerializeField] private GameObject _optionPanel;
+    [SerializeField] private GameObject _confirmationCanvas;
     [SerializeField] private GameObject _darkBackground;
     [SerializeField] private GameObject _videoCanvas;
     [SerializeField] private VideoPlayer _videoPlayer;
@@ -28,6 +29,7 @@ public class MenuUIController : MonoBehaviour
         _optionPanel.SetActive(false);
         _darkBackground.SetActive(false);
         _videoCanvas.SetActive(false);
+        _confirmationCanvas.SetActive(false);
 
         _videoPlayer.loopPointReached += OnVideoFinished;
 
@@ -75,6 +77,12 @@ public class MenuUIController : MonoBehaviour
         ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_chapter_1));
 
         StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
+    }
+
+    public void TriggerConfirmationPanel()
+    {
+        _defaultPanel.SetActive(!_defaultPanel.activeSelf);
+        _confirmationCanvas.SetActive(!_confirmationCanvas.activeSelf);
     }
 
     public void ResetProgression()
