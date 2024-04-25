@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IDataPersistence
 {
     #region Singleton
     public static GameManager Instance;
@@ -22,7 +22,23 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public bool IsGamePaused { get; private set; }
+    public bool IsGamePaused { get; set; }
+    public int Progression { get; set; }
+
+    public void LoadData(GameData data)
+    {
+        Progression = data.Progression;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.Progression = Progression;
+    }
+
+    public void Update()
+    {
+        Debug.Log(Progression);
+    }
 
     public void PauseGame()
     {
