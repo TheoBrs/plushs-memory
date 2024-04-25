@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -32,6 +34,9 @@ public class TurnSystem : MonoBehaviour
     private bool _battleFullyEnded = false;
     private int _enemyIndex = 0;
     private AlliesManager _alliesManager;
+    [SerializeField] private GameObject videoPlayer;
+    [SerializeField] private AnimationClip FadeInClip;
+    private bool IsPlayed = false;
 
     void Start()
     {
@@ -81,7 +86,6 @@ public class TurnSystem : MonoBehaviour
             _playerTurnInitalized = true;
             _enemyTurnInitalized = false;
         }
-        //Debug.Log("TurnPlayer");
     }
  
     public void EnemyTurn()
@@ -179,13 +183,17 @@ public class TurnSystem : MonoBehaviour
                 }
             }
             else
+            {
                 animator.SetTrigger("StartFadeIn");
+                StartCoroutine();
+            }
+
         }
         else // If we're going to next wave
         {
             animator.SetTrigger("StartFadeIn");
+            StartCoroutine();
             _grid.battleSceneActions.nextBattlePlacement = _grid.battleSceneActions.nextBattlePlacement.nextWave;
-            // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
             currentState = FightPhase.INIT;
         }
@@ -239,8 +247,60 @@ public class TurnSystem : MonoBehaviour
             _grid.SetupGrid();
             SetUpBattle();
             animator.SetTrigger("StartFadeOut");
+            StartHide();
         }
     }
+    IEnumerator WaitForVideoPlayer()
+    {
+        yield return new WaitForSeconds(FadeInClip.length);
+        if (_battleFullyEnded)
+        {
+            OnFadeInFinish();
+            yield break;
+        }
+
+        videoPlayer.SetActive(true);
+        videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
+        while (!IsPlayed)
+        {
+            if (videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
+            {
+                IsPlayed = true;
+                OnFadeInFinish();
+            }
+            yield return null;
+        }
+    }
+
+    public void StartCoroutine()
+    {
+        StartCoroutine(WaitForVideoPlayer());
+    }
+
+    IEnumerator WaitForHide()
+    {
+        double videoRemainingTime = videoPlayer.GetComponentInChildren<VideoPlayer>().clip.length;
+        while (IsPlayed)
+        {
+            videoRemainingTime -= Time.deltaTime;
+            if (videoRemainingTime < FadeInClip.length)
+            {
+                animator.SetTrigger("StartFadeIn");
+                yield return new WaitForSeconds(FadeInClip.length);
+                videoPlayer.SetActive(false);
+                animator.SetTrigger("StartFadeOut");
+                IsPlayed = false;
+            }
+            yield return null;
+        }
+
+    }
+
+    void StartHide()
+    {
+        StartCoroutine(WaitForHide());
+    }
+
     public void OnMoveButton()
     {
         _player.Move();
@@ -281,12 +341,10 @@ public class TurnSystem : MonoBehaviour
         _entity = _player.GetEnemy();
         if (currentState != FightPhase.PLAYERTURN)
         {
-            Debug.Log("Not the player turn");
             return;
         }
         else if (_entity == null)
         {
-            Debug.Log("No enemy select");
             return;
         }
         else
@@ -305,7 +363,6 @@ public class TurnSystem : MonoBehaviour
         }
         else if (_entity == null)
         {
-            Debug.Log("No enemy select");
             return;
         }
         else
@@ -324,7 +381,6 @@ public class TurnSystem : MonoBehaviour
         else
         {
             _player.FriendAbilityButton();
-            Debug.Log("Friend Ability");
         }
     }
 #endregion

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ToolBox : MonoBehaviour
 {
@@ -25,11 +24,6 @@ public class ToolBox : MonoBehaviour
             }
         }
         return null;
-    }
-
-    public static void LoadChapter1()
-    {
-        SceneManager.LoadScene("Chapter1");
     }
 }
 
