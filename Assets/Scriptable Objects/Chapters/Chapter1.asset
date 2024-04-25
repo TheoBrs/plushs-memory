@@ -12,15 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac743284cb19dc45a0a4fcacdf6c045, type: 3}
   m_Name: Chapter1
   m_EditorClassIdentifier: 
-  _label: Chapitre 1
   _index: 1
-  _name: Les Premiers Pas
-  _description: "Dans le premier chapitre, nous faisons la connaissance de notre
-    protagoniste, Sarah, une jeune femme en qu\xEAte d'aventure dans un monde en
-    plein bouleversement. Le r\xE9cit d\xE9bute dans un petit village isol\xE9 o\xF9
-    Sarah m\xE8ne une vie tranquille, mais elle sent que quelque chose d'extraordinaire
-    l'attend au-del\xE0 des collines verdoyantes qui entourent son foyer. Alors qu'elle
-    contemple l'horizon, une s\xE9rie d'\xE9v\xE9nements myst\xE9rieux se produit,
-    l'incitant \xE0 prendre la d\xE9cision de partir \xE0 l'aventure, bravant l'inconnu
-    pour d\xE9couvrir sa v\xE9ritable destin\xE9e."
+  _label: Chapitre 1
+  _name: "Le d\xE9but d'une aventure"
+  _description: "Moo-Moo vient de s'\xE9veiller quand elle s'aper\xE7oit qu'il lui
+    manque du rembourrage. Au loin, elle voit s'\xE9chapper un petit groupe d'ombres
+    ail\xE9es avec ce qui lui appartient... Elle s'approche de ces cr\xE9atures,
+    mais ne sait pas encore dans quoi elle s'embarque !"
   _preview: {fileID: 21300000, guid: fe2e47583f9bcdf41b78eeaae082ab38, type: 3}

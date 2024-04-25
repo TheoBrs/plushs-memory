@@ -12,16 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac743284cb19dc45a0a4fcacdf6c045, type: 3}
   m_Name: Chapter3
   m_EditorClassIdentifier: 
-  _label: Chapitre 3
   _index: 3
-  _name: "Les \xC9preuves du Destin"
-  _description: "Dans le troisi\xE8me chapitre, Sarah et Aiden affrontent une s\xE9rie
-    d'\xE9preuves redoutables alors qu'ils se rapprochent de leur objectif. Leur
-    voyage les conduit \xE0 travers des terres sauvages et des contr\xE9es dangereuses,
-    o\xF9 chaque \xE9tape les confronte \xE0 de nouveaux d\xE9fis et \xE0 des adversaires
-    redoutables. Mais malgr\xE9 les obstacles qui se dressent sur leur chemin, Sarah
-    et Aiden puisent leur force dans leur d\xE9termination commune et dans l'amiti\xE9
-    qui se d\xE9veloppe entre eux. C'est au cours de ces \xE9preuves que leur lien
-    se renforce, les pr\xE9parant \xE0 affronter les dangers qui les attendent \xE0
-    l'horizon."
+  _label: Chapitre 3
+  _name: "Des yeux jaunes dans l'obscurit\xE9"
+  _description: "L'aventure se poursuit toujours plus avant dans le grenier, quand
+    nos deux amies s'arr\xEAtent brusquement. Quelque chose rode dans cette zone
+    et il faut percer ce myst\xE8re avant que cela ne d\xE9g\xE9n\xE8re."
   _preview: {fileID: 21300000, guid: 87fb01a1dc1f19c45b47acd77b42b7cf, type: 3}
