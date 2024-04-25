@@ -512,7 +512,7 @@ public class Player : Entity
             _buttonAbility2.GetComponent<Button>().enabled = true;
         }
 
-        _playerAP.GetComponent<TextMeshProUGUI>().text = "AP :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
+        _playerAP.GetComponent<TextMeshProUGUI>().text = "PA :   " + CurrentAP.ToString() + " / " + MaxAP.GetValue().ToString();
     }
 
     public void Move()
