@@ -9,9 +9,9 @@ AnimatorOverrideController:
   m_Name: MoomooAnimController
   m_Controller: {fileID: 9100000, guid: 923d1371052bb7048bba8e6632b07f6e, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 50614fd554e3bd7479f92786ffac022a, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 50614fd554e3bd7479f92786ffac022a, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: c9661c500717b004395a184281aa7b8f, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: c9661c500717b004395a184281aa7b8f, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 907805a65d01f6245a9ab02a42c693d5, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 907805a65d01f6245a9ab02a42c693d5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 237ae3aa683adb44a8d8e012d763f192, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 237ae3aa683adb44a8d8e012d763f192, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a5a8c15db8d450049b71613970ec6d10, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a5a8c15db8d450049b71613970ec6d10, type: 2}

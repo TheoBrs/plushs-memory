@@ -19,7 +19,25 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
     private void Awake()
     {
         _descriptionScrollbar.value = 1;
-        _imageAvatar.sprite = _monster.Avatar;
+
+        switch (_monster.name)
+        {
+            case "Mite":
+                _imageAvatar.sprite = StatisticsManager.Instance.miteKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
+                break;
+            case "Coleoptere":
+                _imageAvatar.sprite = StatisticsManager.Instance.coleoptereKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
+                break;
+            case "Souris":
+                _imageAvatar.sprite = _notDiscoveredSprite;
+                break;
+            case "ReineMite":
+                _imageAvatar.sprite = _notDiscoveredSprite;
+                break;
+            default:
+                _imageAvatar.sprite = _notDiscoveredSprite;
+                break;
+        }
     }
 
     private void Start()
@@ -46,15 +64,19 @@ public class EncyclopediaMonsterDisplay : MonoBehaviour
         {
             case "Mite":
                 _monstersKilledText.text = StatisticsManager.Instance.miteKillCount.ToString();
+                _imageAvatar.sprite = StatisticsManager.Instance.miteKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
                 break;
             case "Coleoptere":
                 _monstersKilledText.text = StatisticsManager.Instance.coleoptereKillCount.ToString();
+                _imageAvatar.sprite = StatisticsManager.Instance.coleoptereKillCount > 0 ? _monster.Avatar : _notDiscoveredSprite;
                 break;
             case "Souris":
                 _monstersKilledText.text = 0.ToString();
+                _imageAvatar.sprite = _notDiscoveredSprite;
                 break;
             case "ReineMite":
                 _monstersKilledText.text = 0.ToString();
+                _imageAvatar.sprite = _notDiscoveredSprite;
                 break;
             default:
                 break;
