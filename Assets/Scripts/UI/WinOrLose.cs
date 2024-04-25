@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class WinOrLose : MonoBehaviour
 {
-    bool isWin;
-    [SerializeField] GameObject win;
-    [SerializeField] GameObject lose;
-    [SerializeField] GameObject continueText;
-    [SerializeField] GameObject restartText;
-    [SerializeField] GameObject menuButton;
+    private bool _isWin;
+    [SerializeField] private GameObject _win;
+    [SerializeField] private GameObject _lose;
+    [SerializeField] private GameObject _continueText;
+    [SerializeField] private GameObject _restartText;
+    [SerializeField] private GameObject _menuButton;
 
     private void Awake()
     {
-        isWin = IsWin.IsWinBool;
+        _isWin = IsWin.IsWinBool;
     }
 
     void Start()
     {
-        win.SetActive(isWin);
-        continueText.SetActive(isWin);
+        _win.SetActive(_isWin);
+        _continueText.SetActive(_isWin);
 
-        lose.SetActive(!isWin);
-        restartText.SetActive(!isWin);
-        menuButton.SetActive(!isWin);
+        _lose.SetActive(!_isWin);
+        _restartText.SetActive(!_isWin);
+        _menuButton.SetActive(!_isWin);
     }
 }

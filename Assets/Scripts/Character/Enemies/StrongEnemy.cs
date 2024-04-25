@@ -21,12 +21,12 @@ public class StrongEnemy : Enemy
 
     public override void CastAbility1(Entity target)
     {
-        lastAbilityAttack = 1;
+        _lastAbilityAttack = 1;
         base.CastAbility1(target);
     }
     public override void CastAbility2(Entity target)
     {
-        lastAbilityAttack = 2;
+        _lastAbilityAttack = 2;
         base.CastAbility2(target);
         _ability2.RoundsBeforeReuse = 3;
     }

@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d150190ca6408f1418b81dcb81e9f740, type: 3}
-  m_Name: Chaper1_Dialogue1 2
+  m_Script: {fileID: 11500000, guid: bbd2c1887a808da4b8f0a6cec8d8b890, type: 3}
+  m_Name: NarrationLine_Chapter1_Dialogue4_2
   m_EditorClassIdentifier: 
-  m_FirstNode: {fileID: 11400000, guid: f613f54d9562c6d4d90236372edf63be, type: 2}
+  _speaker: {fileID: 11400000, guid: e964aeadd1a1cb544b32907ac6c07249, type: 2}
+  _text: "On l\u2019a fait ! Viens, trouvons-nous un endroit pour nous reposer."

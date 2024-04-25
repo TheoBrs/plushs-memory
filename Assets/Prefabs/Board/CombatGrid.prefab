@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6121683386382131778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4997836473242214018}
+  - component: {fileID: 83262120642726305}
+  m_Layer: 0
+  m_Name: CombatGrid
+  m_TagString: CombatGrid
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4997836473242214018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6121683386382131778}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5, y: 0, z: -1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &83262120642726305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6121683386382131778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b42041914383964aab9af9368704261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxX: 5
+  _maxY: 5
+  gridCellScale: 2.4
+  _defaultGridMat: {fileID: 2100000, guid: d9ebc76ec51d7a649acfb42668bd54db, type: 2}
+  _notWalkableGridMat: {fileID: 2100000, guid: e022a9af814716c4e83876b977e36b99, type: 2}
+  _enemyGridMat: {fileID: 2100000, guid: 2405ca9af870e4c44943bcfcb578b68c, type: 2}
+  _selectedEnemyGridMat: {fileID: 2100000, guid: 79abe7e8ab1a6c34fb1b9a28a4e5d88f, type: 2}
+  _selectedGridMat: {fileID: 2100000, guid: 1343a48b000c41e43b13c92e2eb5833d, type: 2}
+  _pathGridMat: {fileID: 2100000, guid: 73c9bf0361083334d87b5482edd9cffd, type: 2}
+  _redPathGridMat: {fileID: 2100000, guid: 4f7e1e6f05242794c836f323a81485a3, type: 2}
+  _dialogueBox: {fileID: 0}
+  _dialogueChannel: {fileID: 11400000, guid: 20e76ab5c4289f240b52438dbb95e083, type: 2}
+  _dialogue0: {fileID: 11400000, guid: f73fd2971554f4f4cb57e86c9f30cf10, type: 2}
+  _dialogue1: {fileID: 11400000, guid: 7895da1279edbb44485fb348f492bdd3, type: 2}
+  _dialogue2: {fileID: 11400000, guid: 5247b7ab6cda09947bcdefeef81c0478, type: 2}
+  _dialogue3: {fileID: 11400000, guid: f589199f10390fd49803cadd99eafb0f, type: 2}
+  _dialogue4: {fileID: 11400000, guid: 0c44214b49f587940a826096593b6b7a, type: 2}
+  _dialogue5: {fileID: 11400000, guid: 6ead544988677e0439c8ae2c9526572f, type: 2}
+  _dialogue6: {fileID: 11400000, guid: 9dcab73a82cfe5f49a96ec3c49b2aa3f, type: 2}
+  _dialogue7: {fileID: 11400000, guid: fb7db657862a6484e9b515cac18b9163, type: 2}
+  _gridPrefab: {fileID: 7539161902663756815, guid: 7afd97bc70ed12d40a301fd1ee022d77, type: 3}
+  _mainCamPivot: {fileID: 0}
+  _combatUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  battleSceneActions: {fileID: 0}
+  dialogueIndex: 0

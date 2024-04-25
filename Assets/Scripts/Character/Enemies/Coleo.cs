@@ -14,19 +14,18 @@ public class Coleo : Enemy
     {
         _ability1.Damage = 2;
         _ability1.Cost = 1;
-        _ability2.Cost = 3;
-        _ability2.RoundsBeforeReuse = 2;
+        _ability2.Damage = 3;
+        _ability2.Cost = 2;
     }
 
     public override void CastAbility1(Entity target)
     {
-        lastAbilityAttack = 1;
+        _lastAbilityAttack = 1;
         base.CastAbility1(target);
     }
     public override void CastAbility2(Entity target)
     {
-        lastAbilityAttack = 2;
+        _lastAbilityAttack = 2;
         base.CastAbility2(target);
-        _ability2.RoundsBeforeReuse = 2;
     }
 }

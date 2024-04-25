@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: NarrationLine_Chapter1_Dialogue1_3
   m_EditorClassIdentifier: 
   _speaker: {fileID: 11400000, guid: f3e8b9ff5442d904a98d7a76ce18e83b, type: 2}
-  _text: "Impeccable, elle s\u2019en souviendra de ce coup ! Finis ton tour pour
-    te pr\xE9parer \xE0 l\u2019attaque de tes ennemies, il te suffit d\u2019appuyer
-    sur le bouton \u201CFin de tour\u201D. Mais ne le fais pas trop t\xF4t, hein
-    ?\r"
+  _text: "Cela te co\xFBtera aussi des points d\u2019action, choisis bien. Impeccable,
+    elle s\u2019en souviendra de ce coup ! Enfin, finis ton tour pour te pr\xE9parer
+    \xE0 l\u2019attaque de tes ennemies, il te suffit d\u2019appuyer sur le bouton
+    \u201CFin de tour\u201D en bas \xE0 droite de l'\xE9cran. Mais ne le fais pas
+    trop t\xF4t, hein ?\n\r"

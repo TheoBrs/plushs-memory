@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Souris : Enemy
 {
-    [SerializeField] GameObject mitePrefab;
+    [SerializeField] private GameObject _mitePrefab;
     protected override void Awake()
     {
         base.Awake();
@@ -40,7 +40,7 @@ public class Souris : Enemy
 
         if (attackCoords.Contains(_player.CurrentPos))
         {
-            Vector3 directeur = (_player.transform.position - transform.position - new Vector3(0.5f, 0, 0.5f) * grid.gridCellScale);
+            Vector3 directeur = (_player.transform.position - transform.position - new Vector3(0.5f, 0, 0.5f) * _grid.gridCellScale);
             if (Mathf.Abs(directeur.x) > Mathf.Abs(directeur.z))
             {
                 transform.localRotation = directeur.x < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.Euler(0, 0, 0);
@@ -61,7 +61,7 @@ public class Souris : Enemy
     }
     public override void CastAbility1(Entity target)
     {
-        lastAbilityAttack = 1;
+        _lastAbilityAttack = 1;
         base.CastAbility1(target);
         _ability1.RoundsBeforeReuse = 1;
     }
@@ -75,7 +75,7 @@ public class Souris : Enemy
         };
         int index = Mathf.FloorToInt(Random.Range(0, 3));
         Vector3 rotation = new Vector3(0, 180, 0);
-        if (grid.AddEnemy(possiblesCells[index], mitePrefab, rotation, new Coord(1, 1), false, false))
+        if (_grid.AddEnemy(possiblesCells[index], _mitePrefab, rotation, new Coord(1, 1), false, false))
         {
             _ability2.RoundsBeforeReuse = 3;
         }
