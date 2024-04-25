@@ -17,7 +17,7 @@ public class GameData
     public bool IsSfxMuted;
 
     // Player
-    public bool IsNewGame;
+    public int Progression;
 
     // Others
     public int miteKillCount;
@@ -38,7 +38,7 @@ public class GameData
         IsSfxMuted = false;
 
         // Player
-        IsNewGame = true;
+        Progression = 0;
 
         // Others
         miteKillCount = 0;

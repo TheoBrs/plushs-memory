@@ -8,6 +8,7 @@ public class StorybookChapterDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject[] _chapterButtonList;
     [SerializeField] private Transform _chapterButtonGrid;
+    [SerializeField] private GameObject _loadingPanel;
     [SerializeField] private Slider _loadingBar;
 
     [Header("Scrollbars")]
@@ -17,6 +18,12 @@ public class StorybookChapterDisplay : MonoBehaviour
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI _chapterTitle;
     [SerializeField] private TextMeshProUGUI _chapterDescription;
+
+    [Header("Dialogues")]
+    [SerializeField] private GameObject _dialogueBox;
+    [SerializeField] private DialogueChannel _dialogueChanel;
+    [SerializeField] private Dialogue _dialogue_6;
+    [SerializeField] private Dialogue _dialogue_10;
 
     private int _currentChapterIndex = 0;
 
@@ -51,8 +58,35 @@ public class StorybookChapterDisplay : MonoBehaviour
 
     public void LoadChapterScene()
     {
-        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync("Chapter" + _currentChapterIndex));
+        if (GameManager.Instance.Progression == 2 && _currentChapterIndex == 1)
+        {
+            _dialogueBox.SetActive(true);
+            _dialogueChanel.OnDialogueEnd += OnDialogueEnd;
+            _dialogueChanel.RaiseRequestDialogue(_dialogue_6);
+        }
+        else if (GameManager.Instance.Progression == 3 && _currentChapterIndex == 3)
+        {
+            _dialogueBox.SetActive(true);
+            _dialogueChanel.OnDialogueEnd += OnDialogueEnd;
+            _dialogueChanel.RaiseRequestDialogue(_dialogue_10);
+        }
+        else
+        {
+            StartChapterLoading();
+        }
+    }
 
+    private void StartChapterLoading()
+    {
+        _loadingPanel.SetActive(true);
+        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync("Chapter" + _currentChapterIndex));
         StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
+    }
+
+    private void OnDialogueEnd(Dialogue dialogue)
+    {
+        _dialogueChanel.OnDialogueEnd -= OnDialogueEnd;
+
+        StartChapterLoading();
     }
 }
