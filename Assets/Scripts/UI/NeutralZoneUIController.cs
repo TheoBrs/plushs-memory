@@ -29,6 +29,9 @@ public class NeutralZoneUIController : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic("Neutre");
+
         _defaultUI.SetActive(true);
         _darkBackground.SetActive(false);
         _encyclopediaPanel.SetActive(false);

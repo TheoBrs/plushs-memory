@@ -24,6 +24,9 @@ public class MenuUIController : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic("Neutre");
+
         // panel
         _defaultPanel.SetActive(true);
         _optionPanel.SetActive(false);
