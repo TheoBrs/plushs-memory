@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -809,6 +809,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   miteKillCount: 0
   coleoptereKillCount: 0
+  sourisKillCount: 0
+  reineKillCount: 0
 --- !u!4 &629856489
 Transform:
   m_ObjectHideFlags: 0
@@ -2417,8 +2419,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSounds:
-  - _name: MusicTest
-    _clip: {fileID: 8300000, guid: 0f588a778a8a2f945a9a9d05e961dfdc, type: 3}
+  - _name: Neutre
+    _clip: {fileID: 8300000, guid: 97abafbfb720bf742a05f8d09aecae11, type: 3}
+  - _name: Combat
+    _clip: {fileID: 8300000, guid: e8c38f3cedfac9b45bf0de79405f22a6, type: 3}
   sfxSounds:
   - _name: SFXTest
     _clip: {fileID: 8300000, guid: 66e7039a7a4ed7545b25a80a9886c194, type: 3}

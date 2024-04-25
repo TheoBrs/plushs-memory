@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BattleSceneActions : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class BattleSceneActions : MonoBehaviour
 
     List<(Coord, GameObject, Vector3, Coord, bool)> _enemyList = new List<(Coord coord, GameObject prefab, Vector3 rotation, Coord size, bool causeEndOfBattle)>();
     List<(Coord, GameObject)> _obstacleList = new List<(Coord coord, GameObject prefab)>();
+
+    private void Start()
+    {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic("Combat");
+    }
 
     void SetupAnimation()
     {
