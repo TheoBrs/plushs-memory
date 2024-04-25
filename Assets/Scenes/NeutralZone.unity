@@ -2954,7 +2954,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
   _imageAvatar: {fileID: 737371218}
-  _notDiscoveredSprite: {fileID: 21300000, guid: 979ff26506752004d85bbe110eb6531b, type: 3}
+  _notDiscoveredSprite: {fileID: 21300000, guid: 91561bd90ba1d4147b10b87c56a1f000, type: 3}
 --- !u!222 &737371220
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5093,7 +5093,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
   _imageAvatar: {fileID: 1099508604}
-  _notDiscoveredSprite: {fileID: 21300000, guid: 979ff26506752004d85bbe110eb6531b, type: 3}
+  _notDiscoveredSprite: {fileID: 21300000, guid: 91561bd90ba1d4147b10b87c56a1f000, type: 3}
 --- !u!222 &1099508606
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9694,7 +9694,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
   _imageAvatar: {fileID: 1734691743}
-  _notDiscoveredSprite: {fileID: 21300000, guid: 979ff26506752004d85bbe110eb6531b, type: 3}
+  _notDiscoveredSprite: {fileID: 21300000, guid: 91561bd90ba1d4147b10b87c56a1f000, type: 3}
 --- !u!1 &1736519191
 GameObject:
   m_ObjectHideFlags: 0
@@ -10113,7 +10113,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 1369927837}
   _monstersKilledText: {fileID: 417377340}
   _imageAvatar: {fileID: 1826478017}
-  _notDiscoveredSprite: {fileID: 21300000, guid: 979ff26506752004d85bbe110eb6531b, type: 3}
+  _notDiscoveredSprite: {fileID: 21300000, guid: 91561bd90ba1d4147b10b87c56a1f000, type: 3}
 --- !u!222 &1826478019
 CanvasRenderer:
   m_ObjectHideFlags: 0
