@@ -37,7 +37,7 @@ public class NeutralZoneUIController : MonoBehaviour
         _storybookPanel.SetActive(false);
         _tutorialPanel.SetActive(false);
 
-        if (GameManager.Instance.Progression == 1)
+        if (GameManager.Instance.Progression == 2)
         {
             StartCoroutine(ShowDialogue(_dialogue_5));
         }

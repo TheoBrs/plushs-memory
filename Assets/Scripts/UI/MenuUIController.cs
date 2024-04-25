@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class MenuUIController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class MenuUIController : MonoBehaviour
     [SerializeField] private GameObject _defaultPanel;
     [SerializeField] private GameObject _optionPanel;
     [SerializeField] private GameObject _darkBackground;
+    [SerializeField] private GameObject _videoCanvas;
+    [SerializeField] private VideoPlayer _videoPlayer;
 
     [Header("Button")]
     [SerializeField] private TextMeshProUGUI _startButtonText;
@@ -16,6 +19,7 @@ public class MenuUIController : MonoBehaviour
     [Header("Scene Management")]
     [SerializeField] private Slider _loadingBar;
     [SerializeField] private SceneField _neutralZone;
+    [SerializeField] private SceneField _chapter_1;
 
     private void Start()
     {
@@ -23,6 +27,9 @@ public class MenuUIController : MonoBehaviour
         _defaultPanel.SetActive(true);
         _optionPanel.SetActive(false);
         _darkBackground.SetActive(false);
+        _videoCanvas.SetActive(false);
+
+        _videoPlayer.loopPointReached += OnVideoFinished;
 
         if (GameManager.Instance.Progression == 0)
         {
@@ -46,10 +53,26 @@ public class MenuUIController : MonoBehaviour
     {
         if (GameManager.Instance.Progression == 0)
         {
-            GameManager.Instance.Progression = 1;
-        }
+            AudioManager.Instance.StopMusic();
 
-        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_neutralZone));
+            _videoCanvas.SetActive(true);
+            _videoPlayer.Play();
+        }
+        else
+        {
+            ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_neutralZone));
+
+            StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
+        }
+    }
+
+    private void OnVideoFinished(VideoPlayer videoPlayer)
+    {
+        _videoCanvas.SetActive(false);
+
+        GameManager.Instance.Progression = 1;
+
+        ScenesManager.Instance.ScenesToLoad.Add(SceneManager.LoadSceneAsync(_chapter_1));
 
         StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
     }

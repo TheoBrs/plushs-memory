@@ -15,14 +15,10 @@ public class AnimationScripts : MonoBehaviour
     public static Scenes currentScene;
     public static Scenes nextScene;
     // Start is called before the first frame update
-    public void OnFadeInFinish()
+    public void OnFadeInFinishEvent()
     {
         if (currentScene == Scenes.Battle)
         {
-            // This is if we finish a wave but not the battle full
-            var turnSystem = GameObject.FindWithTag("TurnSystem");
-            if (turnSystem != null)
-                turnSystem.GetComponent<TurnSystem>().OnFadeInFinish();
         }
         if (currentScene == Scenes.End && nextScene == Scenes.Battle)
         {

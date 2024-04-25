@@ -22,8 +22,8 @@ public class AudioSettings : MonoBehaviour
         _musicIcon.sprite = AudioManager.Instance.IsMusicMuted() ? _musicOffIcon : _musicOnIcon;
         _sfxIcon.sprite = AudioManager.Instance.IsSfxMuted() ? _sfxOffIcon : _sfxOnIcon;
 
-        _sfxSlider.value = AudioManager.Instance.GetSFXVolume();
         _musicSlider.value = AudioManager.Instance.GetMusicVolume();
+        _sfxSlider.value = AudioManager.Instance.GetSFXVolume();
     }
 
     public void MusicVolume()
