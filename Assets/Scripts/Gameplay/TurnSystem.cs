@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -32,6 +34,8 @@ public class TurnSystem : MonoBehaviour
     private bool _battleFullyEnded = false;
     private int _enemyIndex = 0;
     private AlliesManager _alliesManager;
+    [SerializeField] private GameObject videoPlayer;
+    private bool IsPlayed = false;
 
     void Start()
     {
@@ -179,13 +183,17 @@ public class TurnSystem : MonoBehaviour
                 }
             }
             else
+            {
                 animator.SetTrigger("StartFadeIn");
+                StartCoroutine();
+            }
+
         }
         else // If we're going to next wave
         {
             animator.SetTrigger("StartFadeIn");
+            StartCoroutine();
             _grid.battleSceneActions.nextBattlePlacement = _grid.battleSceneActions.nextBattlePlacement.nextWave;
-            // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
             currentState = FightPhase.INIT;
         }
@@ -239,8 +247,51 @@ public class TurnSystem : MonoBehaviour
             _grid.SetupGrid();
             SetUpBattle();
             animator.SetTrigger("StartFadeOut");
+            StartHide();
         }
     }
+    IEnumerator WaitForVideoPlayer()
+    {
+        yield return new WaitForSeconds(2.0f);
+        videoPlayer.SetActive(true);
+        videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
+        while (!IsPlayed)
+        {
+            if (videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
+            {
+                OnFadeInFinish();
+                IsPlayed = true;
+            }
+            yield return null;
+        }
+    }
+
+    void StartCoroutine()
+    {
+        StartCoroutine(WaitForVideoPlayer());
+    }
+
+    IEnumerator WaitForHide()
+    {
+        yield return new WaitForSeconds(2.0f);
+        while(IsPlayed)
+        {
+            if (!videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
+            {
+                animator.Play("StartFadeOut");
+                videoPlayer.SetActive(false);
+                IsPlayed = false;
+            }
+            yield return null;
+        }
+
+    }
+
+    void StartHide()
+    {
+        StartCoroutine(WaitForHide());
+    }
+
     public void OnMoveButton()
     {
         _player.Move();
