@@ -25,11 +25,6 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public bool IsGamePaused { get; set; }
     public int Progression { get; set; }
 
-    public void Update()
-    {
-        Debug.Log(Progression);
-    }
-
     public void LoadData(GameData data)
     {
         Progression = data.Progression;
@@ -38,6 +33,11 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
         data.Progression = Progression;
+    }
+
+    private void Update()
+    {
+        Debug.Log("Progression: " + Progression);
     }
 
     public void PauseGame()
