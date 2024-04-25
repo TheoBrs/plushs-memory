@@ -18,6 +18,7 @@ public class StorybookChapterDisplay : MonoBehaviour
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI _chapterTitle;
     [SerializeField] private TextMeshProUGUI _chapterDescription;
+    [SerializeField] private GameObject _loadChapterButton;
 
     [Header("Dialogues")]
     [SerializeField] private GameObject _dialogueBox;
@@ -45,6 +46,18 @@ public class StorybookChapterDisplay : MonoBehaviour
         }
 
         HandleButtonClick(_chapterButtonList[0]);
+    }
+
+    private void Update()
+    {
+        if (_currentChapterIndex <= GameManager.Instance.Progression)
+        {
+            _loadChapterButton.SetActive(true);
+        }
+        else
+        {
+            _loadChapterButton.SetActive(false);
+        }
     }
 
     public void HandleButtonClick(GameObject clickedButton)

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef05b76e572951a4d89ef26cf4fe6996, type: 3}
-  m_Name: NarrationCharacter_Kero
+  m_Script: {fileID: 11500000, guid: abaa1d01ebe65f6469c9f7f9cd89f2dc, type: 3}
+  m_Name: Chapter1_Dialogue14_Node9
   m_EditorClassIdentifier: 
-  _characterName: Kero
-  _characterAvatar: {fileID: 21300000, guid: f85c150b32b34a04abe10ac8bd4acd72, type: 3}
+  m_DialogueLine: {fileID: 11400000, guid: 04af9f57097025a429464734aef2b0be, type: 2}
+  m_NextNode: {fileID: 11400000, guid: 7fa286906464c5049a4e28145f465a32, type: 2}
