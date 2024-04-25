@@ -160,6 +160,7 @@ public class CombatGrid : MonoBehaviour
                     // Start transition
                     DisableDialogue();
                     _turnSystem.animator.SetTrigger("StartFadeIn");
+                    _turnSystem.StartCoroutine();
                     break;
                 case 7:
                     DisableDialogue();
@@ -168,6 +169,7 @@ public class CombatGrid : MonoBehaviour
                     // Start transition
                     DisableDialogue();
                     _turnSystem.animator.SetTrigger("StartFadeIn");
+                    _turnSystem.StartCoroutine();
                     break;
                 case 11:
                     DisableDialogue();
@@ -182,6 +184,7 @@ public class CombatGrid : MonoBehaviour
                     // Start transition
                     DisableDialogue();
                     _turnSystem.animator.SetTrigger("StartFadeIn");
+                    _turnSystem.StartCoroutine();
                     break;
 
                 default:
