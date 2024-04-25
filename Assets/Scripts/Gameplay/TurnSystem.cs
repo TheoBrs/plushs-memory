@@ -250,11 +250,11 @@ IEnumerator WaitForHide()
                 if (StatisticsManager.Instance)
                 {
                     if (SceneManager.GetActiveScene().name == "Chapter1")
-                        StatisticsManager.Instance.chapter1Cleared = true;
+                        GameManager.Instance.Progression = 2;
                     if (SceneManager.GetActiveScene().name == "Chapter2")
-                        StatisticsManager.Instance.chapter2Cleared = true;
+                        GameManager.Instance.Progression = 3;
                     if (SceneManager.GetActiveScene().name == "Chapter3")
-                        StatisticsManager.Instance.chapter3Cleared = true;
+                        GameManager.Instance.Progression = 4;
                 }
             }
             else
