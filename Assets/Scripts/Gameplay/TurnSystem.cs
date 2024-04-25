@@ -167,10 +167,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
         {
             battleFullyEnded = true;
             AnimationScripts.nextScene = AnimationScripts.Scenes.End;
-            animator.Play("TransitionIn");
-            videoPlayer.SetActive(true);
-            videoPlayer.GetComponentInChildren<VideoPlayer>().Play();
-
+            //animator.Play("TransitionIn");
             StartCoroutine();
 
         }
@@ -181,8 +178,7 @@ public class TurnSystem : MonoBehaviour, IDataPersistence
             grid.battleSceneActions.nextBattlePlacement = grid.battleSceneActions.nextBattlePlacement.nextWave;
             // Start Mask
             AnimationScripts.nextScene = AnimationScripts.Scenes.Battle;
-            animator.Play("TransitionIn");
-
+            //animator.Play("TransitionIn");
             StartCoroutine();
         }
     }
@@ -210,7 +206,7 @@ IEnumerator WaitForHide()
     yield return new WaitForSeconds(10.0f);
     if (IsPlayed && !videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
     {
-        animator.Play("TransitionOut");
+        //animator.Play("TransitionOut");
         videoPlayer.SetActive(false);
         IsPlayed = false;
         yield return null;
