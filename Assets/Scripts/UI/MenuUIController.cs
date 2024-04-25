@@ -77,6 +77,13 @@ public class MenuUIController : MonoBehaviour
         StartCoroutine(ScenesManager.Instance.ProgressBarLoading(_loadingBar));
     }
 
+    public void ResetProgression()
+    {
+        GameManager.Instance.Progression = 0;
+
+        _startButtonText.text = "Nouvelle partie";
+    }
+
     public void ExitGame()
     {
         GameManager.Instance.ExitGame();
