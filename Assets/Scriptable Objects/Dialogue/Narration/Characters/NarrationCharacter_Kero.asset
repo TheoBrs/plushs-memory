@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef05b76e572951a4d89ef26cf4fe6996, type: 3}
   m_Name: NarrationCharacter_Kero
   m_EditorClassIdentifier: 
-  _characterName: "K\xE9ro"
+  _characterName: Kero
   _characterAvatar: {fileID: 21300000, guid: f85c150b32b34a04abe10ac8bd4acd72, type: 3}
