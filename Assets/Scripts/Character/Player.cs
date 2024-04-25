@@ -133,7 +133,7 @@ public class Player : Entity
         _ability1.Damage = 1;
         _ability1.Cost = 1;
 
-        _ability2.Damage = 3;
+        _ability2.Damage = 300;
         _ability2.Cost = 2;
 
         _fAbility1.RoundsBeforeReuse = 0;

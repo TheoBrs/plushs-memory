@@ -15,7 +15,7 @@ public class AnimationScripts : MonoBehaviour
     public static Scenes currentScene;
     public static Scenes nextScene;
     // Start is called before the first frame update
-    public void OnFadeInFinish()
+    public void OnFadeInFinishEvent()
     {
         if (currentScene == Scenes.Battle)
         {
