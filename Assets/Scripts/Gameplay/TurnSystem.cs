@@ -27,21 +27,14 @@ public class TurnSystem : MonoBehaviour
 
     [SerializeField] Text playerHPText;
     [SerializeField] Text turnText;
-    [SerializeField] Animator animator;
     [SerializeField] GameObject videoPlayer;
     int chapterIndex;
-    bool playerTurnInitalized = false;
-    bool enemyTurnInitalized = false;
-    bool battleFullyEnded = false;
     bool IsPlayed = false;
-    int enemyIndex = 0;
-    public FightPhase currentState = FightPhase.INIT;
 
     private Player _player;
     private CombatGrid _grid;
     private Entity _entity;
     private List<Enemy> _enemies = new List<Enemy>();
-    private int _chapterIndex;
     private bool _playerTurnInitalized = false;
     private bool _enemyTurnInitalized = false;
     private bool _battleFullyEnded = false;
@@ -65,8 +58,6 @@ public class TurnSystem : MonoBehaviour
     void Update()
     {
         StateSwitch();
-        Debug.Log("Play" + videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying);
-        Debug.Log(IsPlayed);
     }
 
     public void AddMoomoo(Player moomoo)
@@ -198,7 +189,8 @@ public class TurnSystem : MonoBehaviour
             }
             else
                 animator.SetTrigger("StartFadeIn");
-                StartCoroutine();
+            StartCoroutine();
+
         }
         else // If we're going to next wave
         {
@@ -235,7 +227,7 @@ IEnumerator WaitForHide()
     yield return new WaitForSeconds(10.0f);
     if (IsPlayed && !videoPlayer.GetComponentInChildren<VideoPlayer>().isPlaying)
     {
-        //animator.Play("TransitionOut");
+        animator.Play("TransitionOut");
         videoPlayer.SetActive(false);
         IsPlayed = false;
         yield return null;
@@ -298,18 +290,6 @@ IEnumerator WaitForHide()
             SetUpBattle();
             StartHide();
 
-        }
-        else
-        {
-            chapterIndex = 0;
-            // Select chapter somehow
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter1")
-                chapterIndex = 1;
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter2")
-                chapterIndex = 2;
-            if (SceneManager.GetActiveScene().name == "BattleSceneChapter3")
-                chapterIndex = 3;
-            SceneManager.LoadScene("End");
         }
     }
 
