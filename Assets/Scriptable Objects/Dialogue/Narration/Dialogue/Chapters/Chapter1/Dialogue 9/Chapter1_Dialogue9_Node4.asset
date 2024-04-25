@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaa1d01ebe65f6469c9f7f9cd89f2dc, type: 3}
   m_Name: Chapter1_Dialogue9_Node4
   m_EditorClassIdentifier: 
-  m_DialogueLine: {fileID: 11400000, guid: 07700dd7670b1ed4fa9c30cdc3acb07b, type: 2}
+  m_DialogueLine: {fileID: 11400000, guid: 066c9a97c0e806a439c3cc7352b8cbc4, type: 2}
   m_NextNode: {fileID: 11400000, guid: 1b67a5dc912952a439c647d52c04ad75, type: 2}
