@@ -47,7 +47,7 @@ public class CombatGrid : MonoBehaviour
     //creation de la grille de Combat
     void Awake()
     {
-        // Select chapter somehow
+        // Select chapter
         if (SceneManager.GetActiveScene().name == "Chapter1")
         {
             battleSceneActions.SetupChapter1();
@@ -93,7 +93,6 @@ public class CombatGrid : MonoBehaviour
     }
     void DisableDialogue()
     {
-        //_dialogueBox.SetActive(false);
         foreach (var go in _combatUI)
         {
             go.transform.localPosition -= new Vector3(0, 10000, 0);
@@ -173,7 +172,6 @@ public class CombatGrid : MonoBehaviour
                     break;
                 case 11:
                     DisableDialogue();
-                    // Le truc de la souris est pas fait au cause des problems ducoup on le skip
                     dialogueIndex++;
                     break;
                 case 12:

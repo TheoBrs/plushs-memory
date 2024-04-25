@@ -106,7 +106,6 @@ public abstract class Enemy : Entity
         }
         return !isMoving;
 
-        // Verify he arrived at the position / Wait till animation is done
     }
 
     virtual public void Attacking()
